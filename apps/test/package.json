@@ -1,0 +1,32 @@
+{
+  "name": "test",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "@repo/elements": "workspace:*",
+    "@repo/shadcn-vue": "workspace:*",
+    "@tailwindcss/vite": "^4.1.12",
+    "@vueuse/core": "^13.8.0",
+    "ai": "^5.0.28",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-vue-next": "^0.542.0",
+    "nuxt": "^4.0.3",
+    "shadcn-nuxt": "2.2.0",
+    "tailwind-merge": "^3.3.1",
+    "tailwindcss": "^4.1.12",
+    "tw-animate-css": "^1.3.7",
+    "vue": "^3.5.20",
+    "vue-router": "^4.5.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.2"
+  }
+}

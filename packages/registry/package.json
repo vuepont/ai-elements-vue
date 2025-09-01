@@ -1,0 +1,13 @@
+{
+  "name": "ai-elements-vue",
+  "version": "0.0.0",
+  "description": "AI Elements Vue is a component library and custom registry built on top of shadcn-vue to help you build AI-native applications faster.",
+  "bin": {
+    "elements": "index.js"
+  },
+  "files": [
+    "LICENSE",
+    "README.md",
+    "index.js"
+  ]
+}

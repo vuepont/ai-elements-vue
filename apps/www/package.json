@@ -1,0 +1,18 @@
+{
+  "name": "shadcn-docs-nuxt-starter",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev --port 3002",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "nuxt": "^3.17.6",
+    "shadcn-docs-nuxt": "^1.1.1",
+    "vue": "^3.5.17",
+    "vue-router": "^4.5.1"
+  }
+}

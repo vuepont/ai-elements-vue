@@ -1,0 +1,54 @@
+{
+  "name": "ai-elements-vue",
+  "private": true,
+  "packageManager": "pnpm@10.15.1",
+  "engines": {
+    "node": ">=20.19.0"
+  },
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "prepare": "pnpm simple-git-hooks",
+    "lint": "eslint . && turbo run lint",
+    "lint:fix": "eslint . --fix",
+    "bumpp": "bumpp package.json packages/*/package.json apps/*/package.json"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^5.2.1",
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
+    "bumpp": "^10.2.3",
+    "eslint": "^9.34.0",
+    "lint-staged": "^16.1.5",
+    "simple-git-hooks": "^2.13.1",
+    "turbo": "^2.5.6",
+    "typescript": "^5.9.2"
+  },
+  "pnpm": {
+    "allowedDeprecatedVersions": {
+      "glob": "7.2.3",
+      "inflight": "1.0.6",
+      "source-map-resolve": "0.6.0",
+      "@oxc-parser/wasm": "0.60.0",
+      "@types/parse-path": "7.1.0",
+      "node-domexception": "1.0.0"
+    },
+    "peerDependencyRules": {
+      "allowedVersions": {
+        "zod": "4"
+      }
+    }
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm lint-staged",
+    "commit-msg": "pnpm commitlint --edit ${1}"
+  },
+  "lint-staged": {
+    "*": "eslint --fix"
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  }
+}

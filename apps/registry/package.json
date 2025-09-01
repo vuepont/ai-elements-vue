@@ -1,0 +1,16 @@
+{
+  "name": "registry",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "build": "nitro build",
+    "dev": "nitro dev --port 3001"
+  },
+  "dependencies": {
+    "ts-morph": "^26.0.0"
+  },
+  "devDependencies": {
+    "h3": "^1.15.4",
+    "nitropack": "^2.12.4"
+  }
+}
