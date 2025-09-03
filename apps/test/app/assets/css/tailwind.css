@@ -3,7 +3,7 @@
 
 @source "../../../**/*.{vue,ts,tsx}";
 @source "../../../node_modules/@repo/**/*.{vue,ts,tsx}";
-@source "../../../node_modules/@repo/elements/node_modules/streamdown/dist/index.js";
+@source "../../../node_modules/@repo/elements/node_modules/streamdown-vue/dist/*.js";
 
 @custom-variant dark (&:is(.dark *));
 

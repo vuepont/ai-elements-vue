@@ -6,5 +6,7 @@ const attrs = useAttrs()
 </script>
 
 <template>
-  <Select v-bind="attrs" />
+  <Select v-bind="attrs">
+    <slot />
+  </Select>
 </template>

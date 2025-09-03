@@ -17,5 +17,7 @@ const classes = computed(() => [
 </script>
 
 <template>
-  <SelectTrigger :class="classes" v-bind="attrs" />
+  <SelectTrigger :class="classes" v-bind="attrs">
+    <slot />
+  </SelectTrigger>
 </template>

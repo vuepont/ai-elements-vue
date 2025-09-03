@@ -32,7 +32,7 @@ const icon = computed(() => {
 </script>
 
 <template>
-  <Button :class="classes" :size="size" type="submit" v-bind="attrs">
+  <Button :class="classes" :size="props.size" :variant="props.variant" type="submit" v-bind="attrs">
     <slot>
       <component :is="icon" class="size-4" />
     </slot>

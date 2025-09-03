@@ -11,5 +11,7 @@ const attrs = useAttrs()
 </script>
 
 <template>
-  <SelectContent :class="props.class" v-bind="attrs" />
+  <SelectContent :class="props.class" v-bind="attrs">
+    <slot />
+  </SelectContent>
 </template>

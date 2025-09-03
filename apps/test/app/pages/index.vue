@@ -14,7 +14,7 @@ const components = [
 </script>
 
 <template>
-  <div class="container mx-auto space-y-8 py-16">
+  <div class="container mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 py-16">
     <Card v-for="item in components" :key="item.name">
       <CardHeader>
         <CardTitle class="text-lg">

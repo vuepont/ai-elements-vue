@@ -22,9 +22,8 @@ function handleClick() {
 <template>
   <Button
     v-if="!isAtBottom"
-    class="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full" :class="[
-      props.class,
-    ]"
+    class="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full"
+    :class="[props.class]"
     size="icon"
     type="button"
     variant="outline"

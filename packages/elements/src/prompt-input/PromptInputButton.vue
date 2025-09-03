@@ -35,6 +35,7 @@ const classes = computed(() => [
   <Button
     :class="classes"
     :size="computedSize"
+    :variant="props.variant"
     type="button"
     v-bind="attrs"
   >

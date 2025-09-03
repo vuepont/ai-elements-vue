@@ -17,5 +17,16 @@ export default defineNuxtConfig({
         '@repo/elements': fileURLToPath(new URL('../../packages/elements/src', import.meta.url)),
       },
     },
+    optimizeDeps: {
+      include: [
+        'reka-ui',
+        '@vueuse/core',
+        'lucide-vue-next',
+        'clsx',
+        'tailwind-merge',
+        'class-variance-authority',
+        'streamdown-vue',
+      ],
+    },
   },
 })
