@@ -9,11 +9,11 @@ const props = defineProps<Props>()
 
 <template>
   <div
-    class="group flex w-full items-end gap-2 py-4 [&>div]:max-w-full"
+    class="group flex w-full items-end justify-end gap-2 py-4 [&>div]:max-w-[80%]"
     :class="[
       props.from === 'user'
-        ? 'is-user flex-row-reverse justify-end'
-        : 'is-assistant justify-start',
+        ? 'is-user'
+        : 'is-assistant flex-row-reverse justify-end',
       props.class,
     ]"
   >
