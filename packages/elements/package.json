@@ -10,7 +10,7 @@
     "@repo/shadcn-vue": "workspace:*",
     "ai": "^5.0.28",
     "lucide-vue-next": "^0.542.0",
-    "streamdown-vue": "^1.0.4",
+    "streamdown-vue": "^1.0.12",
     "vue": "^3.5.20"
   },
   "devDependencies": {

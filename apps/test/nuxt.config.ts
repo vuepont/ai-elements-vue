@@ -19,13 +19,11 @@ export default defineNuxtConfig({
     },
     optimizeDeps: {
       include: [
-        'reka-ui',
         '@vueuse/core',
         'lucide-vue-next',
         'clsx',
         'tailwind-merge',
         'class-variance-authority',
-        'streamdown-vue',
       ],
     },
   },
