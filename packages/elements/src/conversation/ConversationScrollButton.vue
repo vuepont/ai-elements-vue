@@ -1,34 +1,35 @@
 <script setup lang="ts">
 import { Button } from '@repo/shadcn-vue/components/ui/button'
-import { LucideChevronDown } from 'lucide-vue-next'
-import { inject, ref } from 'vue'
-import { conversationContextKey } from './context'
+import { ChevronDown } from 'lucide-vue-next'
+import { useStickToBottomContext } from 'stick-to-bottom-vue'
+import { computed } from 'vue'
 
 interface Props {
   class?: string
 }
 
 const props = defineProps<Props>()
-
-const ctx = inject(conversationContextKey)
-
-const isAtBottom = ctx?.isAtBottom ?? ref(true)
+const { isAtBottom, scrollToBottom } = useStickToBottomContext()
+const showScrollButton = computed(() => !isAtBottom.value)
 
 function handleClick() {
-  ctx?.scrollToBottom('smooth')
+  scrollToBottom()
 }
 </script>
 
 <template>
-  <Button
-    v-if="!isAtBottom"
-    class="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full"
-    :class="[props.class]"
-    size="icon"
-    type="button"
-    variant="outline"
-    @click="handleClick"
-  >
-    <LucideChevronDown class="size-4" />
-  </Button>
+  <div class="pointer-events-none absolute inset-0 z-20 flex items-end justify-center pb-4">
+    <Button
+      v-show="showScrollButton"
+      class="pointer-events-auto rounded-full shadow-sm"
+      :class="[props.class]"
+      size="icon"
+      type="button"
+      variant="outline"
+      v-bind="$attrs"
+      @click="handleClick"
+    >
+      <ChevronDown class="size-4" />
+    </Button>
+  </div>
 </template>

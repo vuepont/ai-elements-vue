@@ -75,6 +75,9 @@ importers:
       lucide-vue-next:
         specifier: ^0.542.0
         version: 0.542.0(vue@3.5.20(typescript@5.9.2))
+      nanoid:
+        specifier: ^5.1.5
+        version: 5.1.5
       nuxt:
         specifier: ^4.0.3
         version: 4.0.3(@netlify/blobs@9.1.2)(@parcel/watcher@2.5.1)(@types/node@24.3.0)(@vue/compiler-sfc@3.5.20)(db0@0.3.2)(eslint@9.34.0(jiti@2.5.1))(ioredis@5.7.0)(lightningcss@1.30.1)(magicast@0.3.5)(optionator@0.9.4)(rollup@4.50.0)(terser@5.43.1)(typescript@5.9.2)(vite@7.1.4(@types/node@24.3.0)(jiti@2.5.1)(lightningcss@1.30.1)(terser@5.43.1)(yaml@2.8.1))(yaml@2.8.1)
@@ -127,6 +130,9 @@ importers:
       lucide-vue-next:
         specifier: ^0.542.0
         version: 0.542.0(vue@3.5.20(typescript@5.9.2))
+      stick-to-bottom-vue:
+        specifier: ^0.1.0
+        version: 0.1.0(vue@3.5.20(typescript@5.9.2))
       streamdown-vue:
         specifier: ^1.0.12
         version: 1.0.12(typescript@5.9.2)(vue@3.5.20(typescript@5.9.2))
@@ -6732,6 +6738,11 @@ packages:
 
   std-env@3.9.0:
     resolution: {integrity: sha512-UGvjygr6F6tpH7o2qyqR6QYpwraIjKSdtzyBdyytFOHmPZY917kwdwLG0RbOjWOnKmnm3PeHjaoLLMie7kPLQw==}
+
+  stick-to-bottom-vue@0.1.0:
+    resolution: {integrity: sha512-XlM55nRM9CuHEuJd/08GMSHDjsygqneYDRPPiDafDtw0kSGeqH6y6MveU9/idkFfHKjQVxW5/97+wlV0oAQczA==}
+    peerDependencies:
+      vue: '>=3.3.0'
 
   streamdown-vue@1.0.12:
     resolution: {integrity: sha512-VKeVQQ+6lsVIXiMcnEpFB1yv2j7XlrN8ZfeuMwa1m7kBnwRv4WdDQfvkuhVsyXPpRkhYsxYX+iuiNoCaaz2d3Q==}
@@ -15692,6 +15703,10 @@ snapshots:
   statuses@2.0.2: {}
 
   std-env@3.9.0: {}
+
+  stick-to-bottom-vue@0.1.0(vue@3.5.20(typescript@5.9.2)):
+    dependencies:
+      vue: 3.5.20(typescript@5.9.2)
 
   streamdown-vue@1.0.12(typescript@5.9.2)(vue@3.5.20(typescript@5.9.2)):
     dependencies:

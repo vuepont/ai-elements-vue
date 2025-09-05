@@ -1,69 +1,42 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, provide, ref } from 'vue'
-import { conversationContextKey } from './context'
+import { StickToBottom } from 'stick-to-bottom-vue'
+import ConversationScrollButton from './ConversationScrollButton.vue'
 
 interface Props {
   ariaLabel?: string
   class?: string
+  initial?: boolean | 'instant' | { damping?: number, stiffness?: number, mass?: number }
+  resize?: 'instant' | { damping?: number, stiffness?: number, mass?: number }
+  damping?: number
+  stiffness?: number
+  mass?: number
+  anchor?: 'auto' | 'none'
 }
 
-const props = defineProps<Props>()
-
-const ariaLabel = props.ariaLabel ?? 'Conversation'
-const root = ref<HTMLElement | null>(null)
-const isAtBottom = ref(true)
-
-function scrollToBottom(behavior: ScrollBehavior = 'auto') {
-  const el = root.value
-  if (!el)
-    return
-  el.scrollTo({ top: el.scrollHeight, behavior })
-}
-
-function handleScroll() {
-  const el = root.value
-  if (!el)
-    return
-  const threshold = 4
-  const distanceFromBottom = el.scrollHeight - el.clientHeight - el.scrollTop
-  isAtBottom.value = distanceFromBottom <= threshold
-}
-
-provide(conversationContextKey, { isAtBottom, scrollToBottom })
-
-let mutationObserver: MutationObserver | null = null
-
-onMounted(() => {
-  const el = root.value
-  if (!el)
-    return
-
-  // Track initial state and auto-scroll when at bottom
-  handleScroll()
-
-  mutationObserver = new MutationObserver(() => {
-    if (isAtBottom.value) {
-      scrollToBottom('smooth')
-    }
-  })
-
-  mutationObserver.observe(el, { childList: true, subtree: true })
-})
-
-onUnmounted(() => {
-  mutationObserver?.disconnect()
-  mutationObserver = null
+const props = withDefaults(defineProps<Props>(), {
+  ariaLabel: 'Conversation',
+  initial: true,
+  damping: 0.7,
+  stiffness: 0.05,
+  mass: 1.25,
+  anchor: 'none',
 })
 </script>
 
 <template>
-  <div
-    ref="root"
-    :aria-label="ariaLabel" class="relative flex-1 overflow-y-auto"
+  <StickToBottom
+    :aria-label="props.ariaLabel"
+    class="relative flex-1"
     :class="[props.class]"
     role="log"
-    @scroll="handleScroll"
+    :initial="props.initial"
+    :resize="props.resize"
+    :damping="props.damping"
+    :stiffness="props.stiffness"
+    :mass="props.mass"
+    :anchor="props.anchor"
   >
     <slot />
-  </div>
+    <ConversationScrollButton />
+  </StickToBottom>
 </template>

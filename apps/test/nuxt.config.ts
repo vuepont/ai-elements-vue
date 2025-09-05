@@ -24,6 +24,7 @@ export default defineNuxtConfig({
         'clsx',
         'tailwind-merge',
         'class-variance-authority',
+        'nanoid',
       ],
     },
   },
