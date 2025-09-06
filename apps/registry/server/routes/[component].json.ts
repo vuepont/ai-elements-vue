@@ -40,7 +40,7 @@ interface RegistryItemSchema {
   dependencies?: string[]
   devDependencies?: string[]
   registryDependencies?: string[]
-  files?: Array<Pick<RegistryFile, 'path' | 'type'>>
+  files?: Array<Pick<RegistryFile, 'path' | 'type' | 'target'>>
   [k: string]: unknown
 }
 
@@ -103,7 +103,7 @@ export default eventHandler(async (event) => {
 
   const packageDir = join(process.cwd(), '..', '..', 'packages', 'elements')
   const srcDir = join(packageDir, 'src')
-  const examplesDir = join(process.cwd(), '..', '..', 'apps', 'test', 'app', 'examples')
+  const examplesDir = join(process.cwd(), '..', '..', 'packages', 'examples', 'src')
 
   // Read package.json for dependencies
   const packageJsonPath = join(packageDir, 'package.json')
@@ -147,6 +147,7 @@ export default eventHandler(async (event) => {
       type: 'registry:component',
       path: `registry/default/ai-elements/${rel}`,
       content: parsedContent,
+      target: `components/ai-elements/${rel}`,
     })
   }
 
@@ -167,6 +168,7 @@ export default eventHandler(async (event) => {
           type: 'registry:block',
           path: `registry/default/examples/${name}`,
           content: parsedContent,
+          target: `components/ai-elements/examples/${name}`,
         }
       }),
     )
@@ -195,7 +197,7 @@ export default eventHandler(async (event) => {
     type: 'registry:component',
     title: toTitle(group),
     description: `AI-powered ${group.replace('-', ' ')} components.`,
-    files: groupToFiles.get(group)!.map(f => ({ path: f.path, type: f.type })),
+    files: groupToFiles.get(group)!.map(f => ({ path: f.path, type: f.type, target: f.target })),
   }))
 
   const exampleItems: RegistryItemSchema[] = exampleFiles.map((ef) => {
@@ -205,7 +207,7 @@ export default eventHandler(async (event) => {
       type: 'registry:block',
       title: `${toTitle(name)} Example`,
       description: `Example implementation of ${name.replace('-', ' ')}.`,
-      files: [{ path: ef.path, type: ef.type }],
+      files: [{ path: ef.path, type: ef.type, target: ef.target }],
     }
   })
 

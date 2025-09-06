@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Card, CardContent, CardHeader, CardTitle } from '@repo/shadcn-vue/components/ui/card'
 import Conversation from '~/examples/conversation.vue'
+import MessageMarkdown from '~/examples/message-markdown.vue'
 import Message from '~/examples/message.vue'
 import PromptInput from '~/examples/prompt-input.vue'
 import Response from '~/examples/response.vue'
@@ -10,6 +11,7 @@ const components = [
   { name: 'PromptInput', Component: PromptInput },
   { name: 'Conversation', Component: Conversation },
   { name: 'Response', Component: Response },
+  { name: 'MessageMarkdown', Component: MessageMarkdown },
 ]
 </script>
 
