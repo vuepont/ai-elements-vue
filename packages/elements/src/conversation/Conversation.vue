@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { StickToBottom } from 'stick-to-bottom-vue'
+import { StickToBottom } from 'vue-stick-to-bottom'
 import ConversationScrollButton from './ConversationScrollButton.vue'
 
 interface Props {

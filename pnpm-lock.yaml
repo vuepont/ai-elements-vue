@@ -130,15 +130,15 @@ importers:
       lucide-vue-next:
         specifier: ^0.542.0
         version: 0.542.0(vue@3.5.20(typescript@5.9.2))
-      stick-to-bottom-vue:
-        specifier: ^0.1.0
-        version: 0.1.0(vue@3.5.20(typescript@5.9.2))
       streamdown-vue:
         specifier: ^1.0.12
         version: 1.0.12(typescript@5.9.2)(vue@3.5.20(typescript@5.9.2))
       vue:
         specifier: ^3.5.20
         version: 3.5.20(typescript@5.9.2)
+      vue-stick-to-bottom:
+        specifier: ^0.1.0
+        version: 0.1.0(vue@3.5.20(typescript@5.9.2))
     devDependencies:
       typescript:
         specifier: ^5.9.2
@@ -6739,11 +6739,6 @@ packages:
   std-env@3.9.0:
     resolution: {integrity: sha512-UGvjygr6F6tpH7o2qyqR6QYpwraIjKSdtzyBdyytFOHmPZY917kwdwLG0RbOjWOnKmnm3PeHjaoLLMie7kPLQw==}
 
-  stick-to-bottom-vue@0.1.0:
-    resolution: {integrity: sha512-XlM55nRM9CuHEuJd/08GMSHDjsygqneYDRPPiDafDtw0kSGeqH6y6MveU9/idkFfHKjQVxW5/97+wlV0oAQczA==}
-    peerDependencies:
-      vue: '>=3.3.0'
-
   streamdown-vue@1.0.12:
     resolution: {integrity: sha512-VKeVQQ+6lsVIXiMcnEpFB1yv2j7XlrN8ZfeuMwa1m7kBnwRv4WdDQfvkuhVsyXPpRkhYsxYX+iuiNoCaaz2d3Q==}
     peerDependencies:
@@ -7479,6 +7474,11 @@ packages:
 
   vue-sonner@2.0.8:
     resolution: {integrity: sha512-NpBJu0VvToXIegdaVlg8Sl3jm325fNQ45OJW0LCNbZqdypcYkQRIqSmT+LV+0BX9fGg+SFjwkD2MFYwWW5oOaQ==}
+
+  vue-stick-to-bottom@0.1.0:
+    resolution: {integrity: sha512-qe2EQoVdmEfxW4FKJdiqPSXa2ZZe9jmVjglHEiRKWdQVYf5MUYT/Yl73QrvOqNdgIl9EXBg50OAaHOIeHa17vg==}
+    peerDependencies:
+      vue: '>=3.3.0'
 
   vue@3.5.20:
     resolution: {integrity: sha512-2sBz0x/wis5TkF1XZ2vH25zWq3G1bFEPOfkBcx2ikowmphoQsPH6X0V3mmPCXA2K1N/XGTnifVyDQP4GfDDeQw==}
@@ -15704,10 +15704,6 @@ snapshots:
 
   std-env@3.9.0: {}
 
-  stick-to-bottom-vue@0.1.0(vue@3.5.20(typescript@5.9.2)):
-    dependencies:
-      vue: 3.5.20(typescript@5.9.2)
-
   streamdown-vue@1.0.12(typescript@5.9.2)(vue@3.5.20(typescript@5.9.2)):
     dependencies:
       hast-util-to-text: 4.0.2
@@ -16539,6 +16535,10 @@ snapshots:
       - vue-tsc
       - xml2js
       - yaml
+
+  vue-stick-to-bottom@0.1.0(vue@3.5.20(typescript@5.9.2)):
+    dependencies:
+      vue: 3.5.20(typescript@5.9.2)
 
   vue@3.5.20(typescript@5.9.2):
     dependencies:

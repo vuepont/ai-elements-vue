@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { Button } from '@repo/shadcn-vue/components/ui/button'
 import { ChevronDown } from 'lucide-vue-next'
-import { useStickToBottomContext } from 'stick-to-bottom-vue'
 import { computed } from 'vue'
+import { useStickToBottomContext } from 'vue-stick-to-bottom'
 
 interface Props {
   class?: string
