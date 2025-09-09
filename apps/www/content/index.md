@@ -5,27 +5,56 @@ navigation: false
 
 ::hero
 ---
-announcement:
-  title: 'Release v1'
-  icon: '🎉'
-  to: https://shadcn-docs-nuxt.vercel.app/blog/v1
-  target: _blank
 actions:
   - name: Documentation
-    to: https://shadcn-docs-nuxt.vercel.app/getting-started/introduction
+    to: /overview/introduction
   - name: GitHub
     variant: outline
-    to: https://github.com/ZTL-UwU/shadcn-docs-nuxt
+    to: https://github.com/cwandev/ai-elements-vue
     leftIcon: 'lucide:github'
 ---
 
 #title
-Welcome to shadcn-docs-nuxt
+AI Elements Vue
 
 #description
-Beautifully designed Nuxt Content template built with shadcn-vue. :br Customizable. Compatible. Open Source.
+AI Elements Vue is a component library built on top of shadcn-vue to help you build AI-native applications faster.
 ::
 
-::div{class="border rounded-lg shadow-md"}
-  :iframe{src="https://shadcn-docs-nuxt.vercel.app/getting-started/introduction" height="700" width="100%" class="rounded-lg" scrolling="no" frameborder="0"}
+::card-group{cols=3}
+  ::card
+  ---
+  title: Shadcn Vue
+  icon: simple-icons:shadcnui
+  icon-size: 26
+  to: https://www.shadcn-vue.com
+  target: _blank
+  horizontal: true
+  ---
+  Our AI Elements are built on Shadcn Vue's foundation, leveraging its design system to create specialized AI-native components with modern UI patterns.
+  ::
+
+  ::card
+  ---
+  title: Tailwind CSS
+  icon: logos:tailwindcss-icon
+  icon-size: 26
+  to: https://tailwindcss.com
+  target: _blank
+  horizontal: true
+  ---
+  Tailwind CSS powers our styling system, enabling rapid development of AI-focused interfaces with utility-first classes for customizable, maintainable components.
+  ::
+
+  ::card
+  ---
+  title: TypeScript
+  icon: logos:typescript-icon
+  icon-size: 26
+  to: https://www.typescriptlang.org
+  target: _blank
+  horizontal: true
+  ---
+  TypeScript provides type safety and developer experience for our AI Elements library, ensuring reliable APIs and better IntelliSense support.
+  ::
 ::

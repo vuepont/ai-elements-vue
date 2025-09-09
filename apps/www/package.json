@@ -1,5 +1,5 @@
 {
-  "name": "shadcn-docs-nuxt-starter",
+  "name": "www",
   "type": "module",
   "private": true,
   "scripts": {
@@ -10,9 +10,16 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@repo/elements": "workspace:*",
+    "@repo/examples": "workspace:*",
     "nuxt": "^3.17.6",
     "shadcn-docs-nuxt": "^1.1.1",
     "vue": "^3.5.17",
     "vue-router": "^4.5.1"
+  },
+  "devDependencies": {
+    "@iconify-json/logos": "^1.2.9",
+    "@iconify-json/simple-icons": "^1.2.50",
+    "tailwindcss-animate": "^1.0.7"
   }
 }

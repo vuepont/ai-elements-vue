@@ -1,49 +1,34 @@
-# shadcn-docs-nuxt Minimal Starter
+# Docs
 
-Starter template for [shadcn-docs-nuxt](https://github.com/ZTL-UwU/shadcn-docs-nuxt).
+This is the documentation for [AI Elements Vue](https://github.com/cwandev/ai-elements-vue).
 
 ## Setup
 
 Make sure to install the dependencies:
 
 ```bash
-# yarn
-yarn install
-
-# npm
-npm install
-
 # pnpm
 pnpm install
-
-# bun
-bun install
 ```
 
 ## Development Server
 
-Start the development server on http://localhost:3000
+Start the development server on http://localhost:3002
 
 ```bash
-npm run dev
+pnpm dev
 ```
 
 ## Production
 
-[![Deploy to NuxtHub](https://hub.nuxt.com/button.svg)](https://hub.nuxt.com/new?repo=ZTL-UwU/shadcn-docs-nuxt-starter)
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FZTL-UwU%2Fshadcn-docs-nuxt-starter)
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https%3A%2F%2Fgithub.com%2FZTL-UwU%2Fshadcn-docs-nuxt-starter)
-
 Build the application for production:
 
 ```bash
-npm run build
+pnpm build
 ```
 
 Locally preview production build:
 
 ```bash
-npm run preview
+pnpm preview
 ```
-
-Checkout the [deployment documentation](https://shadcn-docs-nuxt.vercel.app/getting-started/deployment) for more information.
