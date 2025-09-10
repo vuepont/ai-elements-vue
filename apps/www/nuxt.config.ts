@@ -26,8 +26,19 @@ export default defineNuxtConfig({
       },
     ],
   },
+
+  icon: {
+    customCollections: [
+      {
+        prefix: 'my-icon',
+        dir: './assets/icons',
+      },
+    ],
+  },
+
   build: {
     transpile: ['@repo/examples'],
   },
+
   compatibilityDate: '2024-07-06',
 })

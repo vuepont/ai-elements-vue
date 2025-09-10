@@ -118,6 +118,9 @@ importers:
       shadcn-docs-nuxt:
         specifier: ^1.1.1
         version: 1.1.2(@unhead/vue@2.0.14(vue@3.5.21(typescript@5.9.2)))(@vue/compiler-dom@3.5.21)(db0@0.3.2)(eslint@9.35.0(jiti@2.5.1))(ioredis@5.7.0)(magicast@0.3.5)(nuxt@3.19.1(@parcel/watcher@2.5.1)(@types/node@24.3.1)(@vue/compiler-sfc@3.5.21)(db0@0.3.2)(eslint@9.35.0(jiti@2.5.1))(ioredis@5.7.0)(lightningcss@1.30.1)(magicast@0.3.5)(optionator@0.9.4)(rollup@4.50.1)(terser@5.44.0)(typescript@5.9.2)(vite@7.1.5(@types/node@24.3.1)(jiti@2.5.1)(lightningcss@1.30.1)(terser@5.44.0)(yaml@2.8.1))(yaml@2.8.1))(rollup@4.50.1)(unstorage@1.17.1(db0@0.3.2)(ioredis@5.7.0))(vite@7.1.5(@types/node@24.3.1)(jiti@2.5.1)(lightningcss@1.30.1)(terser@5.44.0)(yaml@2.8.1))(vue@3.5.21(typescript@5.9.2))
+      tailwindcss:
+        specifier: ^4.1.13
+        version: 4.1.13
       vue:
         specifier: ^3.5.17
         version: 3.5.21(typescript@5.9.2)

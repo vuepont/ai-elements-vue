@@ -1,6 +1,7 @@
 {
   "name": "www",
   "type": "module",
+  "version": "0.0.0",
   "private": true,
   "scripts": {
     "build": "nuxt build",
@@ -14,6 +15,7 @@
     "@repo/examples": "workspace:*",
     "nuxt": "^3.17.6",
     "shadcn-docs-nuxt": "^1.1.1",
+    "tailwindcss": "^4.1.13",
     "vue": "^3.5.17",
     "vue-router": "^4.5.1"
   },
