@@ -5,4 +5,5 @@ export default defineNitroConfig({
   compatibilityDate: 'latest',
   srcDir: 'server',
   imports: false,
+  preset: 'cloudflare',
 })

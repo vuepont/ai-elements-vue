@@ -100,7 +100,7 @@ AI Elements Vue includes the following components:
 
 ## How It Works
 
-The AI Elements CLI:
+The AI Elements Vue CLI:
 
 1. **Detects your package manager** (npm, pnpm, yarn, or bun) automatically
 2. **Fetches component registry** from `https://registry.ai-elements-vue.com/all.json`

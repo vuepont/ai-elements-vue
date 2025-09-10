@@ -1,7 +1,17 @@
 {
   "name": "ai-elements-vue",
   "version": "0.0.0",
+  "private": false,
   "description": "AI Elements Vue is a component library and custom registry built on top of shadcn-vue to help you build AI-native applications faster.",
+  "license": "MIT",
+  "keywords": [
+    "nuxt",
+    "vue",
+    "shadcn-vue",
+    "ai",
+    "registry",
+    "cli"
+  ],
   "bin": {
     "elements": "index.js"
   },
@@ -9,5 +19,11 @@
     "LICENSE",
     "README.md",
     "index.js"
-  ]
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=20.19.0"
+  }
 }

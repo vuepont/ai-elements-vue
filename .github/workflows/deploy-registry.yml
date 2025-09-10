@@ -1,0 +1,40 @@
+name: Deploy registry
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'apps/registry/**'
+      - 'packages/elements/**'
+      - 'packages/examples/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  deployments: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    name: Publish registry (Nitro) to Cloudflare Workers
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup (Install Node & pnpm)
+        uses: ./.github/actions/setup
+
+      - name: Install dependencies
+        run: pnpm i --frozen-lockfile
+
+      - name: Build registry (Nitro Cloudflare Worker)
+        run: pnpm --filter ./apps/registry build
+
+      - name: Publish to Cloudflare Workers via Wrangler
+        working-directory: apps/registry
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          npx wrangler@4 deploy --config wrangler.toml
