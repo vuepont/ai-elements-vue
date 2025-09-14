@@ -6,3 +6,6 @@ dist
 .output
 .env
 .env.local
+
+# Registry assets
+server/assets/registry

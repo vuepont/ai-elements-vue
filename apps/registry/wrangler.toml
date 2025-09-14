@@ -1,8 +1,4 @@
-name = "ai-elements-vue"
+name = "ai-elements-vue-registry"
 main = ".output/server/index.mjs"
-compatibility_date = "2024-07-06"
-
-[vars]
-# Add environment variables here if needed, e.g. API keys
-
+compatibility_date = "2025-09-11"
 routes = [ "registry.ai-elements-vue.com/*" ]
