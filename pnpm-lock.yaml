@@ -152,8 +152,8 @@ importers:
         specifier: ^0.542.0
         version: 0.542.0(vue@3.5.21(typescript@5.9.2))
       streamdown-vue:
-        specifier: ^1.0.12
-        version: 1.0.12(typescript@5.9.2)(vue@3.5.21(typescript@5.9.2))
+        specifier: ^1.0.20
+        version: 1.0.20(typescript@5.9.2)(vue@3.5.21(typescript@5.9.2))
       vue:
         specifier: ^3.5.20
         version: 3.5.21(typescript@5.9.2)
@@ -6873,8 +6873,8 @@ packages:
   std-env@3.9.0:
     resolution: {integrity: sha512-UGvjygr6F6tpH7o2qyqR6QYpwraIjKSdtzyBdyytFOHmPZY917kwdwLG0RbOjWOnKmnm3PeHjaoLLMie7kPLQw==}
 
-  streamdown-vue@1.0.12:
-    resolution: {integrity: sha512-VKeVQQ+6lsVIXiMcnEpFB1yv2j7XlrN8ZfeuMwa1m7kBnwRv4WdDQfvkuhVsyXPpRkhYsxYX+iuiNoCaaz2d3Q==}
+  streamdown-vue@1.0.20:
+    resolution: {integrity: sha512-UlVgmQipyyZZVXoxRnq3OMmQP7uSgj7mTXw1GVSxo140F7lWJ8sgOgFeJ0IxTWh01GNWch/D8ZJHdtzF+nHjEw==}
     peerDependencies:
       typescript: ^5.0.0
       vue: ^3.5.21
@@ -8467,7 +8467,7 @@ snapshots:
       '@antfu/install-pkg': 1.1.0
       '@antfu/utils': 9.2.0
       '@iconify/types': 2.0.0
-      debug: 4.4.1
+      debug: 4.4.3
       globals: 15.15.0
       kolorist: 1.8.0
       local-pkg: 1.1.2
@@ -15985,7 +15985,7 @@ snapshots:
 
   std-env@3.9.0: {}
 
-  streamdown-vue@1.0.12(typescript@5.9.2)(vue@3.5.21(typescript@5.9.2)):
+  streamdown-vue@1.0.20(typescript@5.9.2)(vue@3.5.21(typescript@5.9.2)):
     dependencies:
       hast-util-to-text: 4.0.2
       katex: 0.16.22
