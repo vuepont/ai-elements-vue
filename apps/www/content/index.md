@@ -25,7 +25,7 @@ AI Elements Vue is a component library built on top of shadcn-vue to help you bu
   ::card
   ---
   title: Shadcn Vue
-  icon: my-icon:shadcn-vue
+  icon: custom-icon:shadcn-vue
   icon-size: 26
   to: https://www.shadcn-vue.com
   target: _blank

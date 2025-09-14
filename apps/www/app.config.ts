@@ -39,11 +39,6 @@ export default defineAppConfig({
           to: '/overview/usage',
           description: 'Learn how to use AI Elements Vue in your project',
           target: '_self',
-        }, {
-          title: 'Components',
-          to: '/components',
-          description: 'Explore all available components and their usage',
-          target: '_self',
         }],
       }, {
         title: 'Credits',

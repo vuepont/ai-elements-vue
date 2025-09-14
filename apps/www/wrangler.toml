@@ -1,0 +1,6 @@
+name = "ai-elements-vue"
+main = ".output/server/index.mjs"
+compatibility_date = "2024-07-06"
+compatibility_flags = [ "nodejs_compat" ]
+routes = [ "www.ai-elements-vue.com/*" ]
+site = { bucket = ".output/public" }

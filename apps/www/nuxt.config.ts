@@ -5,9 +5,9 @@ export default defineNuxtConfig({
 
   plugins: ['~/plugins/ai-elements'],
 
-  content: {
-    markdown: {
-      mdc: true,
+  mdc: {
+    highlight: {
+      shikiEngine: 'javascript',
     },
   },
 
@@ -30,7 +30,7 @@ export default defineNuxtConfig({
   icon: {
     customCollections: [
       {
-        prefix: 'my-icon',
+        prefix: 'custom-icon',
         dir: './assets/icons',
       },
     ],
@@ -41,7 +41,17 @@ export default defineNuxtConfig({
   },
 
   compatibilityDate: '2024-07-06',
+
+  sourcemap: false,
+
+  vite: {
+    build: {
+      sourcemap: false,
+      chunkSizeWarningLimit: 1500,
+    },
+  },
+
   nitro: {
-    preset: 'cloudflare-pages',
+    preset: 'cloudflare-module',
   },
 })
