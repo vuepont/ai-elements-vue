@@ -2,7 +2,7 @@
 
 [AI Elements Vue](https://ai-elements-vue.com) is an unofficial community-led [Vue](https://vuejs.org) port of [AI Elements](https://github.com/vercel/ai-elements).
 
-> **Note** <br> **We are not affiliated with AI Elements, but we have received support for this project** <br> This is a project born out of the need for a similar project for the Vue ecosystem.
+> **Note** <br> **We are not affiliated with AI Elements, but the project has the author’s encouragement and support.** <br> This is a project born out of the need for a similar project for the Vue ecosystem.
 
 ## Overview
 
