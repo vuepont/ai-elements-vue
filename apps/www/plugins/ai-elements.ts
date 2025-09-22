@@ -1,4 +1,6 @@
 import {
+  Actions,
+  ActionsHover,
   Conversation,
   Message,
   MessageMarkdown,
@@ -15,6 +17,8 @@ export default defineNuxtPlugin((nuxtApp) => {
   vueApp.component('ComponentLoader', ComponentLoader)
   vueApp.component('ComponentViewer', ComponentViewer)
 
+  vueApp.component('Actions', Actions)
+  vueApp.component('ActionsHover', ActionsHover)
   vueApp.component('Message', Message)
   vueApp.component('MessageMarkdown', MessageMarkdown)
   vueApp.component('PromptInput', PromptInput)

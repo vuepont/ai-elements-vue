@@ -84,7 +84,7 @@ AI Elements Vue includes the following components:
 | `conversation` | ✅ 已完成 | Container for chat conversations |
 | `response` | ✅ 已完成 | Formatted AI response display |
 | `prompt-input` | ✅ 已完成 | Advanced input component with model selection |
-| `actions` | ❌ 未完成 | Interactive action buttons for AI responses |
+| `actions` | ✅ 已完成 | Interactive action buttons for AI responses |
 | `branch` | ❌ 未完成 | Branch visualization for conversation flows |
 | `code-block` | ❌ 未完成 | Syntax-highlighted code display with copy functionality |
 | `image` | ❌ 未完成 | AI-generated image display component |
