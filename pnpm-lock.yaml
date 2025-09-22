@@ -146,7 +146,7 @@ importers:
         specifier: workspace:*
         version: link:../shadcn-vue
       ai:
-        specifier: ^5.0.28
+        specifier: ^5.0.29
         version: 5.0.39(zod@4.1.5)
       lucide-vue-next:
         specifier: ^0.542.0
