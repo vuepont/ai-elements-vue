@@ -8,10 +8,10 @@
   },
   "dependencies": {
     "@repo/shadcn-vue": "workspace:*",
-    "ai": "^5.0.29",
-    "lucide-vue-next": "^0.542.0",
-    "streamdown-vue": "^1.0.20",
-    "vue": "^3.5.20",
+    "ai": "^5.0.51",
+    "lucide-vue-next": "^0.544.0",
+    "streamdown-vue": "^1.0.21",
+    "vue": "^3.5.21",
     "vue-stick-to-bottom": "^0.1.0"
   },
   "devDependencies": {

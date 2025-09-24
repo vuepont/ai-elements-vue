@@ -9,9 +9,9 @@
   },
   "dependencies": {
     "@repo/elements": "workspace:*",
-    "ai": "^5.0.29",
-    "lucide-vue-next": "^0.542.0",
-    "nanoid": "^5.1.5",
+    "ai": "^5.0.51",
+    "lucide-vue-next": "^0.544.0",
+    "nanoid": "^5.1.6",
     "vue": "^3.5.21"
   },
   "devDependencies": {

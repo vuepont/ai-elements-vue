@@ -2,6 +2,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@repo/shadcn-vue/components/ui/card'
 import ActionsHover from '~/examples/actions-hover.vue'
 import Actions from '~/examples/actions.vue'
+import Branch from '~/examples/branch.vue'
 import Conversation from '~/examples/conversation.vue'
 import MessageMarkdown from '~/examples/message-markdown.vue'
 import Message from '~/examples/message.vue'
@@ -11,6 +12,7 @@ import Response from '~/examples/response.vue'
 const components = [
   { name: 'Message', Component: Message },
   { name: 'Actions', Component: Actions },
+  { name: 'Branch', Component: Branch },
   { name: 'ActionsHover', Component: ActionsHover },
   { name: 'PromptInput', Component: PromptInput },
   { name: 'Conversation', Component: Conversation },

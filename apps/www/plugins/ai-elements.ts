@@ -1,6 +1,7 @@
 import {
   Actions,
   ActionsHover,
+  Branch,
   Conversation,
   Message,
   MessageMarkdown,
@@ -19,6 +20,7 @@ export default defineNuxtPlugin((nuxtApp) => {
 
   vueApp.component('Actions', Actions)
   vueApp.component('ActionsHover', ActionsHover)
+  vueApp.component('Branch', Branch)
   vueApp.component('Message', Message)
   vueApp.component('MessageMarkdown', MessageMarkdown)
   vueApp.component('PromptInput', PromptInput)
