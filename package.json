@@ -2,7 +2,7 @@
   "name": "ai-elements-vue",
   "version": "0.2.0",
   "private": true,
-  "packageManager": "pnpm@10.17.0",
+  "packageManager": "pnpm@10.17.1",
   "engines": {
     "node": ">=20.19.0"
   },
