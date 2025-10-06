@@ -13,7 +13,6 @@ export default defineNuxtConfig({
 
   components: [
     { path: '~/components' },
-    { path: '../../packages/examples/src', pathPrefix: false },
   ],
 
   i18n: {
