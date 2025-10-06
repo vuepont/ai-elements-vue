@@ -1,6 +1,7 @@
 export { default as ActionsHover } from './actions-hover.vue'
 export { default as Actions } from './actions.vue'
 export { default as Branch } from './branch.vue'
+export { default as CodeBlock } from './code-block.vue'
 export { default as Conversation } from './conversation.vue'
 export { default as Image } from './image.vue'
 export { default as MessageMarkdown } from './message-markdown.vue'

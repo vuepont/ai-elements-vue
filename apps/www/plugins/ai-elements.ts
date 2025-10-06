@@ -3,6 +3,7 @@ import {
   ActionsHover,
   Branch,
   Conversation,
+  Image,
   Message,
   MessageMarkdown,
   PromptInput,
@@ -26,4 +27,5 @@ export default defineNuxtPlugin((nuxtApp) => {
   vueApp.component('PromptInput', PromptInput)
   vueApp.component('Conversation', Conversation)
   vueApp.component('Response', Response)
+  vueApp.component('Image', Image)
 })
