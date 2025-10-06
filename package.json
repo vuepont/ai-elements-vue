@@ -2,7 +2,7 @@
   "name": "ai-elements-vue",
   "version": "0.3.0",
   "private": true,
-  "packageManager": "pnpm@10.17.1",
+  "packageManager": "pnpm@10.18.0",
   "engines": {
     "node": ">=20.19.0"
   },
@@ -22,14 +22,14 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "^5.4.1",
-    "@commitlint/cli": "^19.8.1",
-    "@commitlint/config-conventional": "^19.8.1",
-    "bumpp": "^10.2.3",
-    "eslint": "^9.36.0",
-    "lint-staged": "^16.2.0",
+    "@commitlint/cli": "^20.1.0",
+    "@commitlint/config-conventional": "^20.0.0",
+    "bumpp": "^10.3.1",
+    "eslint": "^9.37.0",
+    "lint-staged": "^16.2.3",
     "simple-git-hooks": "^2.13.1",
     "turbo": "^2.5.8",
-    "typescript": "^5.9.2"
+    "typescript": "^5.9.3"
   },
   "pnpm": {
     "allowedDeprecatedVersions": {

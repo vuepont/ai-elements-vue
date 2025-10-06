@@ -7,7 +7,7 @@
     "dev": "nitro dev --port 3001"
   },
   "devDependencies": {
-    "@vue/compiler-sfc": "^3.5.21",
+    "@vue/compiler-sfc": "^3.5.22",
     "h3": "^1.15.4",
     "nitropack": "^2.12.6",
     "ts-morph": "^27.0.0"
