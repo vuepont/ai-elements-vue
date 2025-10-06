@@ -87,7 +87,7 @@ AI Elements Vue includes the following components:
 | `actions` | ✅ 已完成 | Interactive action buttons for AI responses |
 | `branch` | ✅ 已完成 | Branch visualization for conversation flows |
 | `code-block` | ✅ 已完成 | Syntax-highlighted code display with copy functionality |
-| `image` | ❌ 未完成 | AI-generated image display component |
+| `image` | ✅ 已完成 | AI-generated image display component |
 | `inline-citation` | ❌ 未完成 | Inline source citations |
 | `loader` | ❌ 未完成 | Loading states for AI operations |
 | `reasoning` | ❌ 未完成 | Display AI reasoning and thought processes |
