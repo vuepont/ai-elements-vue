@@ -1,6 +1,6 @@
 {
   "name": "@repo/elements",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "private": true,
   "description": "AI components including message, conversation, input, response, suggestion, sources, tool and branch components for building chat interfaces.",
   "exports": {
