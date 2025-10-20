@@ -10,6 +10,7 @@ import MessageMarkdown from '~/examples/message-markdown.vue'
 import Message from '~/examples/message.vue'
 import PromptInput from '~/examples/prompt-input.vue'
 import Response from '~/examples/response.vue'
+import Shimmer from '~/examples/shimmer.vue'
 
 const components = [
   { name: 'Message', Component: Message },
@@ -22,6 +23,7 @@ const components = [
   { name: 'MessageMarkdown', Component: MessageMarkdown },
   { name: 'CodeBlock', Component: CodeBlock },
   { name: 'Image', Component: Image },
+  { name: 'Shimmer', Component: Shimmer },
 ]
 </script>
 
