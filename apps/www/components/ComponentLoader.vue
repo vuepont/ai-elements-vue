@@ -23,6 +23,10 @@ withDefaults(defineProps<Props>(), {
         >
           <ComponentViewer :component-name="componentName" />
         </div>
+        <CodeViewerTab
+          v-bind="$props"
+          label="Code"
+        />
       </CodeGroup>
     </ClientOnly>
   </div>

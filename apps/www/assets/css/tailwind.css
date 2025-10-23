@@ -109,4 +109,14 @@
   body {
     @apply bg-background text-foreground;
   }
+  :root {
+    --color-background: hsl(var(--background));
+    --color-muted-foreground: hsl(var(--muted-foreground));
+  }
+  .dark {
+    --color-background: hsl(var(--background));
+    --color-muted-foreground: hsl(var(--muted-foreground));
+  }
 }
+
+

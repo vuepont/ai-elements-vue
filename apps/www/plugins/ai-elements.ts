@@ -8,6 +8,9 @@ import {
   MessageMarkdown,
   PromptInput,
   Response,
+  Shimmer,
+  ShimmerCustomElements,
+  ShimmerDurations,
 } from '@repo/examples'
 
 import ComponentLoader from '@/components/ComponentLoader.vue'
@@ -28,4 +31,7 @@ export default defineNuxtPlugin((nuxtApp) => {
   vueApp.component('Conversation', Conversation)
   vueApp.component('Response', Response)
   vueApp.component('Image', Image)
+  vueApp.component('Shimmer', Shimmer)
+  vueApp.component('ShimmerCustomElements', ShimmerCustomElements)
+  vueApp.component('ShimmerDurations', ShimmerDurations)
 })
