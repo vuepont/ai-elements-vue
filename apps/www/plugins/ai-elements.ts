@@ -6,6 +6,7 @@ import {
   Image,
   Message,
   MessageMarkdown,
+  OpenInChat,
   PromptInput,
   Response,
   Shimmer,
@@ -34,4 +35,5 @@ export default defineNuxtPlugin((nuxtApp) => {
   vueApp.component('Shimmer', Shimmer)
   vueApp.component('ShimmerCustomElements', ShimmerCustomElements)
   vueApp.component('ShimmerDurations', ShimmerDurations)
+  vueApp.component('OpenInChat', OpenInChat)
 })
