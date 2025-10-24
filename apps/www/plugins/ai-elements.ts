@@ -15,6 +15,8 @@ import {
   Shimmer,
   ShimmerCustomElements,
   ShimmerDurations,
+  Sources,
+  SourcesCustomRendering,
   Suggestion,
   SuggestionAiInput,
 } from '@repo/examples'
@@ -40,6 +42,8 @@ export default defineNuxtPlugin((nuxtApp) => {
   vueApp.component('Shimmer', Shimmer)
   vueApp.component('ShimmerCustomElements', ShimmerCustomElements)
   vueApp.component('ShimmerDurations', ShimmerDurations)
+  vueApp.component('Sources', Sources)
+  vueApp.component('SourcesCustomRendering', SourcesCustomRendering)
   vueApp.component('Suggestion', Suggestion)
   vueApp.component('SuggestionAiInput', SuggestionAiInput)
   vueApp.component('OpenInChat', OpenInChat)

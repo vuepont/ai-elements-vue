@@ -13,6 +13,7 @@ import OpenInChat from '~/examples/open-in-chat.vue'
 import PromptInput from '~/examples/prompt-input.vue'
 import Response from '~/examples/response.vue'
 import Shimmer from '~/examples/shimmer.vue'
+import Sources from '~/examples/sources.vue'
 import Suggestion from '~/examples/suggestion.vue'
 
 const components = [
@@ -30,6 +31,7 @@ const components = [
   { name: 'Suggestion', Component: Suggestion },
   { name: 'OpenInChat', Component: OpenInChat },
   { name: 'Loader', Component: Loader },
+  { name: 'Sources', Component: Sources },
 ]
 </script>
 
