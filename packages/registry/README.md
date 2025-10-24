@@ -80,21 +80,21 @@ AI Elements Vue includes the following components:
 
 | Component | Status | Description |
 |-----------|--------|-------------|
-| `message` | ✅ 已完成 | Individual chat messages with avatars |
-| `conversation` | ✅ 已完成 | Container for chat conversations |
-| `response` | ✅ 已完成 | Formatted AI response display |
-| `prompt-input` | ✅ 已完成 | Advanced input component with model selection |
-| `actions` | ✅ 已完成 | Interactive action buttons for AI responses |
-| `branch` | ✅ 已完成 | Branch visualization for conversation flows |
-| `code-block` | ✅ 已完成 | Syntax-highlighted code display with copy functionality |
-| `image` | ✅ 已完成 | AI-generated image display component |
-| `inline-citation` | ❌ 未完成 | Inline source citations |
-| `loader` | ❌ 未完成 | Loading states for AI operations |
-| `reasoning` | ❌ 未完成 | Display AI reasoning and thought processes |
-| `source` | ❌ 未完成 | Source attribution component |
-| `suggestion` | ❌ 未完成 | Quick action suggestions |
-| `task` | ❌ 未完成 | Task completion tracking |
-| `tool` | ❌ 未完成 | Tool usage visualization |
+| `message` | ✅ | Individual chat messages with avatars |
+| `conversation` | ✅ | Container for chat conversations |
+| `response` | ✅ | Formatted AI response display |
+| `prompt-input` | ✅ | Advanced input component with model selection |
+| `actions` | ✅ | Interactive action buttons for AI responses |
+| `branch` | ✅ | Branch visualization for conversation flows |
+| `code-block` | ✅ | Syntax-highlighted code display with copy functionality |
+| `image` | ✅ | AI-generated image display component |
+| `inline-citation` | ❌ | Inline source citations |
+| `loader` | ✅ | Loading states for AI operations |
+| `reasoning` | ❌ | Display AI reasoning and thought processes |
+| `source` | ❌ | Source attribution component |
+| `suggestion` | ✅ | Quick action suggestions |
+| `task` | ❌ | Task completion tracking |
+| `tool` | ❌ | Tool usage visualization |
 
 ## How It Works
 
