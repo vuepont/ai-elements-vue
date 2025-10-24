@@ -9,6 +9,7 @@ import {
   LoaderSizes,
   Message,
   MessageMarkdown,
+  OpenInChat,
   PromptInput,
   Response,
   Shimmer,
@@ -37,6 +38,7 @@ export default defineNuxtPlugin((nuxtApp) => {
   vueApp.component('Shimmer', Shimmer)
   vueApp.component('ShimmerCustomElements', ShimmerCustomElements)
   vueApp.component('ShimmerDurations', ShimmerDurations)
+  vueApp.component('OpenInChat', OpenInChat)
   vueApp.component('Loader', Loader)
   vueApp.component('LoaderCustomStyling', LoaderCustomStyling)
   vueApp.component('LoaderSizes', LoaderSizes)
