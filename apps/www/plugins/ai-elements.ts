@@ -4,8 +4,12 @@ import {
   Branch,
   Conversation,
   Image,
+  Loader,
+  LoaderCustomStyling,
+  LoaderSizes,
   Message,
   MessageMarkdown,
+  OpenInChat,
   PromptInput,
   Response,
   Shimmer,
@@ -38,4 +42,8 @@ export default defineNuxtPlugin((nuxtApp) => {
   vueApp.component('ShimmerDurations', ShimmerDurations)
   vueApp.component('Suggestion', Suggestion)
   vueApp.component('SuggestionAiInput', SuggestionAiInput)
+  vueApp.component('OpenInChat', OpenInChat)
+  vueApp.component('Loader', Loader)
+  vueApp.component('LoaderCustomStyling', LoaderCustomStyling)
+  vueApp.component('LoaderSizes', LoaderSizes)
 })
