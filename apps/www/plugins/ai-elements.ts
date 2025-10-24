@@ -11,6 +11,8 @@ import {
   Shimmer,
   ShimmerCustomElements,
   ShimmerDurations,
+  Suggestion,
+  SuggestionAiInput,
 } from '@repo/examples'
 
 import ComponentLoader from '@/components/ComponentLoader.vue'
@@ -34,4 +36,6 @@ export default defineNuxtPlugin((nuxtApp) => {
   vueApp.component('Shimmer', Shimmer)
   vueApp.component('ShimmerCustomElements', ShimmerCustomElements)
   vueApp.component('ShimmerDurations', ShimmerDurations)
+  vueApp.component('Suggestion', Suggestion)
+  vueApp.component('SuggestionAiInput', SuggestionAiInput)
 })

@@ -11,6 +11,7 @@ import Message from '~/examples/message.vue'
 import PromptInput from '~/examples/prompt-input.vue'
 import Response from '~/examples/response.vue'
 import Shimmer from '~/examples/shimmer.vue'
+import Suggestion from '~/examples/suggestion.vue'
 
 const components = [
   { name: 'Message', Component: Message },
@@ -24,6 +25,7 @@ const components = [
   { name: 'CodeBlock', Component: CodeBlock },
   { name: 'Image', Component: Image },
   { name: 'Shimmer', Component: Shimmer },
+  { name: 'Suggestion', Component: Suggestion },
 ]
 </script>
 
