@@ -1,0 +1,5 @@
+export { default as Task } from './Task.vue'
+export { default as TaskContent } from './TaskContent.vue'
+export { default as TaskItem } from './TaskItem.vue'
+export { default as TaskItemFile } from './TaskItemFile.vue'
+export { default as TaskTrigger } from './TaskTrigger.vue'

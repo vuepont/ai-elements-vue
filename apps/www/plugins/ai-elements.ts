@@ -11,6 +11,7 @@ import {
   Shimmer,
   ShimmerCustomElements,
   ShimmerDurations,
+  Task,
 } from '@repo/examples'
 
 import ComponentLoader from '@/components/ComponentLoader.vue'
@@ -34,4 +35,5 @@ export default defineNuxtPlugin((nuxtApp) => {
   vueApp.component('Shimmer', Shimmer)
   vueApp.component('ShimmerCustomElements', ShimmerCustomElements)
   vueApp.component('ShimmerDurations', ShimmerDurations)
+  vueApp.component('Task', Task)
 })
