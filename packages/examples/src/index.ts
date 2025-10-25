@@ -18,3 +18,4 @@ export { default as SourcesCustomRendering } from './sources-custom-rendering.vu
 export { default as Sources } from './sources.vue'
 export { default as SuggestionAiInput } from './suggestion-ai-input.vue'
 export { default as Suggestion } from './suggestion.vue'
+export { default as Task } from './task.vue'

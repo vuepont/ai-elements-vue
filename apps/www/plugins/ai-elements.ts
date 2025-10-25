@@ -19,6 +19,7 @@ import {
   SourcesCustomRendering,
   Suggestion,
   SuggestionAiInput,
+  Task,
 } from '@repo/examples'
 
 import ComponentLoader from '@/components/ComponentLoader.vue'
@@ -44,6 +45,7 @@ export default defineNuxtPlugin((nuxtApp) => {
   vueApp.component('ShimmerDurations', ShimmerDurations)
   vueApp.component('Sources', Sources)
   vueApp.component('SourcesCustomRendering', SourcesCustomRendering)
+  vueApp.component('Task', Task)
   vueApp.component('Suggestion', Suggestion)
   vueApp.component('SuggestionAiInput', SuggestionAiInput)
   vueApp.component('OpenInChat', OpenInChat)

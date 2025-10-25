@@ -15,6 +15,7 @@ import Response from '~/examples/response.vue'
 import Shimmer from '~/examples/shimmer.vue'
 import Sources from '~/examples/sources.vue'
 import Suggestion from '~/examples/suggestion.vue'
+import Task from '~/examples/task.vue'
 
 const components = [
   { name: 'Message', Component: Message },
@@ -28,6 +29,7 @@ const components = [
   { name: 'CodeBlock', Component: CodeBlock },
   { name: 'Image', Component: Image },
   { name: 'Shimmer', Component: Shimmer },
+  { name: 'Task', Component: Task },
   { name: 'Suggestion', Component: Suggestion },
   { name: 'OpenInChat', Component: OpenInChat },
   { name: 'Loader', Component: Loader },
