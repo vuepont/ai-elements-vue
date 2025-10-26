@@ -4,7 +4,7 @@ description:
 icon: lucide:map
 ---
 
-The `PromptInput` component provides a flexible system for displaying AI-generated execution plans with collapsible content. Perfect for showing multi-step workflows, task breakdowns, and implementation strategies with support for streaming content and loading states.
+The `Plan` component provides a flexible system for displaying AI-generated execution plans with collapsible content. Perfect for showing multi-step workflows, task breakdowns, and implementation strategies with support for streaming content and loading states.
 
 :::ComponentLoader{label="Preview" componentName="Plan"}
 :::
