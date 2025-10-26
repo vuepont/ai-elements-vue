@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@repo/shadcn-vue/compo
 import ActionsHover from '~/examples/actions-hover.vue'
 import Actions from '~/examples/actions.vue'
 import Branch from '~/examples/branch.vue'
+import ChainOfThought from '~/examples/chain-of-thought.vue'
 import CodeBlock from '~/examples/code-block.vue'
 import Conversation from '~/examples/conversation.vue'
 import Image from '~/examples/image.vue'
@@ -36,6 +37,7 @@ const components = [
   { name: 'OpenInChat', Component: OpenInChat },
   { name: 'Loader', Component: Loader },
   { name: 'Sources', Component: Sources },
+  { name: 'ChainOfThought', Component: ChainOfThought },
   { name: 'Queue', Component: Queue },
   { name: 'Plan', Component: Plan },
 ]

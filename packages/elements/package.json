@@ -9,6 +9,7 @@
   "dependencies": {
     "@repo/shadcn-vue": "workspace:*",
     "@selemondev/shiki-transformer-copy-button": "^0.0.2",
+    "@vueuse/core": "^13.9.0",
     "ai": "^5.0.60",
     "lucide-vue-next": "^0.544.0",
     "motion-v": "^1.7.3",

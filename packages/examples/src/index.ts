@@ -1,6 +1,7 @@
 export { default as ActionsHover } from './actions-hover.vue'
 export { default as Actions } from './actions.vue'
 export { default as Branch } from './branch.vue'
+export { default as ChainOfThought } from './chain-of-thought.vue'
 export { default as Conversation } from './conversation.vue'
 export { default as Image } from './image.vue'
 export { default as LoaderCustomStyling } from './loader-custom-styling.vue'

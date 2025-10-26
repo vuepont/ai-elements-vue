@@ -2,6 +2,7 @@ import {
   Actions,
   ActionsHover,
   Branch,
+  ChainOfThought,
   Conversation,
   Image,
   Loader,
@@ -56,6 +57,7 @@ export default defineNuxtPlugin((nuxtApp) => {
   vueApp.component('Loader', Loader)
   vueApp.component('LoaderCustomStyling', LoaderCustomStyling)
   vueApp.component('LoaderSizes', LoaderSizes)
+  vueApp.component('ChainOfThought', ChainOfThought)
   vueApp.component('QueueCustom', QueueCustom)
   vueApp.component('Queue', Queue)
   vueApp.component('QueuePromptInput', QueuePromptInput)
