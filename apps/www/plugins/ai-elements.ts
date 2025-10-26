@@ -10,6 +10,7 @@ import {
   Message,
   MessageMarkdown,
   OpenInChat,
+  Plan,
   PromptInput,
   Queue,
   QueueCustom,
@@ -58,4 +59,5 @@ export default defineNuxtPlugin((nuxtApp) => {
   vueApp.component('QueueCustom', QueueCustom)
   vueApp.component('Queue', Queue)
   vueApp.component('QueuePromptInput', QueuePromptInput)
+  vueApp.component('Plan', Plan)
 })
