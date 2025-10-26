@@ -151,6 +151,9 @@ importers:
       '@selemondev/shiki-transformer-copy-button':
         specifier: ^0.0.2
         version: 0.0.2
+      '@vueuse/core':
+        specifier: ^13.9.0
+        version: 13.9.0(vue@3.5.22(typescript@5.9.3))
       ai:
         specifier: ^5.0.60
         version: 5.0.60(zod@4.1.11)
@@ -5490,6 +5493,7 @@ packages:
 
   motion-v@1.7.3:
     resolution: {integrity: sha512-lwgrge7Y7FF9LxBxZ//MsSLPPjh4z1yYE9ie236Pa89mRCsBlONXbLcseln6G6LyAG8pt3PpzUxWt2grwMcBAA==}
+    deprecated: deprecate
     peerDependencies:
       '@vueuse/core': '>=10.0.0'
       vue: '>=3.0.0'
