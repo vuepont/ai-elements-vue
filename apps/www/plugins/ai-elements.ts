@@ -10,6 +10,7 @@ import {
   Message,
   MessageMarkdown,
   OpenInChat,
+  Plan,
   PromptInput,
   Response,
   Shimmer,
@@ -52,4 +53,5 @@ export default defineNuxtPlugin((nuxtApp) => {
   vueApp.component('Loader', Loader)
   vueApp.component('LoaderCustomStyling', LoaderCustomStyling)
   vueApp.component('LoaderSizes', LoaderSizes)
+  vueApp.component('Plan', Plan)
 })
