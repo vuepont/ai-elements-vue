@@ -10,6 +10,7 @@ import Loader from '~/examples/loader.vue'
 import MessageMarkdown from '~/examples/message-markdown.vue'
 import Message from '~/examples/message.vue'
 import OpenInChat from '~/examples/open-in-chat.vue'
+import Plan from '~/examples/plan.vue'
 import PromptInput from '~/examples/prompt-input.vue'
 import Response from '~/examples/response.vue'
 import Shimmer from '~/examples/shimmer.vue'
@@ -34,6 +35,7 @@ const components = [
   { name: 'OpenInChat', Component: OpenInChat },
   { name: 'Loader', Component: Loader },
   { name: 'Sources', Component: Sources },
+  { name: 'Plan', Component: Plan },
 ]
 </script>
 
