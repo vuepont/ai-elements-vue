@@ -11,6 +11,9 @@ import {
   MessageMarkdown,
   OpenInChat,
   PromptInput,
+  Queue,
+  QueueCustom,
+  QueuePromptInput,
   Response,
   Shimmer,
   ShimmerCustomElements,
@@ -52,4 +55,7 @@ export default defineNuxtPlugin((nuxtApp) => {
   vueApp.component('Loader', Loader)
   vueApp.component('LoaderCustomStyling', LoaderCustomStyling)
   vueApp.component('LoaderSizes', LoaderSizes)
+  vueApp.component('QueueCustom', QueueCustom)
+  vueApp.component('Queue', Queue)
+  vueApp.component('QueuePromptInput', QueuePromptInput)
 })
