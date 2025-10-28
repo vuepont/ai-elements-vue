@@ -7,6 +7,7 @@ import ChainOfThought from '~/examples/chain-of-thought.vue'
 import CodeBlock from '~/examples/code-block.vue'
 import Conversation from '~/examples/conversation.vue'
 import Image from '~/examples/image.vue'
+import InlineCitation from '~/examples/inline-citation.vue'
 import Loader from '~/examples/loader.vue'
 import MessageMarkdown from '~/examples/message-markdown.vue'
 import Message from '~/examples/message.vue'
@@ -40,6 +41,7 @@ const components = [
   { name: 'ChainOfThought', Component: ChainOfThought },
   { name: 'Queue', Component: Queue },
   { name: 'Plan', Component: Plan },
+  { name: 'InlineCitation', Component: InlineCitation },
 ]
 </script>
 
