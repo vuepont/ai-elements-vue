@@ -5,6 +5,7 @@ import {
   ChainOfThought,
   Conversation,
   Image,
+  InlineCitation,
   Loader,
   LoaderCustomStyling,
   LoaderSizes,
@@ -62,4 +63,5 @@ export default defineNuxtPlugin((nuxtApp) => {
   vueApp.component('Queue', Queue)
   vueApp.component('QueuePromptInput', QueuePromptInput)
   vueApp.component('Plan', Plan)
+  vueApp.component('InlineCitation', InlineCitation)
 })

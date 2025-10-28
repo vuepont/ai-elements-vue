@@ -1,7 +1,7 @@
 ---
 title: Chain of Thought
 description:
-icon: lucide:code
+icon: lucide:brain
 ---
 
 The `ChainOfThought` component provides a visual representation of an AI's reasoning process, showing step-by-step thinking with support for search results, images, and progress indicators. It helps users understand how AI arrives at conclusions.
