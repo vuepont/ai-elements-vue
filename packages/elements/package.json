@@ -8,18 +8,17 @@
   },
   "dependencies": {
     "@repo/shadcn-vue": "workspace:*",
-    "@selemondev/shiki-transformer-copy-button": "^0.0.2",
     "@vueuse/core": "^13.9.0",
     "ai": "^5.0.60",
     "lucide-vue-next": "^0.544.0",
     "motion-v": "^1.7.3",
-    "shiki-block-vue": "^1.0.5",
+    "shiki": "^3.14.0",
     "streamdown-vue": "^1.0.21",
     "vue": "^3.5.22",
     "vue-stick-to-bottom": "^0.1.0"
   },
   "devDependencies": {
-    "shiki": "^3.13.0",
+    "@types/hast": "^3.0.4",
     "typescript": "^5.9.3"
   }
 }

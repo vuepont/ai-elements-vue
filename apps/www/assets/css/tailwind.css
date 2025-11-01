@@ -119,4 +119,11 @@
   }
 }
 
-
+@layer components {
+  /* Override shadcn-docs-nuxt's .shiki code span.line styles
+    to prevent conflicts with code-block component preview */
+  .docs-component-preview .shiki code span.line {
+    min-height: 0 !important;
+    line-height: 0 !important;
+  }
+}

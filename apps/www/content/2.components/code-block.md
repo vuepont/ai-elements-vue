@@ -4,11 +4,14 @@ description:
 icon: lucide:code
 ---
 
-The `CodeBlock` component provides syntax highlighting and copy to clipboard functionality for code blocks. It uses Shiki for syntax highlighting and includes automatic light/dark theme switching.
+The `CodeBlock` component provides syntax highlighting, line numbers, and copy to clipboard functionality for code blocks.
+
+:::ComponentLoader{label="Preview" componentName="CodeBlock"}
+:::
 
 ## Install using CLI
 
-:::tabs{variant="card"}
+::::tabs{variant="card"}
   ::div{label="ai-elements-vue"}
   ```sh
   npx ai-elements-vue@latest add code-block
@@ -20,148 +23,420 @@ The `CodeBlock` component provides syntax highlighting and copy to clipboard fun
   npx shadcn-vue@latest add https://registry.ai-elements-vue.com/code-block.json
   ```
   ::
-:::
+::::
 
 ## Install Manually
 
 Copy and paste the following files into the same folder.
 
-:::code-group
+::::code-group
   ```vue [CodeBlock.vue]
   <script setup lang="ts">
-  import type { BuiltinTheme, BundledLanguage } from 'shiki'
-  import { transformerCopyButton } from '@selemondev/shiki-transformer-copy-button'
-  import CodeBlock from 'shiki-block-vue'
+  import type { BundledLanguage } from 'shiki'
+  import type { HTMLAttributes } from 'vue'
+  import { cn } from '@repo/shadcn-vue/lib/utils'
+  import { reactiveOmit } from '@vueuse/core'
+  import { computed, onBeforeUnmount, provide, ref, watch } from 'vue'
+  import { CodeBlockKey } from './context'
+  import { highlightCode } from './utils'
 
-  interface Props {
-    code: string
-    lang: BundledLanguage
-  }
+  const props = withDefaults(
+    defineProps<{
+      code: string
+      language: BundledLanguage
+      showLineNumbers?: boolean
+      class?: HTMLAttributes['class']
+    }>(),
+    {
+      showLineNumbers: false,
+    },
+  )
 
-  const props = withDefaults(defineProps<Props>(), {})
+  const delegatedProps = reactiveOmit(props, 'code', 'language', 'showLineNumbers', 'class')
 
-  const theme: { light: BuiltinTheme, dark: BuiltinTheme } = {
-    light: 'vitesse-light',
-    dark: 'vitesse-dark',
-  }
+  const html = ref('')
+  const darkHtml = ref('')
+
+  provide(CodeBlockKey, {
+    code: computed(() => props.code),
+  })
+
+  let requestId = 0
+  let isUnmounted = false
+
+  watch(
+    () => [props.code, props.language, props.showLineNumbers] as const,
+    async ([code, language, showLineNumbers]) => {
+      requestId += 1
+      const currentId = requestId
+
+      try {
+        const [light, dark] = await highlightCode(code, language, showLineNumbers)
+
+        if (currentId === requestId && !isUnmounted) {
+          html.value = light
+          darkHtml.value = dark
+        }
+      }
+      catch (error) {
+        console.error('[CodeBlock] highlight failed', error)
+      }
+    },
+    { immediate: true },
+  )
+
+  onBeforeUnmount(() => {
+    isUnmounted = true
+  })
   </script>
 
   <template>
-    <CodeBlock
-      :lang="props.lang"
-      :code="props.code"
-      :theme="theme"
-      class="overflow-hidden"
-      :transformers="[
-        transformerCopyButton({
-          duration: 3000,
-          display: 'ready',
-          successIcon: `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='rgba(128,128,128,1)' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' viewBox='0 0 24 24'%3E%3Crect width='8' height='4' x='8' y='2' rx='1' ry='1'/%3E%3Cpath d='M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2'/%3E%3Cpath d='m9 14 2 2 4-4'/%3E%3C/svg%3E`,
-          copyIcon: `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='rgba(128,128,128,1)' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' viewBox='0 0 24 24'%3E%3Crect width='8' height='4' x='8' y='2' rx='1' ry='1'/%3E%3Cpath d='M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2'/%3E%3Cpath d='m9 14 2 2 4-4'/%3E%3C/svg%3E`,
-        }),
-      ]"
-    />
+    <div
+      data-slot="code-block"
+      v-bind="delegatedProps"
+      :class="cn('group relative w-full overflow-hidden rounded-md border bg-background text-foreground', props.class)"
+    >
+      <div class="relative">
+        <div
+          class="overflow-hidden dark:hidden [&>pre]:m-0 [&>pre]:bg-background! [&>pre]:p-4 [&>pre]:text-foreground! [&>pre]:text-sm [&_code]:font-mono [&_code]:text-sm"
+          v-html="html"
+        />
+        <div
+          class="hidden overflow-hidden dark:block [&>pre]:m-0 [&>pre]:bg-background! [&>pre]:p-4 [&>pre]:text-foreground! [&>pre]:text-sm [&_code]:font-mono [&_code]:text-sm"
+          v-html="darkHtml"
+        />
+        <div v-if="$slots.default" class="absolute top-2 right-2 flex items-center gap-2">
+          <slot />
+        </div>
+      </div>
+    </div>
   </template>
+  ```
 
-  <style scoped>
-  /* Dark Mode */
-  @media (prefers-color-scheme: dark) {
-    :deep(.shiki),
-    :deep(.shiki span) {
-      color: var(--shiki-dark) !important;
-      background-color: var(--shiki-dark-bg) !important;
-      /* Optional, if you also want font styles */
-      font-style: var(--shiki-dark-font-style) !important;
-      font-weight: var(--shiki-dark-font-weight) !important;
-      text-decoration: var(--shiki-dark-text-decoration) !important;
+  ```vue [CodeBlockCopyButton.vue]
+  <script setup lang="ts">
+  import type { HTMLAttributes } from 'vue'
+  import { Button } from '@repo/shadcn-vue/components/ui/button'
+  import { cn } from '@repo/shadcn-vue/lib/utils'
+  import { reactiveOmit } from '@vueuse/core'
+  import { CheckIcon, CopyIcon } from 'lucide-vue-next'
+  import { computed, inject, onBeforeUnmount, ref } from 'vue'
+  import { CodeBlockKey } from './context'
+
+  const props = withDefaults(
+    defineProps<{
+      timeout?: number
+      class?: HTMLAttributes['class']
+    }>(),
+    {
+      timeout: 2000,
+    },
+  )
+
+  const emit = defineEmits<{
+    (event: 'copy'): void
+    (event: 'error', error: Error): void
+  }>()
+
+  const delegatedProps = reactiveOmit(props, 'timeout', 'class')
+
+  const context = inject(CodeBlockKey)
+
+  if (!context)
+    throw new Error('CodeBlockCopyButton must be used within a <CodeBlock />')
+
+  const { code } = context
+
+  const isCopied = ref(false)
+  let resetTimer: ReturnType<typeof setTimeout> | undefined
+
+  const icon = computed(() => (isCopied.value ? CheckIcon : CopyIcon))
+
+  async function copyToClipboard() {
+    if (typeof window === 'undefined' || !navigator?.clipboard?.writeText) {
+      const error = new Error('Clipboard API not available')
+      emit('error', error)
+      return
+    }
+
+    try {
+      await navigator.clipboard.writeText(code.value)
+      isCopied.value = true
+      emit('copy')
+
+      if (resetTimer) {
+        clearTimeout(resetTimer)
+      }
+
+      resetTimer = setTimeout(() => {
+        isCopied.value = false
+      }, props.timeout)
+    }
+    catch (error) {
+      emit('error', error instanceof Error ? error : new Error('Copy failed'))
     }
   }
 
-  html.dark :deep(.shiki),
-  html.dark :deep(.shiki span) {
-    color: var(--shiki-dark) !important;
-    background-color: var(--shiki-dark-bg) !important;
-    font-style: var(--shiki-dark-font-style) !important;
-    font-weight: var(--shiki-dark-font-weight) !important;
-    text-decoration: var(--shiki-dark-text-decoration) !important;
+  onBeforeUnmount(() => {
+    if (resetTimer) {
+      clearTimeout(resetTimer)
+    }
+  })
+  </script>
+
+  <template>
+    <Button
+      data-slot="code-block-copy-button"
+      v-bind="delegatedProps"
+      :class="cn('shrink-0', props.class)"
+      size="icon"
+      variant="ghost"
+      @click="copyToClipboard"
+    >
+      <slot>
+        <component :is="icon" :size="14" />
+      </slot>
+    </Button>
+  </template>
+  ```
+
+  ```ts [context.ts]
+  import type { ComputedRef, InjectionKey } from 'vue'
+
+  export interface CodeBlockContext {
+    code: ComputedRef<string>
   }
 
-  :deep(.shiki--code--block) {
-    width: 100%;
+  export const CodeBlockKey: InjectionKey<CodeBlockContext> = Symbol('CodeBlock')
+  ```
+
+  ```ts [utils.ts]
+  import type { Element } from 'hast'
+  import type { BundledLanguage, ShikiTransformer } from 'shiki'
+  import { codeToHtml } from 'shiki'
+
+  const lineNumberTransformer: ShikiTransformer = {
+    name: 'line-numbers',
+    line(node: Element, line: number) {
+      node.children.unshift({
+        type: 'element',
+        tagName: 'span',
+        properties: {
+          className: [
+            'inline-block',
+            'min-w-10',
+            'mr-4',
+            'text-right',
+            'select-none',
+            'text-muted-foreground',
+          ],
+        },
+        children: [{ type: 'text', value: String(line) }],
+      })
+    },
   }
 
-  :deep(pre) {
-    z-index: 1;
-    padding: 24px;
-    border-radius: 10px;
-    overflow-x: auto;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-    position: relative;
-    background-color: #F9F9F9 !important;
-  }
+  export async function highlightCode(
+    code: string,
+    language: BundledLanguage,
+    showLineNumbers = false,
+  ) {
+    const transformers: ShikiTransformer[] = showLineNumbers
+      ? [lineNumberTransformer]
+      : []
 
-  :deep(code) {
-    display: block;
-    line-height: 1.7;
-    font-size: 15px;
+    return await Promise.all([
+      codeToHtml(code, {
+        lang: language,
+        theme: 'one-light',
+        transformers,
+      }),
+      codeToHtml(code, {
+        lang: language,
+        theme: 'one-dark-pro',
+        transformers,
+      }),
+    ])
   }
-  </style>
   ```
 
   ```ts [index.ts]
   export { default as CodeBlock } from './CodeBlock.vue'
+  export { default as CodeBlockCopyButton } from './CodeBlockCopyButton.vue'
   ```
-:::
+::::
 
 ## Usage
 
 ```vue
-<script setup lang="ts">
-import { CodeBlock } from '@/components/ai-elements/code-block'
+import { CodeBlock, CodeBlockCopyButton } from '@/components/ai-elements/code-block'
+```
 
-const code = `<template>
-  <div>
-    <h1>Hello, {{ name }}!</h1>
-    <p>This is an example Vue component.</p>
-  </div>
-</template>
+```vue
+<CodeBlock :code="console.log('hello world')" language="javascript">
+  <CodeBlockCopyButton
+    @copy="() => console.log('Copied code to clipboard')"
+    @error="() => console.error('Failed to copy code to clipboard')"
+  />
+</CodeBlock>
+```
 
+## Usage with AI SDK
+
+Build a simple code generation tool using the [`experimental_useObject`](https://sdk.vercel.ai/docs/reference/ai-sdk-ui/use-object) hook.
+
+Add the following component to your frontend:
+
+::::code-group
+```vue [app/page.vue]
 <script setup lang="ts">
-interface Props {
-  name: string
+import { useObject } from '@ai-sdk/vue'
+import { ref } from 'vue'
+import { z } from 'zod'
+import { CodeBlock, CodeBlockCopyButton } from '@/components/ai-elements/code-block'
+import { Input, PromptInputSubmit, PromptInputTextarea } from '@/components/ai-elements/prompt-input'
+
+const codeBlockSchema = z.object({
+  language: z.string(),
+  filename: z.string(),
+  code: z.string(),
+})
+
+const input = ref('')
+const { object, submit, isLoading } = useObject({
+  api: '/api/codegen',
+  schema: codeBlockSchema,
+})
+
+function handleSubmit(e: Event) {
+  e.preventDefault()
+  if (input.value.trim()) {
+    submit(input.value)
+  }
 }
-
-defineProps<Props>()
-<\/script>`
 </script>
 
 <template>
-  <CodeBlock :code="code" lang="vue" />
+  <div class="max-w-4xl mx-auto p-6 relative size-full rounded-lg border h-[600px]">
+    <div class="flex flex-col h-full">
+      <div class="flex-1 overflow-auto mb-4">
+        <CodeBlock
+          v-if="object?.code && object?.language"
+          :code="object.code"
+          :language="object.language"
+          :show-line-numbers="true"
+        >
+          <CodeBlockCopyButton />
+        </CodeBlock>
+      </div>
+
+      <Input
+        class="mt-4 w-full max-w-2xl mx-auto relative"
+        @submit="handleSubmit"
+      >
+        <PromptInputTextarea
+          v-model="input"
+          placeholder="Generate a Vue todolist component"
+          class="pr-12"
+        />
+        <PromptInputSubmit
+          :status="isLoading ? 'streaming' : 'ready'"
+          :disabled="!input.trim()"
+          class="absolute bottom-1 right-1"
+        />
+      </Input>
+    </div>
+  </div>
 </template>
 ```
+::::
+
+Add the following route to your backend:
+
+::::code-group
+```ts [server/api/codegen.post.ts]
+import { openai } from '@ai-sdk/openai'
+import { streamObject } from 'ai'
+import { z } from 'zod'
+
+const codeBlockSchema = z.object({
+  language: z.string(),
+  filename: z.string(),
+  code: z.string(),
+})
+
+export default defineEventHandler(async (event) => {
+  const { prompt } = await readBody(event)
+
+  const result = streamObject({
+    model: openai('gpt-4o'),
+    schema: codeBlockSchema,
+    prompt:
+      `You are a helpful coding assitant. Only generate code, no markdown formatting or backticks, or text.${
+        prompt}`,
+  })
+
+  return result.toTextStreamResponse()
+})
+```
+::::
 
 ## Features
 
-- Syntax highlighting with Shiki
-- Copy to clipboard functionality
-- Automatic light/dark theme switching
-- Support for all Shiki bundled languages
-- Customizable themes (vitesse-light/vitesse-dark)
-- Responsive design with horizontal scrolling
-- Clean, modern styling
-- Accessible design
+* Syntax highlighting with Shiki
+* Line numbers (optional)
+* Copy to clipboard functionality
+* Automatic light/dark theme switching
+* Customizable styles
+* Accessible design
+
+## Examples
+
+### Dark Mode
+
+To use the `CodeBlock` component in dark mode, you can wrap it in a `div` with the `dark` class.
+
+:::ComponentLoader{label="Preview" componentName="CodeBlockDark"}
+:::
 
 ## Props
 
 ### `<CodeBlock />`
 
-:::field-group
+::::field-group
   ::field{name="code" type="string" required}
   The code content to display.
   ::
 
-  ::field{name="lang" type="BundledLanguage" required}
-  The programming language for syntax highlighting. Supports all Shiki bundled languages.
+  ::field{name="language" type="BundledLanguage" required}
+  The programming language for syntax highlighting.
   ::
-:::
+
+  ::field{name="showLineNumbers" type="boolean" default="false"}
+  Whether to show line numbers.
+  ::
+
+  ::field{name="class" type="string"}
+  Additional CSS classes to apply to the root container.
+  ::
+::::
+
+### `<CodeBlockCopyButton />`
+
+::::field-group
+  ::field{name="timeout" type="number" default="2000"}
+  How long to show the copied state (ms).
+  ::
+
+  ::field{name="class" type="string"}
+  Additional CSS classes to apply to the button.
+  ::
+
+  ::field{name="@copy" type="() => void"}
+  Callback fired after a successful copy.
+  ::
+
+  ::field{name="@error" type="(error: Error) => void"}
+  Callback fired if copying fails.
+  ::
+::::
