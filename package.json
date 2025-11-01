@@ -12,7 +12,6 @@
     "dev:www": "pnpm --filter www dev",
     "build:www": "pnpm --filter www build",
     "preview:www": "pnpm --filter www preview",
-    "dev:test": "pnpm --filter test dev",
     "dev:registry": "pnpm --filter registry dev",
     "build:registry": "pnpm --filter registry build",
     "prepare": "pnpm simple-git-hooks",

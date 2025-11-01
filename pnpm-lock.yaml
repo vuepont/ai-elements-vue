@@ -51,61 +51,6 @@ importers:
         specifier: ^27.0.0
         version: 27.0.0
 
-  apps/test:
-    dependencies:
-      '@repo/elements':
-        specifier: workspace:*
-        version: link:../../packages/elements
-      '@repo/shadcn-vue':
-        specifier: workspace:*
-        version: link:../../packages/shadcn-vue
-      '@tailwindcss/vite':
-        specifier: ^4.1.14
-        version: 4.1.14(vite@7.1.9(@types/node@24.6.2)(jiti@2.6.1)(lightningcss@1.30.1)(terser@5.44.0)(yaml@2.8.1))
-      '@vueuse/core':
-        specifier: ^13.9.0
-        version: 13.9.0(vue@3.5.22(typescript@5.9.3))
-      ai:
-        specifier: ^5.0.60
-        version: 5.0.60(zod@4.1.11)
-      class-variance-authority:
-        specifier: ^0.7.1
-        version: 0.7.1
-      clsx:
-        specifier: ^2.1.1
-        version: 2.1.1
-      lucide-vue-next:
-        specifier: ^0.544.0
-        version: 0.544.0(vue@3.5.22(typescript@5.9.3))
-      nanoid:
-        specifier: ^5.1.6
-        version: 5.1.6
-      nuxt:
-        specifier: ^4.1.2
-        version: 4.1.2(@parcel/watcher@2.5.1)(@types/node@24.6.2)(@vue/compiler-sfc@3.5.22)(db0@0.3.4)(eslint@9.37.0(jiti@2.6.1))(ioredis@5.8.0)(lightningcss@1.30.1)(magicast@0.3.5)(optionator@0.9.4)(rollup@4.52.4)(terser@5.44.0)(typescript@5.9.3)(vite@7.1.9(@types/node@24.6.2)(jiti@2.6.1)(lightningcss@1.30.1)(terser@5.44.0)(yaml@2.8.1))(vue-tsc@3.1.0(typescript@5.9.3))(yaml@2.8.1)
-      shadcn-nuxt:
-        specifier: 2.3.1
-        version: 2.3.1(magicast@0.3.5)
-      tailwind-merge:
-        specifier: ^3.3.1
-        version: 3.3.1
-      tailwindcss:
-        specifier: ^4.1.14
-        version: 4.1.14
-      tw-animate-css:
-        specifier: ^1.4.0
-        version: 1.4.0
-      vue:
-        specifier: ^3.5.22
-        version: 3.5.22(typescript@5.9.3)
-      vue-router:
-        specifier: ^4.5.1
-        version: 4.5.1(vue@3.5.22(typescript@5.9.3))
-    devDependencies:
-      typescript:
-        specifier: ^5.9.3
-        version: 5.9.3
-
   apps/www:
     dependencies:
       '@repo/elements':
@@ -8581,6 +8526,7 @@ snapshots:
       vite: 7.1.9(@types/node@24.6.2)(jiti@2.6.1)(lightningcss@1.30.1)(terser@5.44.0)(yaml@2.8.1)
     transitivePeerDependencies:
       - magicast
+    optional: true
 
   '@nuxt/devtools-wizard@2.6.5':
     dependencies:
@@ -8674,6 +8620,7 @@ snapshots:
       - supports-color
       - utf-8-validate
       - vue
+    optional: true
 
   '@nuxt/fonts@0.11.4(db0@0.3.4)(ioredis@5.8.0)(magicast@0.3.5)(vite@7.1.9(@types/node@24.6.2)(jiti@2.6.0)(lightningcss@1.30.1)(terser@5.44.0)(yaml@2.8.1))':
     dependencies:
@@ -8881,6 +8828,7 @@ snapshots:
       pkg-types: 2.3.0
       std-env: 3.9.0
       ufo: 1.6.1
+    optional: true
 
   '@nuxt/scripts@0.11.13(@unhead/vue@2.0.17(vue@3.5.22(typescript@5.9.3)))(db0@0.3.4)(ioredis@5.8.0)(magicast@0.3.5)(typescript@5.9.3)(vue@3.5.22(typescript@5.9.3))':
     dependencies:
@@ -9058,6 +9006,7 @@ snapshots:
       - vti
       - vue-tsc
       - yaml
+    optional: true
 
   '@nuxtjs/color-mode@3.5.2(magicast@0.3.5)':
     dependencies:
@@ -9444,7 +9393,8 @@ snapshots:
 
   '@oxc-project/types@0.78.0': {}
 
-  '@oxc-project/types@0.87.0': {}
+  '@oxc-project/types@0.87.0':
+    optional: true
 
   '@oxc-project/types@0.93.0': {}
 
@@ -10514,6 +10464,7 @@ snapshots:
       vue: 3.5.22(typescript@5.9.3)
     transitivePeerDependencies:
       - supports-color
+    optional: true
 
   '@vitejs/plugin-vue@6.0.1(vite@7.1.7(@types/node@24.6.2)(jiti@2.6.0)(lightningcss@1.30.1)(terser@5.44.0)(yaml@2.8.1))(vue@3.5.22(typescript@5.9.3))':
     dependencies:
@@ -10526,6 +10477,7 @@ snapshots:
       '@rolldown/pluginutils': 1.0.0-beta.29
       vite: 7.1.9(@types/node@24.6.2)(jiti@2.6.1)(lightningcss@1.30.1)(terser@5.44.0)(yaml@2.8.1)
       vue: 3.5.22(typescript@5.9.3)
+    optional: true
 
   '@vitest/eslint-plugin@1.3.16(eslint@9.37.0(jiti@2.6.1))(typescript@5.9.3)':
     dependencies:
@@ -10540,8 +10492,10 @@ snapshots:
   '@volar/language-core@2.4.23':
     dependencies:
       '@volar/source-map': 2.4.23
+    optional: true
 
-  '@volar/source-map@2.4.23': {}
+  '@volar/source-map@2.4.23':
+    optional: true
 
   '@volar/typescript@2.4.23':
     dependencies:
@@ -10580,6 +10534,7 @@ snapshots:
       unplugin-utils: 0.2.5
     optionalDependencies:
       vue: 3.5.22(typescript@5.9.3)
+    optional: true
 
   '@vue/babel-helper-vue-transform-on@1.5.0': {}
 
@@ -10669,6 +10624,7 @@ snapshots:
       vue: 3.5.22(typescript@5.9.3)
     transitivePeerDependencies:
       - vite
+    optional: true
 
   '@vue/devtools-kit@7.7.7':
     dependencies:
@@ -10695,6 +10651,7 @@ snapshots:
       picomatch: 4.0.3
     optionalDependencies:
       typescript: 5.9.3
+    optional: true
 
   '@vue/reactivity@3.5.22':
     dependencies:
@@ -10892,7 +10849,8 @@ snapshots:
       json-schema-traverse: 1.0.0
       require-from-string: 2.0.2
 
-  alien-signals@3.0.0: {}
+  alien-signals@3.0.0:
+    optional: true
 
   ansi-escapes@7.1.1:
     dependencies:
@@ -13778,7 +13736,8 @@ snapshots:
 
   ms@2.1.3: {}
 
-  muggle-string@0.4.1: {}
+  muggle-string@0.4.1:
+    optional: true
 
   murmurhash-js@1.0.0: {}
 
@@ -14266,6 +14225,7 @@ snapshots:
       - vue-tsc
       - xml2js
       - yaml
+    optional: true
 
   nypm@0.6.2:
     dependencies:
@@ -14371,6 +14331,7 @@ snapshots:
       '@oxc-minify/binding-wasm32-wasi': 0.87.0
       '@oxc-minify/binding-win32-arm64-msvc': 0.87.0
       '@oxc-minify/binding-win32-x64-msvc': 0.87.0
+    optional: true
 
   oxc-parser@0.70.0:
     dependencies:
@@ -14430,6 +14391,7 @@ snapshots:
       '@oxc-parser/binding-wasm32-wasi': 0.87.0
       '@oxc-parser/binding-win32-arm64-msvc': 0.87.0
       '@oxc-parser/binding-win32-x64-msvc': 0.87.0
+    optional: true
 
   oxc-parser@0.93.0:
     dependencies:
@@ -14486,6 +14448,7 @@ snapshots:
       '@oxc-transform/binding-wasm32-wasi': 0.87.0
       '@oxc-transform/binding-win32-arm64-msvc': 0.87.0
       '@oxc-transform/binding-win32-x64-msvc': 0.87.0
+    optional: true
 
   oxc-walker@0.4.0(oxc-parser@0.78.0):
     dependencies:
@@ -14497,6 +14460,7 @@ snapshots:
     dependencies:
       magic-regexp: 0.10.0
       oxc-parser: 0.87.0
+    optional: true
 
   p-limit@3.1.0:
     dependencies:
@@ -16043,6 +16007,7 @@ snapshots:
     transitivePeerDependencies:
       - typescript
       - vue
+    optional: true
 
   unplugin@1.16.1:
     dependencies:
@@ -16159,6 +16124,7 @@ snapshots:
       birpc: 2.6.1
       vite: 7.1.9(@types/node@24.6.2)(jiti@2.6.1)(lightningcss@1.30.1)(terser@5.44.0)(yaml@2.8.1)
       vite-hot-client: 2.1.0(vite@7.1.9(@types/node@24.6.2)(jiti@2.6.1)(lightningcss@1.30.1)(terser@5.44.0)(yaml@2.8.1))
+    optional: true
 
   vite-hot-client@2.1.0(vite@7.1.9(@types/node@24.6.2)(jiti@2.6.0)(lightningcss@1.30.1)(terser@5.44.0)(yaml@2.8.1)):
     dependencies:
@@ -16167,6 +16133,7 @@ snapshots:
   vite-hot-client@2.1.0(vite@7.1.9(@types/node@24.6.2)(jiti@2.6.1)(lightningcss@1.30.1)(terser@5.44.0)(yaml@2.8.1)):
     dependencies:
       vite: 7.1.9(@types/node@24.6.2)(jiti@2.6.1)(lightningcss@1.30.1)(terser@5.44.0)(yaml@2.8.1)
+    optional: true
 
   vite-node@3.2.4(@types/node@24.6.2)(jiti@2.6.0)(lightningcss@1.30.1)(terser@5.44.0)(yaml@2.8.1):
     dependencies:
@@ -16209,6 +16176,7 @@ snapshots:
       - terser
       - tsx
       - yaml
+    optional: true
 
   vite-plugin-checker@0.10.3(eslint@9.37.0(jiti@2.6.0))(optionator@0.9.4)(typescript@5.9.3)(vite@7.1.7(@types/node@24.6.2)(jiti@2.6.0)(lightningcss@1.30.1)(terser@5.44.0)(yaml@2.8.1))(vue-tsc@3.1.0(typescript@5.9.3)):
     dependencies:
@@ -16245,6 +16213,7 @@ snapshots:
       optionator: 0.9.4
       typescript: 5.9.3
       vue-tsc: 3.1.0(typescript@5.9.3)
+    optional: true
 
   vite-plugin-inspect@11.3.3(@nuxt/kit@3.19.2(magicast@0.3.5))(vite@7.1.9(@types/node@24.6.2)(jiti@2.6.0)(lightningcss@1.30.1)(terser@5.44.0)(yaml@2.8.1)):
     dependencies:
@@ -16279,6 +16248,7 @@ snapshots:
       '@nuxt/kit': 3.19.2(magicast@0.3.5)
     transitivePeerDependencies:
       - supports-color
+    optional: true
 
   vite-plugin-vue-tracer@1.0.1(vite@7.1.9(@types/node@24.6.2)(jiti@2.6.0)(lightningcss@1.30.1)(terser@5.44.0)(yaml@2.8.1))(vue@3.5.22(typescript@5.9.3)):
     dependencies:
@@ -16299,6 +16269,7 @@ snapshots:
       source-map-js: 1.2.1
       vite: 7.1.9(@types/node@24.6.2)(jiti@2.6.1)(lightningcss@1.30.1)(terser@5.44.0)(yaml@2.8.1)
       vue: 3.5.22(typescript@5.9.3)
+    optional: true
 
   vite@7.1.7(@types/node@24.6.2)(jiti@2.6.0)(lightningcss@1.30.1)(terser@5.44.0)(yaml@2.8.1):
     dependencies:
@@ -16331,6 +16302,7 @@ snapshots:
       lightningcss: 1.30.1
       terser: 5.44.0
       yaml: 2.8.1
+    optional: true
 
   vite@7.1.9(@types/node@24.6.2)(jiti@2.6.0)(lightningcss@1.30.1)(terser@5.44.0)(yaml@2.8.1):
     dependencies:
@@ -16396,6 +16368,7 @@ snapshots:
   vue-bundle-renderer@2.2.0:
     dependencies:
       ufo: 1.6.1
+    optional: true
 
   vue-demi@0.14.10(vue@3.5.22(typescript@5.9.3)):
     dependencies:
