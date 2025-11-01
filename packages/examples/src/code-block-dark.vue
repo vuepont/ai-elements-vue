@@ -27,10 +27,12 @@ function handleError(error: Error) {
 </script>
 
 <template>
-  <CodeBlock :code="code" language="vue">
-    <CodeBlockCopyButton
-      @copy="handleCopy"
-      @error="handleError"
-    />
-  </CodeBlock>
+  <div class="dark">
+    <CodeBlock :code="code" language="vue">
+      <CodeBlockCopyButton
+        @copy="handleCopy"
+        @error="handleError"
+      />
+    </CodeBlock>
+  </div>
 </template>

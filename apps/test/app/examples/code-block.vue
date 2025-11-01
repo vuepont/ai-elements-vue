@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { CodeBlock } from '@repo/elements/code-block'
+import { CodeBlock, CodeBlockCopyButton } from '@repo/elements/code-block'
 
 const code = `<template>
   <div>
@@ -15,8 +15,22 @@ interface Props {
 
 defineProps<Props>()
 <\/script>`
+
+function handleCopy() {
+  // eslint-disable-next-line no-console
+  console.log('Copied code to clipboard')
+}
+
+function handleError(error: Error) {
+  console.error('Failed to copy code to clipboard', error)
+}
 </script>
 
 <template>
-  <CodeBlock :code="code" lang="vue" />
+  <CodeBlock :code="code" language="vue">
+    <CodeBlockCopyButton
+      @copy="handleCopy"
+      @error="handleError"
+    />
+  </CodeBlock>
 </template>

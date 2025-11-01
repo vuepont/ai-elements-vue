@@ -3,6 +3,8 @@ import {
   ActionsHover,
   Branch,
   ChainOfThought,
+  CodeBlock,
+  CodeBlockDark,
   Conversation,
   Image,
   InlineCitation,
@@ -64,4 +66,6 @@ export default defineNuxtPlugin((nuxtApp) => {
   vueApp.component('QueuePromptInput', QueuePromptInput)
   vueApp.component('Plan', Plan)
   vueApp.component('InlineCitation', InlineCitation)
+  vueApp.component('CodeBlock', CodeBlock)
+  vueApp.component('CodeBlockDark', CodeBlockDark)
 })
