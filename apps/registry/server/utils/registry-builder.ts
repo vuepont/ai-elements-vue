@@ -1,7 +1,7 @@
 import { promises as fs } from 'node:fs'
-import { join, relative } from 'node:path'
+import { basename, join, relative } from 'node:path'
+import { parse as parseSFC } from '@vue/compiler-sfc'
 import { Project } from 'ts-morph'
-import { parse as parseSFC } from 'vue/compiler-sfc'
 
 interface FileRec { type: string, path: string, target?: string, content: string }
 
@@ -128,7 +128,7 @@ function analyzeDependencies(
   return { dependencies, devDependencies, registryDependencies }
 }
 
-async function walkVueFiles(dir: string): Promise<string[]> {
+async function walkComponentFiles(dir: string, rootDir: string): Promise<string[]> {
   const out: string[] = []
   let entries: any[] = []
   try {
@@ -140,15 +140,21 @@ async function walkVueFiles(dir: string): Promise<string[]> {
   for (const entry of entries) {
     const full = join(dir, entry.name)
     if (entry.isDirectory()) {
-      const nested = await walkVueFiles(full)
+      const nested = await walkComponentFiles(full, rootDir)
       out.push(...nested)
     }
-    else if (entry.isFile() && entry.name.endsWith('.vue')) {
-      out.push(full)
-    }
-    else if (entry.isFile() && entry.name === 'index.ts' && !full.endsWith('/src/index.ts')) {
-      // Only include index.ts files that are not the root src/index.ts
-      out.push(full)
+    else if (entry.isFile()) {
+      // Include all .vue files
+      if (entry.name.endsWith('.vue')) {
+        out.push(full)
+      }
+      // Include all .ts files except the root src/index.ts
+      else if (entry.name.endsWith('.ts')) {
+        const isRootIndex = full === join(rootDir, 'index.ts')
+        if (!isRootIndex) {
+          out.push(full)
+        }
+      }
     }
   }
   return out
@@ -185,9 +191,9 @@ export async function generateRegistryAssets(ctx: { rootDir: string }) {
   const allowedDeps = new Set(Object.keys(allDeps || {}).filter((d: string) => !['vue', '@repo/shadcn-vue', ...Array.from(internalDeps)].includes(d)))
   const allowedDevDeps = new Set(Object.keys(allDevDeps || {}).filter((d: string) => !['typescript'].includes(d)))
 
-  const vueFiles = await walkVueFiles(srcDir)
+  const componentFiles = await walkComponentFiles(srcDir, srcDir)
   const files: FileRec[] = []
-  for (const abs of vueFiles) {
+  for (const abs of componentFiles) {
     const raw = await fs.readFile(abs, 'utf-8')
     const parsed = raw
       .replace(/@repo\/shadcn-vue\//g, '@/')
@@ -204,7 +210,7 @@ export async function generateRegistryAssets(ctx: { rootDir: string }) {
       for (const abs of candidates) {
         const raw = await fs.readFile(abs, 'utf-8')
         const parsed = raw.replace(/@repo\/elements\//g, '@/components/ai-elements/')
-        const name = abs.split('/').pop() as string
+        const name = basename(abs)
         exampleFiles.push({ type: 'registry:block', path: `components/ai-elements/examples/${name}`, target: '', content: parsed })
       }
     }
@@ -229,7 +235,8 @@ export async function generateRegistryAssets(ctx: { rootDir: string }) {
   }))
 
   const exampleItems = exampleFiles.map((ef) => {
-    const name = (ef.path.split('/').pop() as string).replace('.vue', '')
+    const fileName = basename(ef.path)
+    const name = fileName.replace('.vue', '')
     return {
       name: `example-${name}`,
       type: 'registry:block',
@@ -257,15 +264,26 @@ export async function generateRegistryAssets(ctx: { rootDir: string }) {
     const groupRegistryDeps = new Set<string>()
 
     for (const f of groupFiles) {
-      const { descriptor } = parseSFC(f.content)
-      const code = [descriptor.script?.content || '', descriptor.scriptSetup?.content || ''].join('\n')
-      const imports = parseImportsFromCode(code)
-      const analysis = analyzeDependencies(imports, allowedDeps, allowedDevDeps)
+      let code = ''
+      // Handle Vue SFC files
+      if (f.path.endsWith('.vue')) {
+        const { descriptor } = parseSFC(f.content)
+        code = [descriptor.script?.content || '', descriptor.scriptSetup?.content || ''].join('\n')
+      }
+      // Handle TypeScript files
+      else if (f.path.endsWith('.ts')) {
+        code = f.content
+      }
 
-      // Merge results
-      analysis.dependencies.forEach(dep => groupDeps.add(dep))
-      analysis.devDependencies.forEach(dep => groupDevDeps.add(dep))
-      analysis.registryDependencies.forEach(dep => groupRegistryDeps.add(dep))
+      if (code) {
+        const imports = parseImportsFromCode(code)
+        const analysis = analyzeDependencies(imports, allowedDeps, allowedDevDeps)
+
+        // Merge results
+        analysis.dependencies.forEach(dep => groupDeps.add(dep))
+        analysis.devDependencies.forEach(dep => groupDevDeps.add(dep))
+        analysis.registryDependencies.forEach(dep => groupRegistryDeps.add(dep))
+      }
     }
 
     const itemJson = {
@@ -290,7 +308,8 @@ export async function generateRegistryAssets(ctx: { rootDir: string }) {
   }
 
   for (const ef of exampleFiles) {
-    const name = (ef.path.split('/').pop() as string).replace('.vue', '')
+    const fileName = basename(ef.path)
+    const name = fileName.replace('.vue', '')
 
     // Analyze dependencies for example files
     const { descriptor } = parseSFC(ef.content)
