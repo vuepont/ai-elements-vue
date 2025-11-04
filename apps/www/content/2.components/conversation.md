@@ -160,7 +160,6 @@ import {
       <MessageContent>Hi there!</MessageContent>
     </Message>
   </ConversationContent>
-  <ConversationScrollButton />
 </Conversation>
 ```
 
