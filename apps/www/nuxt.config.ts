@@ -48,6 +48,19 @@ export default defineNuxtConfig({
       sourcemap: false,
       chunkSizeWarningLimit: 1500,
     },
+    optimizeDeps: {
+      include: [
+        'dayjs',
+        '@braintree/sanitize-url',
+        'mermaid',
+      ],
+      esbuildOptions: {
+        target: 'esnext',
+      },
+    },
+    resolve: {
+      dedupe: ['dayjs'],
+    },
   },
 
   nitro: {
