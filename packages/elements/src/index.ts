@@ -1,6 +1,7 @@
 export * from './actions'
 export * from './branch'
 export * from './chain-of-thought'
+export * from './checkpoint'
 export * from './code-block'
 export * from './conversation'
 export * from './image'

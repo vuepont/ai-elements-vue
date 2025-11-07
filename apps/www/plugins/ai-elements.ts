@@ -3,6 +3,7 @@ import {
   ActionsHover,
   Branch,
   ChainOfThought,
+  Checkpoint,
   CodeBlock,
   CodeBlockDark,
   Conversation,
@@ -68,4 +69,5 @@ export default defineNuxtPlugin((nuxtApp) => {
   vueApp.component('InlineCitation', InlineCitation)
   vueApp.component('CodeBlock', CodeBlock)
   vueApp.component('CodeBlockDark', CodeBlockDark)
+  vueApp.component('Checkpoint', Checkpoint)
 })
