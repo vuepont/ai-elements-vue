@@ -11,6 +11,7 @@ The `Connection` component provides a styled connection line for React Flow canv
 
 ## Installation
 
+<!-- TODO: to implement installation block -->
 <!-- <ElementsInstaller path="connection" /> -->
 
 ## Features

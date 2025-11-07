@@ -6,10 +6,12 @@ icon: lucide:view
 
 The `WebPreview` component provides a flexible way to showcase the result of a generated UI component, along with its source code. It is designed for documentation and demo purposes, allowing users to interact with live examples and view the underlying implementation.
 
+<!-- TODO: to implement preview block -->
 <!-- <Preview path="web-preview" /> -->
 
 ## Installation
 
+<!-- TODO: to implement installation block -->
 <!-- <ElementsInstaller path="web-preview" /> -->
 
 ## Usage with AI SDK

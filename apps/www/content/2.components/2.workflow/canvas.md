@@ -11,6 +11,7 @@ The `Canvas` component provides a React Flow-based canvas for building interacti
 
 ## Installation
 
+<!-- TODO: to implement installation block -->
 <!-- <ElementsInstaller path="canvas" /> -->
 
 ## Features

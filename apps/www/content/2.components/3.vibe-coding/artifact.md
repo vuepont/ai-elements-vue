@@ -6,10 +6,12 @@ description: A container component for displaying generated content like code, d
 
 The `Artifact` component provides a structured container for displaying generated content like code, documents, or other outputs with built-in header actions.
 
+<!-- TODO: to implement preview block -->
 <!-- <Preview path="artifact" /> -->
 
 ## Installation
 
+<!-- TODO: to implement installation block -->
 <!-- <ElementsInstaller path="artifact" /> -->
 
 ## Features
@@ -28,6 +30,7 @@ The `Artifact` component provides a structured container for displaying generate
 
 ### With Code Display
 
+<!-- TODO: to implement preview block -->
 <!-- <Preview path="artifact" /> -->
 
 ## Props

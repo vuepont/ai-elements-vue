@@ -11,6 +11,7 @@ The `Panel` component provides a positioned container for custom UI elements on 
 
 ## Installation
 
+<!-- TODO: to implement installation block -->
 <!-- <ElementsInstaller path="panel" /> -->
 
 ## Features

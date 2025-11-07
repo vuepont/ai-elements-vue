@@ -11,6 +11,7 @@ The `Toolbar` component provides a positioned toolbar that attaches to nodes in 
 
 ## Installation
 
+<!-- TODO: to implement installation block -->
 <!-- <ElementsInstaller path="toolbar" /> -->
 
 ## Features

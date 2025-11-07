@@ -11,6 +11,7 @@ The `Controls` component provides interactive zoom and fit view controls for Rea
 
 ## Installation
 
+<!-- TODO: to implement installation block -->
 <!-- <ElementsInstaller path="controls" /> -->
 
 ## Features

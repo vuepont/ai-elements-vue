@@ -11,6 +11,7 @@ The `Node` component provides a composable, Card-based node for React Flow canva
 
 ## Installation
 
+<!-- TODO: to implement installation block -->
 <!-- <ElementsInstaller path="node" /> -->
 
 ## Features

@@ -11,6 +11,7 @@ The `Edge` component provides two pre-styled edge types for React Flow canvases:
 
 ## Installation
 
+<!-- TODO: to implement installation block -->
 <!-- <ElementsInstaller path="edge" /> -->
 
 ## Features
