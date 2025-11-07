@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { FlowEmits, FlowProps } from '@vue-flow/core'
+import type { FlowEmits, FlowProps, FlowSlots } from '@vue-flow/core'
 import { Background } from '@vue-flow/background'
 import { VueFlow } from '@vue-flow/core'
 import { useForwardPropsEmits } from 'reka-ui'
@@ -17,7 +17,7 @@ const props = withDefaults(defineProps<FlowProps>(), {
 })
 
 const emits = defineEmits<FlowEmits>()
-
+const slots = defineSlots<FlowSlots>()
 const forwarded = useForwardPropsEmits(props, emits)
 </script>
 
@@ -25,6 +25,9 @@ const forwarded = useForwardPropsEmits(props, emits)
   <VueFlow data-slot="canvas" v-bind="forwarded">
     <Background />
     <Controls />
-    <slot />
+
+    <template v-if="slots['connection-line']" #connection-line="connectionLineProps">
+      <slot name="connection-line" v-bind="connectionLineProps" />
+    </template>
   </VueFlow>
 </template>

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { Edge, Node } from '@vue-flow/core'
 import { Canvas } from '@repo/elements/canvas'
+import { Connection } from '@repo/elements/connection'
 import { nanoid } from 'nanoid'
 import { ref } from 'vue'
 
@@ -33,6 +34,10 @@ const edges = ref<Edge[]>([
 
 <template>
   <div style="height: 400px">
-    <Canvas :nodes="nodes" :edges="edges" />
+    <Canvas :nodes="nodes" :edges="edges">
+      <template #connection-line="connectionLineProps">
+        <Connection v-bind="connectionLineProps" />
+      </template>
+    </Canvas>
   </div>
 </template>

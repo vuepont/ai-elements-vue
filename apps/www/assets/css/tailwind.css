@@ -68,6 +68,8 @@
     --input: 214.3 31.8% 91.4%;
     --ring: 221.2 83.2% 53.3%;
     --radius: 0.5rem;
+
+    --shadcn-ring: oklch(0.708 0 0);
   }
 
   .dark {
@@ -98,6 +100,8 @@
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 224.3 76.3% 48%;
+
+    --shadcn-ring: oklch(0.439 0 0);
   }
 }
 
@@ -109,13 +113,17 @@
   body {
     @apply bg-background text-foreground;
   }
+
   :root {
     --color-background: hsl(var(--background));
     --color-muted-foreground: hsl(var(--muted-foreground));
+    --color-ring: var(--shadcn-ring);
   }
+
   .dark {
     --color-background: hsl(var(--background));
     --color-muted-foreground: hsl(var(--muted-foreground));
+    --color-ring: var(--shadcn-ring);
   }
 }
 
