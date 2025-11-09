@@ -1,21 +1,23 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue'
 import { cn } from '@repo/shadcn-vue/lib/utils'
+import { useSlots } from 'vue'
 
 interface Props {
   class?: HTMLAttributes['class']
 }
 
 const props = defineProps<Props>()
+
+const slots = useSlots()
 </script>
 
 <template>
   <div
+    v-if="slots.default"
     :class="
       cn(
-        'is-user:dark flex w-fit flex-col gap-2 overflow-hidden text-sm',
-        'group-[.is-user]:ml-auto group-[.is-user]:rounded-lg group-[.is-user]:bg-secondary group-[.is-user]:px-4 group-[.is-user]:py-3 group-[.is-user]:text-foreground',
-        'group-[.is-assistant]:text-foreground',
+        'ml-auto flex w-fit flex-wrap items-start gap-2',
         props.class,
       )
     "
