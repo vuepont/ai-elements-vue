@@ -1,11 +1,7 @@
 <script setup lang="ts">
 import type { EdgeTypesObject, NodeTypesObject } from '@vue-flow/core'
 import { Canvas } from '@repo/elements/canvas'
-import { Connection } from '@repo/elements/connection'
-import { Controls } from '@repo/elements/controls'
 import { Animated, Temporary } from '@repo/elements/edge'
-import { Panel } from '@repo/elements/panel'
-import { Button } from '@repo/shadcn-vue/components/ui/button'
 import { nanoid } from 'nanoid'
 import { markRaw, ref } from 'vue'
 import CustomNode from './custom-node.vue'
@@ -13,16 +9,20 @@ import CustomNode from './custom-node.vue'
 const nodeIds = {
   start: nanoid(),
   process1: nanoid(),
+  process2: nanoid(),
+  decision: nanoid(),
+  output1: nanoid(),
+  output2: nanoid(),
 }
 
 const nodes = ref([
   {
     id: nodeIds.start,
     type: 'custom',
-    position: { x: 80, y: 80 },
+    position: { x: 0, y: 0 },
     data: {
-      label: 'start',
-      description: 'test',
+      label: 'Start',
+      description: 'Initialize workflow',
       content: 'test',
       footer: 'test',
       handles: { target: false, source: true },
@@ -31,13 +31,61 @@ const nodes = ref([
   {
     id: nodeIds.process1,
     type: 'custom',
-    position: { x: 320, y: 260 },
+    position: { x: 500, y: 0 },
     data: {
-      label: 'process1',
-      description: 'test',
+      label: 'Process Data',
+      description: 'Transform input',
       content: 'test',
       footer: 'test',
       handles: { target: true, source: true },
+    },
+  },
+  {
+    id: nodeIds.decision,
+    type: 'custom',
+    position: { x: 1000, y: 0 },
+    data: {
+      label: 'Decision Point',
+      description: 'Route based on conditions',
+      content: 'test',
+      footer: 'test',
+      handles: { target: true, source: true },
+    },
+  },
+  {
+    id: nodeIds.output1,
+    type: 'custom',
+    position: { x: 1500, y: -100 },
+    data: {
+      label: 'Success Path',
+      description: 'Handle success case',
+      content: 'test',
+      footer: 'test',
+      handles: { target: true, source: true },
+    },
+  },
+  {
+    id: nodeIds.output2,
+    type: 'custom',
+    position: { x: 1500, y: 100 },
+    data: {
+      label: 'Error Path',
+      description: 'Handle error case',
+      content: 'test',
+      footer: 'test',
+      handles: { target: true, source: true },
+    },
+  },
+  {
+    id: nodeIds.process2,
+    type: 'custom',
+    position: { x: 2000, y: 0 },
+    data: {
+      label: 'Complete',
+      description: 'Finalize workflow',
+      content: 'test',
+      footer: 'test',
+      handles: { target: true, source: false },
     },
   },
 ])
@@ -48,6 +96,36 @@ const edges = ref([
     source: nodeIds.start,
     target: nodeIds.process1,
     type: 'animated',
+  },
+  {
+    id: nanoid(),
+    source: nodeIds.process1,
+    target: nodeIds.decision,
+    type: 'animated',
+  },
+  {
+    id: nanoid(),
+    source: nodeIds.decision,
+    target: nodeIds.output1,
+    type: 'animated',
+  },
+  {
+    id: nanoid(),
+    source: nodeIds.decision,
+    target: nodeIds.output2,
+    type: 'temporary',
+  },
+  {
+    id: nanoid(),
+    source: nodeIds.output1,
+    target: nodeIds.process2,
+    type: 'animated',
+  },
+  {
+    id: nanoid(),
+    source: nodeIds.output2,
+    target: nodeIds.process2,
+    type: 'temporary',
   },
 ])
 
@@ -68,17 +146,6 @@ const edgeTypes: EdgeTypesObject = {
       :edges="edges"
       :node-types="nodeTypes"
       :edge-types="edgeTypes"
-    >
-      <template #connection-line="connectionLineProps">
-        <Connection v-bind="connectionLineProps" />
-      </template>
-
-      <Controls />
-      <Panel position="top-right">
-        <Button size="sm" variant="secondary">
-          Export
-        </Button>
-      </Panel>
-    </Canvas>
+    />
   </div>
 </template>

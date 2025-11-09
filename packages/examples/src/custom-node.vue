@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import type { NodeProps } from '@vue-flow/core'
 import { Node, NodeContent, NodeDescription, NodeFooter, NodeHeader, NodeTitle } from '@repo/elements/node'
-import { Toolbar } from '@repo/elements/toolbar'
-import { Button } from '@repo/shadcn-vue/components/ui/button'
 
 const props = defineProps<NodeProps>()
 </script>
@@ -25,14 +23,5 @@ const props = defineProps<NodeProps>()
         {{ props.data?.footer }}
       </p>
     </NodeFooter>
-
-    <Toolbar>
-      <Button size="sm" variant="ghost">
-        Edit
-      </Button>
-      <Button size="sm" variant="ghost">
-        Delete
-      </Button>
-    </Toolbar>
   </Node>
 </template>
