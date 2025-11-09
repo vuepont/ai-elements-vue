@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import type { Edge, Node, NodeTypesObject } from '@vue-flow/core'
+import type { EdgeTypesObject, NodeTypesObject } from '@vue-flow/core'
 import { Canvas } from '@repo/elements/canvas'
 import { Connection } from '@repo/elements/connection'
 import { Controls } from '@repo/elements/controls'
+import { Animated, Temporary } from '@repo/elements/edge'
 import { Panel } from '@repo/elements/panel'
 import { Button } from '@repo/shadcn-vue/components/ui/button'
 import { nanoid } from 'nanoid'
@@ -14,7 +15,7 @@ const nodeIds = {
   process1: nanoid(),
 }
 
-const nodes = ref<Node[]>([
+const nodes = ref([
   {
     id: nodeIds.start,
     type: 'custom',
@@ -41,22 +42,33 @@ const nodes = ref<Node[]>([
   },
 ])
 
-const edges = ref<Edge[]>([
+const edges = ref([
   {
     id: nanoid(),
     source: nodeIds.start,
     target: nodeIds.process1,
+    type: 'animated',
   },
 ])
 
 const nodeTypes: NodeTypesObject = {
   custom: markRaw(CustomNode),
 }
+
+const edgeTypes: EdgeTypesObject = {
+  animated: markRaw(Animated),
+  temporary: markRaw(Temporary),
+}
 </script>
 
 <template>
   <div style="height: 400px">
-    <Canvas :nodes="nodes" :edges="edges" :node-types="nodeTypes">
+    <Canvas
+      :nodes="nodes"
+      :edges="edges"
+      :node-types="nodeTypes"
+      :edge-types="edgeTypes"
+    >
       <template #connection-line="connectionLineProps">
         <Connection v-bind="connectionLineProps" />
       </template>
