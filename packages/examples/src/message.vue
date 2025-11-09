@@ -45,11 +45,22 @@ interface MessageType {
   attachments?: Attachment[]
 }
 
-const messages: MessageType[] = [
+const messages: {
+  key: string
+  from: 'user' | 'assistant'
+  versions?: { id: string, content: string }[]
+  content?: string
+  attachments?: {
+    type: 'file'
+    url: string
+    mediaType?: string
+    filename?: string
+  }[]
+}[] = [
   {
     key: nanoid(),
     from: 'user',
-    content: 'How do React hooks work and when should I use them?',
+    content: 'How do Vue composition work and when should I use them?',
     attachments: [
       {
         type: 'file',
@@ -71,100 +82,110 @@ const messages: MessageType[] = [
     versions: [
       {
         id: nanoid(),
-        content: `# React Hooks Guide
+        content: `# Vue Composition API Guide
 
-React hooks are functions that let you "hook into" React state and lifecycle features from function components. Here's what you need to know:
+The Vue Composition API is a set of functions that let you use Vue’s reactivity and lifecycle features inside the \`setup()\` function of your components. Here's what you need to know:
 
-## Core Hooks
+## Core Composables
 
-### useState
-Adds state to functional components:
+### ref()
+Creates reactive primitive values:
 
-\`\`\`jsx
-const [count, setCount] = useState(0);
+\`\`\`vue
+<script setup>
+import { ref } from 'vue'
 
-return (
-  <button onClick={() => setCount(count + 1)}>
-    Count: {count}
-  </button>
-);
+const count = ref(0)
+<//script>
+
+<template>
+  <button @click="count++">Count: {{ count }}</button>
+</template>
 \`\`\`
 
-### useEffect
-Handles side effects (data fetching, subscriptions, DOM updates):
+### watch()
+Runs side effects when reactive values change:
 
-\`\`\`jsx
-useEffect(() => {
-  document.title = \`You clicked \${count} times\`;
+\`\`\`vue
+<script setup>
+import { ref, watch } from 'vue'
 
-  // Cleanup function (optional)
-  return () => {
-    document.title = 'React App';
-  };
-}, [count]); // Dependency array
+const count = ref(0)
+
+watch(count, (newVal, oldVal) => {
+  console.log(\`Count changed from \${oldVal} to \${newVal}\`)
+})
+<//script>
 \`\`\`
 
-## When to Use Hooks
+## When to Use the Composition API
 
-- ✅ **Function components** - Hooks only work in function components
-- ✅ **Replacing class components** - Modern React favors hooks over classes
-- ✅ **Sharing stateful logic** - Create custom hooks to reuse logic
-- ❌ **Class components** - Use lifecycle methods instead
+- ✅ **For complex logic** — Easier to organize and reuse reactive state  
+- ✅ **For reusable code** — Create your own composables (like custom hooks)  
+- ✅ **For TypeScript support** — More type-friendly than Options API  
+- ❌ **For simple components** — The Options API might be enough
 
-## Rules of Hooks
+## Rules of the Composition API
 
-1. Only call hooks at the **top level** (not inside loops, conditions, or nested functions)
-2. Only call hooks from **React functions** (components or custom hooks)
+1. Only use Vue composables **inside \`setup()\`** or other composables  
+2. Always return what you want to use in your template from \`setup()\`
 
-Would you like to explore more advanced hooks like \`useCallback\` or \`useMemo\`?`,
+Would you like to explore more advanced composables like \`computed\` or \`onMounted\`?`,
       },
       {
         id: nanoid(),
-        content: `React hooks are special functions that let you use React features in function components. The most common ones are:
+        content: `The Vue Composition API is a modern way to write components in Vue 3. It replaces the Options API’s data, methods, and computed properties with a single \`setup()\` function.
 
-- **useState** - for managing component state
-- **useEffect** - for side effects like data fetching
-- **useContext** - for consuming context values
-- **useRef** - for accessing DOM elements
+Here are the most common composables:
+
+- **ref()** — creates reactive primitive values  
+- **reactive()** — makes entire objects reactive  
+- **computed()** — creates derived reactive values  
+- **watch()** — runs side effects on data changes  
+- **onMounted()** — lifecycle hook for when a component is mounted  
 
 Here's a simple example:
 
-\`\`\`jsx
-function Counter() {
-  const [count, setCount] = useState(0);
+\`\`\`vue
+<script setup>
+import { ref, onMounted } from 'vue'
 
-  return (
-    <button onClick={() => setCount(count + 1)}>
-      Clicked {count} times
-    </button>
-  );
-}
+const count = ref(0)
+
+onMounted(() => {
+  console.log('Component mounted!')
+})
+<//script>
+
+<template>
+  <button @click="count++">Clicked {{ count }} times</button>
+</template>
 \`\`\`
 
-Which specific hook would you like to learn more about?`,
+Which specific composable would you like to learn more about?`,
       },
       {
         id: nanoid(),
-        content: `Absolutely! React hooks are a powerful feature introduced in React 16.8. They solve several problems:
+        content: `Absolutely! The Vue Composition API brings a new, more flexible way to manage logic and reactivity in Vue components.
 
 ## Key Benefits
 
-1. **Simpler code** - No need for class components
-2. **Reusable logic** - Extract stateful logic into custom hooks
-3. **Better organization** - Group related code together
+1. **Cleaner code organization** — Group related logic by feature  
+2. **Reusable logic** — Build and share your own composables  
+3. **Better TypeScript support** — Stronger typing than the Options API  
 
-## Most Popular Hooks
+## Most Popular Composables
 
-| Hook | Purpose |
-|------|---------|
-| useState | Add state to components |
-| useEffect | Handle side effects |
-| useContext | Access context values |
-| useReducer | Complex state logic |
-| useCallback | Memoize functions |
-| useMemo | Memoize values |
+| Composable | Purpose |
+|-------------|----------|
+| ref | Reactive primitive values |
+| reactive | Reactive objects |
+| computed | Derived reactive values |
+| watch | React to data changes |
+| onMounted | Run code when component mounts |
+| onUnmounted | Cleanup logic when destroyed |
 
-The beauty of hooks is that they let you reuse stateful logic without changing your component hierarchy. Want to dive into a specific hook?`,
+The beauty of the Composition API is that it lets you reuse stateful logic without changing your component structure. Want to dive into a specific composable?`,
       },
     ],
   },
@@ -223,7 +244,6 @@ function handleBranchChange(index: number) {
             :key="version.id"
           >
             <MessageResponse :content="version.content" />
-            <!-- <MessageResponse>{{ version.content }}</MessageResponse> -->
           </MessageContent>
         </MessageBranchContent>
 
@@ -290,9 +310,7 @@ function handleBranchChange(index: number) {
         </MessageAttachments>
 
         <MessageContent>
-          <MessageResponse v-if="message.from === 'assistant'" :content="message.content">
-            <!-- {{ message.content }} -->
-          </MessageResponse>
+          <MessageResponse v-if="message.from === 'assistant'" :content="message.content" />
           <template v-else>
             {{ message.content }}
           </template>
