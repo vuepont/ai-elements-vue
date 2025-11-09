@@ -16,6 +16,10 @@ const delegatedProps = reactiveOmit(props, 'class')
   <ControlsPrimitive
     data-slot="controls"
     v-bind="delegatedProps"
-    :class="cn('gap-px overflow-hidden rounded-md border bg-card p-1 shadow-none! [&>button]:rounded-md [&>button]:border-none! [&>button]:bg-transparent! [&>button]:hover:bg-secondary!', props.class)"
+    :class="cn(
+      'gap-px overflow-hidden rounded-md border bg-card p-1 shadow-none!',
+      '[&>button]:rounded-md [&>button]:border-none! [&>button]:bg-transparent! [&>button]:hover:bg-secondary!',
+      props.class,
+    )"
   />
 </template>

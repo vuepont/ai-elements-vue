@@ -2,6 +2,9 @@
 import type { Edge, Node } from '@vue-flow/core'
 import { Canvas } from '@repo/elements/canvas'
 import { Connection } from '@repo/elements/connection'
+import { Controls } from '@repo/elements/controls'
+import { Panel } from '@repo/elements/panel'
+import { Button } from '@repo/shadcn-vue/components/ui/button'
 import { nanoid } from 'nanoid'
 import { ref } from 'vue'
 
@@ -38,6 +41,13 @@ const edges = ref<Edge[]>([
       <template #connection-line="connectionLineProps">
         <Connection v-bind="connectionLineProps" />
       </template>
+
+      <Controls />
+      <Panel position="top-right">
+        <Button size="sm" variant="secondary">
+          Export
+        </Button>
+      </Panel>
     </Canvas>
   </div>
 </template>
