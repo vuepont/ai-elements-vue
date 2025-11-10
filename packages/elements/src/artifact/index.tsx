@@ -1,0 +1,19 @@
+export { default as Artifact } from './Artifact.vue'
+export { default as ArtifactAction } from './ArtifactAction.vue'
+export { default as ArtifactActions } from './ArtifactActions.vue'
+export { default as ArtifactClose } from './ArtifactClose.vue'
+export { default as ArtifactContent } from './ArtifactContent.vue'
+export { default as ArtifactDescription } from './ArtifactDescription.vue'
+export { default as ArtifactHeader } from './ArtifactHeader.vue'
+export { default as ArtifactTitle } from './ArtifactTitle.vue'
+
+export type {
+  ArtifactActionProps,
+  ArtifactActionsProps,
+  ArtifactCloseProps,
+  ArtifactContentProps,
+  ArtifactDescriptionProps,
+  ArtifactHeaderProps,
+  ArtifactProps,
+  ArtifactTitleProps,
+} from './props'
