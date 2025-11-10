@@ -1,6 +1,7 @@
 import {
   Actions,
   ActionsHover,
+  Artifact,
   Branch,
   ChainOfThought,
   CodeBlock,
@@ -39,6 +40,7 @@ export default defineNuxtPlugin((nuxtApp) => {
   vueApp.component('ComponentLoader', ComponentLoader)
   vueApp.component('ComponentViewer', ComponentViewer)
 
+  vueApp.component('Artifact', Artifact)
   vueApp.component('Actions', Actions)
   vueApp.component('ActionsHover', ActionsHover)
   vueApp.component('Branch', Branch)
