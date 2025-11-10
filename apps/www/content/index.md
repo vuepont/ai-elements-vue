@@ -10,7 +10,7 @@ actions:
     to: /overview/introduction
   - name: GitHub
     variant: outline
-    to: https://github.com/cwandev/ai-elements-vue
+    to: https://github.com/vuepont/ai-elements-vue
     leftIcon: 'lucide:github'
 ---
 

@@ -22,6 +22,7 @@
   },
   "devDependencies": {
     "@iconify-json/logos": "^1.2.9",
+    "@iconify-json/lucide": "^1.2.73",
     "@iconify-json/simple-icons": "^1.2.54",
     "tailwindcss-animate": "^1.0.7"
   }

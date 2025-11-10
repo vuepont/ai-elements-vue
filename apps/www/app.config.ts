@@ -27,17 +27,17 @@ export default defineAppConfig({
         links: [{
           title: 'Getting Started',
           to: '/overview/introduction',
-          description: 'Introduction to AI Elements Vue',
+          description: 'What is AI Elements Vue and why you should use it',
           target: '_self',
         }, {
-          title: 'Setup',
-          to: '/overview/setup',
-          description: 'Follow the step-by-step guide to install AI Elements Vue in your project',
+          title: 'Examples',
+          to: '/examples',
+          description: 'Real-world examples showing how to build applications with AI Elements Vue',
           target: '_self',
         }, {
-          title: 'Usage',
-          to: '/overview/usage',
-          description: 'Learn how to use AI Elements Vue in your project',
+          title: 'Components',
+          to: '/components/chatbot',
+          description: 'Explore the components and usage examples of AI Elements Vue',
           target: '_self',
         }],
       }, {
@@ -57,20 +57,28 @@ export default defineAppConfig({
         title: 'Community',
         links: [{
           title: 'GitHub',
-          to: 'https://github.com/cwandev/ai-elements-vue',
-          description: 'Source code for AI Elements Vue',
+          to: 'https://github.com/vuepont/ai-elements-vue',
+          description: 'View the source code on GitHub',
+          target: '_blank',
+        }, {
+          title: 'Discord',
+          to: 'https://discord.gg/fxBU6M5Jyh',
+          description: 'Join our Discord server to get help and connect with other developers',
           target: '_blank',
         }],
       }],
       links: [{
         icon: 'lucide:github',
-        to: 'https://github.com/cwandev/ai-elements-vue',
+        to: 'https://github.com/vuepont/ai-elements-vue',
         target: '_blank',
       }],
     },
     aside: {
-      useLevel: false,
-      collapse: false,
+      useLevel: true,
+      levelStyle: 'aside',
+      collapse: true,
+      collapseLevel: 1,
+      folderStyle: 'default',
     },
     main: {
       breadCrumb: true,
@@ -80,7 +88,11 @@ export default defineAppConfig({
       credits: 'Copyright © 2025',
       links: [{
         icon: 'lucide:github',
-        to: 'https://github.com/cwandev/ai-elements-vue',
+        to: 'https://github.com/vuepont/ai-elements-vue',
+        target: '_blank',
+      }, {
+        icon: 'simple-icons:discord',
+        to: 'https://discord.gg/fxBU6M5Jyh',
         target: '_blank',
       }],
     },
@@ -89,12 +101,12 @@ export default defineAppConfig({
       links: [{
         title: 'Star on GitHub',
         icon: 'lucide:star',
-        to: 'https://github.com/cwandev/ai-elements-vue',
+        to: 'https://github.com/vuepont/ai-elements-vue',
         target: '_blank',
       }, {
         title: 'Create Issues',
         icon: 'lucide:circle-dot',
-        to: 'https://github.com/cwandev/ai-elements-vue/issues',
+        to: 'https://github.com/vuepont/ai-elements-vue/issues',
         target: '_blank',
       }],
     },
