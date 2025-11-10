@@ -1,5 +1,6 @@
 export { default as ActionsHover } from './actions-hover.vue'
 export { default as Actions } from './actions.vue'
+export { default as Artifact } from './artifact.vue'
 export { default as Branch } from './branch.vue'
 export { default as ChainOfThought } from './chain-of-thought.vue'
 export { default as CodeBlockDark } from './code-block-dark.vue'

@@ -7,13 +7,4 @@ export { default as ArtifactDescription } from './ArtifactDescription.vue'
 export { default as ArtifactHeader } from './ArtifactHeader.vue'
 export { default as ArtifactTitle } from './ArtifactTitle.vue'
 
-export type {
-  ArtifactActionProps,
-  ArtifactActionsProps,
-  ArtifactCloseProps,
-  ArtifactContentProps,
-  ArtifactDescriptionProps,
-  ArtifactHeaderProps,
-  ArtifactProps,
-  ArtifactTitleProps,
-} from './props'
+export * from './props'
