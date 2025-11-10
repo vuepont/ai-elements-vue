@@ -1,9 +1,19 @@
 <script setup lang="ts">
-import type { ArtifactActionProps } from './props'
+import type { ButtonVariants } from '@repo/shadcn-vue/components/ui/button'
+import type { LucideIcon } from 'lucide-vue-next'
 import { Button } from '@repo/shadcn-vue/components/ui/button'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@repo/shadcn-vue/components/ui/tooltip'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 import { computed } from 'vue'
+
+interface ArtifactActionProps {
+  class?: string
+  tooltip?: string
+  label?: string
+  variant?: ButtonVariants['variant']
+  size?: ButtonVariants['size']
+  icon?: LucideIcon
+}
 
 const props = withDefaults(defineProps<ArtifactActionProps>(), {
   variant: 'ghost',

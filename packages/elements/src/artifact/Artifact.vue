@@ -1,22 +1,23 @@
 <script setup lang="ts">
-import type { ArtifactProps } from './props'
+import type { HTMLAttributes } from 'vue'
 import { cn } from '@repo/shadcn-vue/lib/utils'
-import { computed } from 'vue'
+import { computed, useAttrs } from 'vue'
 
-const props = defineProps<ArtifactProps>()
+const props = defineProps<{
+  class?: HTMLAttributes['class']
+}>()
 
 const classes = computed(() => cn(
   'flex flex-col overflow-hidden rounded-lg border bg-background shadow-sm',
   props.class,
 ))
+const attrs = useAttrs()
 </script>
 
 <template>
   <div
-    v-bind="{
-      ...props,
-      class: classes,
-    }"
+    :class="classes"
+    v-bind="attrs"
   >
     <slot />
   </div>

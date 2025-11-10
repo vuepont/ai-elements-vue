@@ -1,19 +1,20 @@
 <script setup lang="ts">
-import type { ArtifactDescriptionProps } from './props'
+import type { HTMLAttributes } from 'vue'
 import { cn } from '@repo/shadcn-vue/lib/utils'
-import { computed } from 'vue'
+import { computed, useAttrs } from 'vue'
 
-const props = defineProps<ArtifactDescriptionProps>()
+const props = defineProps<{
+  class?: HTMLAttributes['class']
+}>()
+const attrs = useAttrs()
 
 const classes = computed(() => cn('text-muted-foreground text-sm', props.class))
 </script>
 
 <template>
   <p
-    v-bind="{
-      ...props,
-      class: classes,
-    }"
+    :class="classes"
+    v-bind="attrs"
   >
     <slot />
   </p>

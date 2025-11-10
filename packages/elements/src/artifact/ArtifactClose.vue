@@ -1,9 +1,15 @@
 <script setup lang="ts">
-import type { ArtifactCloseProps } from './props'
+import type { ButtonVariants } from '@repo/shadcn-vue/components/ui/button'
 import { Button } from '@repo/shadcn-vue/components/ui/button'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 import { X } from 'lucide-vue-next'
 import { computed } from 'vue'
+
+interface ArtifactCloseProps {
+  class?: string
+  variant?: ButtonVariants['variant']
+  size?: ButtonVariants['size']
+}
 
 const props = withDefaults(defineProps<ArtifactCloseProps>(), {
   variant: 'ghost',

@@ -6,5 +6,3 @@ export { default as ArtifactContent } from './ArtifactContent.vue'
 export { default as ArtifactDescription } from './ArtifactDescription.vue'
 export { default as ArtifactHeader } from './ArtifactHeader.vue'
 export { default as ArtifactTitle } from './ArtifactTitle.vue'
-
-export * from './props'
