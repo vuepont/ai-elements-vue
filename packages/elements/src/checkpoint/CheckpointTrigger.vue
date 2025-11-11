@@ -4,6 +4,7 @@ import { Button } from '@repo/shadcn-vue/components/ui/button'
 import {
   Tooltip,
   TooltipContent,
+  TooltipProvider,
   TooltipTrigger,
 } from '@repo/shadcn-vue/components/ui/tooltip'
 
@@ -26,16 +27,18 @@ const buttonProps = {
 </script>
 
 <template>
-  <Tooltip v-if="props.tooltip">
-    <TooltipTrigger as-child>
-      <Button v-bind="{ ...buttonProps, ...$attrs }">
-        <slot />
-      </Button>
-    </TooltipTrigger>
-    <TooltipContent align="start" side="bottom">
-      <p>{{ props.tooltip }}</p>
-    </TooltipContent>
-  </Tooltip>
+  <TooltipProvider v-if="props.tooltip">
+    <Tooltip>
+      <TooltipTrigger as-child>
+        <Button v-bind="{ ...buttonProps, ...$attrs }">
+          <slot />
+        </Button>
+      </TooltipTrigger>
+      <TooltipContent align="start" side="bottom">
+        <p>{{ props.tooltip }}</p>
+      </TooltipContent>
+    </Tooltip>
+  </TooltipProvider>
 
   <Button v-else v-bind="{ ...buttonProps, ...$attrs }">
     <slot />

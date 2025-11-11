@@ -8,7 +8,7 @@ import { Conversation, ConversationContent } from '@repo/elements/conversation'
 import {
   Message,
   MessageContent,
-  // MessageResponse,
+  MessageResponse,
 } from '@repo/elements/message'
 import { nanoid } from 'nanoid'
 import { computed, ref } from 'vue'
@@ -23,13 +23,13 @@ const initialMessages: MessageType[] = [
   {
     id: nanoid(),
     role: 'user',
-    content: 'What is React?',
+    content: 'What is Vue?',
   },
   {
     id: nanoid(),
     role: 'assistant',
     content:
-      'React is a JavaScript library for building user interfaces. It was developed by Facebook and is now maintained by Meta and a community of developers.',
+      'Vue is a JavaScript library for building user interfaces. It was developed by Evan You and is now maintained by him and a community of developers.',
   },
   {
     id: nanoid(),
@@ -67,7 +67,7 @@ function handleRestore(messageCount: number) {
         >
           <Message :from="message.role">
             <MessageContent>
-              <!-- <MessageResponse>{{ message.content }}</MessageResponse> -->
+              <MessageResponse>{{ message.content }}</MessageResponse>
             </MessageContent>
           </Message>
 
