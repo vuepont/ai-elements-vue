@@ -62,7 +62,7 @@ export default defineAppConfig({
           target: '_blank',
         }, {
           title: 'Discord',
-          to: 'https://discord.gg/fxBU6M5Jyh',
+          to: 'https://discord.gg/SWzhwGMxsZ',
           description: 'Join our Discord server to get help and connect with other developers',
           target: '_blank',
         }],
@@ -81,8 +81,19 @@ export default defineAppConfig({
       folderStyle: 'default',
     },
     main: {
+      padded: true,
       breadCrumb: true,
       showTitle: true,
+      codeCopyToast: false,
+      codeCopyIcon: 'lucide:clipboard',
+      editLink: {
+        enable: true,
+        pattern: 'https://github.com/vuepont/ai-elements-vue/edit/main/apps/www/content/:path',
+        text: 'Edit this page',
+        icon: 'lucide:square-pen',
+        placement: ['docsFooter'],
+      },
+      backToTop: true,
     },
     footer: {
       credits: 'Copyright © 2025',
@@ -92,12 +103,16 @@ export default defineAppConfig({
         target: '_blank',
       }, {
         icon: 'simple-icons:discord',
-        to: 'https://discord.gg/fxBU6M5Jyh',
+        to: 'https://discord.gg/SWzhwGMxsZ',
         target: '_blank',
       }],
     },
     toc: {
       enable: true,
+      enableInMobile: true,
+      enableInHomepage: false,
+      progressBar: true,
+      title: 'On this page',
       links: [{
         title: 'Star on GitHub',
         icon: 'lucide:star',
