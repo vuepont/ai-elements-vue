@@ -10,7 +10,7 @@ const props = defineProps<{
 
 <template>
   <div
-    :class="cn('flex items-center gap-0.5 text-muted-foreground', props.class)"
+    :class="cn('flex items-center gap-0.5 text-muted-foreground overflow-hidden', props.class)"
     v-bind="$attrs"
   >
     <slot />
