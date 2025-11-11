@@ -1,8 +1,10 @@
 import {
   Actions,
   ActionsHover,
+  Artifact,
   Branch,
   ChainOfThought,
+  Checkpoint,
   CodeBlock,
   CodeBlockDark,
   Conversation,
@@ -40,6 +42,7 @@ export default defineNuxtPlugin((nuxtApp) => {
   vueApp.component('ComponentLoader', ComponentLoader)
   vueApp.component('ComponentViewer', ComponentViewer)
 
+  vueApp.component('Artifact', Artifact)
   vueApp.component('Actions', Actions)
   vueApp.component('ActionsHover', ActionsHover)
   vueApp.component('Branch', Branch)
@@ -69,5 +72,6 @@ export default defineNuxtPlugin((nuxtApp) => {
   vueApp.component('InlineCitation', InlineCitation)
   vueApp.component('CodeBlock', CodeBlock)
   vueApp.component('CodeBlockDark', CodeBlockDark)
+  vueApp.component('Checkpoint', Checkpoint)
   vueApp.component('Workflow', Workflow)
 })
