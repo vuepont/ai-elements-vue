@@ -2,6 +2,7 @@
 import type { ButtonVariants } from '@repo/shadcn-vue/components/ui/button'
 import type { HTMLAttributes } from 'vue'
 import { Button } from '@repo/shadcn-vue/components/ui/button'
+
 import {
   Tooltip,
   TooltipContent,
@@ -9,12 +10,14 @@ import {
   TooltipTrigger,
 } from '@repo/shadcn-vue/components/ui/tooltip'
 
-const props = withDefaults(defineProps<HTMLAttributes & {
+interface Props extends /* @vue-ignore */ HTMLAttributes {
   size?: ButtonVariants['size']
   variant?: ButtonVariants['variant']
   tooltip?: string
   disabled?: boolean
-}>(), {
+}
+
+const props = withDefaults(defineProps<Props>(), {
   tooltip: '',
   disabled: false,
   size: 'sm',
