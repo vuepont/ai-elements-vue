@@ -40,10 +40,9 @@ npm i v0-sdk
 
 Add the following component to your frontend:
 <!-- TOOD: Using Vue 3 example -->
-```tsx title="app/page.tsx"
-'use client'
-
-import { useState } from 'react'
+```vue title="app.vue"
+<script setup lang="ts">
+import { Loader } from '@/components/ai-elements/loader'
 import {
   Input,
   PromptInputSubmit,
@@ -55,102 +54,92 @@ import {
   WebPreviewNavigation,
   WebPreviewUrl,
 } from '@/components/ai-elements/web-preview'
-import { Loader } from '../ai-elements/loader'
 
-function WebPreviewDemo() {
-  const [previewUrl, setPreviewUrl] = useState('')
-  const [prompt, setPrompt] = useState('')
-  const [isGenerating, setIsGenerating] = useState(false)
+const previewUrl = ref('')
+const prompt = ref('')
+const isGenerating = ref(false)
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    if (!prompt.trim())
-      return
-    setPrompt('')
+async function handleSubmit(e: Event) {
+  e.preventDefault()
+  if (!prompt.value.trim())
+    return
+  prompt.value = ''
 
-    setIsGenerating(true)
-    try {
-      const response = await fetch('/api/v0', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ prompt }),
-      })
+  isGenerating.value = true
+  try {
+    const response = await fetch('/api/v0', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ prompt: prompt.value }),
+    })
 
-      const data = await response.json()
-      setPreviewUrl(data.demo || '/')
-      console.log('Generation finished:', data)
-    }
-    catch (error) {
-      console.error('Generation failed:', error)
-    }
-    finally {
-      setIsGenerating(false)
-    }
+    const data = await response.json()
+    previewUrl.value = data.demo || '/'
+    console.log('Generation finished:', data)
   }
-
-  return (
-    <div className="max-w-4xl mx-auto p-6 relative size-full rounded-lg border h-[600px]">
-      <div className="flex flex-col h-full">
-        <div className="flex-1 mb-4">
-          {isGenerating
-            ? (
-                <div className="flex flex-col items-center justify-center h-full">
-                  <Loader />
-                  <p className="mt-4 text-muted-foreground">
-                    Generating app, this may take a few seconds...
-                  </p>
-                </div>
-              )
-            : previewUrl
-              ? (
-                  <WebPreview defaultUrl={previewUrl}>
-                    <WebPreviewNavigation>
-                      <WebPreviewUrl />
-                    </WebPreviewNavigation>
-                    <WebPreviewBody src={previewUrl} />
-                  </WebPreview>
-                )
-              : (
-                  <div className="flex items-center justify-center h-full text-muted-foreground">
-                    Your generated app will appear here
-                  </div>
-                )}
-        </div>
-
-        <Input
-          onSubmit={handleSubmit}
-          className="w-full max-w-2xl mx-auto relative"
-        >
-          <PromptInputTextarea
-            value={prompt}
-            placeholder="Describe the app you want to build..."
-            onChange={e => setPrompt(e.currentTarget.value)}
-            className="pr-12 min-h-[60px]"
-          />
-          <PromptInputSubmit
-            status={isGenerating ? 'streaming' : 'ready'}
-            disabled={!prompt.trim()}
-            className="absolute bottom-1 right-1"
-          />
-        </Input>
-      </div>
-    </div>
-  )
+  catch (error) {
+    console.error('Generation failed:', error)
+  }
+  finally {
+    isGenerating.value = false
+  }
 }
+</script>
 
-export default WebPreviewDemo
+<template>
+  <div class="max-w-4xl mx-auto p-6 relative size-full rounded-lg border h-[600px]">
+    <div class="flex flex-col h-full">
+      <div class="flex-1 mb-4">
+        <div v-if="isGenerating" class="flex flex-col items-center justify-center h-full">
+          <Loader />
+          <p v-if="isGenerating" class="mt-4 text-muted-foreground">
+            Generating app, this may take a few seconds...
+          </p>
+        </div>
+        <WebPreview v-else-if="previewUrl" :default-url="previewUrl">
+          <WebPreviewNavigation>
+            <WebPreviewUrl />
+          </WebPreviewNavigation>
+          <WebPreviewBody :src="previewUrl" />
+        </WebPreview>
+        <div v-else class="flex items-center justify-center h-full text-muted-foreground">
+          Your generated app will appear here
+        </div>
+      </div>
+
+      <Input
+        class="w-full max-w-2xl mx-auto relative"
+        @submit="handleSubmit"
+      >
+        <PromptInputTextarea
+          :value="prompt"
+          placeholder="Describe the app you want to build..."
+          class="pr-12 min-h-[60px]"
+          @change="(e: any) => (prompt = e?.target?.value ?? '')"
+        >
+          <PromptInputSubmit
+            :status="isGenerating ? 'streaming' : 'ready'"
+            :disabled="!prompt.trim()"
+            class="absolute bottom-1 right-1"
+          />
+        </PromptInputTextarea>
+      </Input>
+    </div>
+  </div>
+</template>
 ```
 
 Add the following route to your backend:
 
 <!-- TOOD: Using Nuxt example -->
 
-```ts title="app/api/v0/route.ts"
+```ts title="server/api/v0.post.ts"
+import type { ChatsCreateResponse } from 'v0-sdk'
+import { defineEventHandler, readBody } from 'h3'
 import { v0 } from 'v0-sdk'
 
-export async function POST(req: Request) {
-  const { prompt }: { prompt: string } = await req.json()
-
+export default defineEventHandler(async (event) => {
+  const { prompt }: { prompt: string } = await readBody(event)
   const result = await v0.chats.create({
     system: 'You are an expert coder',
     message: prompt,
@@ -159,13 +148,13 @@ export async function POST(req: Request) {
       imageGenerations: false,
       thinking: false,
     },
-  })
+  }) as ChatsCreateResponse
 
-  return Response.json({
+  return {
     demo: result.demo,
     webUrl: result.webUrl,
-  })
-}
+  }
+})
 ```
 
 ## Features
