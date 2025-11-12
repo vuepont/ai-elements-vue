@@ -61,7 +61,7 @@ Copy and paste the following code in the same folder.
       <slot />
     </PanelPrimitive>
   </template>
-```
+  ```
 
   ```ts [index.ts]
   export { default as Panel } from './Panel.vue'
