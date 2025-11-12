@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@repo/elements": "workspace:*",
+    "@vue-flow/core": "^1.47.0",
     "ai": "^5.0.60",
     "lucide-vue-next": "^0.544.0",
     "nanoid": "^5.1.6",

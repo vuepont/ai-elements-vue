@@ -30,6 +30,7 @@ import {
   Suggestion,
   SuggestionAiInput,
   Task,
+  Workflow,
 } from '@repo/examples'
 
 import ComponentLoader from '@/components/ComponentLoader.vue'
@@ -72,4 +73,5 @@ export default defineNuxtPlugin((nuxtApp) => {
   vueApp.component('CodeBlock', CodeBlock)
   vueApp.component('CodeBlockDark', CodeBlockDark)
   vueApp.component('Checkpoint', Checkpoint)
+  vueApp.component('Workflow', Workflow)
 })

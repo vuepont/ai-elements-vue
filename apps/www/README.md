@@ -1,6 +1,6 @@
 # Docs
 
-This is the documentation for [AI Elements Vue](https://github.com/cwandev/ai-elements-vue).
+This is the documentation for [AI Elements Vue](https://github.com/vuepont/ai-elements-vue).
 
 ## Setup
 
