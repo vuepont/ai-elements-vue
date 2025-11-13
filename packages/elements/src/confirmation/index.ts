@@ -1,0 +1,7 @@
+export { default as Confirmation } from './Confirmation.vue'
+export { default as ConfirmationAccepted } from './ConfirmationAccepted.vue'
+export { default as ConfirmationAction } from './ConfirmationAction.vue'
+export { default as ConfirmationActions } from './ConfirmationActions.vue'
+export { default as ConfirmationRejected } from './ConfirmationRejected.vue'
+export { default as ConfirmationRequest } from './ConfirmationRequest.vue'
+export { default as ConfirmationTitle } from './ConfirmationTitle.vue'

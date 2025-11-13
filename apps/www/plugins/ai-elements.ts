@@ -7,6 +7,11 @@ import {
   Checkpoint,
   CodeBlock,
   CodeBlockDark,
+  Context,
+  Confirmation,
+  ConfirmationAccepted,
+  ConfirmationRejected,
+  ConfirmationRequest,
   Conversation,
   Image,
   InlineCitation,
@@ -76,4 +81,9 @@ export default defineNuxtPlugin((nuxtApp) => {
   vueApp.component('Checkpoint', Checkpoint)
   vueApp.component('Workflow', Workflow)
   vueApp.component('ModelSelector', ModelSelector)
+  vueApp.component('Context', Context)
+  vueApp.component('Confirmation', Confirmation)
+  vueApp.component('ConfirmationAccepted', ConfirmationAccepted)
+  vueApp.component('ConfirmationRejected', ConfirmationRejected)
+  vueApp.component('ConfirmationRequest', ConfirmationRequest)
 })
