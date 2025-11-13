@@ -7,6 +7,11 @@ import {
   Checkpoint,
   CodeBlock,
   CodeBlockDark,
+  Context,
+  Confirmation,
+  ConfirmationAccepted,
+  ConfirmationRejected,
+  ConfirmationRequest,
   Conversation,
   Image,
   InlineCitation,
@@ -15,6 +20,7 @@ import {
   LoaderSizes,
   Message,
   MessageMarkdown,
+  ModelSelector,
   OpenInChat,
   Plan,
   PromptInput,
@@ -84,4 +90,10 @@ export default defineNuxtPlugin((nuxtApp) => {
   vueApp.component('ToolInputAvailable', ToolInputAvailable)
   vueApp.component('ToolOutputAvailable', ToolOutputAvailable)
   vueApp.component('ToolOutputError', ToolOutputError)
+  vueApp.component('ModelSelector', ModelSelector)
+  vueApp.component('Context', Context)
+  vueApp.component('Confirmation', Confirmation)
+  vueApp.component('ConfirmationAccepted', ConfirmationAccepted)
+  vueApp.component('ConfirmationRejected', ConfirmationRejected)
+  vueApp.component('ConfirmationRequest', ConfirmationRequest)
 })
