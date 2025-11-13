@@ -1,18 +1,21 @@
 <script setup lang="ts">
-import type { HTMLAttributes, VNodeChild } from 'vue'
+import type { IframeHTMLAttributes, VNodeChild } from 'vue'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 import { computed, useAttrs } from 'vue'
 import { useWebPreviewContext } from './context'
 
-interface Props {
-  class?: HTMLAttributes['class']
+interface Props extends /* @vue-ignore */ IframeHTMLAttributes {
+  class?: IframeHTMLAttributes['class']
   src?: string
-  loading?: VNodeChild
 }
 
 const props = defineProps<Props>()
-const attrs = useAttrs()
 
+defineSlots<{
+  loading: () => VNodeChild
+}>()
+
+const attrs = useAttrs()
 const { url } = useWebPreviewContext()
 
 const frameSrc = computed(() => (props.src ?? url.value) || undefined)
@@ -27,8 +30,6 @@ const frameSrc = computed(() => (props.src ?? url.value) || undefined)
       title="Preview"
       v-bind="attrs"
     />
-    <slot name="loading">
-      <component :is="props.loading" v-if="props.loading" />
-    </slot>
+    <slot name="loading" />
   </div>
 </template>

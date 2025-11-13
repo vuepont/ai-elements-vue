@@ -148,10 +148,14 @@ describe('webPreviewBody', () => {
     expect(iframe).toHaveAttribute('sandbox')
   })
 
-  it('renders loading component', () => {
+  it('renders loading slot', () => {
     const screen = render(
       <WebPreview>
-        <WebPreviewBody loading={<div>Loading...</div>} />
+        <WebPreviewBody>
+          {{
+            loading: () => <div>Loading...</div>,
+          }}
+        </WebPreviewBody>
       </WebPreview>,
     )
     expect(screen.getByText('Loading...')).toBeInTheDocument()

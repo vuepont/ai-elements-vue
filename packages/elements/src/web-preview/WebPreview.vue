@@ -6,11 +6,9 @@ import {
   provideWebPreviewContext,
 } from './context'
 
-interface Props {
+interface Props extends /* @vue-ignore */ HTMLAttributes {
   class?: HTMLAttributes['class']
   defaultUrl?: string
-  url?: string
-  consoleOpen?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -25,7 +23,7 @@ const emit = defineEmits<{
 }>()
 
 const url = ref(props.defaultUrl)
-const consoleOpen = ref(props.consoleOpen ?? false)
+const consoleOpen = ref(false)
 
 function setUrl(value: string) {
   url.value = value
@@ -46,13 +44,17 @@ provideWebPreviewContext({
   setConsoleOpen,
 })
 
-const classes = computed(() =>
-  cn('flex size-full flex-col rounded-lg border bg-card', props.class),
-)
+const vBind = computed(() => {
+  const { class: _, ...rest } = props
+  return {
+    class: cn('flex size-full flex-col rounded-lg border bg-card', props.class),
+    ...rest,
+  }
+})
 </script>
 
 <template>
-  <div :class="classes" v-bind="$attrs">
+  <div v-bind="vBind">
     <slot />
   </div>
 </template>
