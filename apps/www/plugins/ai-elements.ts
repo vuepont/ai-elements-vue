@@ -7,6 +7,7 @@ import {
   Checkpoint,
   CodeBlock,
   CodeBlockDark,
+  Context,
   Conversation,
   Image,
   InlineCitation,
@@ -74,4 +75,5 @@ export default defineNuxtPlugin((nuxtApp) => {
   vueApp.component('CodeBlockDark', CodeBlockDark)
   vueApp.component('Checkpoint', Checkpoint)
   vueApp.component('Workflow', Workflow)
+  vueApp.component('Context', Context)
 })
