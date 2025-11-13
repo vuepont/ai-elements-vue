@@ -7,11 +7,20 @@ export default defineConfig({
   plugins: [vue(), vueJsx({})],
   test: {
     browser: {
-      // headless: true,
+      headless: true,
       enabled: true,
       provider: playwright(),
       instances: [
         { browser: 'chromium' },
+      ],
+    },
+    coverage: {
+      provider: 'v8',
+      reporter: ['text', 'json', 'html'],
+      exclude: [
+        'node_modules/',
+        '__tests__/**',
+        '**/*.config.{ts,js,mts}',
       ],
     },
   },

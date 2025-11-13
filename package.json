@@ -8,6 +8,7 @@
   },
   "scripts": {
     "build": "turbo run build",
+    "test": "turbo run test",
     "dev": "turbo run dev",
     "dev:www": "pnpm --filter www dev",
     "build:www": "pnpm --filter www build",
