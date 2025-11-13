@@ -26,7 +26,359 @@ The `WebPreview` component provides a flexible way to showcase the result of a g
 :::
 
 ## Install Manually
-<!-- TODO: Add code snippets for manual installation -->
+:::code-group
+```vue [WebPreview.vue]
+<script setup lang="ts">
+import type { HTMLAttributes } from 'vue'
+import { cn } from '@repo/shadcn-vue/lib/utils'
+import { computed, ref } from 'vue'
+import {
+  provideWebPreviewContext,
+} from './context'
+
+interface Props extends /* @vue-ignore */ HTMLAttributes {
+  class?: HTMLAttributes['class']
+  defaultUrl?: string
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  defaultUrl: '',
+})
+
+const emit = defineEmits<{
+  (e: 'update:url', value: string): void
+  (e: 'urlChange', value: string): void
+  (e: 'update:consoleOpen', value: boolean): void
+  (e: 'consoleOpenChange', value: boolean): void
+}>()
+
+const url = ref(props.defaultUrl)
+const consoleOpen = ref(false)
+
+function setUrl(value: string) {
+  url.value = value
+  emit('update:url', value)
+  emit('urlChange', value)
+}
+
+function setConsoleOpen(value: boolean) {
+  consoleOpen.value = value
+  emit('update:consoleOpen', value)
+  emit('consoleOpenChange', value)
+}
+
+provideWebPreviewContext({
+  url,
+  setUrl,
+  consoleOpen,
+  setConsoleOpen,
+})
+
+const vBind = computed(() => {
+  const { class: _, ...rest } = props
+  return {
+    class: cn('flex size-full flex-col rounded-lg border bg-card', props.class),
+    ...rest,
+  }
+})
+</script>
+
+<template>
+  <div v-bind="vBind">
+    <slot />
+  </div>
+</template>
+```
+
+```vue [WebPreviewBody.vue]
+<script setup lang="ts">
+import type { IframeHTMLAttributes, VNodeChild } from 'vue'
+import { cn } from '@repo/shadcn-vue/lib/utils'
+import { computed, useAttrs } from 'vue'
+import { useWebPreviewContext } from './context'
+
+interface Props extends /* @vue-ignore */ IframeHTMLAttributes {
+  class?: IframeHTMLAttributes['class']
+  src?: string
+}
+
+const props = defineProps<Props>()
+
+defineSlots<{
+  loading: () => VNodeChild
+}>()
+
+const attrs = useAttrs()
+const { url } = useWebPreviewContext()
+
+const frameSrc = computed(() => (props.src ?? url.value) || undefined)
+</script>
+
+<template>
+  <div class="flex-1">
+    <iframe
+      :class="cn('size-full', props.class)"
+      sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-presentation"
+      :src="frameSrc"
+      title="Preview"
+      v-bind="attrs"
+    />
+    <slot name="loading" />
+  </div>
+</template>
+```
+
+```vue [WebPreviewConsole.vue]
+<script setup lang="ts">
+import type { HTMLAttributes } from 'vue'
+import { Button } from '@repo/shadcn-vue/components/ui/button'
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from '@repo/shadcn-vue/components/ui/collapsible'
+import { cn } from '@repo/shadcn-vue/lib/utils'
+import { ChevronDownIcon } from 'lucide-vue-next'
+import { computed } from 'vue'
+import { useWebPreviewContext } from './context'
+
+type LogLevel = 'log' | 'warn' | 'error'
+
+interface ConsoleLog {
+  level: LogLevel
+  message: string
+  timestamp: Date
+}
+
+interface Props {
+  class?: HTMLAttributes['class']
+  logs?: ConsoleLog[]
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  logs: () => [],
+})
+
+const context = useWebPreviewContext()
+
+const isConsoleOpen = computed(() => context.consoleOpen.value)
+
+function levelClass(level: LogLevel) {
+  if (level === 'error')
+    return 'text-destructive'
+  if (level === 'warn')
+    return 'text-yellow-600'
+  return 'text-foreground'
+}
+</script>
+
+<template>
+  <Collapsible
+    :class="cn('border-t bg-muted/50 font-mono text-sm', props.class)"
+    :open="isConsoleOpen"
+    v-bind="$attrs"
+    @update:open="context.setConsoleOpen"
+  >
+    <CollapsibleTrigger as-child>
+      <Button
+        class="flex w-full items-center justify-between p-4 text-left font-medium hover:bg-muted/50"
+        type="button"
+        variant="ghost"
+      >
+        Console
+        <ChevronDownIcon
+          :class="
+            cn(
+              'h-4 w-4 transition-transform duration-200',
+              isConsoleOpen ? 'rotate-180' : 'rotate-0',
+            )
+          "
+        />
+      </Button>
+    </CollapsibleTrigger>
+    <CollapsibleContent
+      class="px-4 pb-4 data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 outline-none data-[state=closed]:animate-out data-[state=open]:animate-in"
+    >
+      <div class="max-h-48 space-y-1 overflow-y-auto">
+        <p v-if="!props.logs.length" class="text-muted-foreground">
+          No console output
+        </p>
+        <template v-else>
+          <div
+            v-for="(log, index) in props.logs"
+            :key="`${log.timestamp.getTime?.() ?? index}-${index}`"
+            :class="cn('text-xs', levelClass(log.level))"
+          >
+            <span class="text-muted-foreground">
+              {{ log.timestamp.toLocaleTimeString() }}
+            </span>
+            {{ ' ' }}
+            {{ log.message }}
+          </div>
+        </template>
+        <slot />
+      </div>
+    </CollapsibleContent>
+  </Collapsible>
+</template>
+```
+
+```vue [WebPreviewNavigation.vue]
+<script setup lang="ts">
+import type { HTMLAttributes } from 'vue'
+import { cn } from '@repo/shadcn-vue/lib/utils'
+
+interface Props extends /* @vue-ignore */ HTMLAttributes {
+  class?: HTMLAttributes['class']
+}
+
+const props = defineProps<Props>()
+</script>
+
+<template>
+  <div
+    v-bind="{
+      ...props,
+      class: cn('flex items-center gap-1 border-b p-2', props.class),
+    }"
+  >
+    <slot />
+  </div>
+</template>
+```
+
+```vue [WebPreviewNavigationButton.vue]
+<script setup lang="ts">
+import type { ButtonVariants } from '@repo/shadcn-vue/components/ui/button'
+import type { HTMLAttributes } from 'vue'
+import { Button } from '@repo/shadcn-vue/components/ui/button'
+
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@repo/shadcn-vue/components/ui/tooltip'
+
+interface Props extends /* @vue-ignore */ HTMLAttributes {
+  size?: ButtonVariants['size']
+  variant?: ButtonVariants['variant']
+  tooltip?: string
+  disabled?: boolean
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  tooltip: '',
+  disabled: false,
+  size: 'sm',
+  variant: 'ghost',
+})
+</script>
+
+<template>
+  <TooltipProvider>
+    <Tooltip>
+      <TooltipTrigger as-child>
+        <Button
+          class="h-8 w-8 p-0 hover:text-foreground"
+          type="button"
+          v-bind="{ ...props, ...$attrs }"
+        >
+          <slot />
+        </Button>
+      </TooltipTrigger>
+      <TooltipContent v-if="props.tooltip">
+        <p>{{ props.tooltip }}</p>
+      </TooltipContent>
+    </Tooltip>
+  </TooltipProvider>
+</template>
+```
+
+```vue [WebPreviewUrl.vue]
+<script setup lang="ts">
+import type { HTMLAttributes } from 'vue'
+import { Input } from '@repo/shadcn-vue/components/ui/input'
+import { ref, useAttrs, watch } from 'vue'
+import { useWebPreviewContext } from './context'
+
+interface Props {
+  class?: HTMLAttributes['class']
+  placeholder?: string
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  placeholder: 'Enter URL...',
+})
+
+const attrs = useAttrs()
+const context = useWebPreviewContext()
+
+const inputValue = ref(context.url.value)
+
+watch(
+  () => context.url.value,
+  (value) => {
+    inputValue.value = value
+  },
+  { immediate: true },
+)
+
+function handleKeydown() {
+  context.setUrl(inputValue.value)
+}
+</script>
+
+<template>
+  <Input
+    v-model="inputValue"
+    data-testid="web-preview-url-input"
+    :class="props.class"
+    :placeholder="props.placeholder"
+    v-bind="attrs"
+    @keydown.enter="handleKeydown"
+  />
+</template>
+```
+
+```ts [context.ts]
+import type { InjectionKey, Ref } from 'vue'
+import { inject, provide } from 'vue'
+
+export interface WebPreviewContextValue {
+  url: Ref<string>
+  setUrl: (url: string) => void
+  consoleOpen: Ref<boolean>
+  setConsoleOpen: (open: boolean) => void
+}
+
+const WebPreviewContextKey: InjectionKey<WebPreviewContextValue> = Symbol('WebPreviewContext')
+
+export function provideWebPreviewContext(value: WebPreviewContextValue) {
+  provide(WebPreviewContextKey, value)
+}
+
+export function useWebPreviewContext() {
+  const context = inject(WebPreviewContextKey, null)
+
+  if (!context) {
+    throw new Error('WebPreview components must be used within WebPreview')
+  }
+
+  return context
+}
+```
+
+```ts [index.ts]
+export { provideWebPreviewContext, useWebPreviewContext } from './context'
+export { default as WebPreview } from './WebPreview.vue'
+export { default as WebPreviewBody } from './WebPreviewBody.vue'
+export { default as WebPreviewConsole } from './WebPreviewConsole.vue'
+export { default as WebPreviewNavigation } from './WebPreviewNavigation.vue'
+export { default as WebPreviewNavigationButton } from './WebPreviewNavigationButton.vue'
+export { default as WebPreviewUrl } from './WebPreviewUrl.vue'
+```
+:::
 
 ## Usage with AI SDK
 
@@ -39,8 +391,7 @@ npm i v0-sdk
 ```
 
 Add the following component to your frontend:
-<!-- TOOD: Using Vue 3 example -->
-```vue title="app.vue"
+```vue [app.vue]
 <script setup lang="ts">
 import { Loader } from '@/components/ai-elements/loader'
 import {
@@ -131,9 +482,7 @@ async function handleSubmit(e: Event) {
 
 Add the following route to your backend:
 
-<!-- TOOD: Using Nuxt example -->
-
-```ts title="server/api/v0.post.ts"
+```ts [server/api/v0.post.ts]
 import type { ChatsCreateResponse } from 'v0-sdk'
 import { defineEventHandler, readBody } from 'h3'
 import { v0 } from 'v0-sdk'
@@ -173,12 +522,10 @@ export default defineEventHandler(async (event) => {
 ## Props
 
 ### `<WebPreview />`
-
 ::::field-group
   ::field{name="defaultUrl" type="string" defaultValue="''"}
   The initial URL to load in the preview.
-  ::
-  ::field{name="onUrlChange" type="(url: string) => void"}
+  ::field{name="@urlChange" type="(url: string) => void"}
   Callback fired when the URL changes.
   ::
   ::field{name="...props" type="HTMLAttributes"}
@@ -201,7 +548,7 @@ export default defineEventHandler(async (event) => {
   Tooltip text to display on hover.
   ::
   ::field{name="...props" type="typeof Button"}
-  Any other props are spread to the underlying shadcn/ui Button component.
+  Any other props are spread to the underlying [shadcn-vue/ui Button](https://www.shadcn-vue.com/docs/components/button.html) component.
   ::
 ::::
 
@@ -209,26 +556,38 @@ export default defineEventHandler(async (event) => {
 
 ::::field-group
   ::field{name="...props" type="typeof Input"}
-  Any other props are spread to the underlying shadcn/ui Input component.
+  Any other props are spread to the underlying [shadcn-vue/ui Input](https://www.shadcn-vue.com/docs/components/input.html) component.
   ::
 ::::
 
 ### `<WebPreviewBody />`
 
 ::::field-group
-  ::field{name="loading" type="React.ReactNode"}
+  ::field{name="loading" type="Slot"}
   Optional loading indicator to display over the preview.
   ::
   ::field{name="...props" type="IframeHTMLAttributes"}
-  Any other props are spread to the underlying iframe.
+  Any other props are spread to the underlying [iframe](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe).
   ::
 ::::
 
 ### `<WebPreviewConsole />`
 
 ::::field-group
-  ::field{name="logs" type='Array<{ level: "log" | "warn" | "error"; message: string; timestamp: Date }>'}
+  ::field{name="logs" type='Array<LogItem>'}
   Console log entries to display in the console panel.
+    ```ts [LogItem]
+    type LogItem = { level: "log" | "warn" | "error"; message: string; timestamp: Date }
+    ```
+    ```ts [Example]
+    [
+      {
+        "level": "log",
+        "message": "Page loaded successfully",
+        "timestamp": "2025-01-01T00:00:00.000Z"
+      }
+    ]
+    ```
   ::
   ::field{name="...props" type="HTMLAttributes"}
   Any other props are spread to the root div.

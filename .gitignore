@@ -32,3 +32,5 @@ dist-ssr
 # Testing
 coverage
 **/__screenshots__
+
+.code-group.md
