@@ -15,7 +15,7 @@ withDefaults(defineProps<Props>(), {
 
 <template>
   <div class="my-4 w-full space-y-8">
-    <ClientOnly>
+    <ClientOnly class="overflow-scroll">
       <CodeGroup>
         <div
           :label="label || componentName"
