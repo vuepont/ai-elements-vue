@@ -20,6 +20,7 @@ import {
   LoaderSizes,
   Message,
   MessageMarkdown,
+  ModelSelector,
   OpenInChat,
   Plan,
   PromptInput,
@@ -79,6 +80,7 @@ export default defineNuxtPlugin((nuxtApp) => {
   vueApp.component('CodeBlockDark', CodeBlockDark)
   vueApp.component('Checkpoint', Checkpoint)
   vueApp.component('Workflow', Workflow)
+  vueApp.component('ModelSelector', ModelSelector)
   vueApp.component('Context', Context)
   vueApp.component('Confirmation', Confirmation)
   vueApp.component('ConfirmationAccepted', ConfirmationAccepted)
