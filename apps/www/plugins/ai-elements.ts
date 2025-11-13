@@ -7,6 +7,7 @@ import {
   Checkpoint,
   CodeBlock,
   CodeBlockDark,
+  Context,
   Confirmation,
   ConfirmationAccepted,
   ConfirmationRejected,
@@ -78,6 +79,7 @@ export default defineNuxtPlugin((nuxtApp) => {
   vueApp.component('CodeBlockDark', CodeBlockDark)
   vueApp.component('Checkpoint', Checkpoint)
   vueApp.component('Workflow', Workflow)
+  vueApp.component('Context', Context)
   vueApp.component('Confirmation', Confirmation)
   vueApp.component('ConfirmationAccepted', ConfirmationAccepted)
   vueApp.component('ConfirmationRejected', ConfirmationRejected)
