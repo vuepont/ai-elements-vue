@@ -28,13 +28,13 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
-      '@repo/shadcn-ui/lib/utils': path.resolve(
+      '@repo/shadcn-vue/lib/utils': path.resolve(
         __dirname,
-        '../shadcn-ui/lib/utils.ts',
+        '../shadcn-vue/lib/utils.ts',
       ),
-      '@repo/shadcn-ui/components': path.resolve(
+      '@repo/shadcn-vue/components': path.resolve(
         __dirname,
-        '../shadcn-ui/components',
+        '../shadcn-vue/components',
       ),
       'katex/dist/katex.min.css': path.resolve(
         __dirname,
