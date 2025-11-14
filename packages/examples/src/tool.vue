@@ -16,6 +16,7 @@ import {
   ToolInput,
   ToolOutput,
 } from '@repo/elements/tool'
+import { CheckIcon, XIcon } from 'lucide-vue-next'
 import { nanoid } from 'nanoid'
 import { ref } from 'vue'
 
@@ -167,6 +168,7 @@ const toolCall = ref<ToolUIPart>({
       <ToolContent>
         <ToolInput :input="toolCall.input" />
         <ToolOutput
+          :output="undefined"
           error-text="Connection timeout: Unable to reach database server"
         />
       </ToolContent>
