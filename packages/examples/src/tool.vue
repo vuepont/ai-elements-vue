@@ -41,7 +41,7 @@ const toolCall = ref<ToolUIPart>({
 </script>
 
 <template>
-  <div class="space-y-4 min-h-[1400px]">
+  <div class="space-y-4">
     <Tool default-open>
       <ToolHeader
         state="input-streaming"
