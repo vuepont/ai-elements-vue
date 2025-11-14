@@ -36,6 +36,11 @@ import {
   Suggestion,
   SuggestionAiInput,
   Task,
+  Tool,
+  ToolInputAvailable,
+  ToolInputStreaming,
+  ToolOutputAvailable,
+  ToolOutputError,
   Workflow,
 } from '@repo/examples'
 
@@ -80,6 +85,11 @@ export default defineNuxtPlugin((nuxtApp) => {
   vueApp.component('CodeBlockDark', CodeBlockDark)
   vueApp.component('Checkpoint', Checkpoint)
   vueApp.component('Workflow', Workflow)
+  vueApp.component('Tool', Tool)
+  vueApp.component('ToolInputStreaming', ToolInputStreaming)
+  vueApp.component('ToolInputAvailable', ToolInputAvailable)
+  vueApp.component('ToolOutputAvailable', ToolOutputAvailable)
+  vueApp.component('ToolOutputError', ToolOutputError)
   vueApp.component('ModelSelector', ModelSelector)
   vueApp.component('Context', Context)
   vueApp.component('Confirmation', Confirmation)
