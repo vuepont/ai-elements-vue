@@ -7,7 +7,6 @@
     "./*": "./src/*/index.ts"
   },
   "scripts": {
-    "gen-code-group": "pnpx tsx ./scripts/gen-code-group.ts",
     "test": "vitest run"
   },
   "dependencies": {
