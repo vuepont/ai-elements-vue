@@ -1,10 +1,11 @@
 <script setup lang="ts">
+import type { HTMLAttributes } from 'vue'
+import { cn } from '@repo/shadcn-vue/lib/utils'
 import { StickToBottom } from 'vue-stick-to-bottom'
-import ConversationScrollButton from './ConversationScrollButton.vue'
 
 interface Props {
   ariaLabel?: string
-  class?: string
+  class?: HTMLAttributes['class']
   initial?: boolean | 'instant' | { damping?: number, stiffness?: number, mass?: number }
   resize?: 'instant' | { damping?: number, stiffness?: number, mass?: number }
   damping?: number
@@ -26,8 +27,7 @@ const props = withDefaults(defineProps<Props>(), {
 <template>
   <StickToBottom
     :aria-label="props.ariaLabel"
-    class="relative flex-1"
-    :class="[props.class]"
+    :class="cn('relative flex-1 overflow-y-hidden', props.class)"
     role="log"
     :initial="props.initial"
     :resize="props.resize"
@@ -37,6 +37,5 @@ const props = withDefaults(defineProps<Props>(), {
     :anchor="props.anchor"
   >
     <slot />
-    <ConversationScrollButton />
   </StickToBottom>
 </template>
