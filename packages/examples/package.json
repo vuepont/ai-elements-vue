@@ -5,7 +5,7 @@
   "description": "Examples for the repo.",
   "exports": {
     ".": "./src/index.ts",
-    "./*": "./src/*.ts"
+    "./composables": "./src/composables/index.ts"
   },
   "dependencies": {
     "@repo/elements": "workspace:*",
