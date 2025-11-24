@@ -4,8 +4,7 @@
   "private": true,
   "description": "Examples for the repo.",
   "exports": {
-    ".": "./src/index.ts",
-    "./composables": "./src/composables/index.ts"
+    ".": "./src/index.ts"
   },
   "dependencies": {
     "@repo/elements": "workspace:*",

@@ -6,11 +6,6 @@ import { computed, useSlots } from 'vue'
 
 interface Props {
   content?: string
-  /**
-   * The color mode for syntax highlighting in code blocks.
-   * @default 'light'
-   */
-  codeBlockMode?: 'light' | 'dark'
   class?: HTMLAttributes['class']
 }
 const props = defineProps<Props>()
@@ -27,13 +22,14 @@ const slotContent = computed<string | undefined>(() => {
 })
 
 const md = computed(() => (slotContent.value ?? props.content ?? '') as string)
-
-const shikiTheme = computed(() => props.codeBlockMode === 'dark' ? 'github-dark' : 'github-light')
 </script>
 
 <template>
   <StreamMarkdown
-    :shiki-theme="shikiTheme"
+    :shiki-theme="{
+      light: 'github-light',
+      dark: 'github-dark',
+    }"
     :content="md"
     :class="
       cn(

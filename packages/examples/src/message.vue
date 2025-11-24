@@ -25,15 +25,6 @@ import {
 import { nanoid } from 'nanoid'
 import { ref } from 'vue'
 
-/**
- * WARNING: This is a temporary solution to get the code block mode.
- * Please replace this with your own implementation,
- * e.g. vueuse/useColorMode, @nuxtjs/color-mode/useColorMode
- */
-import { useExamplesCodeBlockMode } from './composables'
-
-const codeBlockMode = useExamplesCodeBlockMode()
-
 interface Attachment {
   type: 'file'
   url: string
@@ -252,10 +243,7 @@ function handleBranchChange(index: number) {
             v-for="version in message.versions"
             :key="version.id"
           >
-            <MessageResponse
-              :content="version.content"
-              :code-block-mode="codeBlockMode"
-            />
+            <MessageResponse :content="version.content" />
           </MessageContent>
         </MessageBranchContent>
 
@@ -322,11 +310,7 @@ function handleBranchChange(index: number) {
         </MessageAttachments>
 
         <MessageContent>
-          <MessageResponse
-            v-if="message.from === 'assistant'"
-            :content="message.content"
-            :code-block-mode="codeBlockMode"
-          />
+          <MessageResponse v-if="message.from === 'assistant'" :content="message.content" />
           <template v-else>
             {{ message.content }}
           </template>

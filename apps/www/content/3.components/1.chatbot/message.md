@@ -401,7 +401,6 @@ import { computed, useSlots } from 'vue'
 
 interface Props {
   content?: string
-  codeBlockMode?: 'light' | 'dark'
   class?: HTMLAttributes['class']
 }
 const props = defineProps<Props>()
@@ -418,13 +417,15 @@ const slotContent = computed<string | undefined>(() => {
 })
 
 const md = computed(() => (slotContent.value ?? props.content ?? '') as string)
-const shikiTheme = computed(() => props.codeBlockMode === 'dark' ? 'github-dark' : 'github-light')
 </script>
 
 <template>
   <StreamMarkdown
+    :shiki-theme="{
+      light: 'github-light',
+      dark: 'github-dark',
+    }"
     :content="md"
-    :shiki-theme="shikiTheme"
     :class="
       cn(
         'size-full [&>*:first-child]:mt-0 [&>*:last-child]:mb-0',
@@ -850,10 +851,6 @@ function handleSubmit() {
 ::field-group
   ::field{name="content" type="string" defaultValue="''"}
   The content of the message.
-  ::
-
-  ::field{name="codeBlockMode" type="'light' | 'dark'" defaultValue="'light'"}
-  The color mode for syntax highlighting in code blocks.
   ::
 
   ::field{name="class" type="string" defaultValue="''"}

@@ -43,8 +43,6 @@ import {
   ToolOutputError,
   Workflow,
 } from '@repo/examples'
-import { examplesCodeBlockModeKey } from '@repo/examples/composables'
-import { computed } from 'vue'
 
 import ComponentLoader from '@/components/ComponentLoader.vue'
 import ComponentViewer from '@/components/ComponentViewer.vue'
@@ -98,8 +96,4 @@ export default defineNuxtPlugin((nuxtApp) => {
   vueApp.component('ConfirmationAccepted', ConfirmationAccepted)
   vueApp.component('ConfirmationRejected', ConfirmationRejected)
   vueApp.component('ConfirmationRequest', ConfirmationRequest)
-
-  const colorMode = useColorMode()
-  const codeBlockMode = computed(() => (colorMode.value === 'dark' ? 'dark' : 'light'))
-  vueApp.provide(examplesCodeBlockModeKey, codeBlockMode)
 })
