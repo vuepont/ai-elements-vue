@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue'
 import { Input } from '@repo/shadcn-vue/components/ui/input'
+import { cn } from '@repo/shadcn-vue/lib/utils'
 import { ref, useAttrs, watch } from 'vue'
 import { useWebPreviewContext } from './context'
 
@@ -35,7 +36,7 @@ function handleKeydown() {
   <Input
     v-model="inputValue"
     data-testid="web-preview-url-input"
-    :class="props.class"
+    :class="cn('h-8 flex-1 text-sm', props.class)"
     :placeholder="props.placeholder"
     v-bind="attrs"
     @keydown.enter="handleKeydown"
