@@ -27,7 +27,7 @@ The `WebPreview` component provides a flexible way to showcase the result of a g
 
 ## Install Manually
 :::code-group
-```vue [WebPreview.vue]
+```vue [WebPreview.vue] height=300 collapse
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue'
 import { cn } from '@repo/shadcn-vue/lib/utils'
@@ -90,7 +90,7 @@ const vBind = computed(() => {
 </template>
 ```
 
-```vue [WebPreviewBody.vue]
+```vue [WebPreviewBody.vue] height=300 collapse
 <script setup lang="ts">
 import type { IframeHTMLAttributes, VNodeChild } from 'vue'
 import { cn } from '@repo/shadcn-vue/lib/utils'
@@ -128,7 +128,7 @@ const frameSrc = computed(() => (props.src ?? url.value) || undefined)
 </template>
 ```
 
-```vue [WebPreviewConsole.vue]
+```vue [WebPreviewConsole.vue] height=300 collapse
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue'
 import { Button } from '@repo/shadcn-vue/components/ui/button'
@@ -223,7 +223,7 @@ function levelClass(level: LogLevel) {
 </template>
 ```
 
-```vue [WebPreviewNavigation.vue]
+```vue [WebPreviewNavigation.vue] height=300 collapse
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue'
 import { cn } from '@repo/shadcn-vue/lib/utils'
@@ -247,7 +247,7 @@ const props = defineProps<Props>()
 </template>
 ```
 
-```vue [WebPreviewNavigationButton.vue]
+```vue [WebPreviewNavigationButton.vue] height=300 collapse
 <script setup lang="ts">
 import type { ButtonVariants } from '@repo/shadcn-vue/components/ui/button'
 import type { HTMLAttributes } from 'vue'
@@ -295,10 +295,11 @@ const props = withDefaults(defineProps<Props>(), {
 </template>
 ```
 
-```vue [WebPreviewUrl.vue]
+```vue [WebPreviewUrl.vue] height=300 collapse
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue'
 import { Input } from '@repo/shadcn-vue/components/ui/input'
+import { cn } from '@repo/shadcn-vue/lib/utils'
 import { ref, useAttrs, watch } from 'vue'
 import { useWebPreviewContext } from './context'
 
@@ -333,7 +334,7 @@ function handleKeydown() {
   <Input
     v-model="inputValue"
     data-testid="web-preview-url-input"
-    :class="props.class"
+    :class="cn('h-8 flex-1 text-sm', props.class)"
     :placeholder="props.placeholder"
     v-bind="attrs"
     @keydown.enter="handleKeydown"
@@ -341,7 +342,7 @@ function handleKeydown() {
 </template>
 ```
 
-```ts [context.ts]
+```ts [context.ts] height=300 collapse
 import type { InjectionKey, Ref } from 'vue'
 import { inject, provide } from 'vue'
 
@@ -391,7 +392,7 @@ npm i v0-sdk
 ```
 
 Add the following component to your frontend:
-```vue [app.vue]
+```vue [app.vue] height=300 collapse
 <script setup lang="ts">
 import { Loader } from '@/components/ai-elements/loader'
 import {
@@ -482,7 +483,7 @@ async function handleSubmit(e: Event) {
 
 Add the following route to your backend:
 
-```ts [server/api/v0.post.ts]
+```ts [server/api/v0.post.ts] height=300 collapse
 import type { ChatsCreateResponse } from 'v0-sdk'
 import { defineEventHandler, readBody } from 'h3'
 import { v0 } from 'v0-sdk'
