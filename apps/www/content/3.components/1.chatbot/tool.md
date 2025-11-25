@@ -4,7 +4,7 @@ description: A collapsible component for displaying tool invocation details in A
 icon: lucide:tool-case
 ---
 
-The `Tool` component isplays a collapsible interface for showing/hiding tool details. It is designed to take the `ToolUIPart` type from the AI SDK and display it in a collapsible interface.
+The `Tool` component displays a collapsible interface for showing/hiding tool details. It is designed to take the `ToolUIPart` type from the AI SDK and display it in a collapsible interface.
 
 :::ComponentLoader{label="Preview" componentName="Tool"}
 :::
