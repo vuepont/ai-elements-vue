@@ -13,6 +13,11 @@
     },
     "lint": {
       "cache": true
+    },
+    "test": {
+      "dependsOn": ["^test"],
+      "inputs": ["$TURBO_DEFAULT$", ".env*"],
+      "outputs": ["coverage/**"]
     }
   }
 }

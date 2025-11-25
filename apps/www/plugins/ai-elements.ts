@@ -7,11 +7,11 @@ import {
   Checkpoint,
   CodeBlock,
   CodeBlockDark,
-  Context,
   Confirmation,
   ConfirmationAccepted,
   ConfirmationRejected,
   ConfirmationRequest,
+  Context,
   Conversation,
   Image,
   InlineCitation,
@@ -36,6 +36,7 @@ import {
   Suggestion,
   SuggestionAiInput,
   Task,
+  WebPreview,
   Tool,
   ToolInputAvailable,
   ToolInputStreaming,
@@ -96,4 +97,5 @@ export default defineNuxtPlugin((nuxtApp) => {
   vueApp.component('ConfirmationAccepted', ConfirmationAccepted)
   vueApp.component('ConfirmationRejected', ConfirmationRejected)
   vueApp.component('ConfirmationRequest', ConfirmationRequest)
+  vueApp.component('WebPreview', WebPreview)
 })
