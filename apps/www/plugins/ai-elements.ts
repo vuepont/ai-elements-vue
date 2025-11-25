@@ -27,6 +27,7 @@ import {
   Queue,
   QueueCustom,
   QueuePromptInput,
+  Reasoning,
   Response,
   Shimmer,
   ShimmerCustomElements,
@@ -97,5 +98,6 @@ export default defineNuxtPlugin((nuxtApp) => {
   vueApp.component('ConfirmationAccepted', ConfirmationAccepted)
   vueApp.component('ConfirmationRejected', ConfirmationRejected)
   vueApp.component('ConfirmationRequest', ConfirmationRequest)
+  vueApp.component('Reasoning', Reasoning)
   vueApp.component('WebPreview', WebPreview)
 })
