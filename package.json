@@ -1,6 +1,6 @@
 {
   "name": "ai-elements-vue",
-  "version": "0.11.0",
+  "version": "0.12.0",
   "private": true,
   "packageManager": "pnpm@10.18.0",
   "engines": {
@@ -8,6 +8,7 @@
   },
   "scripts": {
     "build": "turbo run build",
+    "test": "turbo run test",
     "dev": "turbo run dev",
     "dev:www": "pnpm --filter www dev",
     "build:www": "pnpm --filter www build",

@@ -28,3 +28,9 @@ dist-ssr
 .env
 .env.*
 !.env.example
+
+# Testing
+coverage
+**/__screenshots__
+
+.code-group.md
