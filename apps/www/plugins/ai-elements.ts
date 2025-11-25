@@ -37,12 +37,12 @@ import {
   Suggestion,
   SuggestionAiInput,
   Task,
-  WebPreview,
   Tool,
   ToolInputAvailable,
   ToolInputStreaming,
   ToolOutputAvailable,
   ToolOutputError,
+  WebPreview,
   Workflow,
 } from '@repo/examples'
 
