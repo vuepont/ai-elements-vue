@@ -37,6 +37,7 @@ import {
   Suggestion,
   SuggestionAiInput,
   Task,
+  WebPreview,
   Tool,
   ToolInputAvailable,
   ToolInputStreaming,
@@ -98,4 +99,5 @@ export default defineNuxtPlugin((nuxtApp) => {
   vueApp.component('ConfirmationRejected', ConfirmationRejected)
   vueApp.component('ConfirmationRequest', ConfirmationRequest)
   vueApp.component('Reasoning', Reasoning)
+  vueApp.component('WebPreview', WebPreview)
 })

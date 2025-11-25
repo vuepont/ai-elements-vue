@@ -1,14 +1,19 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
+    "jsx": "preserve",
+    "jsxFactory": "h",
     "lib": ["ES2020", "DOM"],
     "baseUrl": ".",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
     "paths": {
       "@repo/*": ["../*"],
       "@/components/*": ["../shadcn-vue/components/*"],
       "@/lib/*": ["../shadcn-vue/lib/*"]
-    }
+    },
+    "types": ["vue/jsx"]
   },
-  "include": ["**/*.ts", "**/*.vue"],
+  "include": ["**/*.ts", "**/*.tsx", "**/*.vue"],
   "exclude": ["node_modules"]
 }

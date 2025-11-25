@@ -14,7 +14,7 @@ const props = defineProps<Props>()
   <img
     v-bind="$attrs"
     :alt="`${props.provider} logo`"
-    :class="cn('size-3', props.class)"
+    :class="cn('size-3 dark:invert', props.class)"
     height="12"
     :src="`https://models.dev/logos/${props.provider}.svg`"
     width="12"
