@@ -96,7 +96,7 @@ Creates reactive primitive values:
 import { ref } from 'vue'
 
 const count = ref(0)
-<//script>
+<\/script>
 
 <template>
   <button @click="count++">Count: {{ count }}</button>
@@ -115,19 +115,19 @@ const count = ref(0)
 watch(count, (newVal, oldVal) => {
   console.log(\`Count changed from \${oldVal} to \${newVal}\`)
 })
-<//script>
+<\/script>
 \`\`\`
 
 ## When to Use the Composition API
 
-- ✅ **For complex logic** — Easier to organize and reuse reactive state  
-- ✅ **For reusable code** — Create your own composables (like custom hooks)  
-- ✅ **For TypeScript support** — More type-friendly than Options API  
+- ✅ **For complex logic** — Easier to organize and reuse reactive state
+- ✅ **For reusable code** — Create your own composables (like custom hooks)
+- ✅ **For TypeScript support** — More type-friendly than Options API
 - ❌ **For simple components** — The Options API might be enough
 
 ## Rules of the Composition API
 
-1. Only use Vue composables **inside \`setup()\`** or other composables  
+1. Only use Vue composables **inside \`setup()\`** or other composables
 2. Always return what you want to use in your template from \`setup()\`
 
 Would you like to explore more advanced composables like \`computed\` or \`onMounted\`?`,
@@ -138,11 +138,11 @@ Would you like to explore more advanced composables like \`computed\` or \`onMou
 
 Here are the most common composables:
 
-- **ref()** — creates reactive primitive values  
-- **reactive()** — makes entire objects reactive  
-- **computed()** — creates derived reactive values  
-- **watch()** — runs side effects on data changes  
-- **onMounted()** — lifecycle hook for when a component is mounted  
+- **ref()** — creates reactive primitive values
+- **reactive()** — makes entire objects reactive
+- **computed()** — creates derived reactive values
+- **watch()** — runs side effects on data changes
+- **onMounted()** — lifecycle hook for when a component is mounted
 
 Here's a simple example:
 
@@ -155,7 +155,7 @@ const count = ref(0)
 onMounted(() => {
   console.log('Component mounted!')
 })
-<//script>
+<\/script>
 
 <template>
   <button @click="count++">Clicked {{ count }} times</button>
@@ -170,9 +170,9 @@ Which specific composable would you like to learn more about?`,
 
 ## Key Benefits
 
-1. **Cleaner code organization** — Group related logic by feature  
-2. **Reusable logic** — Build and share your own composables  
-3. **Better TypeScript support** — Stronger typing than the Options API  
+1. **Cleaner code organization** — Group related logic by feature
+2. **Reusable logic** — Build and share your own composables
+3. **Better TypeScript support** — Stronger typing than the Options API
 
 ## Most Popular Composables
 

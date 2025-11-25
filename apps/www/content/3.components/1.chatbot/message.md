@@ -421,6 +421,10 @@ const md = computed(() => (slotContent.value ?? props.content ?? '') as string)
 
 <template>
   <StreamMarkdown
+    :shiki-theme="{
+      light: 'github-light',
+      dark: 'github-dark',
+    }"
     :content="md"
     :class="
       cn(
