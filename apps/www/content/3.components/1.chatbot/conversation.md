@@ -1,6 +1,6 @@
 ---
 title: Conversation
-description:
+description: Wraps messages and automatically scrolls to the bottom. Also includes a scroll button that appears when not at the bottom.
 icon: lucide:message-square
 ---
 
@@ -30,138 +30,161 @@ The `Conversation` component wraps messages and automatically scrolls to the bot
 Copy and paste the following code in the same folder.
 
 :::code-group
-  ```vue [Conversation.vue]
-  <script setup lang="ts">
-  import { StickToBottom } from 'vue-stick-to-bottom'
-  import ConversationScrollButton from './ConversationScrollButton.vue'
+```vue [Conversation.vue] height=300 collapse
+<script setup lang="ts">
+import type { HTMLAttributes } from 'vue'
+import { cn } from '@repo/shadcn-vue/lib/utils'
+import { StickToBottom } from 'vue-stick-to-bottom'
 
-  interface Props {
-    ariaLabel?: string
-    class?: string
-    initial?: boolean | 'instant' | { damping?: number, stiffness?: number, mass?: number }
-    resize?: 'instant' | { damping?: number, stiffness?: number, mass?: number }
-    damping?: number
-    stiffness?: number
-    mass?: number
-    anchor?: 'auto' | 'none'
-  }
+interface Props {
+  ariaLabel?: string
+  class?: HTMLAttributes['class']
+  initial?: boolean | 'instant' | { damping?: number, stiffness?: number, mass?: number }
+  resize?: 'instant' | { damping?: number, stiffness?: number, mass?: number }
+  damping?: number
+  stiffness?: number
+  mass?: number
+  anchor?: 'auto' | 'none'
+}
 
-  const props = withDefaults(defineProps<Props>(), {
-    ariaLabel: 'Conversation',
-    initial: true,
-    damping: 0.7,
-    stiffness: 0.05,
-    mass: 1.25,
-    anchor: 'none',
-  })
-  </script>
+const props = withDefaults(defineProps<Props>(), {
+  ariaLabel: 'Conversation',
+  initial: true,
+  damping: 0.7,
+  stiffness: 0.05,
+  mass: 1.25,
+  anchor: 'none',
+})
+</script>
 
-  <template>
-    <StickToBottom
-      :aria-label="props.ariaLabel"
-      class="relative flex-1"
-      :class="[props.class]"
-      role="log"
-      :initial="props.initial"
-      :resize="props.resize"
-      :damping="props.damping"
-      :stiffness="props.stiffness"
-      :mass="props.mass"
-      :anchor="props.anchor"
-    >
-      <slot />
-      <ConversationScrollButton />
-    </StickToBottom>
-  </template>
-  ```
+<template>
+  <StickToBottom
+    :aria-label="props.ariaLabel"
+    :class="cn('relative flex-1 overflow-y-hidden', props.class)"
+    role="log"
+    :initial="props.initial"
+    :resize="props.resize"
+    :damping="props.damping"
+    :stiffness="props.stiffness"
+    :mass="props.mass"
+    :anchor="props.anchor"
+  >
+    <slot />
+  </StickToBottom>
+</template>
+```
 
-  ```vue [ConversationContent.vue]
-  <script setup lang="ts">
-  import { computed } from 'vue'
+```vue [ConversationContent.vue] height=300 collapse
+<script setup lang="ts">
+import type { HTMLAttributes } from 'vue'
+import { computed } from 'vue'
 
-  interface Props {
-    class?: string
-  }
+interface Props {
+  class?: HTMLAttributes['class']
+}
 
-  const props = defineProps<Props>()
+const props = defineProps<Props>()
 
-  const classes = computed(() => [
-    'p-4',
-    props.class,
-  ])
-  </script>
+const classes = computed(() => [
+  'flex flex-col gap-8 p-4',
+  props.class,
+])
+</script>
 
-  <template>
-    <div :class="classes">
-      <slot />
-    </div>
-  </template>
-  ```
+<template>
+  <div :class="classes">
+    <slot />
+  </div>
+</template>
+```
 
-  ```vue [ConversationScrollButton.vue]
-  <script setup lang="ts">
-  import { ChevronDown } from 'lucide-vue-next'
-  import { computed } from 'vue'
-  import { useStickToBottomContext } from 'vue-stick-to-bottom'
-  import { Button } from '@/components/ui/button'
+```vue [ConversationEmptyState.vue] height=300 collapse
+<script setup lang="ts">
+import type { HTMLAttributes } from 'vue'
+import { cn } from '@repo/shadcn-vue/lib/utils'
 
-  interface Props {
-    class?: string
-  }
+interface Props {
+  class?: HTMLAttributes['class']
+  title?: string
+  description?: string
+}
 
-  const props = defineProps<Props>()
-  const { isAtBottom, scrollToBottom } = useStickToBottomContext()
-  const showScrollButton = computed(() => !isAtBottom.value)
+const props = withDefaults(defineProps<Props>(), {
+  title: 'No messages yet',
+  description: 'Start a conversation to see messages here',
+})
+</script>
 
-  function handleClick() {
-    scrollToBottom()
-  }
-  </script>
+<template>
+  <div
+    :class="cn(
+      'flex size-full flex-col items-center justify-center gap-3 p-8 text-center',
+      props.class,
+    )"
+    v-bind="$attrs"
+  >
+    <slot>
+      <div v-if="$slots.icon" class="text-muted-foreground">
+        <slot name="icon" />
+      </div>
 
-  <template>
-    <div class="pointer-events-none absolute inset-0 z-20 flex items-end justify-center pb-4">
-      <Button
-        v-show="showScrollButton"
-        class="pointer-events-auto rounded-full shadow-sm"
-        :class="[props.class]"
-        size="icon"
-        type="button"
-        variant="outline"
-        v-bind="$attrs"
-        @click="handleClick"
-      >
-        <ChevronDown class="size-4" />
-      </Button>
-    </div>
-  </template>
-  ```
+      <div class="space-y-1">
+        <h3 class="font-medium text-sm">
+          {{ props.title }}
+        </h3>
+        <p v-if="props.description" class="text-muted-foreground text-sm">
+          {{ props.description }}
+        </p>
+      </div>
+    </slot>
+  </div>
+</template>
+```
 
-  ```ts [index.ts]
-  export { default as Conversation } from './Conversation.vue'
-  export { default as ConversationContent } from './ConversationContent.vue'
-  export { default as ConversationScrollButton } from './ConversationScrollButton.vue'
-  ```
+```vue [ConversationScrollButton.vue] height=300 collapse
+<script setup lang="ts">
+import type { HTMLAttributes } from 'vue'
+import { Button } from '@repo/shadcn-vue/components/ui/button'
+import { cn } from '@repo/shadcn-vue/lib/utils'
+import { ArrowDownIcon } from 'lucide-vue-next'
+import { computed } from 'vue'
+import { useStickToBottomContext } from 'vue-stick-to-bottom'
+
+interface Props {
+  class?: HTMLAttributes['class']
+}
+
+const props = defineProps<Props>()
+const { isAtBottom, scrollToBottom } = useStickToBottomContext()
+const showScrollButton = computed(() => !isAtBottom.value)
+
+function handleClick() {
+  scrollToBottom()
+}
+</script>
+
+<template>
+  <Button
+    v-if="showScrollButton"
+    :class="cn('absolute bottom-4 left-[50%] translate-x-[-50%] rounded-full', props.class)"
+    size="icon"
+    type="button"
+    variant="outline"
+    v-bind="$attrs"
+    @click="handleClick"
+  >
+    <ArrowDownIcon class="size-4" />
+  </Button>
+</template>
+```
+
+```ts [index.ts]
+export { default as Conversation } from './Conversation.vue'
+export { default as ConversationContent } from './ConversationContent.vue'
+export { default as ConversationEmptyState } from './ConversationEmptyState.vue'
+export { default as ConversationScrollButton } from './ConversationScrollButton.vue'
+```
 :::
-
-## Usage
-
-```ts
-import {
-  Conversation,
-  ConversationContent,
-  ConversationScrollButton,
-} from '@/components/ai-elements/conversation'
-```
-
-```vue
-<Conversation class="relative w-full" style="height: 500px;">
-  <ConversationContent>
-    <Message from="user">
-      <MessageContent>Hi there!</MessageContent>
-    </Message>
-  </ConversationContent>
-</Conversation>
-```
 
 ## Usage with AI SDK
 
@@ -169,7 +192,7 @@ Build a simple conversational UI with `Conversation` and [`PromptInput`](/compon
 
 Add the following component to your frontend:
 
-```vue [pages/index.vue]
+```vue [pages/index.vue] height=300 collapse
 <script setup lang="ts">
 import { useChat } from '@ai-sdk/vue'
 import { ref } from 'vue'
@@ -234,22 +257,22 @@ function handleSubmit(e: Event) {
 
 Add the following route to your backend:
 
-```ts [api/chat/route.ts]
+```ts [server/api/chat/route.ts]
 import { convertToModelMessages, streamText, UIMessage } from 'ai'
 
 // Allow streaming responses up to 30 seconds
 export const maxDuration = 30
 
-export async function POST(req: Request) {
-  const { messages }: { messages: UIMessage[] } = await req.json()
+export default defineEventHandler(async (event) => {
+  const { messages }: { messages: UIMessage[] } = await readBody(event)
 
   const result = streamText({
     model: 'openai/gpt-4o',
-    messages: convertToModelMessages(messages),
+    messages: convertToModelMessages(messages)
   })
 
-  return result.toUIMessageStreamResponse()
-}
+  return result.toAIStreamResponse(event)
+})
 ```
 
 ## Features
@@ -306,6 +329,22 @@ export async function POST(req: Request) {
 :::field-group
   ::field{name="class" type="string"}
   Additional classes applied to the content wrapper.
+  ::
+:::
+
+### `<ConversationEmptyState />`
+
+:::field-group
+  ::field{name="title" type="string" defaultValue="'No messages yet'"}
+  The title text to display.
+  ::
+
+  ::field{name="description" type="string" defaultValue="'Start a conversation to see messages here'"}
+  The description text to display.
+  ::
+
+  ::field{name="class" type="string"}
+  Additional classes applied to the empty state wrapper.
   ::
 :::
 
