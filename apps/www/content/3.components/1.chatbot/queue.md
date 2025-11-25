@@ -395,11 +395,12 @@ const props = defineProps<{
 
 ```vue [QueueItemFile.vue]
 <script setup lang="ts">
+import type { HTMLAttributes } from 'vue'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 import { PaperclipIcon } from 'lucide-vue-next'
 
 const props = defineProps<{
-  class?: string
+  class?: HTMLAttributes['class']
 }>()
 </script>
 

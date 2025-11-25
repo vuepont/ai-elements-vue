@@ -1,4 +1,10 @@
 <script lang="ts" setup>
+import {
+  ResizableHandle,
+  ResizablePanel,
+  ResizablePanelGroup,
+} from '@repo/shadcn-vue/components/ui/resizable'
+
 interface Props {
   componentName?: string
   id?: string
@@ -21,8 +27,20 @@ withDefaults(defineProps<Props>(), {
           :label="label || componentName"
           icon="lucide:laptop-minimal"
         >
-          <ComponentViewer :component-name="componentName" />
+          <ResizablePanelGroup direction="horizontal">
+            <ResizablePanel :default-size="100">
+              <div class="h-[600px] overflow-auto">
+                <ComponentViewer :component-name="componentName" />
+              </div>
+            </ResizablePanel>
+            <ResizableHandle
+              class="translate-x-px border-none [&>div]:shrink-0"
+              with-handle
+            />
+            <ResizablePanel :default-size="0" />
+          </ResizablePanelGroup>
         </div>
+
         <CodeViewerTab
           v-bind="$props"
           label="Code"

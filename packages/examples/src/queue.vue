@@ -40,21 +40,71 @@ export interface QueueTodo {
 }
 
 const sampleMessages: QueueMessage[] = [
-  { id: 'msg-1', parts: [{ type: 'text', text: 'How do I set up the project?' }] },
-  { id: 'msg-2', parts: [{ type: 'text', text: 'What is the roadmap for Q4?' }] },
-  { id: 'msg-3', parts: [{ type: 'text', text: 'Can you review my PR?' }] },
-  { id: 'msg-4', parts: [{ type: 'text', text: 'Please generate a changelog.' }] },
-  { id: 'msg-5', parts: [{ type: 'text', text: 'Add dark mode support.' }] },
-  { id: 'msg-6', parts: [{ type: 'text', text: 'Optimize database queries.' }] },
-  { id: 'msg-7', parts: [{ type: 'text', text: 'Set up CI/CD pipeline.' }] },
+  {
+    id: 'msg-1',
+    parts: [{ type: 'text', text: 'How do I set up the project?' }],
+  },
+  {
+    id: 'msg-2',
+    parts: [{ type: 'text', text: 'What is the roadmap for Q4?' }],
+  },
+  {
+    id: 'msg-3',
+    parts: [{ type: 'text', text: 'Update the default logo to this png.' }, {
+      type: 'file',
+      url: 'https://github.com/peoray.png',
+      filename: 'setup-guide.png',
+      mediaType: 'image/png',
+    }],
+  },
+  {
+    id: 'msg-4',
+    parts: [{ type: 'text', text: 'Please generate a changelog.' }],
+  },
+  {
+    id: 'msg-5',
+    parts: [{ type: 'text', text: 'Add dark mode support.' }],
+  },
+  {
+    id: 'msg-6',
+    parts: [{ type: 'text', text: 'Optimize database queries.' }],
+  },
+  {
+    id: 'msg-7',
+    parts: [{ type: 'text', text: 'Set up CI/CD pipeline.' }],
+  },
 ]
 
 const sampleTodos: QueueTodo[] = [
-  { id: 'todo-1', title: 'Write project documentation', description: 'Complete the README and API docs', status: 'completed' },
-  { id: 'todo-2', title: 'Implement authentication', status: 'pending' },
-  { id: 'todo-3', title: 'Fix bug #42', description: 'Resolve crash on settings page', status: 'pending' },
-  { id: 'todo-4', title: 'Refactor queue logic', description: 'Unify queue and todo state management', status: 'pending' },
-  { id: 'todo-5', title: 'Add unit tests', description: 'Increase test coverage for hooks', status: 'pending' },
+  {
+    id: 'todo-1',
+    title: 'Write project documentation',
+    description: 'Complete the README and API docs',
+    status: 'completed',
+  },
+  {
+    id: 'todo-2',
+    title: 'Implement authentication',
+    status: 'pending',
+  },
+  {
+    id: 'todo-3',
+    title: 'Fix bug #42',
+    description: 'Resolve crash on settings page',
+    status: 'pending',
+  },
+  {
+    id: 'todo-4',
+    title: 'Refactor queue logic',
+    description: 'Unify queue and todo state management',
+    status: 'pending',
+  },
+  {
+    id: 'todo-5',
+    title: 'Add unit tests',
+    description: 'Increase test coverage for hooks',
+    status: 'pending',
+  },
 ]
 
 const messages = ref<QueueMessage[]>(sampleMessages)
