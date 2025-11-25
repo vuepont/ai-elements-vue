@@ -18,7 +18,7 @@ Let's walk through how to build a workflow visualization using AI Elements Vue. 
 
   First, set up a new Vue.js repo by running the following command:
 
-  :pm-x{command="create vite@latest ai-workflow --template vue-ts"}
+  :pm-x{command="create-vite@latest ai-workflow --template vue-ts"}
 
   ::alert{type="info" icon="lucide:book"}
     Follow this [guide](https://www.shadcn-vue.com/docs/installation/vite.html) to setup **shadcn/vue** and **Tailwind**.
