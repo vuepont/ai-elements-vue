@@ -1,6 +1,0 @@
-export { default as Branch } from './Branch.vue'
-export { default as BranchMessages } from './BranchMessages.vue'
-export { default as BranchNext } from './BranchNext.vue'
-export { default as BranchPage } from './BranchPage.vue'
-export { default as BranchPrevious } from './BranchPrevious.vue'
-export { default as BranchSelector } from './BranchSelector.vue'

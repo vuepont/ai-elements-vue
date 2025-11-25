@@ -1,8 +1,5 @@
 import {
-  Actions,
-  ActionsHover,
   Artifact,
-  Branch,
   ChainOfThought,
   Checkpoint,
   CodeBlock,
@@ -19,7 +16,6 @@ import {
   LoaderCustomStyling,
   LoaderSizes,
   Message,
-  MessageMarkdown,
   ModelSelector,
   OpenInChat,
   Plan,
@@ -28,7 +24,6 @@ import {
   QueueCustom,
   QueuePromptInput,
   Reasoning,
-  Response,
   Shimmer,
   ShimmerCustomElements,
   ShimmerDurations,
@@ -56,14 +51,9 @@ export default defineNuxtPlugin((nuxtApp) => {
   vueApp.component('ComponentViewer', ComponentViewer)
 
   vueApp.component('Artifact', Artifact)
-  vueApp.component('Actions', Actions)
-  vueApp.component('ActionsHover', ActionsHover)
-  vueApp.component('Branch', Branch)
   vueApp.component('Message', Message)
-  vueApp.component('MessageMarkdown', MessageMarkdown)
   vueApp.component('PromptInput', PromptInput)
   vueApp.component('Conversation', Conversation)
-  vueApp.component('Response', Response)
   vueApp.component('Image', Image)
   vueApp.component('Shimmer', Shimmer)
   vueApp.component('ShimmerCustomElements', ShimmerCustomElements)
