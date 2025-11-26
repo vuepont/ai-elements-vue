@@ -8,7 +8,6 @@
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.22.0",
-    "mcp-handler": "^1.0.3",
     "shadcn-vue": "^2.3.2",
     "zod": "~3.25.76"
   },

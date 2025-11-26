@@ -1,19 +1,30 @@
+import type { H3Event } from 'h3'
 import type { Registry, RegistryItem } from 'shadcn-vue/schema'
-import type { ZodRawShape } from 'zod'
-import { fromWebHandler } from 'h3'
-import { createMcpHandler } from 'mcp-handler'
+import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js'
+import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js'
+import { defineEventHandler, getHeader, readBody, sendRedirect } from 'h3'
 import { useStorage } from 'nitropack/runtime'
 import { z } from 'zod'
 
 const REGISTRY_STORAGE_BASE = 'assets:registry'
+
 const REGISTRY_INDEX_FILE = 'index.json'
 
-// Parameter Schemas
-const componentParamsShape = {
-  component: z.string().min(1, 'component is required'),
-} satisfies ZodRawShape
+const SERVER_INFO = {
+  name: 'ai-elements-vue',
+  version: '1.0.0',
+}
 
-const componentParamsSchema = z.object(componentParamsShape)
+const DOCS_REDIRECT = 'https://www.ai-elements-vue.com/overview/mcp-server'
+
+const getComponentInputSchema = z.object({
+  component: z
+    .string()
+    .min(1, 'component is required')
+    .describe('Component name (e.g. "context")'),
+})
+
+type GetComponentInput = z.infer<typeof getComponentInputSchema>
 
 // Data Access Layer
 function getRegistryStorage() {
@@ -73,16 +84,7 @@ async function handleListComponents() {
   }
 }
 
-async function handleGetComponent(args: Record<string, unknown>) {
-  const parsedArgs = componentParamsSchema.safeParse(args)
-  if (!parsedArgs.success) {
-    return {
-      content: [{ type: 'text' as const, text: `Invalid input: ${parsedArgs.error.message}` }],
-      isError: true,
-    }
-  }
-
-  const { component } = parsedArgs.data
+async function handleGetComponent(component: string) {
   const registryItem = await loadRegistryItem(component)
 
   if (!registryItem) {
@@ -97,28 +99,67 @@ async function handleGetComponent(args: Record<string, unknown>) {
   }
 }
 
-// Main Handler
-const handler = createMcpHandler(
-  (server) => {
-    server.registerTool(
-      'get_ai_elements_components',
-      {
-        title: 'List AI Elements components',
-        description: 'Provides a list of all AI Elements components.',
-      },
-      handleListComponents,
-    )
+function createMcpServer() {
+  const server = new McpServer(SERVER_INFO)
 
-    server.registerTool(
-      'get_ai_elements_component',
-      {
-        title: 'Get AI Elements component',
-        description: 'Provides information about an AI Elements component.',
-        inputSchema: componentParamsShape,
-      },
-      handleGetComponent,
-    )
-  },
-)
+  server.registerTool(
+    'get_ai_elements_components',
+    {
+      title: 'List AI Elements components',
+      description: 'Provides a list of all AI Elements components.',
+    },
+    async () => handleListComponents(),
+  )
 
-export default fromWebHandler(handler)
+  server.registerTool(
+    'get_ai_elements_component',
+    {
+      title: 'Get AI Elements component',
+      description: 'Provides information about an AI Elements component.',
+      inputSchema: getComponentInputSchema,
+    },
+    async ({ component }: GetComponentInput) => handleGetComponent(component),
+  )
+
+  return server
+}
+
+async function readOptionalBody(event: H3Event) {
+  const method = event.node.req.method
+  if (!method || method === 'GET' || method === 'HEAD') {
+    return undefined
+  }
+
+  try {
+    return await readBody(event)
+  }
+  catch (error) {
+    console.warn('Failed to parse MCP request body, falling back to undefined', error)
+    return undefined
+  }
+}
+
+export default defineEventHandler(async (event) => {
+  if (event.node.req.method === 'GET') {
+    const accept = getHeader(event, 'accept') ?? ''
+    if (accept.includes('text/html')) {
+      return sendRedirect(event, DOCS_REDIRECT)
+    }
+  }
+
+  const server = createMcpServer()
+  const transport = new StreamableHTTPServerTransport({
+    sessionIdGenerator: undefined,
+  })
+
+  event.node.res.once('close', () => {
+    server.close().catch(error => console.error('Failed to close MCP server', error))
+    if (typeof transport.close === 'function') {
+      transport.close().catch(error => console.error('Failed to close MCP transport', error))
+    }
+  })
+
+  const body = await readOptionalBody(event)
+  await server.connect(transport)
+  await transport.handleRequest(event.node.req, event.node.res, body)
+})
