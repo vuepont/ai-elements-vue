@@ -1,5 +1,4 @@
 name = "ai-elements-vue-registry"
 main = ".output/server/index.mjs"
-compatibility_date = "2025-09-19"
-compatibility_flags = [ "nodejs_compat" ]
+compatibility_date = "2025-11-26"
 routes = [ "registry.ai-elements-vue.com/*" ]
