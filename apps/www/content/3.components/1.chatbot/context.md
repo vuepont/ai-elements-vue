@@ -630,7 +630,7 @@ The component uses Tailwind CSS classes and follows your design system:
 - **Cost Estimation:** Real-time cost calculation using the tokenlens library
 - **Intelligent Formatting:** Automatic token count formatting (K, M, B suffixes)
 - **Interactive Hover Card:** Detailed information revealed on hover
-- **Context Provider Pattern:** Clean data flow through Vue’s p`rovide/inject` API
+- **Context Provider Pattern:** Clean data flow through Vue’s `provide/inject` API
 - **TypeScript Support:** Full type definitions for all components
 - **Accessible Design:** Proper ARIA labels and semantic HTML
 - **Theme Integration:** Uses currentColor for automatic theme adaptation
