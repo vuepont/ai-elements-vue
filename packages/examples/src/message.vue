@@ -60,7 +60,7 @@ const messages: {
   {
     key: nanoid(),
     from: 'user',
-    content: 'How do Vue composition work and when should I use them?',
+    content: 'How do Vue composition APIs work and when should I use them?',
     attachments: [
       {
         type: 'file',
