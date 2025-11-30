@@ -1,0 +1,3 @@
+title: 聊天机器人
+icon: lucide:bot
+navigation.redirect: /components/chatbot/chain-of-thought
