@@ -1,29 +1,22 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue'
 import { cn } from '@repo/shadcn-vue/lib/utils'
-import { usePromptInputAttachments } from './usePromptInputAttachments'
+import { usePromptInput } from './context'
 
-interface Props extends /* @vue-ignore */ HTMLAttributes {
+const props = defineProps<{
   class?: HTMLAttributes['class']
-}
+}>()
 
-const props = defineProps<Props>()
-
-const attachments = usePromptInputAttachments()
-
-const { class: _, ...restProps } = props
+const { files } = usePromptInput()
 </script>
 
 <template>
   <div
-    v-if="attachments.files.length > 0"
+    v-if="files.length > 0"
     :class="cn('flex flex-wrap items-center gap-2 p-3 w-full', props.class)"
-    v-bind="restProps"
   >
-    <slot
-      v-for="file in attachments.files"
-      :key="file.id"
-      :attachment="file"
-    />
+    <template v-for="file in files" :key="file.id">
+      <slot :file="file" />
+    </template>
   </div>
 </template>

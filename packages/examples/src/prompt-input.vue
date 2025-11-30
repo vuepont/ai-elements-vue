@@ -1,6 +1,5 @@
-<!-- eslint-disable no-console -->
 <script setup lang="ts">
-// import type { PromptInputMessage } from '@repo/elements/prompt-input'
+import type { PromptInputMessage } from '@repo/elements/prompt-input/'
 import {
   ModelSelector,
   ModelSelectorContent,
@@ -25,19 +24,20 @@ import {
   PromptInputBody,
   PromptInputButton,
   PromptInputFooter,
-
   PromptInputProvider,
   PromptInputSpeechButton,
   PromptInputSubmit,
   PromptInputTextarea,
   PromptInputTools,
-  // usePromptInputController,
 } from '@repo/elements/prompt-input'
-// import { Button } from '@repo/shadcn-vue/components/ui/button'
-// import { ButtonGroup } from '@repo/shadcn-vue/components/ui/button-group'
+
 import { CheckIcon, GlobeIcon } from 'lucide-vue-next'
 import { computed, ref } from 'vue'
+
 import HeaderControls from './prompt-input-header-controls.vue'
+
+const SUBMITTING_TIMEOUT = 200
+const STREAMING_TIMEOUT = 2000
 
 const models = [
   {
@@ -77,31 +77,23 @@ const models = [
   },
 ]
 
-const SUBMITTING_TIMEOUT = 200
-const STREAMING_TIMEOUT = 2000
-
-const model = ref<string>(models[0].id)
+const modelId = ref<string>(models[0].id)
 const modelSelectorOpen = ref(false)
 const status = ref<'submitted' | 'streaming' | 'ready' | 'error'>('ready')
-const textareaRef = ref<HTMLTextAreaElement | null>(null)
+const selectedModelData = computed(() => models.find(m => m.id === modelId.value))
 
-const selectedModelData = computed(() => models.find(m => m.id === model.value))
+function handleSubmit(message: PromptInputMessage) {
+  const hasText = !!message.text
+  const hasAttachments = message.files?.length > 0
 
-function handleSubmit(message: any) {
-  // function handleSubmit(message: PromptInputMessage) {
-  console.log(message)
-  const hasText = Boolean(message.text)
-  const hasAttachments = Boolean(message.files?.length)
-
-  if (!(hasText || hasAttachments)) {
+  if (!hasText && !hasAttachments) {
     return
   }
 
   status.value = 'submitted'
 
+  // eslint-disable-next-line no-console
   console.log('Submitting message:', message)
-
-  console.log('Submitting message:')
 
   setTimeout(() => {
     status.value = 'streaming'
@@ -115,16 +107,23 @@ function handleSubmit(message: any) {
 
 <template>
   <div class="size-full">
-    <PromptInputProvider>
-      <PromptInput global-drop multiple @submit="handleSubmit">
+    <PromptInputProvider
+      @submit="handleSubmit"
+    >
+      <PromptInput
+        multiple
+        global-drop class="w-full"
+      >
         <PromptInputAttachments>
-          <template #default="{ attachment }">
-            <PromptInputAttachment :data="attachment" />
+          <template #default="{ file }">
+            <PromptInputAttachment :file="file" />
           </template>
         </PromptInputAttachments>
+
         <PromptInputBody>
-          <PromptInputTextarea ref="textareaRef" placeholder="What can I do for you?" />
+          <PromptInputTextarea />
         </PromptInputBody>
+
         <PromptInputFooter>
           <PromptInputTools>
             <PromptInputActionMenu>
@@ -133,11 +132,14 @@ function handleSubmit(message: any) {
                 <PromptInputActionAddAttachments />
               </PromptInputActionMenuContent>
             </PromptInputActionMenu>
-            <PromptInputSpeechButton :textarea-ref="textareaRef" />
+
+            <PromptInputSpeechButton />
+
             <PromptInputButton>
               <GlobeIcon :size="16" />
               <span>Search</span>
             </PromptInputButton>
+
             <ModelSelector v-model:open="modelSelectorOpen">
               <ModelSelectorTrigger as-child>
                 <PromptInputButton>
@@ -150,28 +152,29 @@ function handleSubmit(message: any) {
                   </ModelSelectorName>
                 </PromptInputButton>
               </ModelSelectorTrigger>
+
               <ModelSelectorContent>
                 <ModelSelectorInput placeholder="Search models..." />
                 <ModelSelectorList>
                   <ModelSelectorEmpty>No models found.</ModelSelectorEmpty>
+
                   <ModelSelectorGroup
                     v-for="chef in ['OpenAI', 'Anthropic', 'Google']"
                     :key="chef"
                     :heading="chef"
                   >
                     <ModelSelectorItem
-                      v-for="m in models.filter((model) => model.chef === chef)"
+                      v-for="m in models.filter((item) => item.chef === chef)"
                       :key="m.id"
                       :value="m.id"
-                      @select="
-                        () => {
-                          model = m.id
-                          modelSelectorOpen = false
-                        }
-                      "
+                      @select="() => {
+                        modelId = m.id;
+                        modelSelectorOpen = false;
+                      }"
                     >
                       <ModelSelectorLogo :provider="m.chefSlug" />
                       <ModelSelectorName>{{ m.name }}</ModelSelectorName>
+
                       <ModelSelectorLogoGroup>
                         <ModelSelectorLogo
                           v-for="provider in m.providers"
@@ -179,7 +182,8 @@ function handleSubmit(message: any) {
                           :provider="provider"
                         />
                       </ModelSelectorLogoGroup>
-                      <CheckIcon v-if="model === m.id" class="ml-auto size-4" />
+
+                      <CheckIcon v-if="modelId === m.id" class="ml-auto size-4" />
                       <div v-else class="ml-auto size-4" />
                     </ModelSelectorItem>
                   </ModelSelectorGroup>
@@ -187,6 +191,7 @@ function handleSubmit(message: any) {
               </ModelSelectorContent>
             </ModelSelector>
           </PromptInputTools>
+
           <PromptInputSubmit :status="status" />
         </PromptInputFooter>
       </PromptInput>

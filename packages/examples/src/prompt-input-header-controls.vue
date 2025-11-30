@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import { usePromptInputController } from '@repo/elements/prompt-input'
+import { usePromptInput } from '@repo/elements/prompt-input'
 import { Button } from '@repo/shadcn-vue/components/ui/button'
-import { ButtonGroup } from '@repo/shadcn-vue/components/ui/button-group'
 
-const controller = usePromptInputController()
+const { setTextInput, clearInput, clearFiles } = usePromptInput()
 </script>
 
 <template>
@@ -14,31 +13,32 @@ const controller = usePromptInputController()
         PromptInputProvider
       </code>
     </p>
-    <ButtonGroup>
+
+    <div class="flex items-center -space-x-px">
       <Button
-        size="sm"
-        type="button"
         variant="outline"
-        @click="controller.textInput.clear()"
+        size="sm"
+        class="rounded-r-none focus:z-10"
+        @click="clearInput"
       >
         Clear input
       </Button>
       <Button
-        size="sm"
-        type="button"
         variant="outline"
-        @click="controller.textInput.setInput('Inserted via PromptInputProvider')"
+        size="sm"
+        class="rounded-none focus:z-10"
+        @click="setTextInput('Inserted via PromptInputProvider')"
       >
         Set input
       </Button>
       <Button
-        size="sm"
-        type="button"
         variant="outline"
-        @click="controller.attachments.clear()"
+        size="sm"
+        class="rounded-l-none focus:z-10"
+        @click="clearFiles"
       >
         Clear attachments
       </Button>
-    </ButtonGroup>
+    </div>
   </header>
 </template>

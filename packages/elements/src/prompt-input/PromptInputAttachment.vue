@@ -1,74 +1,62 @@
 <script setup lang="ts">
-import type { FileUIPart } from 'ai'
-import type { HTMLAttributes } from 'vue'
+import type { AttachmentFile } from './types'
 import { Button } from '@repo/shadcn-vue/components/ui/button'
-import { HoverCardTrigger } from '@repo/shadcn-vue/components/ui/hover-card'
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from '@repo/shadcn-vue/components/ui/hover-card'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 import { PaperclipIcon, XIcon } from 'lucide-vue-next'
-import PromptInputHoverCard from './PromptInputHoverCard.vue'
-import PromptInputHoverCardContent from './PromptInputHoverCardContent.vue'
-import { usePromptInputAttachments } from './usePromptInputAttachments'
+import { computed } from 'vue'
+import { usePromptInput } from './context'
 
-interface Props extends /* @vue-ignore */ HTMLAttributes {
-  data: FileUIPart & { id: string }
-  class?: HTMLAttributes['class']
-}
+const props = defineProps<{
+  file: AttachmentFile
+  class?: string
+}>()
 
-const props = defineProps<Props>()
+const { removeFile } = usePromptInput()
 
-const attachments = usePromptInputAttachments()
-
-const filename = props.data.filename || ''
-
-const mediaType
-  = props.data.mediaType?.startsWith('image/') && props.data.url ? 'image' : 'file'
-const isImage = mediaType === 'image'
-
-const attachmentLabel = filename || (isImage ? 'Image' : 'Attachment')
+const filename = computed(() => props.file.filename || '')
+const isImage = computed(() =>
+  props.file.mediaType?.startsWith('image/') && props.file.url,
+)
+const label = computed(() => filename.value || (isImage.value ? 'Image' : 'Attachment'))
 
 function handleRemove(e: Event) {
   e.stopPropagation()
-  attachments.remove(props.data.id)
+  removeFile(props.file.id)
 }
-
-const { data, class: _, ...restProps } = props
 </script>
 
 <template>
-  <PromptInputHoverCard>
+  <HoverCard :open-delay="0" :close-delay="0">
     <HoverCardTrigger as-child>
       <div
-        :key="props.data.id"
         :class="cn(
           'group relative flex h-8 cursor-pointer select-none items-center gap-1.5 rounded-md border border-border px-1.5 font-medium text-sm transition-all hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50',
           props.class,
         )"
-        v-bind="restProps"
       >
         <div class="relative size-5 shrink-0">
-          <div
-            class="absolute inset-0 flex size-5 items-center justify-center overflow-hidden rounded bg-background transition-opacity group-hover:opacity-0"
-          >
+          <div class="absolute inset-0 flex size-5 items-center justify-center overflow-hidden rounded bg-background transition-opacity group-hover:opacity-0">
             <img
               v-if="isImage"
-              :alt="filename || 'attachment'"
+              :src="file.url"
+              :alt="label"
               class="size-5 object-cover"
-              :height="20"
-              :src="props.data.url"
-              :width="20"
             >
-            <div
-              v-else
-              class="flex size-5 items-center justify-center text-muted-foreground"
-            >
+            <div v-else class="flex size-5 items-center justify-center text-muted-foreground">
               <PaperclipIcon class="size-3" />
             </div>
           </div>
+
           <Button
-            aria-label="Remove attachment"
-            class="absolute inset-0 size-5 cursor-pointer rounded p-0 opacity-0 transition-opacity group-hover:pointer-events-auto group-hover:opacity-100 [&>svg]:size-2.5"
             type="button"
             variant="ghost"
+            size="icon"
+            class="absolute inset-0 size-5 cursor-pointer rounded p-0 opacity-0 transition-opacity group-hover:pointer-events-auto group-hover:opacity-100 [&>svg]:size-2.5"
             @click="handleRemove"
           >
             <XIcon />
@@ -76,37 +64,30 @@ const { data, class: _, ...restProps } = props
           </Button>
         </div>
 
-        <span class="flex-1 truncate">{{ attachmentLabel }}</span>
+        <span class="flex-1 truncate max-w-[150px]">{{ label }}</span>
       </div>
     </HoverCardTrigger>
-    <PromptInputHoverCardContent class="w-auto p-2">
+
+    <HoverCardContent class="w-auto p-2" align="start">
       <div class="w-auto space-y-3">
-        <div
-          v-if="isImage"
-          class="flex max-h-96 w-96 items-center justify-center overflow-hidden rounded-md border"
-        >
+        <div v-if="isImage" class="flex max-h-96 w-96 items-center justify-center overflow-hidden rounded-md border">
           <img
-            :alt="filename || 'attachment preview'"
+            :src="file.url"
+            :alt="label"
             class="max-h-full max-w-full object-contain"
-            :height="384"
-            :src="props.data.url"
-            :width="448"
           >
         </div>
         <div class="flex items-center gap-2.5">
           <div class="min-w-0 flex-1 space-y-1 px-0.5">
             <h4 class="truncate font-semibold text-sm leading-none">
-              {{ filename || (isImage ? 'Image' : 'Attachment') }}
+              {{ label }}
             </h4>
-            <p
-              v-if="props.data.mediaType"
-              class="truncate font-mono text-muted-foreground text-xs"
-            >
-              {{ props.data.mediaType }}
+            <p v-if="file.mediaType" class="truncate font-mono text-muted-foreground text-xs">
+              {{ file.mediaType }}
             </p>
           </div>
         </div>
       </div>
-    </PromptInputHoverCardContent>
-  </PromptInputHoverCard>
+    </HoverCardContent>
+  </HoverCard>
 </template>

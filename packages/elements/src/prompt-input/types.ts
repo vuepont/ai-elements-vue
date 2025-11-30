@@ -1,37 +1,28 @@
-import type { FileUIPart as AIFileUIPart } from 'ai'
-import type { InjectionKey, Ref } from 'vue'
-
-// Mimicking the AI SDK type
-export type FileUIPart = AIFileUIPart & {
-  id: string
-  file?: File // Keep original file reference handy
-}
+import type { FileUIPart } from 'ai'
+import type { Ref } from 'vue'
 
 export interface PromptInputMessage {
   text: string
   files: FileUIPart[]
 }
 
-export interface AttachmentsContext {
-  files: Ref<FileUIPart[]>
-  add: (files: File[] | FileList) => void
-  remove: (id: string) => void
-  clear: () => void
-  openFileDialog: () => void
+export interface AttachmentFile extends FileUIPart {
+  id: string
+  file?: File
+}
+
+export interface PromptInputContext {
+  textInput: Ref<string>
+  files: Ref<AttachmentFile[]>
+  isLoading: Ref<boolean>
   fileInputRef: Ref<HTMLInputElement | null>
+  setTextInput: (val: string) => void
+  addFiles: (files: File[] | FileList) => void
+  removeFile: (id: string) => void
+  clearFiles: () => void
+  clearInput: () => void
+  openFileDialog: () => void
+  submitForm: () => void
 }
 
-export interface TextInputContext {
-  value: Ref<string>
-  setInput: (v: string) => void
-  clear: () => void
-}
-
-export interface PromptInputControllerContext {
-  textInput: TextInputContext
-  attachments: AttachmentsContext
-  registerFileInput: (el: HTMLInputElement | null, openFn: () => void) => void
-}
-
-export const PromptInputControllerKey: InjectionKey<PromptInputControllerContext> = Symbol('PromptInputController')
-export const AttachmentsContextKey: InjectionKey<AttachmentsContext> = Symbol('AttachmentsContext')
+export const PROMPT_INPUT_KEY = Symbol('PromptInputContext')
