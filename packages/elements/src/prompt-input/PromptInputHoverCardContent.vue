@@ -8,10 +8,12 @@ interface Props extends /* @vue-ignore */ PromptInputHoverCardContentProps {}
 const props = withDefaults(defineProps<Props>(), {
   align: 'start',
 })
+
+const { align, ...restProps } = props
 </script>
 
 <template>
-  <HoverCardContent v-bind="props">
+  <HoverCardContent :align="props.align" v-bind="restProps">
     <slot />
   </HoverCardContent>
 </template>

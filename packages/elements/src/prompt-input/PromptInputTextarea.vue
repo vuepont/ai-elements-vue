@@ -9,12 +9,9 @@ type PromptInputTextareaProps = InstanceType<typeof InputGroupTextarea>['$props'
 
 interface Props extends /* @vue-ignore */ PromptInputTextareaProps {
   class?: HTMLAttributes['class']
-  placeholder?: string
 }
 
-const props = withDefaults(defineProps<Props>(), {
-  placeholder: 'What would you like to know?',
-})
+const props = defineProps<Props>()
 
 const { textInput, setTextInput, submitForm, addFiles, files, removeFile } = usePromptInput()
 const isComposing = ref(false)
@@ -60,17 +57,15 @@ const modelValue = computed({
   get: () => textInput.value,
   set: val => setTextInput(val),
 })
-
-const { placeholder, class: _, ...restProps } = props
 </script>
 
 <template>
   <InputGroupTextarea
     v-model="modelValue"
+    placeholder="What would you like to know?"
     name="message"
-    :placeholder="placeholder"
     :class="cn('field-sizing-content max-h-48 min-h-16', props.class)"
-    v-bind="restProps"
+    v-bind="props"
     @keydown="handleKeyDown"
     @paste="handlePaste"
     @compositionstart="isComposing = true"

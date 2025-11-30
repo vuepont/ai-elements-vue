@@ -35,6 +35,5 @@ export { default as PromptInputTabItem } from './PromptInputTabItem.vue'
 export { default as PromptInputTabLabel } from './PromptInputTabLabel.vue'
 export { default as PromptInputTabsList } from './PromptInputTabsList.vue'
 export { default as PromptInputTextarea } from './PromptInputTextarea.vue'
-
 export { default as PromptInputTools } from './PromptInputTools.vue'
 export * from './types'

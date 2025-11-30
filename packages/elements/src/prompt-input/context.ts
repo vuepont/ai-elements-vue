@@ -71,7 +71,7 @@ export function usePromptInputProvider(props: {
       url: URL.createObjectURL(file),
       mediaType: file.type,
       filename: file.name,
-      file, // Store original file for later use
+      file,
     }))
 
     files.value = [...files.value, ...newAttachments]

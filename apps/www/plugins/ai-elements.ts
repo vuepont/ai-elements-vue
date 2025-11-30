@@ -20,6 +20,7 @@ import {
   OpenInChat,
   Plan,
   PromptInput,
+  PromptInputCursor,
   Queue,
   QueueCustom,
   QueuePromptInput,
@@ -90,4 +91,5 @@ export default defineNuxtPlugin((nuxtApp) => {
   vueApp.component('ConfirmationRequest', ConfirmationRequest)
   vueApp.component('Reasoning', Reasoning)
   vueApp.component('WebPreview', WebPreview)
+  vueApp.component('PromptInputCursor', PromptInputCursor)
 })

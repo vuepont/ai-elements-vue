@@ -3,7 +3,13 @@ import type { HTMLAttributes } from 'vue'
 import { DropdownMenuItem } from '@repo/shadcn-vue/components/ui/dropdown-menu'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 
-const props = defineProps<{ class?: HTMLAttributes['class'] }>()
+type PromptInputActionMenuItemProps = InstanceType<typeof DropdownMenuItem>['$props']
+
+interface Props extends /* @vue-ignore */ PromptInputActionMenuItemProps {
+  class?: HTMLAttributes['class']
+}
+
+const props = defineProps<Props>()
 </script>
 
 <template>
