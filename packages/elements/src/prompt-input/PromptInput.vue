@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue'
+import type { PromptInputMessage } from './types'
 import { InputGroup } from '@repo/shadcn-vue/components/ui/input-group'
 import { cn } from '@repo/shadcn-vue/lib/utils'
-import { onMounted, onUnmounted, ref } from 'vue'
-import { usePromptInput } from './context'
+import { inject, onMounted, onUnmounted, ref } from 'vue'
+import { usePromptInputProvider } from './context'
+import { PROMPT_INPUT_KEY } from './types'
 
 const props = defineProps<{
   class?: HTMLAttributes['class']
@@ -15,9 +17,33 @@ const props = defineProps<{
   initialInput?: string
 }>()
 
+const emit = defineEmits<{
+  (e: 'submit', payload: PromptInputMessage): void
+  (e: 'error', payload: { code: string, message: string }): void
+}>()
+
 const formRef = ref<HTMLFormElement | null>(null)
 
-const { fileInputRef, addFiles, submitForm } = usePromptInput()
+// --- Dual-mode context handling ---
+const inheritedContext = inject(PROMPT_INPUT_KEY, null)
+const localContext = inheritedContext
+  ? null
+  : usePromptInputProvider({
+      initialInput: props.initialInput,
+      maxFiles: props.maxFiles,
+      maxFileSize: props.maxFileSize,
+      accept: props.accept,
+      onSubmit: msg => emit('submit', msg as any),
+      onError: err => emit('error', err),
+    })
+
+const context = inheritedContext || localContext
+
+if (!context) {
+  throw new Error('PromptInput context is missing.')
+}
+
+const { fileInputRef, addFiles, submitForm } = context
 
 function handleDragOver(e: DragEvent) {
   if (e.dataTransfer?.types?.includes('Files')) {

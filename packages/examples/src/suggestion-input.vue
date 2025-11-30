@@ -5,7 +5,6 @@ import {
   PromptInput,
   PromptInputButton,
   PromptInputFooter,
-  PromptInputProvider,
   PromptInputSelect,
   PromptInputSelectContent,
   PromptInputSelectItem,
@@ -77,44 +76,44 @@ function handleSuggestionClick(suggestion: string) {
       />
     </Suggestions>
 
-    <PromptInputProvider @submit="handleSubmit">
-      <PromptInput>
-        <PromptInputTextarea ref="textareaRef" v-model="text" placeholder="Ask me about anything..." />
+    <!-- <PromptInputProvider @submit="handleSubmit"> -->
+    <PromptInput @submit="handleSubmit">
+      <PromptInputTextarea ref="textareaRef" v-model="text" placeholder="Ask me about anything..." />
 
-        <PromptInputFooter>
-          <PromptInputTools>
-            <PromptInputButton>
-              <PlusIcon class="size-4" />
-            </PromptInputButton>
-            <PromptInputButton>
-              <MicIcon class="size-4" />
-            </PromptInputButton>
-            <PromptInputButton>
-              <GlobeIcon class="size-4" />
-              <span>Search</span>
-            </PromptInputButton>
+      <PromptInputFooter>
+        <PromptInputTools>
+          <PromptInputButton>
+            <PlusIcon class="size-4" />
+          </PromptInputButton>
+          <PromptInputButton>
+            <MicIcon class="size-4" />
+          </PromptInputButton>
+          <PromptInputButton>
+            <GlobeIcon class="size-4" />
+            <span>Search</span>
+          </PromptInputButton>
 
-            <PromptInputSelect v-model="defaultModel">
-              <PromptInputSelectTrigger>
-                <PromptInputSelectValue />
-              </PromptInputSelectTrigger>
-              <PromptInputSelectContent>
-                <PromptInputSelectItem
-                  v-for="model in models"
-                  :key="model.id"
-                  :value="model.id"
-                >
-                  {{ model.name }}
-                </PromptInputSelectItem>
-              </PromptInputSelectContent>
-            </PromptInputSelect>
-          </PromptInputTools>
+          <PromptInputSelect v-model="defaultModel">
+            <PromptInputSelectTrigger>
+              <PromptInputSelectValue />
+            </PromptInputSelectTrigger>
+            <PromptInputSelectContent>
+              <PromptInputSelectItem
+                v-for="model in models"
+                :key="model.id"
+                :value="model.id"
+              >
+                {{ model.name }}
+              </PromptInputSelectItem>
+            </PromptInputSelectContent>
+          </PromptInputSelect>
+        </PromptInputTools>
 
-          <PromptInputSubmit :disabled="!text" :status="status">
-            <SendIcon :size="32" />
-          </PromptInputSubmit>
-        </PromptInputFooter>
-      </PromptInput>
-    </PromptInputProvider>
+        <PromptInputSubmit :disabled="!text" :status="status">
+          <SendIcon :size="32" />
+        </PromptInputSubmit>
+      </PromptInputFooter>
+    </PromptInput>
+    <!-- </PromptInputProvider> -->
   </div>
 </template>
