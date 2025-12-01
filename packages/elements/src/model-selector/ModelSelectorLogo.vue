@@ -13,10 +13,10 @@ const props = defineProps<Props>()
 <template>
   <img
     v-bind="$attrs"
-    :alt="`${props.provider} logo`"
+    :alt="`${provider} logo`"
     :class="cn('size-3 dark:invert', props.class)"
     height="12"
-    :src="`https://models.dev/logos/${props.provider}.svg`"
+    :src="`https://models.dev/logos/${provider}.svg`"
     width="12"
   >
 </template>

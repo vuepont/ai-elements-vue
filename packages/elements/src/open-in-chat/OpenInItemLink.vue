@@ -9,21 +9,21 @@ interface Props {
   icon: Component
 }
 
-const props = defineProps<Props>()
+defineProps<Props>()
 </script>
 
 <template>
   <DropdownMenuItem v-bind="$attrs" as-child>
     <a
-      :href="props.href"
+      :href="href"
       class="flex items-center gap-2"
       rel="noopener"
       target="_blank"
     >
       <span class="shrink-0">
-        <component :is="props.icon" />
+        <component :is="icon" />
       </span>
-      <span class="flex-1">{{ props.title }}</span>
+      <span class="flex-1">{{ title }}</span>
       <ExternalLinkIcon class="size-4 shrink-0" />
     </a>
   </DropdownMenuItem>

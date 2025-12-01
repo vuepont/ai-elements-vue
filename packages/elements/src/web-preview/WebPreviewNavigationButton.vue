@@ -37,8 +37,8 @@ const props = withDefaults(defineProps<Props>(), {
           <slot />
         </Button>
       </TooltipTrigger>
-      <TooltipContent v-if="props.tooltip">
-        <p>{{ props.tooltip }}</p>
+      <TooltipContent v-if="tooltip">
+        <p>{{ tooltip }}</p>
       </TooltipContent>
     </Tooltip>
   </TooltipProvider>

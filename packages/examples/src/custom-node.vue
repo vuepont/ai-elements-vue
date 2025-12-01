@@ -2,25 +2,25 @@
 import type { NodeProps } from '@vue-flow/core'
 import { Node, NodeContent, NodeDescription, NodeFooter, NodeHeader, NodeTitle } from '@repo/elements/node'
 
-const props = defineProps<NodeProps>()
+defineProps<NodeProps>()
 </script>
 
 <template>
-  <Node :handles="props.data?.handles">
+  <Node :handles="data?.handles">
     <NodeHeader>
-      <NodeTitle>{{ props.data?.label }}</NodeTitle>
-      <NodeDescription>{{ props.data?.description }}</NodeDescription>
+      <NodeTitle>{{ data?.label }}</NodeTitle>
+      <NodeDescription>{{ data?.description }}</NodeDescription>
     </NodeHeader>
 
     <NodeContent>
       <p class="text-sm">
-        {{ props.data?.content }}
+        {{ data?.content }}
       </p>
     </NodeContent>
 
     <NodeFooter>
       <p class="text-muted-foreground text-xs">
-        {{ props.data?.footer }}
+        {{ data?.footer }}
       </p>
     </NodeFooter>
   </Node>

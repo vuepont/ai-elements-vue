@@ -23,23 +23,23 @@ const buttonProps = {
 </script>
 
 <template>
-  <TooltipProvider v-if="props.tooltip">
+  <TooltipProvider v-if="tooltip">
     <Tooltip>
       <TooltipTrigger as-child>
         <Button v-bind="{ ...buttonProps, ...$attrs }">
           <slot />
           <span class="sr-only">
-            {{ props.label || props.tooltip }}</span>
+            {{ label || tooltip }}</span>
         </Button>
       </TooltipTrigger>
       <TooltipContent>
-        <p>{{ props.tooltip }}</p>
+        <p>{{ tooltip }}</p>
       </TooltipContent>
     </Tooltip>
   </TooltipProvider>
 
   <Button v-else v-bind="{ ...buttonProps, ...$attrs }">
     <slot />
-    <span class="sr-only">{{ props.label || props.tooltip }}</span>
+    <span class="sr-only">{{ label || tooltip }}</span>
   </Button>
 </template>

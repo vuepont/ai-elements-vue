@@ -26,15 +26,15 @@ const props = withDefaults(defineProps<Props>(), {
 
 <template>
   <StickToBottom
-    :aria-label="props.ariaLabel"
+    :aria-label="ariaLabel"
     :class="cn('relative flex-1 overflow-y-hidden', props.class)"
     role="log"
-    :initial="props.initial"
-    :resize="props.resize"
-    :damping="props.damping"
-    :stiffness="props.stiffness"
-    :mass="props.mass"
-    :anchor="props.anchor"
+    :initial="initial"
+    :resize="resize"
+    :damping="damping"
+    :stiffness="stiffness"
+    :mass="mass"
+    :anchor="anchor"
   >
     <slot />
   </StickToBottom>

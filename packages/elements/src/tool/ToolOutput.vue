@@ -35,7 +35,7 @@ const formattedOutput = computed(() => {
     <h4
       class="font-medium text-muted-foreground text-xs uppercase tracking-wide"
     >
-      {{ props.errorText ? "Error" : "Result" }}
+      {{ errorText ? "Error" : "Result" }}
     </h4>
     <div
       :class="
@@ -48,7 +48,7 @@ const formattedOutput = computed(() => {
       "
     >
       <div v-if="errorText" class="p-3">
-        {{ props.errorText }}
+        {{ errorText }}
       </div>
 
       <CodeBlock
@@ -62,7 +62,7 @@ const formattedOutput = computed(() => {
         language="json"
       />
       <div v-else class="p-3">
-        {{ props.output }}
+        {{ output }}
       </div>
     </div>
   </div>

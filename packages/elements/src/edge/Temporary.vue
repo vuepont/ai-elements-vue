@@ -20,7 +20,7 @@ const path = computed(() => {
 
 <template>
   <BaseEdge
-    :id="props.id"
+    :id="id"
     :path="path"
     class="stroke-1 stroke-ring"
     :style="{ strokeDasharray: '5, 5' }"

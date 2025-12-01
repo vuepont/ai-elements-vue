@@ -13,14 +13,14 @@ const props = defineProps<{
 <template>
   <a
     :class="cn('flex items-center gap-2', props.class)"
-    :href="props.href"
+    :href="href"
     rel="noreferrer"
     target="_blank"
   >
     <!-- Default slot content -->
     <slot>
       <BookIcon class="h-4 w-4" />
-      <span class="block font-medium">{{ props.title }}</span>
+      <span class="block font-medium">{{ title }}</span>
     </slot>
   </a>
 </template>

@@ -19,8 +19,8 @@ const props = defineProps<QueueSectionLabelProps>()
     />
     <slot name="icon" />
     <span>
-      {{ props.count }}
-      {{ props.label }}
+      {{ count }}
+      {{ label }}
     </span>
   </span>
 </template>

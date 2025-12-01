@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { HoverCard } from '@repo/shadcn-vue/components/ui/hover-card'
 
-const props = withDefaults(defineProps<{
+withDefaults(defineProps<{
   closeDelay?: number
   openDelay?: number
 }>(), {
@@ -11,7 +11,7 @@ const props = withDefaults(defineProps<{
 </script>
 
 <template>
-  <HoverCard :close-delay="props.closeDelay" :open-delay="props.openDelay">
+  <HoverCard :close-delay="closeDelay" :open-delay="openDelay">
     <slot />
   </HoverCard>
 </template>

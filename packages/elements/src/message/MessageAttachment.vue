@@ -39,7 +39,7 @@ const attachmentLabel = computed(() =>
   >
     <template v-if="isImage">
       <img
-        :src="props.data.url"
+        :src="data.url"
         :alt="filename || 'attachment'"
         class="size-full object-cover"
         height="100"

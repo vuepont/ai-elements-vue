@@ -19,7 +19,7 @@ const props = defineProps<{
       <slot />
     </div>
     <p v-if="caption" class="text-muted-foreground text-xs">
-      {{ props.caption }}
+      {{ caption }}
     </p>
   </div>
 </template>

@@ -27,12 +27,12 @@ function handleClick() {
 <template>
   <Button
     :class="cn('cursor-pointer rounded-full px-4', props.class)"
-    :size="props.size"
+    :size="size"
     type="button"
-    :variant="props.variant"
+    :variant="variant"
     v-bind="$attrs"
     @click="handleClick"
   >
-    <slot>{{ props.suggestion }}</slot>
+    <slot>{{ suggestion }}</slot>
   </Button>
 </template>

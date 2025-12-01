@@ -21,7 +21,7 @@ const src = computed(() => `data:${props.mediaType};base64,${props.base64}`)
 
 <template>
   <img
-    :alt="props.alt"
+    :alt="alt"
     :class="classes"
     :src="src"
     v-bind="attrs"
