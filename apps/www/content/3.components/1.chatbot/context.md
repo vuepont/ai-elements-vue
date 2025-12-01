@@ -6,7 +6,7 @@ icon: lucide:layers
 
 The `Context` component provides a comprehensive view of AI model usage through a compound component system. It displays context window utilization, token consumption breakdown (input, output, reasoning, cache), and cost estimation in an interactive hover card interface.
 
-:::ComponentLoader{label="Preivew" componentName="Context"}
+:::ComponentLoader{label="Preview" componentName="Context"}
 :::
 
 ## Install using CLI
