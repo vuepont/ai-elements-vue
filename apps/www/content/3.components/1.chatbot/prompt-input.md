@@ -4,7 +4,7 @@ description: Allows a user to send a message with file attachments to a large la
 icon: lucide:corner-down-left
 ---
 
-The `PromptInput` component allows a user to send a message to a large language model. It includes a textarea, a submit button, and a dropdown for selecting the model.
+The `PromptInput` component allows a user to send a message with file attachments to a large language model. It includes a textarea, file upload capabilities, a submit button, and a dropdown for selecting the model.
 
 :::ComponentLoader{label="Preview" componentName="PromptInput"}
 :::
@@ -1471,7 +1471,7 @@ export * from './types'
 
 ## Usage with AI SDK
 
-Built a fully functional chat app using `PromptInput`, [`Conversation`](/components/conversation) with a model picker:
+Built a fully functional chat app using `PromptInput`, [`Conversation`](/components/chatbot/conversation) with a model picker:
 
 Add the following component to your frontend:
 
@@ -1993,7 +1993,7 @@ export default defineEventHandler(async (event) => {
 ### `<PromptInputCommandInput />`
 
 :::field-group
-  ::field{name="...props" type="InstanceType<typeof CommandInput"> optional}
+  ::field{name="...props" type="InstanceType<typeof CommandInput>" optional}
   Any other props are spread to the CommandInput component.
   ::
 :::
