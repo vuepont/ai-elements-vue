@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { HTMLAttributes } from 'vue'
 import type { AttachmentFile } from './types'
 import { Button } from '@repo/shadcn-vue/components/ui/button'
 import {
@@ -13,7 +14,7 @@ import { usePromptInput } from './context'
 
 const props = defineProps<{
   file: AttachmentFile
-  class?: string
+  class?: HTMLAttributes['class']
 }>()
 
 const { removeFile } = usePromptInput()
