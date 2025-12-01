@@ -1,9 +1,10 @@
 <script setup lang="ts">
+import type { HTMLAttributes } from 'vue'
 import { SelectValue } from '@repo/shadcn-vue/components/ui/select'
 import { useAttrs } from 'vue'
 
 interface Props {
-  class?: string
+  class?: HTMLAttributes['class']
 }
 
 const props = defineProps<Props>()

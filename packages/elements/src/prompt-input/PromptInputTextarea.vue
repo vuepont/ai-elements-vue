@@ -1,9 +1,10 @@
 <script setup lang="ts">
+import type { HTMLAttributes } from 'vue'
 import { Textarea } from '@repo/shadcn-vue/components/ui/textarea'
 import { computed, useAttrs } from 'vue'
 
 interface Props {
-  class?: string
+  class?: HTMLAttributes['class']
   placeholder?: string
 }
 

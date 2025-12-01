@@ -1,9 +1,10 @@
 <script setup lang="ts">
+import type { HTMLAttributes } from 'vue'
 import { Button } from '@repo/shadcn-vue/components/ui/button'
 import { computed, useAttrs, useSlots } from 'vue'
 
 interface Props {
-  class?: string
+  class?: HTMLAttributes['class']
   variant?: 'default' | 'secondary' | 'destructive' | 'outline' | 'ghost' | 'link'
   size?: 'default' | 'sm' | 'lg' | 'icon'
 }

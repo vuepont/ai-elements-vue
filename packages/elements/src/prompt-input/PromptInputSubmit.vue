@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import type { ChatStatus } from 'ai'
+import type { HTMLAttributes } from 'vue'
 import { Button } from '@repo/shadcn-vue/components/ui/button'
 import { Loader2, Send, Square, X } from 'lucide-vue-next'
 import { computed, useAttrs } from 'vue'
 
 interface Props {
-  class?: string
+  class?: HTMLAttributes['class']
   status?: ChatStatus
   variant?: 'default' | 'secondary' | 'destructive' | 'outline' | 'ghost' | 'link'
   size?: 'default' | 'sm' | 'lg' | 'icon'
