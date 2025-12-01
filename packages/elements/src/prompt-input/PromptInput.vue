@@ -1,21 +1,113 @@
 <script setup lang="ts">
-import { computed, useAttrs } from 'vue'
+import type { HTMLAttributes } from 'vue'
+import type { PromptInputMessage } from './types'
+import { InputGroup } from '@repo/shadcn-vue/components/ui/input-group'
+import { cn } from '@repo/shadcn-vue/lib/utils'
+import { inject, onMounted, onUnmounted, ref } from 'vue'
+import { usePromptInputProvider } from './context'
+import { PROMPT_INPUT_KEY } from './types'
 
-interface Props {
-  class?: string
+const props = defineProps<{
+  class?: HTMLAttributes['class']
+  accept?: string
+  multiple?: boolean
+  globalDrop?: boolean
+  maxFiles?: number
+  maxFileSize?: number
+  initialInput?: string
+}>()
+
+const emit = defineEmits<{
+  (e: 'submit', payload: PromptInputMessage): void
+  (e: 'error', payload: { code: string, message: string }): void
+}>()
+
+const formRef = ref<HTMLFormElement | null>(null)
+
+// --- Dual-mode context handling ---
+const inheritedContext = inject(PROMPT_INPUT_KEY, null)
+const localContext = inheritedContext
+  ? null
+  : usePromptInputProvider({
+      initialInput: props.initialInput,
+      maxFiles: props.maxFiles,
+      maxFileSize: props.maxFileSize,
+      accept: props.accept,
+      onSubmit: msg => emit('submit', msg as any),
+      onError: err => emit('error', err),
+    })
+
+const context = inheritedContext || localContext
+
+if (!context) {
+  throw new Error('PromptInput context is missing.')
 }
 
-const props = defineProps<Props>()
-const attrs = useAttrs()
+const { fileInputRef, addFiles, submitForm } = context
 
-const classes = computed(() => [
-  'w-full divide-y overflow-hidden rounded-xl border bg-background shadow-sm',
-  props.class,
-])
+function handleDragOver(e: DragEvent) {
+  if (e.dataTransfer?.types?.includes('Files')) {
+    e.preventDefault()
+  }
+}
+
+function handleDrop(e: DragEvent) {
+  if (e.dataTransfer?.types?.includes('Files')) {
+    e.preventDefault()
+  }
+  if (e.dataTransfer?.files && e.dataTransfer.files.length > 0) {
+    addFiles(e.dataTransfer.files)
+  }
+}
+
+onMounted(() => {
+  if (props.globalDrop) {
+    document.addEventListener('dragover', handleDragOver)
+    document.addEventListener('drop', handleDrop)
+  }
+})
+
+onUnmounted(() => {
+  if (props.globalDrop) {
+    document.removeEventListener('dragover', handleDragOver)
+    document.removeEventListener('drop', handleDrop)
+  }
+})
+
+function onFileChange(e: Event) {
+  const input = e.target as HTMLInputElement
+  if (input.files) {
+    addFiles(input.files)
+  }
+  input.value = ''
+}
+
+function onSubmit(e: Event) {
+  e.preventDefault()
+  submitForm()
+}
 </script>
 
 <template>
-  <form :class="classes" v-bind="attrs">
-    <slot />
-  </form>
+  <div>
+    <input
+      ref="fileInputRef"
+      type="file"
+      class="hidden"
+      :accept="accept"
+      :multiple="multiple"
+      @change="onFileChange"
+    >
+    <form
+      ref="formRef"
+      :class="cn('w-full', props.class)"
+      @submit="onSubmit"
+      @dragover.prevent="handleDragOver"
+      @drop.prevent="handleDrop"
+    >
+      <InputGroup class="overflow-hidden">
+        <slot />
+      </InputGroup>
+    </form>
+  </div>
 </template>

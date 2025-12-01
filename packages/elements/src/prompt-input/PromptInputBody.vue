@@ -6,7 +6,7 @@ const props = defineProps<{ class?: HTMLAttributes['class'] }>()
 </script>
 
 <template>
-  <div :class="cn('flex items-center gap-1', props.class)">
+  <div :class="cn('contents', props.class)" v-bind="props">
     <slot />
   </div>
 </template>

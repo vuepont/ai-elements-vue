@@ -1,44 +1,54 @@
 <script setup lang="ts">
-import { Button } from '@repo/shadcn-vue/components/ui/button'
-import { computed, useAttrs, useSlots } from 'vue'
+import type { HTMLAttributes } from 'vue'
+import { InputGroupButton } from '@repo/shadcn-vue/components/ui/input-group'
+import { cn } from '@repo/shadcn-vue/lib/utils'
+import { computed, useSlots } from 'vue'
 
-interface Props {
-  class?: string
-  variant?: 'default' | 'secondary' | 'destructive' | 'outline' | 'ghost' | 'link'
-  size?: 'default' | 'sm' | 'lg' | 'icon'
+type InputGroupButtonProps = InstanceType<typeof InputGroupButton>['$props']
+
+interface Props extends /* @vue-ignore */ InputGroupButtonProps {
+  class?: HTMLAttributes['class']
+  variant?: InputGroupButtonProps['variant']
+  size?: InputGroupButtonProps['size']
 }
 
 const props = withDefaults(defineProps<Props>(), {
   variant: 'ghost',
 })
 
-const attrs = useAttrs()
-
 const slots = useSlots()
 
 const computedSize = computed(() => {
   if (props.size)
     return props.size
-  const count = slots.default?.().length ?? 0
-  return count > 1 ? 'default' : 'icon'
+
+  const slotNodes = slots.default?.()
+
+  if (!slotNodes)
+    return 'icon-sm'
+
+  const validChildren = slotNodes.filter((node) => {
+    if (node.type === Comment)
+      return false
+    if (node.type === Text && !node.children?.toString().trim())
+      return false
+    return true
+  })
+
+  return validChildren.length > 1 ? 'sm' : 'icon-sm'
 })
 
-const classes = computed(() => [
-  'shrink-0 gap-1.5 rounded-lg',
-  props.variant === 'ghost' && 'text-muted-foreground',
-  computedSize.value === 'default' && 'px-3',
-  props.class,
-])
+const { size, variant, class: _, ...restProps } = props
 </script>
 
 <template>
-  <Button
-    :class="classes"
-    :size="computedSize"
-    :variant="props.variant"
+  <InputGroupButton
     type="button"
-    v-bind="attrs"
+    :size="computedSize"
+    :class="cn($props.class)"
+    :variant="variant"
+    v-bind="restProps"
   >
     <slot />
-  </Button>
+  </InputGroupButton>
 </template>
