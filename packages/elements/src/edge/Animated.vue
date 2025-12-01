@@ -79,7 +79,7 @@ const path = computed(() => {
 <template>
   <g v-if="path">
     <BaseEdge
-      :id="props.id"
+      :id="id"
       :marker-end="markerEnd"
       :path="path"
       :style="style"

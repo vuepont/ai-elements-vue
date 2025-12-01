@@ -20,7 +20,7 @@ const props = withDefaults(
     :class="
       cn(
         'line-clamp-1 grow break-words',
-        props.completed
+        completed
           ? 'text-muted-foreground/50 line-through'
           : 'text-muted-foreground',
         props.class,

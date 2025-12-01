@@ -24,8 +24,8 @@ const delegatedProps = reactiveOmit(props, 'class')
     v-bind="delegatedProps"
     :class="cn('node-container relative size-full h-auto w-sm gap-0 rounded-md p-0', props.class)"
   >
-    <Handle v-if="props.handles?.target" :position="Position.Left" type="target" />
-    <Handle v-if="props.handles?.source" :position="Position.Right" type="source" />
+    <Handle v-if="handles?.target" :position="Position.Left" type="target" />
+    <Handle v-if="handles?.source" :position="Position.Right" type="source" />
     <slot />
   </Card>
 </template>

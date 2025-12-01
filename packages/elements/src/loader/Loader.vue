@@ -17,6 +17,6 @@ const props = withDefaults(defineProps<Props>(), {
     :class="cn('inline-flex animate-spin items-center justify-center', props.class)"
     v-bind="$attrs"
   >
-    <LoaderIcon :size="props.size" />
+    <LoaderIcon :size="size" />
   </div>
 </template>

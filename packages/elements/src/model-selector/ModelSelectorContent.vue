@@ -20,7 +20,7 @@ const props = withDefaults(defineProps<Props>(), {
     v-bind="$attrs"
   >
     <DialogTitle class="sr-only">
-      {{ props.title }}
+      {{ title }}
     </DialogTitle>
     <Command class="**:data-[slot=command-input-wrapper]:h-auto">
       <slot />

@@ -27,7 +27,7 @@ const statusStyles = {
     :class="
       cn(
         'flex gap-2 text-sm',
-        statusStyles[props.status],
+        statusStyles[status],
         'fade-in-0 slide-in-from-top-2 animate-in',
         props.class as string,
       )
@@ -41,12 +41,12 @@ const statusStyles = {
       />
     </div>
     <div class="flex-1 space-y-2">
-      <div>{{ props.label }}</div>
+      <div>{{ label }}</div>
       <div
-        v-if="props.description"
+        v-if="description"
         class="text-muted-foreground text-xs"
       >
-        {{ props.description }}
+        {{ description }}
       </div>
       <slot />
     </div>

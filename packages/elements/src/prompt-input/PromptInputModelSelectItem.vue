@@ -12,7 +12,7 @@ const attrs = useAttrs()
 </script>
 
 <template>
-  <SelectItem :class="props.class" :value="props.value" v-bind="attrs">
+  <SelectItem :class="props.class" :value="value" v-bind="attrs">
     <slot />
   </SelectItem>
 </template>

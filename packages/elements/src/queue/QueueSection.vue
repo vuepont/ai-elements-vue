@@ -19,7 +19,7 @@ const props = withDefaults(
 <template>
   <Collapsible
     :class="cn(props.class)"
-    :default-open="props.defaultOpen"
+    :default-open="defaultOpen"
   >
     <slot />
   </Collapsible>

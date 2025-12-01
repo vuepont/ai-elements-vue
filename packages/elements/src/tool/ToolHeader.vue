@@ -27,9 +27,9 @@ const props = defineProps<{
     <div class="flex items-center gap-2">
       <WrenchIcon class="size-4 text-muted-foreground" />
       <span class="font-medium text-sm">
-        {{ props.title ?? props.type.split('-').slice(1).join(' ') }}
+        {{ title ?? type.split('-').slice(1).join(' ') }}
       </span>
-      <StatusBadge :state="props.state" />
+      <StatusBadge :state="state" />
     </div>
     <ChevronDownIcon
       class="size-4 text-muted-foreground transition-transform group-data-[state=open]:rotate-180"

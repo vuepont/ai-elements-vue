@@ -29,10 +29,10 @@ const props = withDefaults(defineProps<Props>(), {
 
       <div class="space-y-1">
         <h3 class="font-medium text-sm">
-          {{ props.title }}
+          {{ title }}
         </h3>
-        <p v-if="props.description" class="text-muted-foreground text-sm">
-          {{ props.description }}
+        <p v-if="description" class="text-muted-foreground text-sm">
+          {{ description }}
         </p>
       </div>
     </slot>

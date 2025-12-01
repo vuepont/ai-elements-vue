@@ -27,7 +27,7 @@ const classes = computed(() => cn(
 </script>
 
 <template>
-  <TooltipProvider v-if="props.tooltip">
+  <TooltipProvider v-if="tooltip">
     <Tooltip>
       <TooltipTrigger as-child>
         <Button
@@ -38,16 +38,16 @@ const classes = computed(() => cn(
           }"
         >
           <component
-            :is="props.icon"
-            v-if="props.icon"
+            :is="icon"
+            v-if="icon"
             class="size-4"
           />
           <slot v-else />
-          <span class="sr-only">{{ props.label || props.tooltip }}</span>
+          <span class="sr-only">{{ label || tooltip }}</span>
         </Button>
       </TooltipTrigger>
       <TooltipContent>
-        <p>{{ props.tooltip }}</p>
+        <p>{{ tooltip }}</p>
       </TooltipContent>
     </Tooltip>
   </TooltipProvider>
@@ -61,11 +61,11 @@ const classes = computed(() => cn(
     }"
   >
     <component
-      :is="props.icon"
-      v-if="props.icon"
+      :is="icon"
+      v-if="icon"
       class="size-4"
     />
     <slot v-else />
-    <span class="sr-only">{{ props.label || props.tooltip }}</span>
+    <span class="sr-only">{{ label || tooltip }}</span>
   </Button>
 </template>

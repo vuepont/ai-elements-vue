@@ -20,7 +20,7 @@ const props = withDefaults(
     :class="
       cn(
         'ml-6 text-xs',
-        props.completed
+        completed
           ? 'text-muted-foreground/40 line-through'
           : 'text-muted-foreground',
         props.class,

@@ -22,7 +22,7 @@ const props = defineProps<TaskTriggerProps>()
       >
         <Search class="size-4" />
         <p class="text-sm">
-          {{ props.title }}
+          {{ title }}
         </p>
         <ChevronDown
           class="size-4 transition-transform group-data-[state=open]:rotate-180"

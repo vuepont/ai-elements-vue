@@ -16,7 +16,7 @@ const props = defineProps<{
   >
     <slot>
       <p class="font-medium">
-        Used {{ props.count }} sources
+        Used {{ count }} sources
       </p>
       <ChevronDownIcon class="h-4 w-4" />
     </slot>

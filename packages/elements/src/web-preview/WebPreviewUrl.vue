@@ -37,7 +37,7 @@ function handleKeydown() {
     v-model="inputValue"
     data-testid="web-preview-url-input"
     :class="cn('h-8 flex-1 text-sm', props.class)"
-    :placeholder="props.placeholder"
+    :placeholder="placeholder"
     v-bind="attrs"
     @keydown.enter="handleKeydown"
   />
