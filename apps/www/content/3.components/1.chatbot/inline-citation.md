@@ -135,7 +135,7 @@ const props = defineProps<{
 </script>
 
 <template>
-  <Carousel :class="cn('w-full', props.class)">
+  <Carousel :class="cn('w-full', props.class)" :opts="{ loop: true }">
     <slot />
   </Carousel>
 </template>

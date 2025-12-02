@@ -2,7 +2,7 @@ import type { Ref } from 'vue'
 import type { UnwrapRefCarouselApi as CarouselApi, CarouselEmits, CarouselProps } from './interface'
 import { createInjectionState } from '@vueuse/core'
 import emblaCarouselVue from 'embla-carousel-vue'
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, unref } from 'vue'
 
 interface CarouselContext {
   carouselRef: Ref<HTMLElement | undefined>
@@ -36,8 +36,14 @@ const [useProvideCarousel, useInjectCarousel] = createInjectionState(
     const canScrollPrev = ref(false)
 
     function onSelect(api: CarouselApi) {
-      canScrollNext.value = api?.canScrollNext() || false
-      canScrollPrev.value = api?.canScrollPrev() || false
+      if (unref(opts)?.loop) {
+        canScrollNext.value = true
+        canScrollPrev.value = true
+      }
+      else {
+        canScrollNext.value = api?.canScrollNext() || false
+        canScrollPrev.value = api?.canScrollPrev() || false
+      }
     }
 
     onMounted(() => {
