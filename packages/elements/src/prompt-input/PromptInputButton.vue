@@ -2,7 +2,7 @@
 import type { HTMLAttributes } from 'vue'
 import { InputGroupButton } from '@repo/shadcn-vue/components/ui/input-group'
 import { cn } from '@repo/shadcn-vue/lib/utils'
-import { Comment, computed, Text, useSlots } from 'vue'
+import { Comment, computed, Text, toRef, useSlots } from 'vue'
 
 type InputGroupButtonProps = InstanceType<typeof InputGroupButton>['$props']
 
@@ -38,7 +38,9 @@ const computedSize = computed(() => {
   return validChildren.length > 1 ? 'sm' : 'icon-sm'
 })
 
-const { size, variant, class: _, ...restProps } = props
+const variant = toRef(props, 'variant')
+
+const { size, variant: _, class: __, ...restProps } = props
 </script>
 
 <template>
