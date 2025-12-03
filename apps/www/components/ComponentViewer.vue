@@ -11,9 +11,7 @@ defineProps<Props>()
   <ClientOnly>
     <Suspense>
       <template #default>
-        <div class="docs-component-preview">
-          <component :is="componentName" />
-        </div>
+        <component :is="componentName" class="docs-component-preview" />
       </template>
       <template #fallback>
         <div class="p-4" />

@@ -287,7 +287,6 @@ const props = defineProps<{
 </template>
 ```
 
-
 ```ts [context.ts]
 import type { InjectionKey, Ref } from 'vue'
 import { inject } from 'vue'

@@ -1,5 +1,6 @@
 export { default as Artifact } from './artifact.vue'
 export { default as ChainOfThought } from './chain-of-thought.vue'
+export { default as Chatbot } from './chatbot.vue'
 export { default as Checkpoint } from './checkpoint.vue'
 export { default as CodeBlockDark } from './code-block-dark.vue'
 export { default as CodeBlock } from './code-block.vue'
