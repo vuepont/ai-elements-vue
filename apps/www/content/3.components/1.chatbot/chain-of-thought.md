@@ -176,7 +176,6 @@ const statusStyles = {
   </div>
 </template>
 ```
-
 ```vue [ChainOfThoughtSearchResults.vue]
 <script setup lang="ts">
 import type { HtmlHTMLAttributes } from 'vue'
