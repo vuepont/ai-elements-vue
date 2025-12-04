@@ -29,7 +29,7 @@ if (args.length >= 2 && args[0] === 'add') {
   const component = args[1]
   const targetUrl = new URL(`/${component}.json`, 'https://registry.ai-elements-vue.com').toString()
 
-  const fullCommand = `${commandPrefix} shadcn-vue@2.3.3 add ${targetUrl}`
+  const fullCommand = `${commandPrefix} shadcn-vue@latest add ${targetUrl}`
   const result = spawnSync(fullCommand, {
     stdio: 'inherit',
     shell: true,
@@ -56,7 +56,7 @@ else {
         new URL(`/${item.name}.json`, 'https://registry.ai-elements-vue.com').toString(),
       )
 
-      const fullCommand = `${commandPrefix} shadcn-vue@2.3.3 add ${componentUrls.join(' ')}`
+      const fullCommand = `${commandPrefix} shadcn-vue@latest add ${componentUrls.join(' ')}`
       const result = spawnSync(fullCommand, {
         stdio: 'inherit',
         shell: true,
