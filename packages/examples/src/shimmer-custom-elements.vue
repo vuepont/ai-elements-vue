@@ -16,7 +16,7 @@ import { Shimmer } from '@repo/elements/shimmer'
       <p class="text-sm text-muted-foreground mb-3">
         As heading
       </p>
-      <Shimmer as="h2" class-name="text-2xl font-bold">
+      <Shimmer as="h2" class="text-2xl font-bold">
         Large Heading with Shimmer
       </Shimmer>
     </div>
@@ -26,7 +26,7 @@ import { Shimmer } from '@repo/elements/shimmer'
       </p>
       <div>
         Processing your request
-        <Shimmer as="span" class-name="inline">
+        <Shimmer as="span" class="inline">
           with AI magic
         </Shimmer>
         ...
@@ -36,7 +36,7 @@ import { Shimmer } from '@repo/elements/shimmer'
       <p class="text-sm text-muted-foreground mb-3">
         As div with custom styling
       </p>
-      <Shimmer as="div" class-name="text-lg font-semibold">
+      <Shimmer as="div" class="text-lg font-semibold">
         Custom styled shimmer text
       </Shimmer>
     </div>

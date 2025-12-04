@@ -1,40 +1,57 @@
 <script setup lang="ts">
 import type { ChatStatus } from 'ai'
-import { Button } from '@repo/shadcn-vue/components/ui/button'
-import { Loader2, Send, Square, X } from 'lucide-vue-next'
-import { computed, useAttrs } from 'vue'
+import type { HTMLAttributes } from 'vue'
+import { InputGroupButton } from '@repo/shadcn-vue/components/ui/input-group'
+import { cn } from '@repo/shadcn-vue/lib/utils'
+import { CornerDownLeftIcon, Loader2Icon, SquareIcon, XIcon } from 'lucide-vue-next'
+import { computed } from 'vue'
 
-interface Props {
-  class?: string
+type InputGroupButtonProps = InstanceType<typeof InputGroupButton>['$props']
+
+interface Props extends /* @vue-ignore */ InputGroupButtonProps {
+  class?: HTMLAttributes['class']
   status?: ChatStatus
-  variant?: 'default' | 'secondary' | 'destructive' | 'outline' | 'ghost' | 'link'
-  size?: 'default' | 'sm' | 'lg' | 'icon'
 }
 
 const props = withDefaults(defineProps<Props>(), {
   variant: 'default',
-  size: 'icon',
+  size: 'icon-sm',
 })
-
-const attrs = useAttrs()
-
-const classes = computed(() => ['gap-1.5 rounded-lg', props.class])
 
 const icon = computed(() => {
-  if (props.status === 'submitted')
-    return Loader2
-  if (props.status === 'streaming')
-    return Square
-  if (props.status === 'error')
-    return X
-  return Send
+  if (props.status === 'submitted') {
+    return Loader2Icon
+  }
+  else if (props.status === 'streaming') {
+    return SquareIcon
+  }
+  else if (props.status === 'error') {
+    return XIcon
+  }
+  return CornerDownLeftIcon
 })
+
+const iconClass = computed(() => {
+  if (props.status === 'submitted') {
+    return 'size-4 animate-spin'
+  }
+  return 'size-4'
+})
+
+const { status, size, variant, class: _, ...restProps } = props
 </script>
 
 <template>
-  <Button :class="classes" :size="props.size" :variant="props.variant" type="submit" v-bind="attrs">
+  <InputGroupButton
+    aria-label="Submit"
+    :class="cn(props.class)"
+    :size="size"
+    :variant="variant"
+    type="submit"
+    v-bind="restProps"
+  >
     <slot>
-      <component :is="icon" class="size-4" />
+      <component :is="icon" :class="iconClass" />
     </slot>
-  </Button>
+  </InputGroupButton>
 </template>

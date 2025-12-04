@@ -191,7 +191,7 @@ function handleSuggestionClick(suggestion: string) {
 
 ### Usage with AI Input
 
-:::ComponentLoader{label="Preview" componentName="SuggestionAiInput"}
+:::ComponentLoader{label="Preview" componentName="SuggestionInput"}
 :::
 
 ## Props

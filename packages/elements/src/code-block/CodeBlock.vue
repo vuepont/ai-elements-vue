@@ -2,7 +2,7 @@
 import type { BundledLanguage } from 'shiki'
 import type { HTMLAttributes } from 'vue'
 import { cn } from '@repo/shadcn-vue/lib/utils'
-import { reactiveOmit } from '@vueuse/core'
+import { reactiveOmit, useDebounceFn } from '@vueuse/core'
 import { computed, onBeforeUnmount, provide, ref, watch } from 'vue'
 import { CodeBlockKey } from './context'
 import { highlightCode } from './utils'
@@ -31,23 +31,27 @@ provide(CodeBlockKey, {
 let requestId = 0
 let isUnmounted = false
 
+const updateHighlight = useDebounceFn(async (code: string, language: BundledLanguage, showLineNumbers: boolean) => {
+  requestId += 1
+  const currentId = requestId
+
+  try {
+    const [light, dark] = await highlightCode(code, language, showLineNumbers)
+
+    if (currentId === requestId && !isUnmounted) {
+      html.value = light
+      darkHtml.value = dark
+    }
+  }
+  catch (error) {
+    console.error('[CodeBlock] highlight failed', error)
+  }
+}, 100)
+
 watch(
   () => [props.code, props.language, props.showLineNumbers] as const,
-  async ([code, language, showLineNumbers]) => {
-    requestId += 1
-    const currentId = requestId
-
-    try {
-      const [light, dark] = await highlightCode(code, language, showLineNumbers)
-
-      if (currentId === requestId && !isUnmounted) {
-        html.value = light
-        darkHtml.value = dark
-      }
-    }
-    catch (error) {
-      console.error('[CodeBlock] highlight failed', error)
-    }
+  ([code, language, showLineNumbers]) => {
+    updateHighlight(code, language, showLineNumbers)
   },
   { immediate: true },
 )

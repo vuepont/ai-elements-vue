@@ -1,11 +1,12 @@
 <script setup lang="ts">
+import type { HTMLAttributes } from 'vue'
 import { Avatar, AvatarFallback, AvatarImage } from '@repo/shadcn-vue/components/ui/avatar'
 import { computed, useAttrs } from 'vue'
 
 interface Props {
   src: string
   name?: string
-  class?: string
+  class?: HTMLAttributes['class']
 }
 
 const props = defineProps<Props>()

@@ -1,22 +1,12 @@
 <script setup lang="ts">
-import { computed, useAttrs } from 'vue'
+import type { HTMLAttributes } from 'vue'
+import { cn } from '@repo/shadcn-vue/lib/utils'
 
-interface Props {
-  class?: string
-}
-
-const props = defineProps<Props>()
-const attrs = useAttrs()
-
-const classes = computed(() => [
-  'flex items-center gap-1',
-  '[&_button:first-child]:rounded-bl-xl',
-  props.class,
-])
+const props = defineProps<{ class?: HTMLAttributes['class'] }>()
 </script>
 
 <template>
-  <div :class="classes" v-bind="attrs">
+  <div :class="cn('flex items-center gap-1', props.class)">
     <slot />
   </div>
 </template>

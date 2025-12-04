@@ -83,6 +83,17 @@ function parseImportsFromCode(code: string): string[] {
   }
 }
 
+function extractRegistrySlug(modulePath: string, basePath: string): string {
+  if (!modulePath.startsWith(basePath))
+    return ''
+
+  const rest = modulePath.slice(basePath.length)
+    .split('/')
+    .filter(Boolean)
+
+  return rest[0] || ''
+}
+
 function analyzeDependencies(
   imports: string[],
   allowedDeps: Set<string>,
@@ -110,18 +121,16 @@ function analyzeDependencies(
 
     // Handle shadcn-vue components
     if (mod.startsWith('@/components/ui/')) {
-      const componentName = mod.split('/').pop() || ''
-      if (componentName) {
-        registryDependencies.add(componentName)
-      }
+      const slug = extractRegistrySlug(mod, '@/components/ui/')
+      if (slug)
+        registryDependencies.add(slug)
     }
 
     // Handle AI elements components
     if (mod.startsWith('@/components/ai-elements/')) {
-      const componentName = mod.split('/').pop() || ''
-      if (componentName) {
-        registryDependencies.add(`/${componentName}.json`)
-      }
+      const slug = extractRegistrySlug(mod, '@/components/ai-elements/')
+      if (slug)
+        registryDependencies.add(slug)
     }
   }
 

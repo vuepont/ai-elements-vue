@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue'
 import { cn } from '@repo/shadcn-vue/lib/utils'
+import { reactiveOmit } from '@vueuse/core'
 import { StickToBottom } from 'vue-stick-to-bottom'
 
 interface Props {
@@ -22,19 +23,14 @@ const props = withDefaults(defineProps<Props>(), {
   mass: 1.25,
   anchor: 'none',
 })
+const delegatedProps = reactiveOmit(props, 'class')
 </script>
 
 <template>
   <StickToBottom
-    :aria-label="props.ariaLabel"
+    v-bind="delegatedProps"
     :class="cn('relative flex-1 overflow-y-hidden', props.class)"
     role="log"
-    :initial="props.initial"
-    :resize="props.resize"
-    :damping="props.damping"
-    :stiffness="props.stiffness"
-    :mass="props.mass"
-    :anchor="props.anchor"
   >
     <slot />
   </StickToBottom>

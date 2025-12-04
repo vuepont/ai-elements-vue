@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import type { Experimental_GeneratedImage } from 'ai'
+import type { HTMLAttributes } from 'vue'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 import { computed, useAttrs } from 'vue'
 
 interface Props extends Experimental_GeneratedImage {
-  class?: string
+  class?: HTMLAttributes['class']
   alt?: string
 }
 
