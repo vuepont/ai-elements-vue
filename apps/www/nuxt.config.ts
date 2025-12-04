@@ -67,7 +67,9 @@ export default defineNuxtConfig({
     preset: 'cloudflare-module',
   },
 
-  ogImage: {
-    enabled: false,
+  alias: {
+    // Replace Playwright with a mock to bypass Cloudflare build restrictions.
+    'playwright-core': 'unenv/mock/proxy',
+    'playwright': 'unenv/mock/proxy',
   },
 })
