@@ -68,9 +68,8 @@ import type { HTMLAttributes } from 'vue'
 import type { PromptInputMessage } from './types'
 import { InputGroup } from '@repo/shadcn-vue/components/ui/input-group'
 import { cn } from '@repo/shadcn-vue/lib/utils'
-import { inject, onMounted, onUnmounted, ref } from 'vue'
-import { usePromptInputProvider } from './context'
-import { PROMPT_INPUT_KEY } from './types'
+import { onMounted, onUnmounted, ref } from 'vue'
+import { injectPromptInputContext, usePromptInputProvider } from './context'
 
 const props = defineProps<{
   class?: HTMLAttributes['class']
@@ -90,19 +89,17 @@ const emit = defineEmits<{
 const formRef = ref<HTMLFormElement | null>(null)
 
 // --- Dual-mode context handling ---
-const inheritedContext = inject(PROMPT_INPUT_KEY, null)
-const localContext = inheritedContext
-  ? null
-  : usePromptInputProvider({
-      initialInput: props.initialInput,
-      maxFiles: props.maxFiles,
-      maxFileSize: props.maxFileSize,
-      accept: props.accept,
-      onSubmit: msg => emit('submit', msg as any),
-      onError: err => emit('error', err),
-    })
-
-const context = inheritedContext || localContext
+let context = injectPromptInputContext()
+if (!context) {
+  context = usePromptInputProvider({
+    initialInput: props.initialInput,
+    maxFiles: props.maxFiles,
+    maxFileSize: props.maxFileSize,
+    accept: props.accept,
+    onSubmit: msg => emit('submit', msg as any),
+    onError: err => emit('error', err),
+  })
+}
 
 if (!context) {
   throw new Error('PromptInput context is missing.')
