@@ -2,7 +2,7 @@
 import type { HTMLAttributes } from 'vue'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 import { getUsage } from 'tokenlens'
-import { computed, useSlots } from 'vue'
+import { computed } from 'vue'
 import { useContextValue } from './context'
 import TokensWithCost from './TokensWithCost.vue'
 
@@ -11,7 +11,6 @@ const props = defineProps<{
 }>()
 
 const { usage, modelId } = useContextValue()
-const slots = useSlots()
 
 const reasoningTokens = computed(() => usage.value?.reasoningTokens ?? 0)
 
@@ -32,7 +31,7 @@ const reasoningCostText = computed(() => {
 </script>
 
 <template>
-  <slot v-if="slots.default" />
+  <slot v-if="$slots.default" />
   <div
     v-else-if="reasoningTokens > 0"
     :class="

@@ -2,7 +2,7 @@
 import type { HTMLAttributes } from 'vue'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 import { getUsage } from 'tokenlens'
-import { computed, useSlots } from 'vue'
+import { computed } from 'vue'
 import { useContextValue } from './context'
 
 const props = defineProps<{
@@ -10,7 +10,6 @@ const props = defineProps<{
 }>()
 
 const { modelId, usage } = useContextValue()
-const slots = useSlots()
 
 const totalCost = computed(() => {
   if (!modelId.value)
@@ -40,7 +39,7 @@ const totalCost = computed(() => {
       )
     "
   >
-    <slot v-if="slots.default" />
+    <slot v-if="$slots.default" />
 
     <template v-else>
       <span class="text-muted-foreground">Total cost</span>

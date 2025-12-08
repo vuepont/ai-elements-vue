@@ -2,7 +2,7 @@
 import type { HTMLAttributes } from 'vue'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 import { StreamMarkdown } from 'streamdown-vue'
-import { computed, useSlots } from 'vue'
+import { computed } from 'vue'
 
 interface Props {
   content?: string
@@ -10,9 +10,8 @@ interface Props {
 }
 const props = defineProps<Props>()
 
-const slots = useSlots()
 const slotContent = computed<string | undefined>(() => {
-  const nodes = slots.default?.() || []
+  const nodes = $slots.default?.() || []
   let text = ''
   for (const node of nodes) {
     if (typeof node.children === 'string')
