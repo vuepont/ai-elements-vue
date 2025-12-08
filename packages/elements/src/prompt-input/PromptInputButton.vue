@@ -2,7 +2,7 @@
 import type { HTMLAttributes } from 'vue'
 import { InputGroupButton } from '@repo/shadcn-vue/components/ui/input-group'
 import { cn } from '@repo/shadcn-vue/lib/utils'
-import { Comment, computed, Text, toRef } from 'vue'
+import { Comment, computed, Text, toRef, useSlots } from 'vue'
 
 type InputGroupButtonProps = InstanceType<typeof InputGroupButton>['$props']
 
@@ -16,12 +16,13 @@ const props = withDefaults(defineProps<Props>(), {
   variant: 'ghost',
 })
 
+const slots = useSlots()
 
 const computedSize = computed(() => {
   if (props.size)
     return props.size
 
-  const slotNodes = $slots.default?.()
+  const slotNodes = slots.default?.()
 
   if (!slotNodes)
     return 'icon-sm'

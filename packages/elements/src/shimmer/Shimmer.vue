@@ -2,7 +2,7 @@
 import type { CSSProperties, HTMLAttributes } from 'vue'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 import { motion } from 'motion-v'
-import { computed } from 'vue'
+import { computed, useSlots } from 'vue'
 
 export interface TextShimmerProps {
   as?: keyof HTMLElementTagNameMap
@@ -17,8 +17,10 @@ const props = withDefaults(defineProps<TextShimmerProps>(), {
   spread: 2,
 })
 
+const slots = useSlots()
+
 const textContent = computed(() => {
-  const defaultSlot = $slots.default?.()
+  const defaultSlot = slots.default?.()
   if (!defaultSlot || defaultSlot.length === 0)
     return ''
 

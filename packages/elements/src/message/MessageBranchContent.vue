@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue'
 import { cn } from '@repo/shadcn-vue/lib/utils'
-import { computed, Fragment, isVNode, onMounted, watch } from 'vue'
+import { computed, Fragment, isVNode, onMounted, useSlots, watch } from 'vue'
 import { useMessageBranchContext } from './context'
 
 interface Props {
@@ -9,11 +9,12 @@ interface Props {
 }
 
 const props = defineProps<Props>()
+const slots = useSlots()
 
 const { currentBranch, setBranches } = useMessageBranchContext()
 
 const branchVNodes = computed(() => {
-  const nodes = $slots.default?.() ?? []
+  const nodes = slots.default?.() ?? []
 
   const extractChildren = (node: any): any[] => {
     if (isVNode(node) && node.type === Fragment) {

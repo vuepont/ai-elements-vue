@@ -3,7 +3,7 @@ import type { HTMLAttributes } from 'vue'
 import { CollapsibleContent } from '@repo/shadcn-vue/components/ui/collapsible'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 import { StreamMarkdown } from 'streamdown-vue'
-import { computed } from 'vue'
+import { computed, useSlots } from 'vue'
 
 interface Props {
   class?: HTMLAttributes['class']
@@ -11,9 +11,10 @@ interface Props {
 }
 
 const props = defineProps<Props>()
+const slots = useSlots()
 
 const slotContent = computed<string | undefined>(() => {
-  const nodes = $slots.default?.() || []
+  const nodes = slots.default?.() || []
   let text = ''
   for (const node of nodes) {
     if (typeof node.children === 'string')
