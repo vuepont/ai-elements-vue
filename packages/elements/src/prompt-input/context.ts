@@ -1,22 +1,11 @@
-import type { InjectionKey } from 'vue'
 import type { AttachmentFile, PromptInputContext } from './types'
 import { nanoid } from 'nanoid'
-import { inject, onBeforeUnmount, provide, ref } from 'vue'
-import { PROMPT_INPUT_KEY } from './types'
+import {
+  createContext,
+} from 'reka-ui'
+import { onBeforeUnmount, ref } from 'vue'
 
-export function createContext<T>(key?: InjectionKey<T>) {
-  const _key = key ?? Symbol('') as InjectionKey<T>
-  const providerContext = (value: T) => {
-    return provide(_key, value)
-  }
-  const injectContext = () => {
-    const context = inject(_key)
-    return context
-  }
-  return [providerContext, injectContext] as const
-}
-
-export const [providePromptInputContext, injectPromptInputContext] = createContext<PromptInputContext>(PROMPT_INPUT_KEY)
+export const [usePromptInput, providePromptInputContext] = createContext<PromptInputContext>('PromptInput')
 
 export function usePromptInputProvider(props: {
   initialInput?: string
@@ -194,13 +183,5 @@ export function usePromptInputProvider(props: {
   }
 
   providePromptInputContext(context)
-  return context
-}
-
-export function usePromptInput() {
-  const context = injectPromptInputContext()
-  if (!context) {
-    throw new Error('usePromptInput must be used within a PromptInput component')
-  }
   return context
 }
