@@ -17,12 +17,14 @@ interface NodeProps {
 
 const props = defineProps<NodeProps>()
 const delegatedProps = reactiveOmit(props, 'class')
+
+const nodeClass = computed(() => cn('node-container relative size-full h-auto w-sm gap-0 rounded-md p-0', props.class))
 </script>
 
 <template>
   <Card
     v-bind="delegatedProps"
-    :class="cn('node-container relative size-full h-auto w-sm gap-0 rounded-md p-0', props.class)"
+    :class="nodeClass"
   >
     <Handle v-if="props.handles?.target" :position="Position.Left" type="target" />
     <Handle v-if="props.handles?.source" :position="Position.Right" type="source" />

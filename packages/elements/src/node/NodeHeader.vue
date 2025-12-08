@@ -6,10 +6,11 @@ import { cn } from '@repo/shadcn-vue/lib/utils'
 const props = defineProps<{
   class?: HTMLAttributes['class']
 }>()
+const className = computed(() => cn('gap-0.5 rounded-t-md border-b bg-secondary p-3!', props.class))
 </script>
 
 <template>
-  <CardHeader :class="cn('gap-0.5 rounded-t-md border-b bg-secondary p-3!', props.class)">
+  <CardHeader :class="className">
     <slot />
   </CardHeader>
 </template>
