@@ -4,7 +4,7 @@ import { cn } from '@repo/shadcn-vue/lib/utils'
 import { useSlots } from 'vue'
 
 interface Props {
-  class?: HTMLAttributes['class']
+  wrapperClass?: HTMLAttributes['class']
 }
 
 const props = defineProps<Props>()
@@ -18,7 +18,7 @@ const slots = useSlots()
     :class="
       cn(
         'ml-auto flex w-fit flex-wrap items-start gap-2',
-        props.class,
+        props.wrapperClass,
       )
     "
     v-bind="$attrs"
