@@ -14,7 +14,7 @@ const props = defineProps<Props>()
     :class="
       cn(
         'mt-4 flex w-full items-center justify-between gap-4',
-        props.class as string,
+        props.class,
       )
     "
     v-bind="$attrs"

@@ -21,7 +21,7 @@ const { isOpen, setIsOpen } = useChainOfThought()
       :class="
         cn(
           'flex w-full items-center gap-2 text-muted-foreground text-sm transition-colors hover:text-foreground',
-          props.class as string,
+          props.class,
         )
       "
       v-bind="$attrs"

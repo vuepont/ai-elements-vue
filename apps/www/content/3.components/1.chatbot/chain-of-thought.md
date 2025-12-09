@@ -152,7 +152,7 @@ const statusStyles = {
         'flex gap-2 text-sm',
         statusStyles[props.status],
         'fade-in-0 slide-in-from-top-2 animate-in',
-        props.class as string,
+        props.class,
       )
     "
     v-bind="$attrs"

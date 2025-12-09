@@ -50,7 +50,7 @@ const props = defineProps<Props>()
       cn(
         'group flex w-full max-w-[80%] gap-2',
         props.from === 'user' ? 'is-user ml-auto justify-end' : 'is-assistant',
-        props.class as string,
+        props.class,
       )
     "
     v-bind="$attrs"
@@ -575,7 +575,7 @@ const props = defineProps<Props>()
     :class="
       cn(
         'mt-4 flex w-full items-center justify-between gap-4',
-        props.class as string,
+        props.class,
       )
     "
     v-bind="$attrs"
