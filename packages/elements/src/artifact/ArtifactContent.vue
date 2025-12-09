@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue'
 import { cn } from '@repo/shadcn-vue/lib/utils'
-import { computed, useAttrs } from 'vue'
+import { computed } from 'vue'
 
 const props = defineProps<{
   class?: HTMLAttributes['class']
 }>()
-const attrs = useAttrs()
 
 const classes = computed(() => cn('flex-1 overflow-auto p-4', props.class))
 </script>
@@ -14,7 +13,7 @@ const classes = computed(() => cn('flex-1 overflow-auto p-4', props.class))
 <template>
   <div
     :class="classes"
-    v-bind="attrs"
+    v-bind="$attrs"
   >
     <slot />
   </div>
