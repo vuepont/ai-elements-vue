@@ -31,7 +31,7 @@ Copy and paste the following code in the same folder.
   <script setup lang="ts">
   import type { HTMLAttributes } from 'vue'
   import { cn } from '@repo/shadcn-vue/lib/utils'
-  import { computed, useAttrs } from 'vue'
+  import { computed } from 'vue'
 
   const props = defineProps<{
     class?: HTMLAttributes['class']
@@ -41,13 +41,12 @@ Copy and paste the following code in the same folder.
     'flex flex-col overflow-hidden rounded-lg border bg-background shadow-sm',
     props.class,
   ))
-  const attrs = useAttrs()
   </script>
 
   <template>
     <div
       :class="classes"
-      v-bind="attrs"
+      v-bind="$attrs"
     >
       <slot />
     </div>
@@ -132,19 +131,18 @@ Copy and paste the following code in the same folder.
   <script setup lang="ts">
   import type { HTMLAttributes } from 'vue'
   import { cn } from '@repo/shadcn-vue/lib/utils'
-  import { computed, useAttrs } from 'vue'
+  import { computed } from 'vue'
 
   const props = defineProps<{
     class?: HTMLAttributes['class']
   }>()
-  const attrs = useAttrs()
   const classes = computed(() => cn('flex items-center gap-1', props.class))
   </script>
 
   <template>
     <div
       :class="classes"
-      v-bind="attrs"
+      v-bind="$attrs"
     >
       <slot />
     </div>
@@ -196,12 +194,11 @@ Copy and paste the following code in the same folder.
   <script setup lang="ts">
   import type { HTMLAttributes } from 'vue'
   import { cn } from '@repo/shadcn-vue/lib/utils'
-  import { computed, useAttrs } from 'vue'
+  import { computed } from 'vue'
 
   const props = defineProps<{
     class?: HTMLAttributes['class']
   }>()
-  const attrs = useAttrs()
 
   const classes = computed(() => cn('flex-1 overflow-auto p-4', props.class))
   </script>
@@ -209,7 +206,7 @@ Copy and paste the following code in the same folder.
   <template>
     <div
       :class="classes"
-      v-bind="attrs"
+      v-bind="$attrs"
     >
       <slot />
     </div>
@@ -220,12 +217,11 @@ Copy and paste the following code in the same folder.
   <script setup lang="ts">
   import type { HTMLAttributes } from 'vue'
   import { cn } from '@repo/shadcn-vue/lib/utils'
-  import { computed, useAttrs } from 'vue'
+  import { computed } from 'vue'
 
   const props = defineProps<{
     class?: HTMLAttributes['class']
   }>()
-  const attrs = useAttrs()
 
   const classes = computed(() => cn('text-muted-foreground text-sm', props.class))
   </script>
@@ -233,7 +229,7 @@ Copy and paste the following code in the same folder.
   <template>
     <p
       :class="classes"
-      v-bind="attrs"
+      v-bind="$attrs"
     >
       <slot />
     </p>
@@ -244,7 +240,7 @@ Copy and paste the following code in the same folder.
   <script setup lang="ts">
   import type { HTMLAttributes } from 'vue'
   import { cn } from '@repo/shadcn-vue/lib/utils'
-  import { computed, useAttrs } from 'vue'
+  import { computed } from 'vue'
 
   const props = defineProps<{
     class?: HTMLAttributes['class']
@@ -254,13 +250,12 @@ Copy and paste the following code in the same folder.
     'flex items-center justify-between border-b bg-muted/50 px-4 py-3',
     props.class,
   ))
-  const attrs = useAttrs()
   </script>
 
   <template>
     <div
       :class="classes"
-      v-bind="attrs"
+      v-bind="$attrs"
     >
       <slot />
     </div>
@@ -271,19 +266,18 @@ Copy and paste the following code in the same folder.
   <script setup lang="ts">
   import type { HTMLAttributes } from 'vue'
   import { cn } from '@repo/shadcn-vue/lib/utils'
-  import { computed, useAttrs } from 'vue'
+  import { computed } from 'vue'
 
   const props = defineProps<{
     class?: HTMLAttributes['class']
   }>()
 
   const classes = computed(() => cn('font-medium text-foreground text-sm', props.class))
-  const attrs = useAttrs()
   </script>
 
   <template>
     <p
-      v-bind="attrs"
+      v-bind="$attrs"
       :class="classes"
     >
       <slot />

@@ -94,7 +94,7 @@ const vBind = computed(() => {
 <script setup lang="ts">
 import type { IframeHTMLAttributes, VNodeChild } from 'vue'
 import { cn } from '@repo/shadcn-vue/lib/utils'
-import { computed, useAttrs } from 'vue'
+import { computed } from 'vue'
 import { useWebPreviewContext } from './context'
 
 interface Props extends /* @vue-ignore */ IframeHTMLAttributes {
@@ -108,7 +108,6 @@ defineSlots<{
   loading: () => VNodeChild
 }>()
 
-const attrs = useAttrs()
 const { url } = useWebPreviewContext()
 
 const frameSrc = computed(() => (props.src ?? url.value) || undefined)
@@ -121,7 +120,7 @@ const frameSrc = computed(() => (props.src ?? url.value) || undefined)
       sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-presentation"
       :src="frameSrc"
       title="Preview"
-      v-bind="attrs"
+      v-bind="$attrs"
     />
     <slot name="loading" />
   </div>
@@ -300,7 +299,7 @@ const props = withDefaults(defineProps<Props>(), {
 import type { HTMLAttributes } from 'vue'
 import { Input } from '@repo/shadcn-vue/components/ui/input'
 import { cn } from '@repo/shadcn-vue/lib/utils'
-import { ref, useAttrs, watch } from 'vue'
+import { ref, watch } from 'vue'
 import { useWebPreviewContext } from './context'
 
 interface Props {
@@ -312,7 +311,6 @@ const props = withDefaults(defineProps<Props>(), {
   placeholder: 'Enter URL...',
 })
 
-const attrs = useAttrs()
 const context = useWebPreviewContext()
 
 const inputValue = ref(context.url.value)
@@ -336,7 +334,7 @@ function handleKeydown() {
     data-testid="web-preview-url-input"
     :class="cn('h-8 flex-1 text-sm', props.class)"
     :placeholder="props.placeholder"
-    v-bind="attrs"
+    v-bind="$attrs"
     @keydown.enter="handleKeydown"
   />
 </template>

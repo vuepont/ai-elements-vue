@@ -34,7 +34,7 @@ Copy and paste the following files into the same folder.
   <script setup lang="ts">
   import type { Experimental_GeneratedImage } from 'ai'
   import { cn } from '@repo/shadcn-vue/lib/utils'
-  import { computed, useAttrs } from 'vue'
+  import { computed } from 'vue'
 
   interface Props extends Experimental_GeneratedImage {
     class?: string
@@ -42,7 +42,6 @@ Copy and paste the following files into the same folder.
   }
 
   const props = defineProps<Props>()
-  const attrs = useAttrs()
 
   const classes = computed(() => cn(
     'h-auto max-w-full overflow-hidden rounded-md',
@@ -57,7 +56,7 @@ Copy and paste the following files into the same folder.
       :alt="props.alt"
       :class="classes"
       :src="src"
-      v-bind="attrs"
+      v-bind="$attrs"
     >
   </template>
   ```
