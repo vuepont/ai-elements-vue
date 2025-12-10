@@ -275,7 +275,7 @@ Add the following component to your frontend:
 ::::code-group
 ```vue [app/page.vue] height=500 collapse
 <script setup lang="ts">
-import { useObject } from '@ai-sdk/vue'
+import { experimental_useObject as useObject } from '@ai-sdk/vue'
 import { ref } from 'vue'
 import { z } from 'zod'
 import { CodeBlock, CodeBlockCopyButton } from '@/components/ai-elements/code-block'
