@@ -158,7 +158,7 @@ import {
 } from '@/components/ai-elements/conversation'
 import { Message, MessageContent } from '@/components/ai-elements/message'
 import {
-  Input,
+  PromptInput,
   PromptInputSubmit,
   PromptInputTextarea,
 } from '@/components/ai-elements/prompt-input'
@@ -231,7 +231,7 @@ function getTextParts(message: any) {
         </Conversation>
       </div>
 
-      <Input
+      <PromptInput
         class="mt-4 w-full max-w-2xl mx-auto relative"
         @submit.prevent="handleSubmit"
       >
@@ -245,7 +245,7 @@ function getTextParts(message: any) {
           :disabled="!input.trim()"
           class="absolute bottom-1 right-1"
         />
-      </Input>
+      </PromptInput>
     </div>
   </div>
 </template>

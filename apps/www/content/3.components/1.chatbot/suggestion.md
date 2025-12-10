@@ -116,7 +116,13 @@ import {
   ConversationScrollButton,
 } from '@/components/ai-elements/conversation'
 import { Message, MessageContent } from '@/components/ai-elements/message'
+import {
+  PromptInput,
+  PromptInputSubmit,
+  PromptInputTextarea,
+} from '@/components/ai-elements/prompt-input'
 import { Response } from '@/components/ai-elements/response'
+import { Suggestion, Suggestions } from '@/components/ai-elements/suggestion'
 
 const input = ref('')
 const { sendMessage, status } = useChat()
@@ -124,7 +130,7 @@ const { sendMessage, status } = useChat()
 function handleSubmit() {
   if (input.value.trim()) {
     sendMessage({ text: input.value })
-    setInput('')
+    input.value = ''
   }
 }
 
@@ -146,7 +152,7 @@ function handleSuggestionClick(suggestion: string) {
           />
         </Suggestions>
 
-        <Input class="mt-4 w-full max-w-2xl mx-auto relative" @submit.prevent="handleSubmit">
+        <PromptInput class="mt-4 w-full max-w-2xl mx-auto relative" @submit.prevent="handleSubmit">
           <PromptInputTextarea
             v-model="input"
             placeholder="Say something..."
@@ -157,7 +163,7 @@ function handleSuggestionClick(suggestion: string) {
             :disabled="!input.trim()"
             class="absolute bottom-1 right-1"
           />
-        </Input>
+        </PromptInput>
       </div>
     </div>
   </div>
