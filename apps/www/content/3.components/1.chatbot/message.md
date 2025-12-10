@@ -652,7 +652,7 @@ import {
   MessageResponse,
 } from '@/components/ai-elements/message'
 import {
-  Input,
+  PromptInput,
   PromptInputSubmit,
   PromptInputTextarea,
 } from '@/components/ai-elements/prompt-input'
@@ -711,7 +711,7 @@ function handleSubmit() {
         <ConversationScrollButton />
       </Conversation>
 
-      <Input
+      <PromptInput
         class="mt-4 w-full max-w-2xl mx-auto relative"
         @submit.prevent="handleSubmit"
       >
@@ -725,7 +725,7 @@ function handleSubmit() {
           :disabled="!input.trim()"
           class="absolute bottom-1 right-1"
         />
-      </Input>
+      </PromptInput>
     </div>
   </div>
 </template>
