@@ -464,7 +464,7 @@ Shows the rejected status when user rejects and state is `output-denied`.
   The approval object containing the approval ID and status. If not provided or undefined, the component will not render.
   ::
 
-  ::field{name="state" ype="ToolUIPart['state']"}
+  ::field{name="state" type="ToolUIPart['state']"}
   The current state of the tool (input-streaming, input-available, approval-requested, approval-responded, output-denied, or output-available). Will not render for input-streaming or input-available states.
   ::
 
