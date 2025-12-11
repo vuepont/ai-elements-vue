@@ -1,7 +1,7 @@
 <!-- StatusBadge.vue -->
 <script setup lang="ts">
-import type { ToolUIPart } from 'ai'
 import type { Component } from 'vue'
+import type { ExtendedToolState } from '../types'
 import { Badge } from '@repo/shadcn-vue/components/ui/badge'
 import {
   CheckCircleIcon,
@@ -12,11 +12,11 @@ import {
 import { computed } from 'vue'
 
 const props = defineProps<{
-  state: ToolUIPart['state']
+  state: ExtendedToolState
 }>()
 
 const label = computed(() => {
-  const labels: Record<ToolUIPart['state'], string> = {
+  const labels: Record<ExtendedToolState, string> = {
     'input-streaming': 'Pending',
     'input-available': 'Running',
     'approval-requested': 'Awaiting Approval',
@@ -29,7 +29,7 @@ const label = computed(() => {
 })
 
 const icon = computed<Component>(() => {
-  const icons: Record<ToolUIPart['state'], Component> = {
+  const icons: Record<ExtendedToolState, Component> = {
     'input-streaming': CircleIcon,
     'input-available': ClockIcon,
     'approval-requested': ClockIcon,

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { ExtendedToolState } from '@repo/elements/tool'
 import {
   Confirmation,
   ConfirmationAccepted,
@@ -15,7 +16,7 @@ const approval = {
   approved: true,
 }
 
-const state = 'approval-responded'
+const state: ExtendedToolState = 'approval-responded'
 </script>
 
 <template>

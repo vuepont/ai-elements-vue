@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { ExtendedToolState } from '@repo/elements/tool'
 import {
   Confirmation,
   ConfirmationAccepted,
@@ -14,7 +15,7 @@ import { nanoid } from 'nanoid'
 import { ref } from 'vue'
 
 const approval = ref({ id: nanoid() })
-const state = ref<'approval-requested' | 'approval-responded'>('approval-requested')
+const state = ref<ExtendedToolState>('approval-requested')
 
 function handleReject() {
   // In production, call respondToConfirmationRequest with approved: false

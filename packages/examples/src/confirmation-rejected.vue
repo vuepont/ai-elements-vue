@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { ExtendedToolState } from '@repo/elements/tool'
 import {
   Confirmation,
   ConfirmationAccepted,
@@ -16,7 +17,7 @@ const approval = ref({
   approved: false,
 })
 
-const state = ref('output-denied')
+const state = ref<ExtendedToolState>('output-denied')
 </script>
 
 <template>

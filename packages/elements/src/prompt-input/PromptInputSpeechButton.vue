@@ -81,7 +81,7 @@ onMounted(() => {
     sr.onstart = () => isListening.value = true
     sr.onend = () => isListening.value = false
 
-    sr.onresult = (event: any) => {
+    sr.onresult = (event: SpeechRecognitionEvent) => {
       let finalTranscript = ''
       for (let i = event.resultIndex; i < event.results.length; i++) {
         const result = event.results[i]
@@ -96,7 +96,7 @@ onMounted(() => {
       }
     }
 
-    sr.onerror = (event: any) => {
+    sr.onerror = (event: SpeechRecognitionErrorEvent) => {
       console.error('Speech recognition error:', event.error)
       isListening.value = false
     }

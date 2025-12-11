@@ -1,5 +1,5 @@
-import type { ToolUIPart } from 'ai'
 import type { InjectionKey, Ref } from 'vue'
+import type { ExtendedToolState } from '../types'
 import { inject } from 'vue'
 
 export type ToolUIPartApproval
@@ -32,7 +32,7 @@ export type ToolUIPartApproval
 
 export interface ConfirmationContextValue {
   approval: Ref<ToolUIPartApproval>
-  state: Ref<ToolUIPart['state']>
+  state: Ref<ExtendedToolState>
 }
 
 export const ConfirmationKey: InjectionKey<ConfirmationContextValue>
