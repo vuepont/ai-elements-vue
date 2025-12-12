@@ -194,21 +194,6 @@ export type ToolUIPartApproval
     approved: boolean
     reason?: string
   }
-  | {
-    id: string
-    approved: true
-    reason?: string
-  }
-  | {
-    id: string
-    approved: true
-    reason?: string
-  }
-  | {
-    id: string
-    approved: false
-    reason?: string
-  }
   | undefined
 
 export interface ConfirmationContextValue {
@@ -220,7 +205,7 @@ export const ConfirmationKey: InjectionKey<ConfirmationContextValue>
   = Symbol('ConfirmationContext')
 
 export function useConfirmationContext() {
-  const context = inject<ConfirmationContextValue | null>(ConfirmationKey, null)
+  const context = inject(ConfirmationKey)
   if (!context)
     throw new Error('Confirmation components must be used within <Confirmation>')
   return context
