@@ -6,7 +6,6 @@ import { computed } from 'vue'
 
 interface Props extends Experimental_GeneratedImage {
   class?: HTMLAttributes['class']
-  alt?: string
 }
 
 const props = defineProps<Props>()
@@ -21,7 +20,6 @@ const src = computed(() => `data:${props.mediaType};base64,${props.base64}`)
 
 <template>
   <img
-    :alt="props.alt"
     :class="classes"
     :src="src"
     v-bind="$attrs"

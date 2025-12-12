@@ -38,7 +38,6 @@ Copy and paste the following files into the same folder.
 
   interface Props extends Experimental_GeneratedImage {
     class?: string
-    alt?: string
   }
 
   const props = defineProps<Props>()
@@ -53,7 +52,6 @@ Copy and paste the following files into the same folder.
 
   <template>
     <img
-      :alt="props.alt"
       :class="classes"
       :src="src"
       v-bind="$attrs"
