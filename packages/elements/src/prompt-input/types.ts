@@ -24,5 +24,3 @@ export interface PromptInputContext {
   openFileDialog: () => void
   submitForm: () => void
 }
-
-export const PROMPT_INPUT_KEY = Symbol('PromptInputContext')

@@ -19,7 +19,7 @@ usePromptInputProvider({
   maxFiles: props.maxFiles,
   maxFileSize: props.maxFileSize,
   accept: props.accept,
-  onSubmit: msg => emit('submit', msg),
+  onSubmit: msg => emit('submit', msg as PromptInputMessage),
   onError: err => emit('error', err),
 })
 </script>

@@ -2,7 +2,7 @@
 import type { IframeHTMLAttributes, VNodeChild } from 'vue'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 import { computed } from 'vue'
-import { useWebPreviewContext } from './context'
+import { useWebPreview } from './context'
 
 interface Props extends /* @vue-ignore */ IframeHTMLAttributes {
   class?: IframeHTMLAttributes['class']
@@ -15,7 +15,7 @@ defineSlots<{
   loading: () => VNodeChild
 }>()
 
-const { url } = useWebPreviewContext()
+const { url } = useWebPreview()
 
 const frameSrc = computed(() => (props.src ?? url.value) || undefined)
 </script>

@@ -1,16 +1,60 @@
 import type { AttachmentFile, PromptInputContext } from './types'
 import { nanoid } from 'nanoid'
-import { inject, onBeforeUnmount, provide, ref } from 'vue'
-import { PROMPT_INPUT_KEY } from './types'
+import { createContext } from 'reka-ui'
+import { onBeforeUnmount, ref } from 'vue'
 
-export function usePromptInputProvider(props: {
+const [injectProviderContext, provideProviderContext] = createContext<PromptInputContext | null>('PromptInputProvider')
+
+const [injectLocalContext, provideLocalContext] = createContext<PromptInputContext | null>('PromptInput')
+
+export function usePromptInput(): PromptInputContext {
+  const providerContext = injectProviderContext()
+  const localContext = injectLocalContext()
+
+  const context = providerContext ?? localContext
+
+  if (!context) {
+    throw new Error('usePromptInput must be used within a PromptInputProvider or PromptInput')
+  }
+
+  return context
+}
+
+export interface PromptInputProviderProps {
   initialInput?: string
   maxFiles?: number
   maxFileSize?: number
   accept?: string
   onSubmit?: (message: { text: string, files: any[] }) => void | Promise<void>
   onError?: (err: { code: string, message: string }) => void
-}) {
+}
+
+export function usePromptInputProvider(props: PromptInputProviderProps): PromptInputContext {
+  const context = createPromptInputContext(props)
+  provideProviderContext(context)
+  return context
+}
+
+export function usePromptInputLocal(props: PromptInputProviderProps): PromptInputContext {
+  const providerContext = injectProviderContext()
+
+  if (providerContext) {
+    return providerContext
+  }
+
+  const localContext = createPromptInputContext(props)
+  provideLocalContext(localContext)
+  return localContext
+}
+
+function createPromptInputContext(props: {
+  initialInput?: string
+  maxFiles?: number
+  maxFileSize?: number
+  accept?: string
+  onSubmit?: (message: { text: string, files: any[] }) => void | Promise<void>
+  onError?: (err: { code: string, message: string }) => void
+}): PromptInputContext {
   const textInput = ref(props.initialInput || '')
   const files = ref<AttachmentFile[]>([])
   const fileInputRef = ref<HTMLInputElement | null>(null)
@@ -164,7 +208,7 @@ export function usePromptInputProvider(props: {
     }
   }
 
-  const context: PromptInputContext = {
+  return {
     textInput,
     files,
     fileInputRef,
@@ -177,15 +221,4 @@ export function usePromptInputProvider(props: {
     openFileDialog,
     submitForm,
   }
-
-  provide(PROMPT_INPUT_KEY, context)
-  return context
-}
-
-export function usePromptInput() {
-  const context = inject<PromptInputContext>(PROMPT_INPUT_KEY)
-  if (!context) {
-    throw new Error('usePromptInput must be used within a PromptInput component')
-  }
-  return context
 }

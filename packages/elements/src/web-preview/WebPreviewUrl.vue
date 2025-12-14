@@ -3,7 +3,7 @@ import type { HTMLAttributes } from 'vue'
 import { Input } from '@repo/shadcn-vue/components/ui/input'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 import { ref, watch } from 'vue'
-import { useWebPreviewContext } from './context'
+import { useWebPreview } from './context'
 
 interface Props {
   class?: HTMLAttributes['class']
@@ -14,7 +14,7 @@ const props = withDefaults(defineProps<Props>(), {
   placeholder: 'Enter URL...',
 })
 
-const context = useWebPreviewContext()
+const context = useWebPreview()
 
 const inputValue = ref(context.url.value)
 

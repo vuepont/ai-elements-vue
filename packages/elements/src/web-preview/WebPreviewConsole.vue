@@ -9,7 +9,7 @@ import {
 import { cn } from '@repo/shadcn-vue/lib/utils'
 import { ChevronDownIcon } from 'lucide-vue-next'
 import { computed } from 'vue'
-import { useWebPreviewContext } from './context'
+import { useWebPreview } from './context'
 
 type LogLevel = 'log' | 'warn' | 'error'
 
@@ -28,7 +28,7 @@ const props = withDefaults(defineProps<Props>(), {
   logs: () => [],
 })
 
-const context = useWebPreviewContext()
+const context = useWebPreview()
 
 const isConsoleOpen = computed(() => context.consoleOpen.value)
 
