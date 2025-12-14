@@ -2,8 +2,8 @@
 import type { LanguageModelUsage } from 'ai'
 import type { ModelId } from './context'
 import { HoverCard } from '@repo/shadcn-vue/components/ui/hover-card'
-import { computed, provide } from 'vue'
-import { ContextKey } from './context'
+import { computed } from 'vue'
+import { provideContext } from './context'
 
 interface Props {
   usedTokens: number
@@ -14,7 +14,7 @@ interface Props {
 
 const props = defineProps<Props>()
 
-provide(ContextKey, {
+provideContext({
   usedTokens: computed(() => props.usedTokens),
   maxTokens: computed(() => props.maxTokens),
   usage: computed(() => props.usage),

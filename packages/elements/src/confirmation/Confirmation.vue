@@ -4,8 +4,8 @@ import type { HTMLAttributes } from 'vue'
 import type { ToolUIPartApproval } from './context'
 import { Alert } from '@repo/shadcn-vue/components/ui/alert'
 import { cn } from '@repo/shadcn-vue/lib/utils'
-import { provide, toRef } from 'vue'
-import { ConfirmationKey } from './context'
+import { toRef } from 'vue'
+import { provideConfirmation } from './context'
 
 const props = defineProps<{
   approval?: ToolUIPartApproval
@@ -13,7 +13,7 @@ const props = defineProps<{
   class?: HTMLAttributes['class']
 }>()
 
-provide(ConfirmationKey, {
+provideConfirmation({
   approval: toRef(props, 'approval'),
   state: toRef(props, 'state'),
 })

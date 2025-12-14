@@ -1,5 +1,5 @@
-import type { InjectionKey, Ref, VNode } from 'vue'
-import { inject } from 'vue'
+import type { Ref, VNode } from 'vue'
+import { createContext } from 'reka-ui'
 
 export interface MessageBranchContextType<T = VNode[]> {
   currentBranch: Readonly<Ref<number>>
@@ -10,13 +10,4 @@ export interface MessageBranchContextType<T = VNode[]> {
   setBranches: (count: number) => void
 }
 
-export const MessageBranchKey: InjectionKey<MessageBranchContextType>
-  = Symbol('MessageBranch')
-
-export function useMessageBranchContext(): MessageBranchContextType {
-  const ctx = inject(MessageBranchKey)
-  if (!ctx) {
-    throw new Error('Message Branch components must be used within Message Branch')
-  }
-  return ctx
-}
+export const [useMessageBranch, provideMessageBranch] = createContext<MessageBranchContextType>('MessageBranch')
