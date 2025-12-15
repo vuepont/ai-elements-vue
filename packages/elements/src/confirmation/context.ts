@@ -30,9 +30,15 @@ export type ToolUIPartApproval
   }
   | undefined
 
+export type State
+  = | 'approval-responded'
+    | 'output-denied'
+    | 'output-available'
+    | 'approval-requested'
+    | ToolUIPart['state']
 export interface ConfirmationContextValue {
   approval: Ref<ToolUIPartApproval>
-  state: Ref<ToolUIPart['state']>
+  state: Ref<State>
 }
 
 export const ConfirmationKey: InjectionKey<ConfirmationContextValue>
