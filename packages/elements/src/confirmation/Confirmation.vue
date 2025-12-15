@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import type { ToolUIPart } from 'ai'
 import type { HTMLAttributes } from 'vue'
-import type { ToolUIPartApproval } from './context'
+import type { State, ToolUIPartApproval } from './context'
 import { Alert } from '@repo/shadcn-vue/components/ui/alert'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 import { provide, toRef } from 'vue'
@@ -9,7 +8,7 @@ import { ConfirmationKey } from './context'
 
 const props = defineProps<{
   approval?: ToolUIPartApproval
-  state: ToolUIPart['state']
+  state: State
   class?: HTMLAttributes['class']
 }>()
 
