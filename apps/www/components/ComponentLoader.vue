@@ -29,7 +29,7 @@ withDefaults(defineProps<Props>(), {
         >
           <ResizablePanelGroup direction="horizontal">
             <ResizablePanel :default-size="100">
-              <div class="h-[600px] overflow-auto">
+              <div class="h-[600px] overflow-auto p-1">
                 <ComponentViewer :component-name="componentName" />
               </div>
             </ResizablePanel>
