@@ -103,7 +103,7 @@ function onSubmit(e: Event) {
       :class="cn('w-full', props.class)"
       @submit="onSubmit"
       @dragover.prevent="handleDragOver"
-      @drop.prevent="handleDrop"
+      @drop.prevent.stop="handleDrop"
     >
       <InputGroup class="overflow-hidden">
         <slot />
