@@ -3,7 +3,7 @@ import type { HTMLAttributes } from 'vue'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 import { computed, ref } from 'vue'
 import {
-  provideWebPreviewContext,
+  provideWebPreview,
 } from './context'
 
 interface Props extends /* @vue-ignore */ HTMLAttributes {
@@ -37,7 +37,7 @@ function setConsoleOpen(value: boolean) {
   emit('consoleOpenChange', value)
 }
 
-provideWebPreviewContext({
+provideWebPreview({
   url,
   setUrl,
   consoleOpen,

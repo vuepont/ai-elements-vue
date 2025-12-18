@@ -1,7 +1,8 @@
-import type { ComputedRef, InjectionKey } from 'vue'
+import type { ComputedRef } from 'vue'
+import { createContext } from 'reka-ui'
 
-export interface CodeBlockContext {
+export interface CodeBlockContextValue {
   code: ComputedRef<string>
 }
 
-export const CodeBlockKey: InjectionKey<CodeBlockContext> = Symbol('CodeBlock')
+export const [useCodeBlock, provideCodeBlock] = createContext<CodeBlockContextValue>('CodeBlock')

@@ -14,7 +14,7 @@ const props = defineProps<{
     v-bind="$attrs"
   >
     <div
-      class="relative flex max-h-[22rem] items-center justify-center overflow-hidden rounded-lg bg-muted p-3"
+      class="relative flex max-h-88 items-center justify-center overflow-hidden rounded-lg bg-muted p-3"
     >
       <slot />
     </div>

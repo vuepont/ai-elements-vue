@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import type { UIMessage } from 'ai'
 import { ButtonGroup } from '@repo/shadcn-vue/components/ui/button-group'
-import { useMessageBranchContext } from './context'
+import { useMessageBranch } from './context'
 
 interface Props {
   from: UIMessage['role']
 }
 defineProps<Props>()
 
-const { totalBranches } = useMessageBranchContext()
+const { totalBranches } = useMessageBranch()
 </script>
 
 <template>

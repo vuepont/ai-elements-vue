@@ -3,8 +3,8 @@ import type { BundledLanguage } from 'shiki'
 import type { HTMLAttributes } from 'vue'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 import { reactiveOmit, useDebounceFn } from '@vueuse/core'
-import { computed, onBeforeUnmount, provide, ref, watch } from 'vue'
-import { CodeBlockKey } from './context'
+import { computed, onBeforeUnmount, ref, watch } from 'vue'
+import { provideCodeBlock } from './context'
 import { highlightCode } from './utils'
 
 const props = withDefaults(
@@ -23,10 +23,6 @@ const delegatedProps = reactiveOmit(props, 'code', 'language', 'showLineNumbers'
 
 const html = ref('')
 const darkHtml = ref('')
-
-provide(CodeBlockKey, {
-  code: computed(() => props.code),
-})
 
 let requestId = 0
 let isUnmounted = false
@@ -47,6 +43,10 @@ const updateHighlight = useDebounceFn(async (code: string, language: BundledLang
     console.error('[CodeBlock] highlight failed', error)
   }
 }, 100)
+
+provideCodeBlock({
+  code: computed(() => props.code),
+})
 
 watch(
   () => [props.code, props.language, props.showLineNumbers] as const,

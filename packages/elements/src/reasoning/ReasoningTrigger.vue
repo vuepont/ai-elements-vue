@@ -5,7 +5,7 @@ import { cn } from '@repo/shadcn-vue/lib/utils'
 import { BrainIcon, ChevronDownIcon } from 'lucide-vue-next'
 import { computed } from 'vue'
 import { Shimmer } from '../shimmer'
-import { useReasoningContext } from './context'
+import { useReasoning } from './context'
 
 interface Props {
   class?: HTMLAttributes['class']
@@ -13,7 +13,7 @@ interface Props {
 
 const props = defineProps<Props>()
 
-const { isStreaming, isOpen, duration } = useReasoningContext()
+const { isStreaming, isOpen, duration } = useReasoning()
 
 const thinkingMessage = computed(() => {
   if (isStreaming.value || duration.value === 0) {

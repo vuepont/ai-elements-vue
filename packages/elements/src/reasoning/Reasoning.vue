@@ -3,8 +3,8 @@ import type { HTMLAttributes } from 'vue'
 import { Collapsible } from '@repo/shadcn-vue/components/ui/collapsible'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 import { useVModel } from '@vueuse/core'
-import { computed, provide, ref, watch } from 'vue'
-import { ReasoningKey } from './context'
+import { computed, ref, watch } from 'vue'
+import { provideReasoning } from './context'
 
 interface Props {
   class?: HTMLAttributes['class']
@@ -76,7 +76,7 @@ watch([() => props.isStreaming, isOpen, () => props.defaultOpen, hasAutoClosed],
   }
 }, { immediate: true })
 
-provide(ReasoningKey, {
+provideReasoning({
   isStreaming: computed(() => props.isStreaming),
   isOpen,
   setIsOpen: (val: boolean) => { isOpen.value = val },

@@ -2,7 +2,7 @@
 import type { HTMLAttributes } from 'vue'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 import { computed, Fragment, isVNode, onMounted, useSlots, watch } from 'vue'
-import { useMessageBranchContext } from './context'
+import { useMessageBranch } from './context'
 
 interface Props {
   class?: HTMLAttributes['class']
@@ -11,7 +11,7 @@ interface Props {
 const props = defineProps<Props>()
 const slots = useSlots()
 
-const { currentBranch, setBranches } = useMessageBranchContext()
+const { currentBranch, setBranches } = useMessageBranch()
 
 const branchVNodes = computed(() => {
   const nodes = slots.default?.() ?? []

@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue'
 import { cn } from '@repo/shadcn-vue/lib/utils'
-import { useConfirmationContext } from './context'
+import { useConfirmation } from './context'
 
 const props = defineProps<{
   class?: HTMLAttributes['class']
 }>()
 
-const { state } = useConfirmationContext()
+const { state } = useConfirmation()
 </script>
 
 <template>

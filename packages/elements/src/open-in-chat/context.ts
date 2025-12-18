@@ -1,20 +1,7 @@
-import type { InjectionKey } from 'vue'
-import { inject, provide } from 'vue'
+import { createContext } from 'reka-ui'
 
-export interface OpenInContext {
+export interface OpenInContextContextValue {
   query: string
 }
 
-export const OpenInContextKey: InjectionKey<OpenInContext> = Symbol('OpenInContext')
-
-export function provideOpenInContext(context: OpenInContext) {
-  provide(OpenInContextKey, context)
-}
-
-export function useOpenInContext() {
-  const context = inject(OpenInContextKey)
-  if (!context) {
-    throw new Error('OpenIn components must be used within an OpenIn provider')
-  }
-  return context
-}
+export const [useOpenInContext, provideOpenInContext] = createContext<OpenInContextContextValue>('OpenIn')

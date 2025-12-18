@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import type { HTMLAttributes, VNode } from 'vue'
-import type { MessageBranchContextType } from './context'
 import { cn } from '@repo/shadcn-vue/lib/utils'
-import { provide, readonly, ref } from 'vue'
-import { MessageBranchKey } from './context'
+import { readonly, ref } from 'vue'
+import { provideMessageBranch } from './context'
 
 interface Props {
   defaultBranch?: number
@@ -44,16 +43,14 @@ function setBranches(count: number) {
   totalBranches.value = count
 }
 
-const contextValue: MessageBranchContextType = {
+provideMessageBranch({
   currentBranch: readonly(currentBranch),
   totalBranches: readonly(totalBranches),
   goToPrevious,
   goToNext,
   branches,
   setBranches,
-}
-
-provide(MessageBranchKey, contextValue)
+})
 </script>
 
 <template>

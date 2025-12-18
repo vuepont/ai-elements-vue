@@ -2,8 +2,7 @@
 import type { HTMLAttributes, Ref } from 'vue'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 import { useVModel } from '@vueuse/core'
-import { provide } from 'vue'
-import { ChainOfThoughtContextKey } from './context'
+import { provideChainOfThought } from './context'
 
 interface ChainOfThoughtProps {
   modelValue?: boolean
@@ -28,7 +27,12 @@ const isOpen = useVModel(props, 'modelValue', emit, {
   passive: true,
 })
 
-provide(ChainOfThoughtContextKey, isOpen as Ref<boolean>)
+provideChainOfThought({
+  isOpen: isOpen as Ref<boolean>,
+  setIsOpen: (open: boolean) => {
+    isOpen.value = open
+  },
+})
 </script>
 
 <template>

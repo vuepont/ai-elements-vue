@@ -1,6 +1,6 @@
 import type { ToolUIPart } from 'ai'
-import type { InjectionKey, Ref } from 'vue'
-import { inject } from 'vue'
+import type { Ref } from 'vue'
+import { createContext } from 'reka-ui'
 
 export type ToolUIPartApproval
   = | {
@@ -35,12 +35,4 @@ export interface ConfirmationContextValue {
   state: Ref<ToolUIPart['state']>
 }
 
-export const ConfirmationKey: InjectionKey<ConfirmationContextValue>
-  = Symbol('ConfirmationContext')
-
-export function useConfirmationContext() {
-  const context = inject<ConfirmationContextValue | null>(ConfirmationKey, null)
-  if (!context)
-    throw new Error('Confirmation components must be used within <Confirmation>')
-  return context
-}
+export const [useConfirmation, provideConfirmation] = createContext<ConfirmationContextValue>('Confirmation')
