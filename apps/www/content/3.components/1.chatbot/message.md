@@ -406,7 +406,10 @@ const props = defineProps<Props>()
 
 const slots = useSlots()
 const slotContent = computed<string | undefined>(() => {
-  const nodes = slots.default?.() || []
+  const nodes = slots.default?.()
+  if (!Array.isArray(nodes)) {
+    return undefined
+  }
   let text = ''
   for (const node of nodes) {
     if (typeof node.children === 'string')
