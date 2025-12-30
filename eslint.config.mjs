@@ -8,4 +8,9 @@ export default antfu({
     '**/.nitro/**',
     'apps/registry/server/assets/**',
   ],
+}, {
+  // Without `files`, they are general rules for all files
+  rules: {
+    'pnpm/json-enforce-catalog': 0,
+  },
 })

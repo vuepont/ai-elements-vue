@@ -7,14 +7,14 @@
     "dev": "nitro dev --port 3001"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "catalog:server-runtime",
-    "shadcn-vue": "catalog:ui-core",
-    "zod": "catalog:validation"
+    "@modelcontextprotocol/sdk": "^1.24.3",
+    "shadcn-vue": "^2.4.1",
+    "zod": "catalog:"
   },
   "devDependencies": {
-    "@vue/compiler-sfc": "catalog:tooling",
-    "h3": "catalog:server-runtime",
-    "nitropack": "catalog:server-runtime",
-    "ts-morph": "catalog:tooling"
+    "@vue/compiler-sfc": "^3.5.25",
+    "h3": "^1.15.4",
+    "nitropack": "^2.12.9",
+    "ts-morph": "^27.0.2"
   }
 }

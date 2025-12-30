@@ -4,7 +4,8 @@
   "private": true,
   "packageManager": "pnpm@10.24.0",
   "engines": {
-    "node": ">=20.19.0"
+    "node": ">=20.19.0",
+    "pnpm": ">=9.6.0"
   },
   "scripts": {
     "build": "turbo run build",
@@ -21,15 +22,15 @@
     "bumpp": "bumpp package.json packages/*/package.json apps/*/package.json"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "catalog:tooling",
-    "@commitlint/cli": "catalog:tooling",
-    "@commitlint/config-conventional": "catalog:tooling",
-    "bumpp": "catalog:tooling",
-    "eslint": "catalog:tooling",
-    "lint-staged": "catalog:tooling",
-    "simple-git-hooks": "catalog:tooling",
-    "turbo": "catalog:tooling",
-    "typescript": "catalog:tooling"
+    "@antfu/eslint-config": "^6.4.2",
+    "@commitlint/cli": "^20.2.0",
+    "@commitlint/config-conventional": "^20.2.0",
+    "bumpp": "^10.3.2",
+    "eslint": "^9.39.1",
+    "lint-staged": "^16.2.7",
+    "simple-git-hooks": "^2.13.1",
+    "turbo": "^2.6.3",
+    "typescript": "catalog:"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm lint-staged",

@@ -8,14 +8,14 @@
   },
   "dependencies": {
     "@repo/elements": "workspace:*",
-    "@vue-flow/core": "catalog:ai-kit",
-    "ai": "catalog:ai-kit",
-    "lucide-vue-next": "catalog:ui-core",
-    "nanoid": "catalog:shared",
-    "vue": "catalog:ui-core",
-    "vue-sonner": "catalog:ui-core"
+    "@vue-flow/core": "^1.48.0",
+    "ai": "catalog:",
+    "lucide-vue-next": "catalog:",
+    "nanoid": "^5.1.6",
+    "vue": "catalog:",
+    "vue-sonner": "catalog:"
   },
   "devDependencies": {
-    "typescript": "catalog:tooling"
+    "typescript": "catalog:"
   }
 }

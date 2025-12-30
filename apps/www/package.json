@@ -14,20 +14,20 @@
   "dependencies": {
     "@repo/elements": "workspace:*",
     "@repo/examples": "workspace:*",
-    "@vueuse/shared": "catalog:ui-core",
-    "highlight.js": "catalog:docs-app",
-    "nuxt": "catalog:docs-app",
-    "shadcn-docs-nuxt": "catalog:docs-app",
-    "tailwindcss": "catalog:ui-core",
-    "vue": "catalog:ui-core",
-    "vue-router": "catalog:ui-core"
+    "@vueuse/shared": "^14.1.0",
+    "highlight.js": "^11.11.1",
+    "nuxt": "^3.20.2",
+    "shadcn-docs-nuxt": "^1.1.7",
+    "tailwindcss": "catalog:",
+    "vue": "catalog:",
+    "vue-router": "^4.6.3"
   },
   "devDependencies": {
-    "@iconify-json/logos": "catalog:docs-app",
-    "@iconify-json/lucide": "catalog:docs-app",
-    "@iconify-json/simple-icons": "catalog:docs-app",
-    "baseline-browser-mapping": "catalog:docs-app",
-    "tailwindcss-animate": "catalog:ui-core",
-    "wrangler": "catalog:server-runtime"
+    "@iconify-json/logos": "^1.2.10",
+    "@iconify-json/lucide": "^1.2.78",
+    "@iconify-json/simple-icons": "^1.2.61",
+    "baseline-browser-mapping": "^2.9.2",
+    "tailwindcss-animate": "^1.0.7",
+    "wrangler": "^4.52.1"
   }
 }
