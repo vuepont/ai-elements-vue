@@ -193,8 +193,9 @@ const thinkingMessage = computed(() => {
 import type { HTMLAttributes } from 'vue'
 import { CollapsibleContent } from '@repo/shadcn-vue/components/ui/collapsible'
 import { cn } from '@repo/shadcn-vue/lib/utils'
-import { StreamMarkdown } from 'streamdown-vue'
 import { computed, useSlots } from 'vue'
+import { Markdown } from 'vue-stream-markdown'
+import 'vue-stream-markdown/index.css'
 
 interface Props {
   class?: HTMLAttributes['class']
@@ -227,7 +228,7 @@ const md = computed(() => (slotContent.value ?? props.content ?? '') as string)
       props.class,
     )"
   >
-    <StreamMarkdown :content="md" />
+    <Markdown :content="md" />
   </CollapsibleContent>
 </template>
 ```

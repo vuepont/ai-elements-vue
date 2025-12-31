@@ -496,7 +496,12 @@ function toggleWebSearch() {
                 </Reasoning>
 
                 <MessageContent>
-                  <MessageResponse :content="version.content" />
+                  <MessageResponse
+                    :content="version.content"
+                    :shiki-options="{
+                      langs: ['ts', 'vue'],
+                    }"
+                  />
                 </MessageContent>
               </div>
             </Message>

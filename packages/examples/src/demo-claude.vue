@@ -551,7 +551,12 @@ onUnmounted(() => {
                           'group-[.is-assistant]:bg-transparent group-[.is-assistant]:p-0 group-[.is-assistant]:font-serif group-[.is-assistant]:text-foreground',
                         )"
                       >
-                        <MessageResponse>{{ version.content }}</MessageResponse>
+                        <MessageResponse
+                          :content="version.content"
+                          :shiki-options="{
+                            langs: ['vue', 'ts'],
+                          }"
+                        />
                       </MessageContent>
                     </div>
                   </Message>
