@@ -1,13 +1,15 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue'
 import { cn } from '@repo/shadcn-vue/lib/utils'
-import { StreamMarkdown } from 'streamdown-vue'
 import { computed, useSlots } from 'vue'
+import { Markdown } from 'vue-stream-markdown'
+import 'vue-stream-markdown/index.css'
 
 interface Props {
   content?: string
   class?: HTMLAttributes['class']
 }
+
 const props = defineProps<Props>()
 
 const slots = useSlots()
@@ -28,15 +30,11 @@ const md = computed(() => (slotContent.value ?? props.content ?? '') as string)
 </script>
 
 <template>
-  <StreamMarkdown
-    :shiki-theme="{
-      light: 'github-light',
-      dark: 'github-dark',
-    }"
+  <Markdown
     :content="md"
     :class="
       cn(
-        'size-full [&>*:first-child]:mt-0 [&>*:last-child]:mb-0',
+        'size-full [&>*:first-child]:mt-0! [&>*:last-child]:mb-0!',
         props.class,
       )
     "

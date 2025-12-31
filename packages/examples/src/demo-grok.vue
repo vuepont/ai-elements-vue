@@ -563,7 +563,12 @@ function handleFileAction(action: string) {
                           'group-[.is-assistant]:bg-transparent group-[.is-assistant]:p-0 group-[.is-assistant]:text-foreground',
                         )"
                       >
-                        <MessageResponse :content="version.content" />
+                        <MessageResponse
+                          :content="version.content"
+                          :shiki-options="{
+                            langs: ['vue', 'ts'],
+                          }"
+                        />
                       </MessageContent>
                     </div>
                   </Message>
@@ -599,7 +604,7 @@ function handleFileAction(action: string) {
             <DropdownMenu>
               <DropdownMenuTrigger as-child>
                 <PromptInputButton
-                  class="!rounded-full border text-foreground"
+                  class="rounded-full! border text-foreground"
                   variant="outline"
                 >
                   <PaperclipIcon :size="16" />
@@ -639,7 +644,7 @@ function handleFileAction(action: string) {
             </DropdownMenu>
             <div class="flex items-center rounded-full border">
               <PromptInputButton
-                class="!rounded-l-full text-foreground"
+                class="rounded-l-full! text-foreground"
                 variant="ghost"
                 @click="useWebSearch = !useWebSearch"
               >
@@ -656,7 +661,7 @@ function handleFileAction(action: string) {
               </PromptInputButton>
             </div>
             <PromptInputButton
-              class="!rounded-full text-foreground"
+              class="rounded-full! text-foreground"
               variant="outline"
             >
               <LightbulbIcon :size="16" />

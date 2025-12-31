@@ -395,8 +395,9 @@ const { currentBranch, totalBranches } = useMessageBranchContext()
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue'
 import { cn } from '@repo/shadcn-vue/lib/utils'
-import { StreamMarkdown } from 'streamdown-vue'
 import { computed, useSlots } from 'vue'
+import { Markdown } from 'vue-stream-markdown'
+import 'vue-stream-markdown/index.css'
 
 interface Props {
   content?: string
@@ -419,15 +420,11 @@ const md = computed(() => (slotContent.value ?? props.content ?? '') as string)
 </script>
 
 <template>
-  <StreamMarkdown
-    :shiki-theme="{
-      light: 'github-light',
-      dark: 'github-dark',
-    }"
+  <Markdown
     :content="md"
     :class="
       cn(
-        'size-full [&>*:first-child]:mt-0 [&>*:last-child]:mb-0',
+        'size-full [&>*:first-child]:mt-0! [&>*:last-child]:mb-0!',
         props.class,
       )
     "
@@ -952,8 +949,8 @@ function copyToClipboard(text: string) {
   Additional classes applied to the component.
   ::
 
-  ::field{name="streamdown-vue props"}
-  Additional props from [Streamdown-vue](https://github.com/Saluana/streamdown-vue?tab=readme-ov-file#5-props-reference)
+  ::field{name="vue-stream-markdown props"}
+  Additional props from [vue-stream-markdown](https://docs-vue-stream-markdown.netlify.app/config/)
   ::
 ::
 

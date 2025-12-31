@@ -9,6 +9,11 @@ export default defineNuxtConfig({
     payloadExtraction: false,
   },
 
+  css: [
+    'vue-stream-markdown/index.css',
+    'vue-stream-markdown/theme.css',
+  ],
+
   mdc: {
     highlight: {
       shikiEngine: 'javascript',

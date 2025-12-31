@@ -243,7 +243,12 @@ function handleBranchChange(index: number) {
             v-for="version in message.versions"
             :key="version.id"
           >
-            <MessageResponse :content="version.content" />
+            <MessageResponse
+              :content="version.content"
+              :shiki-options="{
+                langs: ['vue'],
+              }"
+            />
           </MessageContent>
         </MessageBranchContent>
 
