@@ -1,9 +1,29 @@
+import type { Dirent } from 'node:fs'
+import type { Registry, RegistryItem } from 'shadcn-vue/schema'
 import { promises as fs } from 'node:fs'
 import { basename, join, relative } from 'node:path'
 import { parse as parseSFC } from '@vue/compiler-sfc'
+import { registryItemSchema } from 'shadcn-vue/schema'
 import { Project } from 'ts-morph'
 
-interface FileRec { type: string, path: string, target?: string, content: string }
+interface ComponentAssetFile {
+  type: 'registry:component'
+  path: string
+  content: string
+  target?: string
+}
+
+interface ExampleAssetFile {
+  type: 'registry:block'
+  path: string
+  content: string
+  target?: string
+}
+
+interface PackageJson {
+  dependencies?: Record<string, string>
+  devDependencies?: Record<string, string>
+}
 
 function toTitle(slug: string) {
   return slug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
@@ -13,27 +33,16 @@ function unique<T>(arr: T[]): T[] {
   return Array.from(new Set(arr))
 }
 
-function validateRegistryItem(item: any, type: string): boolean {
-  if (!item || typeof item !== 'object') {
-    console.warn(`Invalid registry item: not an object (${type})`)
+function validateRegistryItem(item: unknown, label: string): item is RegistryItem {
+  const parsed = registryItemSchema.safeParse(item)
+  if (!parsed.success) {
+    console.warn(`Invalid registry item schema (${label}):`, parsed.error.issues)
     return false
   }
 
-  const requiredFields = ['$schema', 'name', 'type', 'files']
-  for (const field of requiredFields) {
-    if (!(field in item)) {
-      console.warn(`Invalid registry item: missing field '${field}' (${type})`)
-      return false
-    }
-  }
-
-  if (!Array.isArray(item.files) || item.files.length === 0) {
-    console.warn(`Invalid registry item: files must be non-empty array (${type})`)
-    return false
-  }
-
-  if (!Array.isArray(item.dependencies)) {
-    console.warn(`Invalid registry item: dependencies must be array (${type})`)
+  // Extra runtime guarantees for our generated assets.
+  if (!parsed.data.files || parsed.data.files.length === 0) {
+    console.warn(`Invalid registry item: files must be non-empty array (${label})`)
     return false
   }
 
@@ -139,7 +148,7 @@ function analyzeDependencies(
 
 async function walkComponentFiles(dir: string, rootDir: string): Promise<string[]> {
   const out: string[] = []
-  let entries: any[] = []
+  let entries: Dirent[] = []
   try {
     entries = await fs.readdir(dir, { withFileTypes: true })
   }
@@ -176,18 +185,18 @@ export async function generateRegistryAssets(ctx: { rootDir: string }) {
   const examplesDir = join(rootDir, '..', '..', 'packages', 'examples', 'src')
 
   // read package.json for dependency sets
-  let pkg: any = {}
+  let pkg: PackageJson = {}
   try {
     const raw = await fs.readFile(join(elementsDir, 'package.json'), 'utf-8')
-    pkg = JSON.parse(raw)
+    pkg = JSON.parse(raw) as PackageJson
   }
   catch {}
 
   // read examples package.json for additional dependencies
-  let examplesPkg: any = {}
+  let examplesPkg: PackageJson = {}
   try {
     const raw = await fs.readFile(join(rootDir, '..', '..', 'packages', 'examples', 'package.json'), 'utf-8')
-    examplesPkg = JSON.parse(raw)
+    examplesPkg = JSON.parse(raw) as PackageJson
   }
   catch {}
 
@@ -201,17 +210,17 @@ export async function generateRegistryAssets(ctx: { rootDir: string }) {
   const allowedDevDeps = new Set(Object.keys(allDevDeps || {}).filter((d: string) => !['typescript'].includes(d)))
 
   const componentFiles = await walkComponentFiles(srcDir, srcDir)
-  const files: FileRec[] = []
+  const files: ComponentAssetFile[] = []
   for (const abs of componentFiles) {
     const raw = await fs.readFile(abs, 'utf-8')
     const parsed = raw
       .replace(/@repo\/shadcn-vue\//g, '@/')
       .replace(/@repo\/elements\//g, '@/components/ai-elements/')
     const rel = relative(srcDir, abs).split('\\').join('/')
-    files.push({ type: 'registry:component', path: `components/ai-elements/${rel}`, target: '', content: parsed })
+    files.push({ type: 'registry:component', path: `components/ai-elements/${rel}`, content: parsed })
   }
 
-  const exampleFiles: FileRec[] = []
+  const exampleFiles: ExampleAssetFile[] = []
   try {
     const entries = await fs.readdir?.(examplesDir, { withFileTypes: true })
     if (entries) {
@@ -220,13 +229,13 @@ export async function generateRegistryAssets(ctx: { rootDir: string }) {
         const raw = await fs.readFile(abs, 'utf-8')
         const parsed = raw.replace(/@repo\/elements\//g, '@/components/ai-elements/')
         const name = basename(abs)
-        exampleFiles.push({ type: 'registry:block', path: `components/ai-elements/examples/${name}`, target: '', content: parsed })
+        exampleFiles.push({ type: 'registry:block', path: `components/ai-elements/examples/${name}`, content: parsed })
       }
     }
   }
   catch {}
 
-  const groupMap = new Map<string, FileRec[]>()
+  const groupMap = new Map<string, ComponentAssetFile[]>()
   for (const f of files) {
     const rel = f.path.replace('components/ai-elements/', '')
     const group = rel.split('/')[0]
@@ -235,15 +244,21 @@ export async function generateRegistryAssets(ctx: { rootDir: string }) {
     groupMap.get(group)!.push(f)
   }
 
-  const componentItems = Array.from(groupMap.keys()).map(group => ({
+  const componentItems: RegistryItem[] = Array.from(groupMap.keys()).map(group => ({
     name: group,
     type: 'registry:component',
     title: toTitle(group),
     description: `AI-powered ${group.replace('-', ' ')} components.`,
-    files: groupMap.get(group)!.map(f => ({ path: f.path, type: f.type, target: f.target })),
+    files: groupMap.get(group)!.map((f) => {
+      return {
+        path: f.path,
+        type: f.type,
+        ...(f.target ? { target: f.target } : {}),
+      }
+    }),
   }))
 
-  const exampleItems = exampleFiles.map((ef) => {
+  const exampleItems: RegistryItem[] = exampleFiles.map((ef) => {
     const fileName = basename(ef.path)
     const name = fileName.replace('.vue', '')
     return {
@@ -251,12 +266,11 @@ export async function generateRegistryAssets(ctx: { rootDir: string }) {
       type: 'registry:block',
       title: `${toTitle(name)} Example`,
       description: `Example implementation of ${name.replace('-', ' ')}.`,
-      files: [{ path: ef.path, type: ef.type, target: ef.target }],
+      files: [{ path: ef.path, type: ef.type }],
     }
   })
 
-  const indexJson = {
-    $schema: 'https://shadcn-vue.com/schema/registry.json',
+  const indexJson: Registry = {
     name: 'ai-elements-vue',
     homepage: 'https://ai-elements-vue.com',
     items: [...componentItems, ...exampleItems],
