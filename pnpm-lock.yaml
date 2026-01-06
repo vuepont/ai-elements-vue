@@ -184,8 +184,8 @@ importers:
         specifier: ^0.1.0
         version: 0.1.0(vue@3.5.25(typescript@5.9.3))
       vue-stream-markdown:
-        specifier: ^0.3.3
-        version: 0.3.3(katex@0.16.25)(mermaid@11.12.2)(shiki@3.20.0)(vue@3.5.25(typescript@5.9.3))
+        specifier: ^0.3.4
+        version: 0.3.4(katex@0.16.25)(mermaid@11.12.2)(shiki@3.20.0)(vue@3.5.25(typescript@5.9.3))
     devDependencies:
       '@types/hast':
         specifier: ^3.0.4
@@ -8891,8 +8891,8 @@ packages:
     peerDependencies:
       vue: '>=3.3.0'
 
-  vue-stream-markdown@0.3.3:
-    resolution: {integrity: sha512-1xS6UD4aTeYT0bRlOVzRThqgOvBJe6h0Tt3RrDxYI1kBNZKsueGxA1EPbf5VYMfzVYVfFICpyjnmszu98QyoyQ==}
+  vue-stream-markdown@0.3.4:
+    resolution: {integrity: sha512-p61uWOgV7s0sAODrK/MDhTRTLWfmHu3yMnAPGOR/K1lT7TatZbZpNe44gHaqdPT9sdLCJdWRyVuBp/xg8oKsvg==}
     peerDependencies:
       katex: '>=0.16.20'
       mermaid: '>=11'
@@ -19432,7 +19432,7 @@ snapshots:
     dependencies:
       vue: 3.5.25(typescript@5.9.3)
 
-  vue-stream-markdown@0.3.3(katex@0.16.25)(mermaid@11.12.2)(shiki@3.20.0)(vue@3.5.25(typescript@5.9.3)):
+  vue-stream-markdown@0.3.4(katex@0.16.25)(mermaid@11.12.2)(shiki@3.20.0)(vue@3.5.25(typescript@5.9.3)):
     dependencies:
       '@floating-ui/dom': 1.7.4
       '@vueuse/core': 14.1.0(vue@3.5.25(typescript@5.9.3))
