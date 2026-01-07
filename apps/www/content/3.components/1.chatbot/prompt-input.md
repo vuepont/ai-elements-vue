@@ -168,7 +168,7 @@ function onSubmit(e: Event) {
       :class="cn('w-full', props.class)"
       @submit="onSubmit"
       @dragover.prevent="handleDragOver"
-      @drop.prevent="handleDrop"
+      @drop.prevent.stop="handleDrop"
     >
       <InputGroup class="overflow-hidden">
         <slot />
@@ -272,6 +272,65 @@ const props = defineProps<{ class?: HTMLAttributes['class'] }>()
 
 ```vue [PromptInputButton.vue] height=500 collapse
 <script setup lang="ts">
+import type { HTMLAttributes } from 'vue'
+import { InputGroupButton } from '@repo/shadcn-vue/components/ui/input-group'
+import { cn } from '@repo/shadcn-vue/lib/utils'
+import { Comment, computed, Text, toRef, useSlots } from 'vue'
+
+type InputGroupButtonProps = InstanceType<typeof InputGroupButton>['$props']
+
+interface Props extends /* @vue-ignore */ InputGroupButtonProps {
+  class?: HTMLAttributes['class']
+  variant?: InputGroupButtonProps['variant']
+  size?: InputGroupButtonProps['size']
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  variant: 'ghost',
+})
+
+const slots = useSlots()
+
+const computedSize = computed(() => {
+  if (props.size)
+    return props.size
+
+  const slotNodes = slots.default?.()
+
+  if (!slotNodes)
+    return 'icon-sm'
+
+  const validChildren = slotNodes.filter((node) => {
+    if (node.type === Comment)
+      return false
+    if (node.type === Text && !node.children?.toString().trim())
+      return false
+    return true
+  })
+
+  return validChildren.length > 1 ? 'sm' : 'icon-sm'
+})
+
+const variant = toRef(props, 'variant')
+
+const { size, variant: _, class: __, ...restProps } = props
+</script>
+
+<template>
+  <InputGroupButton
+    type="button"
+    :size="computedSize"
+    :class="cn($props.class)"
+    :variant="variant"
+    v-bind="restProps"
+  >
+    <slot />
+  </InputGroupButton>
+</template>
+```
+
+```vue [PromptInputSubmit.vue] height=500 collapse
+<script setup lang="ts">
 // import type { InputGroupButtonVariants } from '@repo/shadcn-vue/components/ui/input-group'
 import type { ChatStatus } from 'ai'
 import type { HTMLAttributes } from 'vue'
@@ -287,66 +346,6 @@ interface Props extends /* @vue-ignore */ InputGroupButtonProps {
   status?: ChatStatus
   variant?: InputGroupButtonProps['variant']
   size?: InputGroupButtonProps['size']
-}
-
-const props = withDefaults(defineProps<Props>(), {
-  variant: 'default',
-  size: 'icon-sm',
-})
-
-const icon = computed(() => {
-  if (props.status === 'submitted') {
-    return Loader2Icon
-  }
-  else if (props.status === 'streaming') {
-    return SquareIcon
-  }
-  else if (props.status === 'error') {
-    return XIcon
-  }
-  return CornerDownLeftIcon
-})
-
-const iconClass = computed(() => {
-  if (props.status === 'submitted') {
-    return 'size-4 animate-spin'
-  }
-  return 'size-4'
-})
-
-const { status, size, variant, class: _, ...restProps } = props
-</script>
-
-<template>
-  <InputGroupButton
-    aria-label="Submit"
-    :class="cn(props.class)"
-    :size="size"
-    :variant="variant"
-    type="submit"
-    v-bind="restProps"
-  >
-    <slot>
-      <component :is="icon" :class="iconClass" />
-    </slot>
-  </InputGroupButton>
-</template>
-```
-
-```vue [PromptInputSubmit.vue] height=500 collapse
-<script setup lang="ts">
-import type { ChatStatus } from 'ai'
-import type { HTMLAttributes } from 'vue'
-import { InputGroupButton } from '@repo/shadcn-vue/components/ui/input-group'
-import { cn } from '@repo/shadcn-vue/lib/utils'
-import { CornerDownLeftIcon, Loader2Icon, SquareIcon, XIcon } from 'lucide-vue-next'
-import { computed } from 'vue'
-
-type InputGroupButtonProps = InstanceType<typeof InputGroupButton>['$props']
-
-interface Props extends /* @vue-ignore */ InputGroupButtonProps {
-  class?: HTMLAttributes['class']
-  status?: ChatStatus
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -435,6 +434,7 @@ const { files } = usePromptInput()
 
 ```vue [PromptInputAttachment.vue] height=500 collapse
 <script setup lang="ts">
+import type { HTMLAttributes } from 'vue'
 import type { AttachmentFile } from './types'
 import { Button } from '@repo/shadcn-vue/components/ui/button'
 import {
@@ -449,7 +449,7 @@ import { usePromptInput } from './context'
 
 const props = defineProps<{
   file: AttachmentFile
-  class?: string
+  class?: HTMLAttributes['class']
 }>()
 
 const { removeFile } = usePromptInput()
@@ -676,7 +676,13 @@ import { DropdownMenuItem } from '@repo/shadcn-vue/components/ui/dropdown-menu'
 import { ImageIcon } from 'lucide-vue-next'
 import { usePromptInput } from './context'
 
-defineProps<{ label?: string }>()
+type PromptInputActionAddAttachmentsProps = InstanceType<typeof DropdownMenuItem>['$props']
+
+interface Props extends /* @vue-ignore */ PromptInputActionAddAttachmentsProps {
+  label?: string
+}
+
+const props = defineProps<Props>()
 
 const { openFileDialog } = usePromptInput()
 </script>
@@ -684,18 +690,19 @@ const { openFileDialog } = usePromptInput()
 <template>
   <DropdownMenuItem @select.prevent="openFileDialog">
     <ImageIcon class="mr-2 size-4" />
-    {{ label || 'Add photos or files' }}
+    {{ props.label || 'Add photos or files' }}
   </DropdownMenuItem>
 </template>
 ```
 
 ```vue [PromptInputSpeechButton.vue] height=500 collapse
 <script setup lang="ts">
-import { InputGroupButton } from '@repo/shadcn-vue/components/ui/input-group'
+import type { HTMLAttributes } from 'vue'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 import { MicIcon } from 'lucide-vue-next'
 import { onMounted, onUnmounted, ref } from 'vue'
 import { usePromptInput } from './context'
+import PromptInputButton from './PromptInputButton.vue'
 
 interface SpeechRecognition extends EventTarget {
   continuous: boolean
@@ -705,11 +712,55 @@ interface SpeechRecognition extends EventTarget {
   stop: () => void
   onstart: ((this: SpeechRecognition, ev: Event) => any) | null
   onend: ((this: SpeechRecognition, ev: Event) => any) | null
-  onresult: ((this: SpeechRecognition, ev: any) => any) | null
-  onerror: ((this: SpeechRecognition, ev: any) => any) | null
+  onresult: ((this: SpeechRecognition, ev: SpeechRecognitionEvent) => any) | null
+  onerror: ((this: SpeechRecognition, ev: SpeechRecognitionErrorEvent) => any) | null
 }
 
-const props = defineProps<{ class?: string }>()
+interface SpeechRecognitionEvent extends Event {
+  results: SpeechRecognitionResultList
+  resultIndex: number
+}
+
+interface SpeechRecognitionResultList {
+  readonly length: number
+  item: (index: number) => SpeechRecognitionResult
+  [index: number]: SpeechRecognitionResult
+}
+
+interface SpeechRecognitionResult {
+  readonly length: number
+  item: (index: number) => SpeechRecognitionAlternative
+  [index: number]: SpeechRecognitionAlternative
+  isFinal: boolean
+}
+
+interface SpeechRecognitionAlternative {
+  transcript: string
+  confidence: number
+}
+
+interface SpeechRecognitionErrorEvent extends Event {
+  error: string
+}
+
+declare global {
+  interface Window {
+    SpeechRecognition: {
+      new (): SpeechRecognition
+    }
+    webkitSpeechRecognition: {
+      new (): SpeechRecognition
+    }
+  }
+}
+
+type PromptInputSpeechButtonProps = InstanceType<typeof PromptInputButton>['$props']
+
+interface Props extends /* @vue-ignore */ PromptInputSpeechButtonProps {
+  class?: HTMLAttributes['class']
+}
+
+const props = defineProps<Props>()
 
 const { textInput, setTextInput } = usePromptInput()
 const isListening = ref(false)
@@ -728,7 +779,7 @@ onMounted(() => {
     sr.onstart = () => isListening.value = true
     sr.onend = () => isListening.value = false
 
-    sr.onresult = (event: any) => {
+    sr.onresult = (event: SpeechRecognitionEvent) => {
       let finalTranscript = ''
       for (let i = event.resultIndex; i < event.results.length; i++) {
         const result = event.results[i]
@@ -743,7 +794,7 @@ onMounted(() => {
       }
     }
 
-    sr.onerror = (event: any) => {
+    sr.onerror = (event: SpeechRecognitionErrorEvent) => {
       console.error('Speech recognition error:', event.error)
       isListening.value = false
     }
@@ -769,20 +820,18 @@ function toggleListening() {
 </script>
 
 <template>
-  <InputGroupButton
-    type="button"
-    variant="ghost"
-    size="icon-sm"
+  <PromptInputButton
     :disabled="!recognition"
     :class="cn(
       'relative transition-all duration-200',
       isListening && 'animate-pulse bg-accent text-accent-foreground',
       props.class,
     )"
+    v-bind="props"
     @click="toggleListening"
   >
     <MicIcon class="size-4" />
-  </InputGroupButton>
+  </PromptInputButton>
 </template>
 ```
 

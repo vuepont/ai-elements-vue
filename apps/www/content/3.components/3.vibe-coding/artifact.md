@@ -57,13 +57,14 @@ Copy and paste the following code in the same folder.
   <script setup lang="ts">
   import type { ButtonVariants } from '@repo/shadcn-vue/components/ui/button'
   import type { LucideIcon } from 'lucide-vue-next'
+  import type { HTMLAttributes } from 'vue'
   import { Button } from '@repo/shadcn-vue/components/ui/button'
   import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@repo/shadcn-vue/components/ui/tooltip'
   import { cn } from '@repo/shadcn-vue/lib/utils'
   import { computed } from 'vue'
 
   interface ArtifactActionProps {
-    class?: string
+    class?: HTMLAttributes['class']
     tooltip?: string
     label?: string
     variant?: ButtonVariants['variant']
@@ -152,13 +153,14 @@ Copy and paste the following code in the same folder.
   ```vue [ArtifactClose.vue] height=500 collapse
   <script setup lang="ts">
   import type { ButtonVariants } from '@repo/shadcn-vue/components/ui/button'
+  import type { HTMLAttributes } from 'vue'
   import { Button } from '@repo/shadcn-vue/components/ui/button'
   import { cn } from '@repo/shadcn-vue/lib/utils'
   import { X } from 'lucide-vue-next'
   import { computed } from 'vue'
 
   interface ArtifactCloseProps {
-    class?: string
+    class?: HTMLAttributes['class']
     variant?: ButtonVariants['variant']
     size?: ButtonVariants['size']
   }

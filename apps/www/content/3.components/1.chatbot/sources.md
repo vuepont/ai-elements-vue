@@ -50,6 +50,7 @@ const props = defineProps<{
     rel="noreferrer"
     target="_blank"
   >
+    <!-- Default slot content -->
     <slot>
       <BookIcon class="h-4 w-4" />
       <span class="block font-medium">{{ props.title }}</span>

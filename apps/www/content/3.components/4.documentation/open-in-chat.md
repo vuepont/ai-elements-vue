@@ -420,6 +420,7 @@ import {
   V0Icon,
 } from './icons'
 
+// --- Providers Object ---
 export const providers = {
   github: {
     title: 'Open in GitHub',

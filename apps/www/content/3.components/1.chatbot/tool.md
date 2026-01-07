@@ -54,8 +54,8 @@ const props = defineProps<{
 ```vue [ToolStatusBadge.vue] height=500 collapse
 <!-- StatusBadge.vue -->
 <script setup lang="ts">
-import type { ToolUIPart } from 'ai'
 import type { Component } from 'vue'
+import type { ExtendedToolState } from '../types'
 import { Badge } from '@repo/shadcn-vue/components/ui/badge'
 import {
   CheckCircleIcon,
@@ -66,11 +66,11 @@ import {
 import { computed } from 'vue'
 
 const props = defineProps<{
-  state: ToolUIPart['state']
+  state: ExtendedToolState
 }>()
 
 const label = computed(() => {
-  const labels: Record<ToolUIPart['state'], string> = {
+  const labels: Record<ExtendedToolState, string> = {
     'input-streaming': 'Pending',
     'input-available': 'Running',
     'approval-requested': 'Awaiting Approval',
@@ -83,7 +83,7 @@ const label = computed(() => {
 })
 
 const icon = computed<Component>(() => {
-  const icons: Record<ToolUIPart['state'], Component> = {
+  const icons: Record<ExtendedToolState, Component> = {
     'input-streaming': CircleIcon,
     'input-available': ClockIcon,
     'approval-requested': ClockIcon,
@@ -225,7 +225,7 @@ import type { ToolUIPart } from 'ai'
 import type { HTMLAttributes } from 'vue'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 import { computed } from 'vue'
-import CodeBlock from './CodeBlock.vue'
+import { CodeBlock } from '../code-block'
 
 const props = defineProps<{
   output: ToolUIPart['output']
@@ -292,6 +292,7 @@ const formattedOutput = computed(() => {
 ```
 
 ```ts [index.ts]
+export type { ExtendedToolState } from '../types'
 export { default as Tool } from './Tool.vue'
 export { default as ToolContent } from './ToolContent.vue'
 export { default as ToolHeader } from './ToolHeader.vue'

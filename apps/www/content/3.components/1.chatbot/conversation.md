@@ -163,6 +163,7 @@ function handleClick() {
   <Button
     v-if="showScrollButton"
     :class="cn('absolute bottom-4 left-[50%] translate-x-[-50%] rounded-full', props.class)"
+    aria-label="Scroll to bottom"
     size="icon"
     type="button"
     variant="outline"

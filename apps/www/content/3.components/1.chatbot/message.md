@@ -403,6 +403,7 @@ interface Props {
   content?: string
   class?: HTMLAttributes['class']
 }
+
 const props = defineProps<Props>()
 
 const slots = useSlots()
@@ -612,6 +613,7 @@ export { default as MessageAction } from './MessageAction.vue'
 export { default as MessageActions } from './MessageActions.vue'
 export { default as MessageAttachment } from './MessageAttachment.vue'
 export { default as MessageAttachments } from './MessageAttachments.vue'
+export { default as MessageAvatar } from './MessageAvatar.vue'
 export { default as MessageBranch } from './MessageBranch.vue'
 export { default as MessageBranchContent } from './MessageBranchContent.vue'
 export { default as MessageBranchNext } from './MessageBranchNext.vue'

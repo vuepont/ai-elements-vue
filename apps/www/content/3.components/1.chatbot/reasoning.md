@@ -80,11 +80,13 @@ const startTime = ref<number | null>(null)
 const MS_IN_S = 1000
 const AUTO_CLOSE_DELAY = 1000
 
+// Track duration when streaming starts and ends
 watch(() => props.isStreaming, (streaming) => {
   if (streaming) {
+    // Auto-open when streaming starts
     isOpen.value = true
 
-    if (startTime.value === null) {
+    if (startTime.value === null && props.duration === undefined) {
       startTime.value = Date.now()
     }
   }
@@ -93,8 +95,9 @@ watch(() => props.isStreaming, (streaming) => {
     updateDuration(calculatedDuration)
     startTime.value = null
   }
-})
+}, { immediate: true })
 
+// Auto-close logic
 watch([() => props.isStreaming, isOpen, () => props.defaultOpen, hasAutoClosed], (_, __, onCleanup) => {
   if (props.defaultOpen && !props.isStreaming && isOpen.value && !hasAutoClosed.value) {
     const timer = setTimeout(() => {
@@ -238,7 +241,7 @@ const md = computed(() => (slotContent.value ?? props.content ?? '') as string)
 
 ```ts [context.ts]
 import type { InjectionKey, Ref } from 'vue'
-import { inject, provide } from 'vue'
+import { inject } from 'vue'
 
 export interface ReasoningContextValue {
   isStreaming: Ref<boolean>

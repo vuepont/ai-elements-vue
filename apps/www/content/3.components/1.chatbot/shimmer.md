@@ -32,14 +32,14 @@ Copy and paste the following code in the same folder.
 :::code-group
 ```vue [Shimmer.vue] height=500 collapse
 <script setup lang="ts">
-import type { CSSProperties } from 'vue'
+import type { CSSProperties, HTMLAttributes } from 'vue'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 import { motion } from 'motion-v'
 import { computed, useSlots } from 'vue'
 
 export interface TextShimmerProps {
   as?: keyof HTMLElementTagNameMap
-  class?: string
+  class?: HTMLAttributes['class']
   duration?: number
   spread?: number
 }

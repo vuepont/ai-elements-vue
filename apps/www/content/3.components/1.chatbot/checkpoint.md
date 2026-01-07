@@ -43,7 +43,7 @@ const props = defineProps<{
 
 <template>
   <div
-    :class="cn('flex items-center gap-0.5 text-muted-foreground', props.class)"
+    :class="cn('flex items-center gap-0.5 text-muted-foreground overflow-hidden', props.class)"
     v-bind="$attrs"
   >
     <slot />
@@ -81,6 +81,7 @@ import { Button } from '@repo/shadcn-vue/components/ui/button'
 import {
   Tooltip,
   TooltipContent,
+  TooltipProvider,
   TooltipTrigger,
 } from '@repo/shadcn-vue/components/ui/tooltip'
 
@@ -103,16 +104,18 @@ const buttonProps = {
 </script>
 
 <template>
-  <Tooltip v-if="props.tooltip">
-    <TooltipTrigger as-child>
-      <Button v-bind="{ ...buttonProps, ...$attrs }">
-        <slot />
-      </Button>
-    </TooltipTrigger>
-    <TooltipContent align="start" side="bottom">
-      <p>{{ props.tooltip }}</p>
-    </TooltipContent>
-  </Tooltip>
+  <TooltipProvider v-if="props.tooltip">
+    <Tooltip>
+      <TooltipTrigger as-child>
+        <Button v-bind="{ ...buttonProps, ...$attrs }">
+          <slot />
+        </Button>
+      </TooltipTrigger>
+      <TooltipContent align="start" side="bottom">
+        <p>{{ props.tooltip }}</p>
+      </TooltipContent>
+    </Tooltip>
+  </TooltipProvider>
 
   <Button v-else v-bind="{ ...buttonProps, ...$attrs }">
     <slot />
