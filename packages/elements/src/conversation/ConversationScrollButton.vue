@@ -22,7 +22,10 @@ function handleClick() {
 <template>
   <Button
     v-if="showScrollButton"
-    :class="cn('absolute bottom-4 left-[50%] translate-x-[-50%] rounded-full', props.class)"
+    :class="cn(
+      'absolute bottom-4 left-[50%] translate-x-[-50%] rounded-full dark:bg-background dark:hover:bg-muted',
+      props.class,
+    )"
     aria-label="Scroll to bottom"
     size="icon"
     type="button"
