@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { HTMLAttributes } from 'vue'
+import type { CSSProperties, HTMLAttributes } from 'vue'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 
 const props = defineProps<{
@@ -7,7 +7,7 @@ const props = defineProps<{
   language: string
 }>()
 
-const style = {
+const style: CSSProperties = {
   contentVisibility: 'auto',
   containIntrinsicSize: 'auto 200px',
 }
