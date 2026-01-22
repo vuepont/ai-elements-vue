@@ -1,3 +1,4 @@
+export { default as Agent } from './agent.vue'
 export { default as Artifact } from './artifact.vue'
 export { default as ChainOfThought } from './chain-of-thought.vue'
 export { default as Chatbot } from './chatbot.vue'
