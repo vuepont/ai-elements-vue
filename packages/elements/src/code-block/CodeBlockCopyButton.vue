@@ -4,14 +4,18 @@ import { Button } from '@repo/shadcn-vue/components/ui/button'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 import { reactiveOmit } from '@vueuse/core'
 import { CheckIcon, CopyIcon } from 'lucide-vue-next'
-import { computed, inject, onBeforeUnmount, ref } from 'vue'
-import { CodeBlockKey } from './context'
+import { computed, onBeforeUnmount, ref } from 'vue'
+import { useCodeBlockContext } from './context'
+
+type CodeBlockCopyButtonProps = InstanceType<typeof Button>['$props']
+
+interface Props extends /* @vue-ignore */ CodeBlockCopyButtonProps {
+  timeout?: number
+  class?: HTMLAttributes['class']
+}
 
 const props = withDefaults(
-  defineProps<{
-    timeout?: number
-    class?: HTMLAttributes['class']
-  }>(),
+  defineProps<Props>(),
   {
     timeout: 2000,
   },
@@ -24,12 +28,7 @@ const emit = defineEmits<{
 
 const delegatedProps = reactiveOmit(props, 'timeout', 'class')
 
-const context = inject(CodeBlockKey)
-
-if (!context)
-  throw new Error('CodeBlockCopyButton must be used within a <CodeBlock />')
-
-const { code } = context
+const { code } = useCodeBlockContext()
 
 const isCopied = ref(false)
 let resetTimer: ReturnType<typeof setTimeout> | undefined

@@ -2,9 +2,11 @@
 import type { HTMLAttributes } from 'vue'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 
-const props = defineProps<{
+interface Props extends /* @vue-ignore */ HTMLAttributes {
   class?: HTMLAttributes['class']
-}>()
+}
+
+const props = defineProps<Props>()
 </script>
 
 <template>

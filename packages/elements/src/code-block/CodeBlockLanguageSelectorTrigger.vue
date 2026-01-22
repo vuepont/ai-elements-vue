@@ -3,9 +3,13 @@ import type { HTMLAttributes } from 'vue'
 import { SelectTrigger } from '@repo/shadcn-vue/components/ui/select'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 
-const props = defineProps<{
+type CodeBlockLanguageSelectorTriggerProps = InstanceType<typeof SelectTrigger>['$props']
+
+interface Props extends /* @vue-ignore */ CodeBlockLanguageSelectorTriggerProps {
   class?: HTMLAttributes['class']
-}>()
+}
+
+const props = defineProps<Props>()
 </script>
 
 <template>

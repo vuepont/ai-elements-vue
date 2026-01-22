@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { SelectContent } from '@repo/shadcn-vue/components/ui/select'
 
-withDefaults(defineProps<{
-  align?: 'start' | 'center' | 'end'
-}>(), {
+type CodeBlockLanguageSelectorContentProps = InstanceType<typeof SelectContent>['$props']
+
+interface Props extends /* @vue-ignore */ CodeBlockLanguageSelectorContentProps {}
+
+withDefaults(defineProps<Props>(), {
   align: 'end',
 })
 </script>
