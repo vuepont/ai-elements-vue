@@ -71,7 +71,6 @@ const language = ref<Language>('typescript')
 const currentExample = computed(() => codeExamples[language.value])
 
 function handleCopy() {
-  // eslint-disable-next-line no-console
   console.log('Copied code to clipboard')
 }
 

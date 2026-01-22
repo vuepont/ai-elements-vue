@@ -25,7 +25,6 @@ defineProps<Props>()
 <\/script>`
 
 function handleCopy() {
-  // eslint-disable-next-line no-console
   console.log('Copied code to clipboard')
 }
 
