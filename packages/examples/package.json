@@ -12,6 +12,7 @@
     "ai": "catalog:",
     "lucide-vue-next": "catalog:",
     "nanoid": "^5.1.6",
+    "shiki": "catalog:",
     "vue": "catalog:",
     "vue-sonner": "catalog:"
   },
