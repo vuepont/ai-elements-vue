@@ -21,6 +21,7 @@ const emit = defineEmits<{
 }>()
 
 const internalExpanded = ref(new Set(props.defaultExpanded))
+const internalSelectedPath = ref(props.selectedPath)
 
 watch(
   () => props.expanded,
@@ -30,6 +31,13 @@ watch(
     }
   },
   { immediate: true },
+)
+
+watch(
+  () => props.selectedPath,
+  (newVal) => {
+    internalSelectedPath.value = newVal
+  },
 )
 
 function togglePath(path: string) {
@@ -51,7 +59,7 @@ function onSelect(path: string) {
 provide(FileTreeKey, {
   expandedPaths: internalExpanded,
   togglePath,
-  selectedPath: ref(props.selectedPath),
+  selectedPath: internalSelectedPath,
   onSelect,
 })
 </script>

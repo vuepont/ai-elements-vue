@@ -10,19 +10,19 @@ import {
   <FileTree>
     <FileTreeFolder name="src" path="src">
       <FileTreeFolder name="components" path="src/components">
-        <FileTreeFile name="button.tsx" path="src/components/button.tsx" />
-        <FileTreeFile name="input.tsx" path="src/components/input.tsx" />
-        <FileTreeFile name="modal.tsx" path="src/components/modal.tsx" />
+        <FileTreeFile name="button.vue" path="src/components/button.vue" />
+        <FileTreeFile name="input.vue" path="src/components/input.vue" />
+        <FileTreeFile name="modal.vue" path="src/components/modal.vue" />
       </FileTreeFolder>
-      <FileTreeFolder name="hooks" path="src/hooks">
-        <FileTreeFile name="use-auth.ts" path="src/hooks/use-auth.ts" />
-        <FileTreeFile name="use-theme.ts" path="src/hooks/use-theme.ts" />
+      <FileTreeFolder name="composables" path="src/composables">
+        <FileTreeFile name="use-auth.ts" path="src/composables/use-auth.ts" />
+        <FileTreeFile name="use-theme.ts" path="src/composables/use-theme.ts" />
       </FileTreeFolder>
       <FileTreeFolder name="lib" path="src/lib">
         <FileTreeFile name="utils.ts" path="src/lib/utils.ts" />
       </FileTreeFolder>
-      <FileTreeFile name="app.tsx" path="src/app.tsx" />
-      <FileTreeFile name="main.tsx" path="src/main.tsx" />
+      <FileTreeFile name="app.vue" path="src/app.vue" />
+      <FileTreeFile name="main.ts" path="src/main.ts" />
     </FileTreeFolder>
     <FileTreeFile name="package.json" path="package.json" />
     <FileTreeFile name="tsconfig.json" path="tsconfig.json" />

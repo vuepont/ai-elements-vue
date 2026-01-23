@@ -12,8 +12,8 @@ const defaultExpanded = new Set(['src', 'src/components'])
   <FileTree :default-expanded="defaultExpanded">
     <FileTreeFolder name="src" path="src">
       <FileTreeFolder name="components" path="src/components">
-        <FileTreeFile name="button.tsx" path="src/components/button.tsx" />
-        <FileTreeFile name="input.tsx" path="src/components/input.tsx" />
+        <FileTreeFile name="button.vue" path="src/components/button.vue" />
+        <FileTreeFile name="input.vue" path="src/components/input.vue" />
       </FileTreeFolder>
       <FileTreeFile name="index.ts" path="src/index.ts" />
     </FileTreeFolder>

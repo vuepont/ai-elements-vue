@@ -15,7 +15,7 @@ const selectedPath = ref<string>()
     @select="(path) => selectedPath = path"
   >
     <FileTreeFolder name="src" path="src">
-      <FileTreeFile name="app.tsx" path="src/app.tsx" />
+      <FileTreeFile name="app.vue" path="src/app.vue" />
       <FileTreeFile name="index.ts" path="src/index.ts" />
     </FileTreeFolder>
     <FileTreeFile name="package.json" path="package.json" />

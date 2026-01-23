@@ -377,14 +377,14 @@ Copy and paste the following files into the same folder.
 :::ComponentLoader{label="Basic" componentName="FileTreeBasic"}
 :::
 
-### Expanded by Default
-
-:::ComponentLoader{label="Expanded" componentName="FileTreeExpanded"}
-:::
-
-### Selection
+### With Selection
 
 :::ComponentLoader{label="Selection" componentName="FileTreeSelection"}
+:::
+
+### Default Expanded
+
+:::ComponentLoader{label="Expanded" componentName="FileTreeExpanded"}
 :::
 
 ## Props
