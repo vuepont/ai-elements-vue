@@ -16,9 +16,9 @@ import {
   <div class="flex flex-col gap-4">
     <PackageInfo
       change-type="major"
-      current-version="18.2.0"
-      name="react"
-      new-version="19.0.0"
+      current-version="3.4.0"
+      name="vue"
+      new-version="3.5.0"
     >
       <PackageInfoHeader>
         <PackageInfoName />
@@ -26,12 +26,12 @@ import {
       </PackageInfoHeader>
       <PackageInfoVersion />
       <PackageInfoDescription>
-        A JavaScript library for building user interfaces.
+        The progressive JavaScript framework for building user interfaces.
       </PackageInfoDescription>
       <PackageInfoContent>
         <PackageInfoDependencies>
-          <PackageInfoDependency name="react-dom" version="^19.0.0" />
-          <PackageInfoDependency name="scheduler" version="^0.24.0" />
+          <PackageInfoDependency name="@vue/reactivity" version="^3.5.0" />
+          <PackageInfoDependency name="@vue/runtime-dom" version="^3.5.0" />
         </PackageInfoDependencies>
       </PackageInfoContent>
     </PackageInfo>
