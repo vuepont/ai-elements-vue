@@ -49,13 +49,12 @@ Copy and paste the following files into the same folder.
   })
 
   const emit = defineEmits<{
-    (e: 'update:expanded', value: Set<string>): void
-    (e: 'update:selectedPath', value: string): void
-    (e: 'select', value: string): void
-    (e: 'expandedChange', value: Set<string>): void
+    (e: 'update:selectedPath', path: string): void
+    (e: 'expandedChange', expanded: Set<string>): void
   }>()
 
   const internalExpanded = ref(new Set(props.defaultExpanded))
+  const internalSelectedPath = ref(props.selectedPath)
 
   watch(
     () => props.expanded,
@@ -67,6 +66,13 @@ Copy and paste the following files into the same folder.
     { immediate: true },
   )
 
+  watch(
+    () => props.selectedPath,
+    (newVal) => {
+      internalSelectedPath.value = newVal
+    },
+  )
+
   function togglePath(path: string) {
     const newExpanded = new Set(internalExpanded.value)
     if (newExpanded.has(path)) {
@@ -76,19 +82,18 @@ Copy and paste the following files into the same folder.
       newExpanded.add(path)
     }
     internalExpanded.value = newExpanded
-    emit('update:expanded', newExpanded)
     emit('expandedChange', newExpanded)
   }
 
   function onSelect(path: string) {
+    internalSelectedPath.value = path
     emit('update:selectedPath', path)
-    emit('select', path)
   }
 
   provide(FileTreeKey, {
     expandedPaths: internalExpanded,
     togglePath,
-    selectedPath: ref(props.selectedPath),
+    selectedPath: internalSelectedPath,
     onSelect,
   })
   </script>
@@ -120,8 +125,8 @@ Copy and paste the following files into the same folder.
     FolderIcon,
     FolderOpenIcon,
   } from 'lucide-vue-next'
-  import { computed, inject, provide } from 'vue'
-  import { FileTreeFolderKey, FileTreeKey } from './context'
+  import { computed, provide } from 'vue'
+  import { FileTreeFolderKey, useFileTreeContext } from './context'
   import FileTreeIcon from './FileTreeIcon.vue'
   import FileTreeName from './FileTreeName.vue'
 
@@ -133,13 +138,7 @@ Copy and paste the following files into the same folder.
 
   const props = defineProps<Props>()
 
-  const context = inject(FileTreeKey)
-
-  if (!context) {
-    throw new Error('FileTreeFolder must be used within FileTree')
-  }
-
-  const { expandedPaths, togglePath, selectedPath, onSelect } = context
+  const { expandedPaths, togglePath, selectedPath, onSelect } = useFileTreeContext()
 
   const isExpanded = computed(() => expandedPaths.value.has(props.path))
   const isSelected = computed(() => selectedPath.value === props.path)
@@ -200,8 +199,8 @@ Copy and paste the following files into the same folder.
   import type { HTMLAttributes, VNode } from 'vue'
   import { cn } from '@repo/shadcn-vue/lib/utils'
   import { FileIcon } from 'lucide-vue-next'
-  import { computed, inject, provide } from 'vue'
-  import { FileTreeFileKey, FileTreeKey } from './context'
+  import { computed, provide } from 'vue'
+  import { FileTreeFileKey, useFileTreeContext } from './context'
   import FileTreeIcon from './FileTreeIcon.vue'
   import FileTreeName from './FileTreeName.vue'
 
@@ -214,13 +213,7 @@ Copy and paste the following files into the same folder.
 
   const props = defineProps<Props>()
 
-  const context = inject(FileTreeKey)
-
-  if (!context) {
-    throw new Error('FileTreeFile must be used within FileTree')
-  }
-
-  const { selectedPath, onSelect } = context
+  const { selectedPath, onSelect } = useFileTreeContext()
 
   const isSelected = computed(() => selectedPath.value === props.path)
 
@@ -324,6 +317,7 @@ Copy and paste the following files into the same folder.
 
   ```ts [context.ts]
   import type { InjectionKey, Ref } from 'vue'
+  import { inject } from 'vue'
 
   export interface FileTreeContextValue {
     expandedPaths: Ref<Set<string>>
@@ -333,6 +327,14 @@ Copy and paste the following files into the same folder.
   }
 
   export const FileTreeKey: InjectionKey<FileTreeContextValue> = Symbol('FileTree')
+
+  export function useFileTreeContext(): FileTreeContextValue {
+    const context = inject(FileTreeKey)
+    if (!context) {
+      throw new Error('useFileTreeContext must be used within FileTree')
+    }
+    return context
+  }
 
   export interface FileTreeFolderContextValue {
     path: string
@@ -401,8 +403,8 @@ Copy and paste the following files into the same folder.
   ::field{name="selectedPath" type="string"}
   Currently selected file/folder path.
   ::
-  ::field{name="@select" type="(path: string) => void"}
-  Callback when a file/folder is selected.
+  ::field{name="@update:selected-path" type="(path: string) => void"}
+  Two-way binding event when a file/folder is selected.
   ::
   ::field{name="@expandedChange" type="(expanded: Set<string>) => void"}
   Callback when expanded folders change.
