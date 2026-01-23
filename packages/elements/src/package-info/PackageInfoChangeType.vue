@@ -4,8 +4,7 @@ import type { ChangeType } from './context'
 import { Badge } from '@repo/shadcn-vue/components/ui/badge'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 import { ArrowRightIcon, MinusIcon, PlusIcon } from 'lucide-vue-next'
-import { inject } from 'vue'
-import { PackageInfoKey } from './context'
+import { usePackageInfoContext } from './context'
 
 type BadgeProps = InstanceType<typeof Badge>['$props']
 
@@ -15,13 +14,7 @@ interface Props extends /* @vue-ignore */ BadgeProps {
 
 const props = defineProps<Props>()
 
-const context = inject(PackageInfoKey)
-
-if (!context) {
-  throw new Error('PackageInfoChangeType must be used within PackageInfo')
-}
-
-const { changeType } = context
+const { changeType } = usePackageInfoContext()
 
 const changeTypeStyles: Record<ChangeType, string> = {
   major: 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400',

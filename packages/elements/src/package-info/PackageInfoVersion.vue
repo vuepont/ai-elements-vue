@@ -2,8 +2,7 @@
 import type { HTMLAttributes } from 'vue'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 import { ArrowRightIcon } from 'lucide-vue-next'
-import { inject } from 'vue'
-import { PackageInfoKey } from './context'
+import { usePackageInfoContext } from './context'
 
 interface Props extends /* @vue-ignore */ HTMLAttributes {
   class?: HTMLAttributes['class']
@@ -11,13 +10,7 @@ interface Props extends /* @vue-ignore */ HTMLAttributes {
 
 const props = defineProps<Props>()
 
-const context = inject(PackageInfoKey)
-
-if (!context) {
-  throw new Error('PackageInfoVersion must be used within PackageInfo')
-}
-
-const { currentVersion, newVersion } = context
+const { currentVersion, newVersion } = usePackageInfoContext()
 </script>
 
 <template>
