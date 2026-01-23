@@ -16,7 +16,7 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const emit = defineEmits<{
-  (e: 'select', path: string): void
+  (e: 'update:selectedPath', path: string): void
   (e: 'expandedChange', expanded: Set<string>): void
 }>()
 
@@ -53,7 +53,8 @@ function togglePath(path: string) {
 }
 
 function onSelect(path: string) {
-  emit('select', path)
+  internalSelectedPath.value = path
+  emit('update:selectedPath', path)
 }
 
 provide(FileTreeKey, {

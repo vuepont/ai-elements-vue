@@ -12,7 +12,7 @@ const selectedPath = ref<string>()
 <template>
   <FileTree
     :selected-path="selectedPath"
-    @select="(path) => selectedPath = path"
+    @update:selected-path="(path) => selectedPath = path"
   >
     <FileTreeFolder name="src" path="src">
       <FileTreeFile name="app.vue" path="src/app.vue" />
