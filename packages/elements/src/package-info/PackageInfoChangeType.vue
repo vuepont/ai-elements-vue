@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import type { HTMLAttributes } from 'vue'
+import type { Component, HTMLAttributes } from 'vue'
 import type { ChangeType } from './context'
 import { Badge } from '@repo/shadcn-vue/components/ui/badge'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 import { ArrowRightIcon, MinusIcon, PlusIcon } from 'lucide-vue-next'
-import { computed, inject } from 'vue'
+import { inject } from 'vue'
 import { PackageInfoKey } from './context'
 
 type BadgeProps = InstanceType<typeof Badge>['$props']
@@ -32,16 +32,13 @@ const changeTypeStyles: Record<ChangeType, string> = {
   removed: 'bg-gray-100 text-gray-700 dark:bg-gray-900/30 dark:text-gray-400',
 }
 
-const icon = computed(() => {
-  switch (changeType) {
-    case 'added':
-      return PlusIcon
-    case 'removed':
-      return MinusIcon
-    default:
-      return ArrowRightIcon
-  }
-})
+const changeTypeIcons: Record<ChangeType, Component> = {
+  major: ArrowRightIcon,
+  minor: ArrowRightIcon,
+  patch: ArrowRightIcon,
+  added: PlusIcon,
+  removed: MinusIcon,
+}
 </script>
 
 <template>
@@ -55,7 +52,7 @@ const icon = computed(() => {
     variant="secondary"
     v-bind="$attrs"
   >
-    <component :is="icon" class="size-3" />
+    <component :is="changeTypeIcons[changeType]" class="size-3" />
     <slot>{{ changeType }}</slot>
   </Badge>
 </template>
