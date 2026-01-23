@@ -2,8 +2,8 @@
 import type { HTMLAttributes, VNode } from 'vue'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 import { FileIcon } from 'lucide-vue-next'
-import { computed, inject, provide } from 'vue'
-import { FileTreeFileKey, FileTreeKey } from './context'
+import { computed, provide } from 'vue'
+import { FileTreeFileKey, useFileTreeContext } from './context'
 import FileTreeIcon from './FileTreeIcon.vue'
 import FileTreeName from './FileTreeName.vue'
 
@@ -16,13 +16,7 @@ interface Props extends /* @vue-ignore */ HTMLAttributes {
 
 const props = defineProps<Props>()
 
-const context = inject(FileTreeKey)
-
-if (!context) {
-  throw new Error('FileTreeFile must be used within FileTree')
-}
-
-const { selectedPath, onSelect } = context
+const { selectedPath, onSelect } = useFileTreeContext()
 
 const isSelected = computed(() => selectedPath.value === props.path)
 

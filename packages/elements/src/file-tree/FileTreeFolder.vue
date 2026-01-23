@@ -11,8 +11,8 @@ import {
   FolderIcon,
   FolderOpenIcon,
 } from 'lucide-vue-next'
-import { computed, inject, provide } from 'vue'
-import { FileTreeFolderKey, FileTreeKey } from './context'
+import { computed, provide } from 'vue'
+import { FileTreeFolderKey, useFileTreeContext } from './context'
 import FileTreeIcon from './FileTreeIcon.vue'
 import FileTreeName from './FileTreeName.vue'
 
@@ -24,13 +24,7 @@ interface Props extends /* @vue-ignore */ HTMLAttributes {
 
 const props = defineProps<Props>()
 
-const context = inject(FileTreeKey)
-
-if (!context) {
-  throw new Error('FileTreeFolder must be used within FileTree')
-}
-
-const { expandedPaths, togglePath, selectedPath, onSelect } = context
+const { expandedPaths, togglePath, selectedPath, onSelect } = useFileTreeContext()
 
 const isExpanded = computed(() => expandedPaths.value.has(props.path))
 const isSelected = computed(() => selectedPath.value === props.path)

@@ -1,4 +1,5 @@
 import type { InjectionKey, Ref } from 'vue'
+import { inject } from 'vue'
 
 export interface FileTreeContextValue {
   expandedPaths: Ref<Set<string>>
@@ -8,6 +9,14 @@ export interface FileTreeContextValue {
 }
 
 export const FileTreeKey: InjectionKey<FileTreeContextValue> = Symbol('FileTree')
+
+export function useFileTreeContext(): FileTreeContextValue {
+  const context = inject(FileTreeKey)
+  if (!context) {
+    throw new Error('useFileTreeContext must be used within FileTree')
+  }
+  return context
+}
 
 export interface FileTreeFolderContextValue {
   path: string

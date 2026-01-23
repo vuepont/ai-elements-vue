@@ -16,10 +16,8 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const emit = defineEmits<{
-  (e: 'update:expanded', value: Set<string>): void
-  (e: 'update:selectedPath', value: string): void
-  (e: 'select', value: string): void
-  (e: 'expandedChange', value: Set<string>): void
+  (e: 'select', path: string): void
+  (e: 'expandedChange', expanded: Set<string>): void
 }>()
 
 const internalExpanded = ref(new Set(props.defaultExpanded))
@@ -43,12 +41,10 @@ function togglePath(path: string) {
     newExpanded.add(path)
   }
   internalExpanded.value = newExpanded
-  emit('update:expanded', newExpanded)
   emit('expandedChange', newExpanded)
 }
 
 function onSelect(path: string) {
-  emit('update:selectedPath', path)
   emit('select', path)
 }
 
