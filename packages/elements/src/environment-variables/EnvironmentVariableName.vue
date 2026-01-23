@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue'
 import { cn } from '@repo/shadcn-vue/lib/utils'
-import { inject } from 'vue'
-import { EnvironmentVariableKey } from './context'
+import { useEnvironmentVariableContext } from './context'
 
 interface Props extends /* @vue-ignore */ HTMLAttributes {
   class?: HTMLAttributes['class']
@@ -10,13 +9,7 @@ interface Props extends /* @vue-ignore */ HTMLAttributes {
 
 const props = defineProps<Props>()
 
-const context = inject(EnvironmentVariableKey)
-
-if (!context) {
-  throw new Error('EnvironmentVariableName must be used within EnvironmentVariable')
-}
-
-const { name } = context
+const { name } = useEnvironmentVariableContext()
 </script>
 
 <template>

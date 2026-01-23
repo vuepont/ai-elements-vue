@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue'
 import { cn } from '@repo/shadcn-vue/lib/utils'
-import { computed, inject } from 'vue'
-import { EnvironmentVariableKey, EnvironmentVariablesKey } from './context'
+import { computed } from 'vue'
+import { useEnvironmentVariableContext, useEnvironmentVariablesContext } from './context'
 
 interface Props extends /* @vue-ignore */ HTMLAttributes {
   class?: HTMLAttributes['class']
@@ -10,15 +10,8 @@ interface Props extends /* @vue-ignore */ HTMLAttributes {
 
 const props = defineProps<Props>()
 
-const variableContext = inject(EnvironmentVariableKey)
-const variablesContext = inject(EnvironmentVariablesKey)
-
-if (!variableContext || !variablesContext) {
-  throw new Error('EnvironmentVariableValue must be used within EnvironmentVariable and EnvironmentVariables')
-}
-
-const { value } = variableContext
-const { showValues } = variablesContext
+const { value } = useEnvironmentVariableContext()
+const { showValues } = useEnvironmentVariablesContext()
 
 const displayValue = computed(() => {
   return showValues.value

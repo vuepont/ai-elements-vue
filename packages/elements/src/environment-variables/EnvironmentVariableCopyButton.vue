@@ -3,8 +3,8 @@ import type { HTMLAttributes } from 'vue'
 import { Button } from '@repo/shadcn-vue/components/ui/button'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 import { CheckIcon, CopyIcon } from 'lucide-vue-next'
-import { computed, inject, ref } from 'vue'
-import { EnvironmentVariableKey } from './context'
+import { computed, ref } from 'vue'
+import { useEnvironmentVariableContext } from './context'
 
 type ButtonProps = InstanceType<typeof Button>['$props']
 
@@ -25,13 +25,7 @@ const emit = defineEmits<{
 }>()
 
 const isCopied = ref(false)
-const context = inject(EnvironmentVariableKey)
-
-if (!context) {
-  throw new Error('EnvironmentVariableCopyButton must be used within EnvironmentVariable')
-}
-
-const { name, value } = context
+const { name, value } = useEnvironmentVariableContext()
 
 const icon = computed(() => (isCopied.value ? CheckIcon : CopyIcon))
 
