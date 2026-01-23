@@ -30,13 +30,17 @@ The `PackageInfo` component displays package dependency information including ve
 Copy and paste the following files into the same folder.
 
 :::code-group
-  ```vue [PackageInfo.vue]
+  ```vue [PackageInfo.vue] height=500 collapse
   <script setup lang="ts">
   import type { HTMLAttributes } from 'vue'
   import type { ChangeType } from './context'
   import { cn } from '@repo/shadcn-vue/lib/utils'
   import { provide } from 'vue'
   import { PackageInfoKey } from './context'
+  import PackageInfoChangeType from './PackageInfoChangeType.vue'
+  import PackageInfoHeader from './PackageInfoHeader.vue'
+  import PackageInfoName from './PackageInfoName.vue'
+  import PackageInfoVersion from './PackageInfoVersion.vue'
 
   interface Props extends /* @vue-ignore */ HTMLAttributes {
     name: string
@@ -61,12 +65,18 @@ Copy and paste the following files into the same folder.
       :class="cn('rounded-lg border bg-background p-4', props.class)"
       v-bind="$attrs"
     >
-      <slot />
+      <slot>
+        <PackageInfoHeader>
+          <PackageInfoName />
+          <PackageInfoChangeType v-if="changeType" />
+        </PackageInfoHeader>
+        <PackageInfoVersion v-if="currentVersion || newVersion" />
+      </slot>
     </div>
   </template>
   ```
 
-  ```vue [PackageInfoHeader.vue]
+  ```vue [PackageInfoHeader.vue] height=500 collapse
   <script setup lang="ts">
   import type { HTMLAttributes } from 'vue'
   import { cn } from '@repo/shadcn-vue/lib/utils'
@@ -88,13 +98,12 @@ Copy and paste the following files into the same folder.
   </template>
   ```
 
-  ```vue [PackageInfoName.vue]
+  ```vue [PackageInfoName.vue] height=500 collapse
   <script setup lang="ts">
   import type { HTMLAttributes } from 'vue'
   import { cn } from '@repo/shadcn-vue/lib/utils'
   import { PackageIcon } from 'lucide-vue-next'
-  import { inject } from 'vue'
-  import { PackageInfoKey } from './context'
+  import { usePackageInfoContext } from './context'
 
   interface Props extends /* @vue-ignore */ HTMLAttributes {
     class?: HTMLAttributes['class']
@@ -102,13 +111,7 @@ Copy and paste the following files into the same folder.
 
   const props = defineProps<Props>()
 
-  const context = inject(PackageInfoKey)
-
-  if (!context) {
-    throw new Error('PackageInfoName must be used within PackageInfo')
-  }
-
-  const { name } = context
+  const { name } = usePackageInfoContext()
   </script>
 
   <template>
@@ -121,15 +124,14 @@ Copy and paste the following files into the same folder.
   </template>
   ```
 
-  ```vue [PackageInfoChangeType.vue]
+  ```vue [PackageInfoChangeType.vue] height=500 collapse
   <script setup lang="ts">
-  import type { HTMLAttributes } from 'vue'
+  import type { Component, HTMLAttributes } from 'vue'
   import type { ChangeType } from './context'
   import { Badge } from '@repo/shadcn-vue/components/ui/badge'
   import { cn } from '@repo/shadcn-vue/lib/utils'
   import { ArrowRightIcon, MinusIcon, PlusIcon } from 'lucide-vue-next'
-  import { computed, inject } from 'vue'
-  import { PackageInfoKey } from './context'
+  import { usePackageInfoContext } from './context'
 
   type BadgeProps = InstanceType<typeof Badge>['$props']
 
@@ -139,13 +141,7 @@ Copy and paste the following files into the same folder.
 
   const props = defineProps<Props>()
 
-  const context = inject(PackageInfoKey)
-
-  if (!context) {
-    throw new Error('PackageInfoChangeType must be used within PackageInfo')
-  }
-
-  const { changeType } = context
+  const { changeType } = usePackageInfoContext()
 
   const changeTypeStyles: Record<ChangeType, string> = {
     major: 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400',
@@ -156,16 +152,13 @@ Copy and paste the following files into the same folder.
     removed: 'bg-gray-100 text-gray-700 dark:bg-gray-900/30 dark:text-gray-400',
   }
 
-  const icon = computed(() => {
-    switch (changeType) {
-      case 'added':
-        return PlusIcon
-      case 'removed':
-        return MinusIcon
-      default:
-        return ArrowRightIcon
-    }
-  })
+  const changeTypeIcons: Record<ChangeType, Component> = {
+    major: ArrowRightIcon,
+    minor: ArrowRightIcon,
+    patch: ArrowRightIcon,
+    added: PlusIcon,
+    removed: MinusIcon,
+  }
   </script>
 
   <template>
@@ -179,19 +172,18 @@ Copy and paste the following files into the same folder.
       variant="secondary"
       v-bind="$attrs"
     >
-      <component :is="icon" class="size-3" />
+      <component :is="changeTypeIcons[changeType]" class="size-3" />
       <slot>{{ changeType }}</slot>
     </Badge>
   </template>
   ```
 
-  ```vue [PackageInfoVersion.vue]
+  ```vue [PackageInfoVersion.vue] height=500 collapse
   <script setup lang="ts">
   import type { HTMLAttributes } from 'vue'
   import { cn } from '@repo/shadcn-vue/lib/utils'
   import { ArrowRightIcon } from 'lucide-vue-next'
-  import { inject } from 'vue'
-  import { PackageInfoKey } from './context'
+  import { usePackageInfoContext } from './context'
 
   interface Props extends /* @vue-ignore */ HTMLAttributes {
     class?: HTMLAttributes['class']
@@ -199,13 +191,7 @@ Copy and paste the following files into the same folder.
 
   const props = defineProps<Props>()
 
-  const context = inject(PackageInfoKey)
-
-  if (!context) {
-    throw new Error('PackageInfoVersion must be used within PackageInfo')
-  }
-
-  const { currentVersion, newVersion } = context
+  const { currentVersion, newVersion } = usePackageInfoContext()
   </script>
 
   <template>
@@ -228,7 +214,7 @@ Copy and paste the following files into the same folder.
   </template>
   ```
 
-  ```vue [PackageInfoDescription.vue]
+  ```vue [PackageInfoDescription.vue] height=500 collapse
   <script setup lang="ts">
   import type { HTMLAttributes } from 'vue'
   import { cn } from '@repo/shadcn-vue/lib/utils'
@@ -247,7 +233,7 @@ Copy and paste the following files into the same folder.
   </template>
   ```
 
-  ```vue [PackageInfoContent.vue]
+  ```vue [PackageInfoContent.vue] height=500 collapse
   <script setup lang="ts">
   import type { HTMLAttributes } from 'vue'
   import { cn } from '@repo/shadcn-vue/lib/utils'
@@ -266,7 +252,7 @@ Copy and paste the following files into the same folder.
   </template>
   ```
 
-  ```vue [PackageInfoDependencies.vue]
+  ```vue [PackageInfoDependencies.vue] height=500 collapse
   <script setup lang="ts">
   import type { HTMLAttributes } from 'vue'
   import { cn } from '@repo/shadcn-vue/lib/utils'
@@ -290,7 +276,7 @@ Copy and paste the following files into the same folder.
   </template>
   ```
 
-  ```vue [PackageInfoDependency.vue]
+  ```vue [PackageInfoDependency.vue] height=500 collapse
   <script setup lang="ts">
   import type { HTMLAttributes } from 'vue'
   import { cn } from '@repo/shadcn-vue/lib/utils'
@@ -317,8 +303,9 @@ Copy and paste the following files into the same folder.
   </template>
   ```
 
-  ```ts [context.ts]
+  ```ts [context.ts] height=500 collapse
   import type { InjectionKey } from 'vue'
+  import { inject } from 'vue'
 
   export type ChangeType = 'major' | 'minor' | 'patch' | 'added' | 'removed'
 
@@ -330,6 +317,16 @@ Copy and paste the following files into the same folder.
   }
 
   export const PackageInfoKey: InjectionKey<PackageInfoContextValue> = Symbol('PackageInfo')
+
+  export function usePackageInfoContext(): PackageInfoContextValue {
+    const context = inject(PackageInfoKey)
+
+    if (!context) {
+      throw new Error('PackageInfo components must be used within PackageInfo')
+    }
+
+    return context
+  }
   ```
 
   ```ts [index.ts]
