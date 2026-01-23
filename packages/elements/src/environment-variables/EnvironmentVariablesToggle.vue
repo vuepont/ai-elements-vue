@@ -31,9 +31,9 @@ const { showValues, setShowValues } = context
     </span>
     <Switch
       aria-label="Toggle value visibility"
-      :checked="showValues"
+      :model-value="showValues"
       v-bind="$attrs"
-      @update:checked="setShowValues"
+      @update:model-value="setShowValues"
     />
   </div>
 </template>
