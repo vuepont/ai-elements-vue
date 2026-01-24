@@ -7,13 +7,13 @@ import { CodeBlock } from '../code-block'
 
 export type ToolPart = ToolUIPart | DynamicToolUIPart
 
-export interface ToolOutputProps {
+interface Props extends /* @vue-ignore */ HTMLAttributes {
   output: ToolPart['output']
   errorText: ToolPart['errorText']
   class?: HTMLAttributes['class']
 }
 
-const props = defineProps<ToolOutputProps>()
+const props = defineProps<Props>()
 
 const showOutput = computed(() => props.output || props.errorText)
 

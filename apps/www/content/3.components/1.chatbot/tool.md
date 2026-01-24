@@ -36,9 +36,13 @@ import type { HTMLAttributes } from 'vue'
 import { Collapsible } from '@repo/shadcn-vue/components/ui/collapsible'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 
-const props = defineProps<{
+type ToolProps = InstanceType<typeof Collapsible>['$props']
+
+interface Props extends /* @vue-ignore */ ToolProps {
   class?: HTMLAttributes['class']
-}>()
+}
+
+const props = defineProps<Props>()
 </script>
 
 <template>
@@ -54,8 +58,8 @@ const props = defineProps<{
 ```vue [ToolStatusBadge.vue] height=500 collapse
 <!-- StatusBadge.vue -->
 <script setup lang="ts">
+import type { DynamicToolUIPart, ToolUIPart } from 'ai'
 import type { Component } from 'vue'
-import type { ExtendedToolState } from '../types'
 import { Badge } from '@repo/shadcn-vue/components/ui/badge'
 import {
   CheckCircleIcon,
@@ -65,12 +69,14 @@ import {
 } from 'lucide-vue-next'
 import { computed } from 'vue'
 
+export type ToolPart = ToolUIPart | DynamicToolUIPart
+
 const props = defineProps<{
-  state: ExtendedToolState
+  state: ToolPart['state']
 }>()
 
 const label = computed(() => {
-  const labels: Record<ExtendedToolState, string> = {
+  const labels: Record<ToolPart['state'], string> = {
     'input-streaming': 'Pending',
     'input-available': 'Running',
     'approval-requested': 'Awaiting Approval',
@@ -83,7 +89,7 @@ const label = computed(() => {
 })
 
 const icon = computed<Component>(() => {
-  const icons: Record<ExtendedToolState, Component> = {
+  const icons: Record<ToolPart['state'], Component> = {
     'input-streaming': CircleIcon,
     'input-available': ClockIcon,
     'approval-requested': ClockIcon,
@@ -96,16 +102,16 @@ const icon = computed<Component>(() => {
 })
 
 const iconClass = computed(() => {
-  const classes: Record<string, boolean> = {
-    'size-4': true,
-    'animate-pulse': props.state === 'input-available',
-    'text-yellow-600': props.state === 'approval-requested',
-    'text-blue-600': props.state === 'approval-responded',
-    'text-green-600': props.state === 'output-available',
-    'text-red-600': props.state === 'output-error',
-    'text-orange-600': props.state === 'output-denied',
+  const classes: Record<ToolPart['state'], string> = {
+    'input-streaming': 'size-4',
+    'input-available': 'size-4 animate-pulse',
+    'approval-requested': 'size-4 text-yellow-600',
+    'approval-responded': 'size-4 text-blue-600',
+    'output-available': 'size-4 text-green-600',
+    'output-error': 'size-4 text-red-600',
+    'output-denied': 'size-4 text-orange-600',
   }
-  return classes
+  return classes[props.state]
 })
 </script>
 
@@ -119,19 +125,29 @@ const iconClass = computed(() => {
 
 ```vue [ToolHeader.vue] height=500 collapse
 <script setup lang="ts">
-import type { ToolUIPart } from 'ai'
+import type { DynamicToolUIPart, ToolUIPart } from 'ai'
 import type { HTMLAttributes } from 'vue'
 import { CollapsibleTrigger } from '@repo/shadcn-vue/components/ui/collapsible'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 import { ChevronDownIcon, WrenchIcon } from 'lucide-vue-next'
+import { computed } from 'vue'
 import StatusBadge from './ToolStatusBadge.vue'
 
-const props = defineProps<{
+type ToolHeaderProps = {
   title?: string
-  type: ToolUIPart['type']
-  state: ToolUIPart['state']
   class?: HTMLAttributes['class']
-}>()
+} & (
+  | { type: ToolUIPart['type'], state: ToolUIPart['state'], toolName?: never }
+  | { type: DynamicToolUIPart['type'], state: DynamicToolUIPart['state'], toolName: string }
+)
+
+const props = defineProps<ToolHeaderProps>()
+
+const derivedName = computed(() =>
+  props.type === 'dynamic-tool'
+    ? props.toolName
+    : props.type.split('-').slice(1).join('-'),
+)
 </script>
 
 <template>
@@ -146,9 +162,7 @@ const props = defineProps<{
   >
     <div class="flex items-center gap-2">
       <WrenchIcon class="size-4 text-muted-foreground" />
-      <span class="font-medium text-sm">
-        {{ props.title ?? props.type.split('-').slice(1).join(' ') }}
-      </span>
+      <span class="font-medium text-sm">{{ props.title ?? derivedName }}</span>
       <StatusBadge :state="props.state" />
     </div>
     <ChevronDownIcon
@@ -164,9 +178,13 @@ import type { HTMLAttributes } from 'vue'
 import { CollapsibleContent } from '@repo/shadcn-vue/components/ui/collapsible'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 
-const props = defineProps<{
+type ToolContentProps = InstanceType<typeof CollapsibleContent>['$props']
+
+interface Props extends /* @vue-ignore */ ToolContentProps {
   class?: HTMLAttributes['class']
-}>()
+}
+
+const props = defineProps<Props>()
 </script>
 
 <template>
@@ -186,16 +204,20 @@ const props = defineProps<{
 
 ```vue [ToolInput.vue] height=500 collapse
 <script setup lang="ts">
-import type { ToolUIPart } from 'ai'
+import type { DynamicToolUIPart, ToolUIPart } from 'ai'
 import type { HTMLAttributes } from 'vue'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 import { computed } from 'vue'
 import { CodeBlock } from '../code-block'
 
-const props = defineProps<{
-  input: ToolUIPart['input']
+type ToolPart = ToolUIPart | DynamicToolUIPart
+
+interface Props extends /* @vue-ignore */ HTMLAttributes {
+  input: ToolPart['input']
   class?: HTMLAttributes['class']
-}>()
+}
+
+const props = defineProps<Props>()
 
 const formattedInput = computed(() => {
   return JSON.stringify(props.input, null, 2)
@@ -221,22 +243,26 @@ const formattedInput = computed(() => {
 
 ```vue [ToolOutput.vue] height=500 collapse
 <script setup lang="ts">
-import type { ToolUIPart } from 'ai'
+import type { DynamicToolUIPart, ToolUIPart } from 'ai'
 import type { HTMLAttributes } from 'vue'
 import { cn } from '@repo/shadcn-vue/lib/utils'
-import { computed } from 'vue'
+import { computed, isVNode } from 'vue'
 import { CodeBlock } from '../code-block'
 
-const props = defineProps<{
-  output: ToolUIPart['output']
-  errorText: ToolUIPart['errorText']
+export type ToolPart = ToolUIPart | DynamicToolUIPart
+
+interface Props extends /* @vue-ignore */ HTMLAttributes {
+  output: ToolPart['output']
+  errorText: ToolPart['errorText']
   class?: HTMLAttributes['class']
-}>()
+}
+
+const props = defineProps<Props>()
 
 const showOutput = computed(() => props.output || props.errorText)
 
 const isObjectOutput = computed(
-  () => typeof props.output === 'object' && props.output !== null,
+  () => typeof props.output === 'object' && !isVNode(props.output),
 )
 const isStringOutput = computed(() => typeof props.output === 'string')
 
@@ -269,12 +295,14 @@ const formattedOutput = computed(() => {
         )
       "
     >
-      <div v-if="errorText" class="p-3">
+      <!-- Error text -->
+      <div v-if="errorText">
         {{ props.errorText }}
       </div>
 
+      <!-- Output rendering based on type -->
       <CodeBlock
-        v-else-if="isObjectOutput"
+        v-if="isObjectOutput"
         :code="formattedOutput"
         language="json"
       />
@@ -283,7 +311,7 @@ const formattedOutput = computed(() => {
         :code="formattedOutput"
         language="json"
       />
-      <div v-else class="p-3">
+      <div v-else>
         {{ props.output }}
       </div>
     </div>
@@ -292,7 +320,6 @@ const formattedOutput = computed(() => {
 ```
 
 ```ts [index.ts]
-export type { ExtendedToolState } from '../types'
 export { default as Tool } from './Tool.vue'
 export { default as ToolContent } from './ToolContent.vue'
 export { default as ToolHeader } from './ToolHeader.vue'
@@ -500,7 +527,7 @@ Shows a tool that's actively executing with its parameters.
 :::ComponentLoader{label="Preview" componentName="ToolInputAvailable"}
 :::
 
-### Input Streaming (Completed)
+### Output Available (Completed)
 
 Shows a completed tool with successful results. Opens by default to show the results. In this instance, the output is a JSON object, so we can use the `CodeBlock` component to display it.
 
@@ -522,25 +549,37 @@ Shows a tool that encountered an error during execution. Opens by default to dis
   ::field{name="class" type="string"}
   Additional CSS classes to apply to the component.
   ::
+
+  ::field{name="...props" type="Collapsible props"}
+  Any other props are spread to the root Collapsible component.
+  ::
 :::
 
 ### `<ToolHeader/>`
 
 :::field-group
-  ::field{name="type" type="ToolUIPart['type']"}
+  ::field{name="title" type="string"}
+  Custom title to display instead of the derived tool name.
+  ::
+
+  ::field{name="type" type="ToolUIPart['type'] | DynamicToolUIPart['type']" required}
   The type/name of the tool.
   ::
 
-  ::field{name="state" type="ToolUIPart['state']"}
+  ::field{name="state" type="ToolUIPart['state'] | DynamicToolUIPart['state']" required}
   The current state of the tool (input-streaming, input-available, output-available, or output-error).
   ::
 
-  ::field{name="title" type="string"}
-  The title of the task.
+  ::field{name="toolName" type="string"}
+  Required when type is "dynamic-tool" to specify the tool name.
   ::
 
   ::field{name="class" type="string"}
-  Additional CSS classes to apply to the component.
+  Additional CSS classes to apply to the header.
+  ::
+
+  ::field{name="...props" type="CollapsibleTrigger props"}
+  Any other props are spread to the CollapsibleTrigger.
   ::
 :::
 
@@ -550,32 +589,66 @@ Shows a tool that encountered an error during execution. Opens by default to dis
   ::field{name="class" type="string"}
   Additional CSS classes to apply to the component.
   ::
+
+  ::field{name="...props" type="CollapsibleContent props"}
+  Any other props are spread to the CollapsibleContent.
+  ::
 :::
 
 ### `<ToolInput/>`
 
 :::field-group
-  ::field{name="input" type="ToolUIPart['input']"}
+  ::field{name="input" type="ToolPart['input']"}
   The input parameters passed to the tool, displayed as formatted JSON.
   ::
 
   ::field{name="class" type="string"}
   Additional CSS classes to apply to the component.
   ::
+
+  ::field{name="...props" type="HTMLAttributes"}
+  Any other props are spread to the underlying div.
+  ::
 :::
 
 ### `<ToolOutput/>`
 
 :::field-group
-  ::field{name="output" type="ToolUIPart['output']"}
-  The output/result of the tool execution.
+  ::field{name="output" type="ToolPart['output']"}
+  The output/result of the tool execution. Can be a VNode, object, or string.
   ::
 
-  ::field{name="errorText" type="ToolUIPart['errorText']"}
+  ::field{name="errorText" type="ToolPart['errorText']"}
   An error message if the tool execution failed.
   ::
 
   ::field{name="class" type="string"}
   Additional CSS classes to apply to the component.
   ::
+
+  ::field{name="...props" type="HTMLAttributes"}
+  Any other props are spread to the underlying div.
+  ::
 :::
+
+## Type Exports
+
+### `ToolPart`
+
+Union type representing both static and dynamic tool UI parts.
+
+```ts
+type ToolPart = ToolUIPart | DynamicToolUIPart
+```
+
+### `ToolPart['state']`
+
+All possible tool states including approval states:
+
+- `input-streaming` - "Pending"
+- `input-available` - "Running"
+- `approval-requested` - "Awaiting Approval"
+- `approval-responded` - "Responded"
+- `output-available` - "Completed"
+- `output-error` - "Error"
+- `output-denied` - "Denied"
