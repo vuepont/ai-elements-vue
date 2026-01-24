@@ -13,9 +13,9 @@ import {
 } from '@repo/elements/stack-trace'
 
 const errorString = `TypeError: Cannot read properties of undefined (reading 'map')
-    at UserList (/app/src/components/UserList.tsx:15:23)
-    at renderWithHooks (node_modules/react-dom/cjs/react-dom.development.js:14985:18)
-    at mountIndeterminateComponent (node_modules/react-dom/cjs/react-dom.development.js:17811:13)`
+    at Proxy.setup (/app/src/components/UserList.vue:15:23)
+    at callWithErrorHandling (node_modules/@vue/runtime-core/dist/runtime-core.esm-bundler.js:173:18)
+    at setupStatefulComponent (node_modules/@vue/runtime-core/dist/runtime-core.esm-bundler.js:7164:25)`
 </script>
 
 <template>
