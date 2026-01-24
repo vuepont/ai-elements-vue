@@ -1,20 +1,24 @@
 <script setup lang="ts">
-import type { ToolUIPart } from 'ai'
+import type { DynamicToolUIPart, ToolUIPart } from 'ai'
 import type { HTMLAttributes } from 'vue'
 import { cn } from '@repo/shadcn-vue/lib/utils'
-import { computed } from 'vue'
+import { computed, isVNode } from 'vue'
 import { CodeBlock } from '../code-block'
 
-const props = defineProps<{
-  output: ToolUIPart['output']
-  errorText: ToolUIPart['errorText']
+export type ToolPart = ToolUIPart | DynamicToolUIPart
+
+export interface ToolOutputProps {
+  output: ToolPart['output']
+  errorText: ToolPart['errorText']
   class?: HTMLAttributes['class']
-}>()
+}
+
+const props = defineProps<ToolOutputProps>()
 
 const showOutput = computed(() => props.output || props.errorText)
 
 const isObjectOutput = computed(
-  () => typeof props.output === 'object' && props.output !== null,
+  () => typeof props.output === 'object' && !isVNode(props.output),
 )
 const isStringOutput = computed(() => typeof props.output === 'string')
 
@@ -47,12 +51,14 @@ const formattedOutput = computed(() => {
         )
       "
     >
-      <div v-if="errorText" class="p-3">
+      <!-- Error text -->
+      <div v-if="errorText">
         {{ props.errorText }}
       </div>
 
+      <!-- Output rendering based on type -->
       <CodeBlock
-        v-else-if="isObjectOutput"
+        v-if="isObjectOutput"
         :code="formattedOutput"
         language="json"
       />
@@ -61,7 +67,7 @@ const formattedOutput = computed(() => {
         :code="formattedOutput"
         language="json"
       />
-      <div v-else class="p-3">
+      <div v-else>
         {{ props.output }}
       </div>
     </div>

@@ -1,6 +1,0 @@
-export type { ExtendedToolState } from '../types'
-export { default as Tool } from './Tool.vue'
-export { default as ToolContent } from './ToolContent.vue'
-export { default as ToolHeader } from './ToolHeader.vue'
-export { default as ToolInput } from './ToolInput.vue'
-export { default as ToolOutput } from './ToolOutput.vue'
