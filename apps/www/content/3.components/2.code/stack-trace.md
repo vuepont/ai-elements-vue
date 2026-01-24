@@ -33,31 +33,32 @@ Copy and paste the following files into the same folder.
   ```vue [StackTrace.vue]
   <script setup lang="ts">
   import type { HTMLAttributes } from 'vue'
+  import type { ParsedStackTrace } from './context'
   import { cn } from '@repo/shadcn-vue/lib/utils'
   import { useVModel } from '@vueuse/core'
-  import { computed, provide, useAttrs } from 'vue'
-  import { type ParsedStackTrace, StackTraceKey } from './context'
+  import { computed, provide } from 'vue'
+  import { StackTraceKey } from './context'
   import { parseStackTrace } from './utils'
 
   interface Props extends /* @vue-ignore */ HTMLAttributes {
     trace: string
-    open?: boolean
+    modelValue?: boolean
     defaultOpen?: boolean
     class?: HTMLAttributes['class']
   }
 
   const props = withDefaults(defineProps<Props>(), {
     defaultOpen: false,
+    modelValue: undefined,
   })
 
   const emit = defineEmits<{
-    (e: 'update:open', value: boolean): void
+    (e: 'update:modelValue', value: boolean): void
     (e: 'openChange', value: boolean): void
     (e: 'filePathClick', filePath: string, line?: number, column?: number): void
   }>()
 
-  const attrs = useAttrs()
-  const isOpen = useVModel(props, 'open', emit, {
+  const isOpen = useVModel(props, 'modelValue', emit, {
     defaultValue: props.defaultOpen,
     passive: true,
   })
@@ -78,7 +79,7 @@ Copy and paste the following files into the same folder.
     raw: computed(() => props.trace),
     isOpen,
     setIsOpen,
-    onFilePathClick: attrs.onFilePathClick ? onFilePathClick : undefined,
+    onFilePathClick,
   })
   </script>
 
@@ -103,8 +104,7 @@ Copy and paste the following files into the same folder.
     CollapsibleTrigger,
   } from '@repo/shadcn-vue/components/ui/collapsible'
   import { cn } from '@repo/shadcn-vue/lib/utils'
-  import { inject } from 'vue'
-  import { StackTraceKey } from './context'
+  import { useStackTraceContext } from './context'
 
   type CollapsibleTriggerProps = InstanceType<typeof CollapsibleTrigger>['$props']
 
@@ -114,17 +114,11 @@ Copy and paste the following files into the same folder.
 
   const props = defineProps<Props>()
 
-  const context = inject(StackTraceKey)
-
-  if (!context) {
-    throw new Error('StackTraceHeader must be used within StackTrace')
-  }
-
-  const { isOpen, setIsOpen } = context
+  const { isOpen, setIsOpen } = useStackTraceContext('StackTraceHeader')
   </script>
 
   <template>
-    <Collapsible :open="isOpen.value" @update:open="setIsOpen">
+    <Collapsible :open="isOpen" @update:open="setIsOpen">
       <CollapsibleTrigger as-child v-bind="$attrs">
         <div
           :class="cn(
@@ -170,8 +164,7 @@ Copy and paste the following files into the same folder.
   <script setup lang="ts">
   import type { HTMLAttributes } from 'vue'
   import { cn } from '@repo/shadcn-vue/lib/utils'
-  import { inject } from 'vue'
-  import { StackTraceKey } from './context'
+  import { useStackTraceContext } from './context'
 
   interface Props extends /* @vue-ignore */ HTMLAttributes {
     class?: HTMLAttributes['class']
@@ -179,13 +172,7 @@ Copy and paste the following files into the same folder.
 
   const props = defineProps<Props>()
 
-  const context = inject(StackTraceKey)
-
-  if (!context) {
-    throw new Error('StackTraceErrorType must be used within StackTrace')
-  }
-
-  const { trace } = context
+  const { trace } = useStackTraceContext('StackTraceErrorType')
   </script>
 
   <template>
@@ -193,7 +180,7 @@ Copy and paste the following files into the same folder.
       :class="cn('shrink-0 font-semibold text-destructive', props.class)"
       v-bind="$attrs"
     >
-      <slot>{{ trace.value.errorType }}</slot>
+      <slot>{{ trace.errorType }}</slot>
     </span>
   </template>
   ```
@@ -202,8 +189,7 @@ Copy and paste the following files into the same folder.
   <script setup lang="ts">
   import type { HTMLAttributes } from 'vue'
   import { cn } from '@repo/shadcn-vue/lib/utils'
-  import { inject } from 'vue'
-  import { StackTraceKey } from './context'
+  import { useStackTraceContext } from './context'
 
   interface Props extends /* @vue-ignore */ HTMLAttributes {
     class?: HTMLAttributes['class']
@@ -211,18 +197,12 @@ Copy and paste the following files into the same folder.
 
   const props = defineProps<Props>()
 
-  const context = inject(StackTraceKey)
-
-  if (!context) {
-    throw new Error('StackTraceErrorMessage must be used within StackTrace')
-  }
-
-  const { trace } = context
+  const { trace } = useStackTraceContext('StackTraceErrorMessage')
   </script>
 
   <template>
     <span :class="cn('truncate text-foreground', props.class)" v-bind="$attrs">
-      <slot>{{ trace.value.errorMessage }}</slot>
+      <slot>{{ trace.errorMessage }}</slot>
     </span>
   </template>
   ```
@@ -259,8 +239,8 @@ Copy and paste the following files into the same folder.
   import { Button } from '@repo/shadcn-vue/components/ui/button'
   import { cn } from '@repo/shadcn-vue/lib/utils'
   import { CheckIcon, CopyIcon } from 'lucide-vue-next'
-  import { computed, inject, ref } from 'vue'
-  import { StackTraceKey } from './context'
+  import { computed, ref } from 'vue'
+  import { useStackTraceContext } from './context'
 
   type ButtonProps = InstanceType<typeof Button>['$props']
 
@@ -279,13 +259,7 @@ Copy and paste the following files into the same folder.
   }>()
 
   const isCopied = ref(false)
-  const context = inject(StackTraceKey)
-
-  if (!context) {
-    throw new Error('StackTraceCopyButton must be used within StackTrace')
-  }
-
-  const { raw } = context
+  const { raw } = useStackTraceContext('StackTraceCopyButton')
 
   async function copyToClipboard() {
     if (typeof window === 'undefined' || !navigator?.clipboard?.writeText) {
@@ -330,8 +304,7 @@ Copy and paste the following files into the same folder.
   import type { HTMLAttributes } from 'vue'
   import { cn } from '@repo/shadcn-vue/lib/utils'
   import { ChevronDownIcon } from 'lucide-vue-next'
-  import { inject } from 'vue'
-  import { StackTraceKey } from './context'
+  import { useStackTraceContext } from './context'
 
   interface Props extends /* @vue-ignore */ HTMLAttributes {
     class?: HTMLAttributes['class']
@@ -339,13 +312,7 @@ Copy and paste the following files into the same folder.
 
   const props = defineProps<Props>()
 
-  const context = inject(StackTraceKey)
-
-  if (!context) {
-    throw new Error('StackTraceExpandButton must be used within StackTrace')
-  }
-
-  const { isOpen } = context
+  const { isOpen } = useStackTraceContext('StackTraceExpandButton')
   </script>
 
   <template>
@@ -356,7 +323,7 @@ Copy and paste the following files into the same folder.
       <ChevronDownIcon
         :class="cn(
           'size-4 text-muted-foreground transition-transform',
-          isOpen.value ? 'rotate-180' : 'rotate-0',
+          isOpen ? 'rotate-180' : 'rotate-0',
         )"
       />
     </div>
@@ -366,8 +333,12 @@ Copy and paste the following files into the same folder.
   ```vue [StackTraceContent.vue]
   <script setup lang="ts">
   import type { HTMLAttributes } from 'vue'
-  import { CollapsibleContent } from '@repo/shadcn-vue/components/ui/collapsible'
+  import {
+    Collapsible,
+    CollapsibleContent,
+  } from '@repo/shadcn-vue/components/ui/collapsible'
   import { cn } from '@repo/shadcn-vue/lib/utils'
+  import { useStackTraceContext } from './context'
 
   type CollapsibleContentProps = InstanceType<typeof CollapsibleContent>['$props']
 
@@ -379,20 +350,24 @@ Copy and paste the following files into the same folder.
   const props = withDefaults(defineProps<Props>(), {
     maxHeight: 400,
   })
+
+  const { isOpen } = useStackTraceContext('StackTraceContent')
   </script>
 
   <template>
-    <CollapsibleContent
-      :class="cn(
-        'overflow-auto border-t bg-muted/30',
-        'data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:animate-out data-[state=open]:animate-in',
-        props.class,
-      )"
-      :style="{ maxHeight: `${props.maxHeight}px` }"
-      v-bind="$attrs"
-    >
-      <slot />
-    </CollapsibleContent>
+    <Collapsible :open="isOpen">
+      <CollapsibleContent
+        :class="cn(
+          'overflow-auto border-t bg-muted/30',
+          'data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:animate-out data-[state=open]:animate-in',
+          props.class,
+        )"
+        :style="{ maxHeight: `${props.maxHeight}px` }"
+        v-bind="$attrs"
+      >
+        <slot />
+      </CollapsibleContent>
+    </Collapsible>
   </template>
   ```
 
@@ -400,8 +375,8 @@ Copy and paste the following files into the same folder.
   <script setup lang="ts">
   import type { HTMLAttributes } from 'vue'
   import { cn } from '@repo/shadcn-vue/lib/utils'
-  import { computed, inject } from 'vue'
-  import { StackTraceKey } from './context'
+  import { computed } from 'vue'
+  import { useStackTraceContext } from './context'
   import { AT_PREFIX_REGEX } from './utils'
 
   interface Props extends /* @vue-ignore */ HTMLAttributes {
@@ -413,13 +388,7 @@ Copy and paste the following files into the same folder.
     showInternalFrames: true,
   })
 
-  const context = inject(StackTraceKey)
-
-  if (!context) {
-    throw new Error('StackTraceFrames must be used within StackTrace')
-  }
-
-  const { trace, onFilePathClick } = context
+  const { trace, onFilePathClick } = useStackTraceContext('StackTraceFrames')
 
   const framesToShow = computed(() => {
     return props.showInternalFrames
@@ -486,6 +455,7 @@ Copy and paste the following files into the same folder.
 
   ```ts [context.ts]
   import type { InjectionKey, Ref } from 'vue'
+  import { inject } from 'vue'
 
   export interface StackFrame {
     raw: string
@@ -506,12 +476,20 @@ Copy and paste the following files into the same folder.
   export interface StackTraceContextValue {
     trace: Ref<ParsedStackTrace>
     raw: Ref<string>
-    isOpen: Ref<boolean>
+    isOpen: Ref<boolean | undefined>
     setIsOpen: (open: boolean) => void
     onFilePathClick?: (filePath: string, line?: number, column?: number) => void
   }
 
   export const StackTraceKey: InjectionKey<StackTraceContextValue> = Symbol('StackTrace')
+
+  export function useStackTraceContext(componentName: string): StackTraceContextValue {
+    const context = inject(StackTraceKey)
+    if (!context) {
+      throw new Error(`${componentName} must be used within StackTrace`)
+    }
+    return context
+  }
   ```
 
   ```ts [utils.ts]
@@ -654,14 +632,17 @@ Copy and paste the following files into the same folder.
   ::field{name="trace" type="string" required}
   The raw stack trace string to parse and display.
   ::
-  ::field{name="open" type="boolean"}
-  Controlled open state.
+  ::field{name="v-model" type="boolean"}
+  Controlled open state (uses `modelValue` internally).
   ::
   ::field{name="defaultOpen" type="boolean" default="false"}
   Whether the content is expanded by default.
   ::
-  ::field{name="@update:open" type="(open: boolean) => void"}
+  ::field{name="@update:modelValue" type="(value: boolean) => void"}
   Callback when open state changes.
+  ::
+  ::field{name="@openChange" type="(value: boolean) => void"}
+  Callback when open state changes (alternative to @update:modelValue).
   ::
   ::field{name="@filePathClick" type="(path: string, line?: number, column?: number) => void"}
   Callback when a file path is clicked. Receives the file path, line number, and column number.
