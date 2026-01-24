@@ -39,13 +39,10 @@ watch(
     v-bind="$attrs"
   >
     <slot>
-      <pre class="whitespace-pre-wrap wrap-break-word">
-        <Ansi>{{ output }}</Ansi>
-        <span
+      <pre class="whitespace-pre-wrap wrap-break-word"><Ansi>{{ output }}</Ansi><span
           v-if="isStreaming"
           class="ml-0.5 inline-block h-4 w-2 animate-pulse bg-zinc-100"
-        />
-      </pre>
+      /></pre>
     </slot>
   </div>
 </template>
