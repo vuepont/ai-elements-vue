@@ -17,6 +17,7 @@
     "@vue-flow/node-toolbar": "^1.1.1",
     "@vueuse/core": "catalog:",
     "ai": "catalog:",
+    "ansi-to-vue3": "^0.1.2",
     "lucide-vue-next": "catalog:",
     "motion-v": "^1.7.4",
     "shiki": "catalog:",
