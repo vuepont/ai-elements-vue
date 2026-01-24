@@ -7,7 +7,11 @@ export * from './commit'
 export * from './confirmation'
 export * from './context'
 export * from './conversation'
+<<<<<<< HEAD
 export * from './environment-variables'
+=======
+export * from './file-tree'
+>>>>>>> ed2af84 (chore: import file tree components)
 export * from './image'
 export * from './inline-citation'
 export * from './loader'
