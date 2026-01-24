@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue'
 import { cn } from '@repo/shadcn-vue/lib/utils'
-import { computed, provide, useAttrs } from 'vue'
+import { computed, getCurrentInstance, provide } from 'vue'
 import { TerminalKey } from './context'
 import TerminalActions from './TerminalActions.vue'
 import TerminalClearButton from './TerminalClearButton.vue'
@@ -27,10 +27,10 @@ const emit = defineEmits<{
   (e: 'clear'): void
 }>()
 
-const attrs = useAttrs()
+const instance = getCurrentInstance()
 
-// Check for the presence of the 'onClear' listener (Vue normalizes @clear to onClear)
-const hasClear = computed(() => !!attrs.onClear || !!attrs['on-clear'])
+// Check for the presence of the 'onClear' listener
+const hasClear = computed(() => !!instance?.vnode.props?.onClear)
 
 function handleClear() {
   emit('clear')
