@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue'
 import { cn } from '@repo/shadcn-vue/lib/utils'
-import { computed, inject } from 'vue'
-import { StackTraceKey } from './context'
+import { computed } from 'vue'
+import { useStackTraceContext } from './context'
 import { AT_PREFIX_REGEX } from './utils'
 
 interface Props extends /* @vue-ignore */ HTMLAttributes {
@@ -14,13 +14,7 @@ const props = withDefaults(defineProps<Props>(), {
   showInternalFrames: true,
 })
 
-const context = inject(StackTraceKey)
-
-if (!context) {
-  throw new Error('StackTraceFrames must be used within StackTrace')
-}
-
-const { trace, onFilePathClick } = context
+const { trace, onFilePathClick } = useStackTraceContext('StackTraceFrames')
 
 const framesToShow = computed(() => {
   return props.showInternalFrames

@@ -5,8 +5,7 @@ import {
   CollapsibleTrigger,
 } from '@repo/shadcn-vue/components/ui/collapsible'
 import { cn } from '@repo/shadcn-vue/lib/utils'
-import { inject } from 'vue'
-import { StackTraceKey } from './context'
+import { useStackTraceContext } from './context'
 
 type CollapsibleTriggerProps = InstanceType<typeof CollapsibleTrigger>['$props']
 
@@ -16,13 +15,7 @@ interface Props extends /* @vue-ignore */ CollapsibleTriggerProps {
 
 const props = defineProps<Props>()
 
-const context = inject(StackTraceKey)
-
-if (!context) {
-  throw new Error('StackTraceHeader must be used within StackTrace')
-}
-
-const { isOpen, setIsOpen } = context
+const { isOpen, setIsOpen } = useStackTraceContext('StackTraceHeader')
 </script>
 
 <template>

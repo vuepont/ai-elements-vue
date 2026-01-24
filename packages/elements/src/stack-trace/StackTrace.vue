@@ -9,22 +9,23 @@ import { parseStackTrace } from './utils'
 
 interface Props extends /* @vue-ignore */ HTMLAttributes {
   trace: string
-  open?: boolean
+  modelValue?: boolean
   defaultOpen?: boolean
   class?: HTMLAttributes['class']
 }
 
 const props = withDefaults(defineProps<Props>(), {
   defaultOpen: false,
+  modelValue: undefined,
 })
 
 const emit = defineEmits<{
-  (e: 'update:open', value: boolean): void
+  (e: 'update:modelValue', value: boolean): void
   (e: 'openChange', value: boolean): void
   (e: 'filePathClick', filePath: string, line?: number, column?: number): void
 }>()
 
-const isOpen = useVModel(props, 'open', emit, {
+const isOpen = useVModel(props, 'modelValue', emit, {
   defaultValue: props.defaultOpen,
   passive: true,
 })

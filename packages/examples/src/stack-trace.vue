@@ -25,12 +25,10 @@ const sampleStackTrace = `TypeError: Cannot read properties of undefined (readin
     at workLoopSync (node_modules/react-dom/cjs/react-dom.development.js:22707:5)`
 
 function handleFilePathClick(path: string, line?: number, col?: number) {
-  // eslint-disable-next-line no-console
   console.log(`Open file: ${path}:${line}:${col}`)
 }
 
 function handleCopy() {
-  // eslint-disable-next-line no-console
   console.log('Stack trace copied')
 }
 </script>

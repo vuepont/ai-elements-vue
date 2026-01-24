@@ -2,8 +2,7 @@
 import type { HTMLAttributes } from 'vue'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 import { ChevronDownIcon } from 'lucide-vue-next'
-import { inject } from 'vue'
-import { StackTraceKey } from './context'
+import { useStackTraceContext } from './context'
 
 interface Props extends /* @vue-ignore */ HTMLAttributes {
   class?: HTMLAttributes['class']
@@ -11,13 +10,7 @@ interface Props extends /* @vue-ignore */ HTMLAttributes {
 
 const props = defineProps<Props>()
 
-const context = inject(StackTraceKey)
-
-if (!context) {
-  throw new Error('StackTraceExpandButton must be used within StackTrace')
-}
-
-const { isOpen } = context
+const { isOpen } = useStackTraceContext('StackTraceExpandButton')
 </script>
 
 <template>

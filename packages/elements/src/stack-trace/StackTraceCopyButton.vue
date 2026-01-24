@@ -3,8 +3,8 @@ import type { HTMLAttributes } from 'vue'
 import { Button } from '@repo/shadcn-vue/components/ui/button'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 import { CheckIcon, CopyIcon } from 'lucide-vue-next'
-import { computed, inject, ref } from 'vue'
-import { StackTraceKey } from './context'
+import { computed, ref } from 'vue'
+import { useStackTraceContext } from './context'
 
 type ButtonProps = InstanceType<typeof Button>['$props']
 
@@ -23,13 +23,7 @@ const emit = defineEmits<{
 }>()
 
 const isCopied = ref(false)
-const context = inject(StackTraceKey)
-
-if (!context) {
-  throw new Error('StackTraceCopyButton must be used within StackTrace')
-}
-
-const { raw } = context
+const { raw } = useStackTraceContext('StackTraceCopyButton')
 
 async function copyToClipboard() {
   if (typeof window === 'undefined' || !navigator?.clipboard?.writeText) {
