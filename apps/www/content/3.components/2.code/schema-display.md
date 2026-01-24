@@ -30,7 +30,7 @@ The `SchemaDisplay` component visualizes REST API endpoints with HTTP methods, p
 Copy and paste the following files into the same folder.
 
 :::code-group
-  ```vue [SchemaDisplay.vue]
+  ```vue [SchemaDisplay.vue] height=500 collapse
   <script setup lang="ts">
   import type { HTMLAttributes } from 'vue'
   import type { HttpMethod, SchemaParameter, SchemaProperty } from './context'
@@ -116,14 +116,13 @@ Copy and paste the following files into the same folder.
   </template>
   ```
 
-  ```vue [SchemaDisplayMethod.vue]
+  ```vue [SchemaDisplayMethod.vue] height=500 collapse
   <script setup lang="ts">
   import type { HTMLAttributes } from 'vue'
   import type { HttpMethod } from './context'
   import { Badge } from '@repo/shadcn-vue/components/ui/badge'
   import { cn } from '@repo/shadcn-vue/lib/utils'
-  import { inject } from 'vue'
-  import { SchemaDisplayKey } from './context'
+  import { useSchemaDisplayContext } from './context'
 
   type BadgeProps = InstanceType<typeof Badge>['$props']
 
@@ -133,13 +132,7 @@ Copy and paste the following files into the same folder.
 
   const props = defineProps<Props>()
 
-  const context = inject(SchemaDisplayKey)
-
-  if (!context) {
-    throw new Error('SchemaDisplayMethod must be used within SchemaDisplay')
-  }
-
-  const { method } = context
+  const { method } = useSchemaDisplayContext('SchemaDisplayMethod')
 
   const methodStyles: Record<HttpMethod, string> = {
     GET: 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400',
@@ -162,12 +155,12 @@ Copy and paste the following files into the same folder.
   </template>
   ```
 
-  ```vue [SchemaDisplayPath.vue]
+  ```vue [SchemaDisplayPath.vue] height=500 collapse
   <script setup lang="ts">
   import type { HTMLAttributes } from 'vue'
   import { cn } from '@repo/shadcn-vue/lib/utils'
-  import { computed, inject } from 'vue'
-  import { SchemaDisplayKey } from './context'
+  import { computed } from 'vue'
+  import { useSchemaDisplayContext } from './context'
 
   interface Props extends /* @vue-ignore */ HTMLAttributes {
     class?: HTMLAttributes['class']
@@ -175,13 +168,7 @@ Copy and paste the following files into the same folder.
 
   const props = defineProps<Props>()
 
-  const context = inject(SchemaDisplayKey)
-
-  if (!context) {
-    throw new Error('SchemaDisplayPath must be used within SchemaDisplay')
-  }
-
-  const { path } = context
+  const { path } = useSchemaDisplayContext('SchemaDisplayPath')
 
   // Highlight path parameters
   const highlightedPath = computed(() => path.replace(
@@ -207,8 +194,7 @@ Copy and paste the following files into the same folder.
   <script setup lang="ts">
   import type { HTMLAttributes } from 'vue'
   import { cn } from '@repo/shadcn-vue/lib/utils'
-  import { inject } from 'vue'
-  import { SchemaDisplayKey } from './context'
+  import { useSchemaDisplayContext } from './context'
 
   interface Props extends /* @vue-ignore */ HTMLAttributes {
     class?: HTMLAttributes['class']
@@ -216,13 +202,7 @@ Copy and paste the following files into the same folder.
 
   const props = defineProps<Props>()
 
-  const context = inject(SchemaDisplayKey)
-
-  if (!context) {
-    throw new Error('SchemaDisplayDescription must be used within SchemaDisplay')
-  }
-
-  const { description } = context
+  const { description } = useSchemaDisplayContext('SchemaDisplayDescription')
   </script>
 
   <template>
@@ -257,15 +237,14 @@ Copy and paste the following files into the same folder.
   </template>
   ```
 
-  ```vue [SchemaDisplayParameters.vue]
+  ```vue [SchemaDisplayParameters.vue] height=500 collapse
   <script setup lang="ts">
   import type { HTMLAttributes } from 'vue'
   import { Badge } from '@repo/shadcn-vue/components/ui/badge'
   import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@repo/shadcn-vue/components/ui/collapsible'
   import { cn } from '@repo/shadcn-vue/lib/utils'
   import { ChevronRightIcon } from 'lucide-vue-next'
-  import { inject } from 'vue'
-  import { SchemaDisplayKey } from './context'
+  import { useSchemaDisplayContext } from './context'
   import SchemaDisplayParameter from './SchemaDisplayParameter.vue'
 
   type CollapsibleProps = InstanceType<typeof Collapsible>['$props']
@@ -276,13 +255,7 @@ Copy and paste the following files into the same folder.
 
   const props = defineProps<Props>()
 
-  const context = inject(SchemaDisplayKey)
-
-  if (!context) {
-    throw new Error('SchemaDisplayParameters must be used within SchemaDisplay')
-  }
-
-  const { parameters } = context
+  const { parameters } = useSchemaDisplayContext('SchemaDisplayParameters')
   </script>
 
   <template>
@@ -309,7 +282,7 @@ Copy and paste the following files into the same folder.
   </template>
   ```
 
-  ```vue [SchemaDisplayParameter.vue]
+  ```vue [SchemaDisplayParameter.vue] height=500 collapse
   <script setup lang="ts">
   import type { HTMLAttributes } from 'vue'
   import type { SchemaParameter } from './context'
@@ -348,14 +321,13 @@ Copy and paste the following files into the same folder.
   </template>
   ```
 
-  ```vue [SchemaDisplayRequest.vue]
+  ```vue [SchemaDisplayRequest.vue] height=500 collapse
   <script setup lang="ts">
   import type { HTMLAttributes } from 'vue'
   import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@repo/shadcn-vue/components/ui/collapsible'
   import { cn } from '@repo/shadcn-vue/lib/utils'
   import { ChevronRightIcon } from 'lucide-vue-next'
-  import { inject } from 'vue'
-  import { SchemaDisplayKey } from './context'
+  import { useSchemaDisplayContext } from './context'
   import SchemaDisplayProperty from './SchemaDisplayProperty.vue'
 
   type CollapsibleProps = InstanceType<typeof Collapsible>['$props']
@@ -366,13 +338,7 @@ Copy and paste the following files into the same folder.
 
   const props = defineProps<Props>()
 
-  const context = inject(SchemaDisplayKey)
-
-  if (!context) {
-    throw new Error('SchemaDisplayRequest must be used within SchemaDisplay')
-  }
-
-  const { requestBody } = context
+  const { requestBody } = useSchemaDisplayContext('SchemaDisplayRequest')
   </script>
 
   <template>
@@ -397,14 +363,13 @@ Copy and paste the following files into the same folder.
   </template>
   ```
 
-  ```vue [SchemaDisplayResponse.vue]
+  ```vue [SchemaDisplayResponse.vue] height=500 collapse
   <script setup lang="ts">
   import type { HTMLAttributes } from 'vue'
   import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@repo/shadcn-vue/components/ui/collapsible'
   import { cn } from '@repo/shadcn-vue/lib/utils'
   import { ChevronRightIcon } from 'lucide-vue-next'
-  import { inject } from 'vue'
-  import { SchemaDisplayKey } from './context'
+  import { useSchemaDisplayContext } from './context'
   import SchemaDisplayProperty from './SchemaDisplayProperty.vue'
 
   type CollapsibleProps = InstanceType<typeof Collapsible>['$props']
@@ -415,13 +380,7 @@ Copy and paste the following files into the same folder.
 
   const props = defineProps<Props>()
 
-  const context = inject(SchemaDisplayKey)
-
-  if (!context) {
-    throw new Error('SchemaDisplayResponse must be used within SchemaDisplay')
-  }
-
-  const { responseBody } = context
+  const { responseBody } = useSchemaDisplayContext('SchemaDisplayResponse')
   </script>
 
   <template>
@@ -465,7 +424,7 @@ Copy and paste the following files into the same folder.
   </template>
   ```
 
-  ```vue [SchemaDisplayProperty.vue]
+  ```vue [SchemaDisplayProperty.vue] height=500 collapse
   <script setup lang="ts">
   import type { HTMLAttributes } from 'vue'
   import type { SchemaProperty } from './context'
@@ -587,8 +546,9 @@ Copy and paste the following files into the same folder.
   </template>
   ```
 
-  ```ts [context.ts]
+  ```ts [context.ts] height=500 collapse
   import type { InjectionKey } from 'vue'
+  import { inject } from 'vue'
 
   export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE'
 
@@ -619,6 +579,16 @@ Copy and paste the following files into the same folder.
   }
 
   export const SchemaDisplayKey: InjectionKey<SchemaDisplayContextValue> = Symbol('SchemaDisplay')
+
+  export function useSchemaDisplayContext(componentName: string): SchemaDisplayContextValue {
+    const context = inject(SchemaDisplayKey)
+
+    if (!context) {
+      throw new Error(`${componentName} must be used within SchemaDisplay`)
+    }
+
+    return context
+  }
   ```
 
   ```ts [index.ts]
