@@ -13,7 +13,7 @@
     "clsx": "^2.1.1",
     "embla-carousel-vue": "^8.6.0",
     "lucide-vue-next": "catalog:",
-    "reka-ui": "^2.6.1",
+    "reka-ui": "^2.7.0",
     "shadcn-nuxt": "2.4.1",
     "tailwind-merge": "^3.4.0",
     "tailwindcss": "catalog:",
