@@ -1,3 +1,4 @@
+export * from './agent'
 export * from './artifact'
 export * from './chain-of-thought'
 export * from './checkpoint'
