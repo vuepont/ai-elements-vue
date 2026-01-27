@@ -1,0 +1,6 @@
+export { default as FileTree } from './FileTree.vue'
+export { default as FileTreeActions } from './FileTreeActions.vue'
+export { default as FileTreeFile } from './FileTreeFile.vue'
+export { default as FileTreeFolder } from './FileTreeFolder.vue'
+export { default as FileTreeIcon } from './FileTreeIcon.vue'
+export { default as FileTreeName } from './FileTreeName.vue'

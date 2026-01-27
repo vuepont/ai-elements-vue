@@ -1,0 +1,23 @@
+<script setup lang="ts">
+import {
+  FileTree,
+  FileTreeFile,
+  FileTreeFolder,
+} from '@repo/elements/file-tree'
+import { ref } from 'vue'
+
+const selectedPath = ref<string>()
+</script>
+
+<template>
+  <FileTree
+    :selected-path="selectedPath"
+    @update:selected-path="(path) => selectedPath = path"
+  >
+    <FileTreeFolder name="src" path="src">
+      <FileTreeFile name="app.vue" path="src/app.vue" />
+      <FileTreeFile name="index.ts" path="src/index.ts" />
+    </FileTreeFolder>
+    <FileTreeFile name="package.json" path="package.json" />
+  </FileTree>
+</template>
