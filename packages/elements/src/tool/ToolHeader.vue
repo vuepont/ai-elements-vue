@@ -1,17 +1,27 @@
 <script setup lang="ts">
-import type { ToolUIPart } from 'ai'
+import type { DynamicToolUIPart, ToolUIPart } from 'ai'
 import type { HTMLAttributes } from 'vue'
 import { CollapsibleTrigger } from '@repo/shadcn-vue/components/ui/collapsible'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 import { ChevronDownIcon, WrenchIcon } from 'lucide-vue-next'
+import { computed } from 'vue'
 import StatusBadge from './ToolStatusBadge.vue'
 
-const props = defineProps<{
+type ToolHeaderProps = {
   title?: string
-  type: ToolUIPart['type']
-  state: ToolUIPart['state']
   class?: HTMLAttributes['class']
-}>()
+} & (
+  | { type: ToolUIPart['type'], state: ToolUIPart['state'], toolName?: never }
+  | { type: DynamicToolUIPart['type'], state: DynamicToolUIPart['state'], toolName: string }
+)
+
+const props = defineProps<ToolHeaderProps>()
+
+const derivedName = computed(() =>
+  props.type === 'dynamic-tool'
+    ? props.toolName
+    : props.type.split('-').slice(1).join('-'),
+)
 </script>
 
 <template>
@@ -26,9 +36,7 @@ const props = defineProps<{
   >
     <div class="flex items-center gap-2">
       <WrenchIcon class="size-4 text-muted-foreground" />
-      <span class="font-medium text-sm">
-        {{ props.title ?? props.type.split('-').slice(1).join(' ') }}
-      </span>
+      <span class="font-medium text-sm">{{ props.title ?? derivedName }}</span>
       <StatusBadge :state="props.state" />
     </div>
     <ChevronDownIcon
