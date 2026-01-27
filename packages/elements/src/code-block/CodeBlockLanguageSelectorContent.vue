@@ -5,13 +5,13 @@ type CodeBlockLanguageSelectorContentProps = InstanceType<typeof SelectContent>[
 
 interface Props extends /* @vue-ignore */ CodeBlockLanguageSelectorContentProps {}
 
-withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props>(), {
   align: 'end',
 })
 </script>
 
 <template>
-  <SelectContent :align="align" v-bind="$attrs">
+  <SelectContent :align="props.align" v-bind="$attrs">
     <slot />
   </SelectContent>
 </template>
