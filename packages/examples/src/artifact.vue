@@ -45,27 +45,22 @@ def dijkstra(graph, start):
 print(dijkstra(graph, 'A'))`
 
 function handleRun() {
-  // eslint-disable-next-line no-console
   console.log('Run')
 }
 
 function handleCopy() {
-  // eslint-disable-next-line no-console
   console.log('Copy')
 }
 
 function handleRegenerate() {
-  // eslint-disable-next-line no-console
   console.log('Regenerate')
 }
 
 function handleDownload() {
-  // eslint-disable-next-line no-console
   console.log('Download')
 }
 
 function handleShare() {
-  // eslint-disable-next-line no-console
   console.log('Share')
 }
 </script>

@@ -140,7 +140,6 @@ function handleSubmit(message: PromptInputMessage) {
 
   status.value = 'submitted'
 
-  // eslint-disable-next-line no-console
   console.log('Submitting message:', message)
 
   setTimeout(() => {

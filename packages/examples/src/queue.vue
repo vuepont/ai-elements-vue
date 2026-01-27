@@ -119,7 +119,6 @@ function handleRemoveTodo(id: string) {
 }
 
 function handleSendNow(id: string) {
-  // eslint-disable-next-line no-console
   console.log('Send now:', id)
   handleRemoveMessage(id)
 }

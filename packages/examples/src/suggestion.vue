@@ -13,7 +13,6 @@ const suggestions = [
 ]
 
 function handleSuggestionClick(suggestion: string) {
-  // eslint-disable-next-line no-console
   console.log('Selected suggestion:', suggestion)
 }
 </script>
