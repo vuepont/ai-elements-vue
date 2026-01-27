@@ -4,6 +4,9 @@ import type { TestResultsSummaryData } from './context'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 import { computed, provide, reactive } from 'vue'
 import { TestResultsContextKey } from './context'
+import TestResultsDuration from './TestResultsDuration.vue'
+import TestResultsHeader from './TestResultsHeader.vue'
+import TestResultsSummary from './TestResultsSummary.vue'
 
 interface Props extends /* @vue-ignore */ HTMLAttributes {
   summary?: TestResultsSummaryData
