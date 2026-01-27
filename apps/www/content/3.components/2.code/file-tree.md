@@ -1,12 +1,12 @@
 ---
 title: File Tree
-description: A hierarchical file system view component with expand/collapse and selection capabilities.
+description: Display hierarchical file and folder structure with expand/collapse functionality.
 icon: lucide:folder-tree
 ---
 
-The `FileTree` component provides a hierarchical view of files and folders with expand/collapse functionality and selection support.
+The `FileTree` component displays a hierarchical file system structure with expandable folders and file selection.
 
-:::ComponentLoader{label="Preview" componentName="FileTree"}
+:::ComponentLoader{label="Preview" componentName="FileTreeExample"}
 :::
 
 ## Install using CLI
