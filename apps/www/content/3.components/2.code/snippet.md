@@ -68,7 +68,6 @@ Copy and paste the following files into the same folder.
 
   type InputGroupAddonProps = InstanceType<typeof InputGroupAddon>['$props']
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-interface
   interface Props extends /* @vue-ignore */ InputGroupAddonProps {}
 
   const props = defineProps<Props>()
