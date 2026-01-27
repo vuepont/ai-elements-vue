@@ -1,0 +1,5 @@
+export { default as Snippet } from './Snippet.vue'
+export { default as SnippetAddon } from './SnippetAddon.vue'
+export { default as SnippetCopyButton } from './SnippetCopyButton.vue'
+export { default as SnippetInput } from './SnippetInput.vue'
+export { default as SnippetText } from './SnippetText.vue'
