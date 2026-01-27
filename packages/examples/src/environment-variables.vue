@@ -25,7 +25,6 @@ const variables = [
 ]
 
 function handleCopy() {
-  // eslint-disable-next-line no-console
   console.log('Copied!')
 }
 </script>
