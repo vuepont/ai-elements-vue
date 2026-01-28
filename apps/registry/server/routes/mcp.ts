@@ -8,7 +8,7 @@ import { z } from 'zod'
 
 const REGISTRY_STORAGE_BASE = 'assets:registry'
 
-const REGISTRY_INDEX_FILE = 'index.json'
+const REGISTRY_INDEX_FILE = 'registry.json'
 
 const SERVER_INFO = {
   name: 'ai-elements-vue',

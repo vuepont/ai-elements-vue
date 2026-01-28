@@ -46,15 +46,36 @@ export default eventHandler(async (event) => {
   const component = componentParam ?? fallbackFromPath
   const parsedComponent = component.replace('.json', '')
 
-  if (parsedComponent === 'registry' || parsedComponent === 'all') {
+  // Handle "all.json" - bundle all components into a single RegistryItem
+  if (parsedComponent === 'all') {
     try {
-      const index = await storage.getItem('index.json') as Registry | null
+      const allJson = await storage.getItem('all.json') as RegistryItem | null
+      if (allJson) {
+        return transformRegistryDependencies(allJson, registryUrl)
+      }
+    }
+    catch (error) {
+      console.error('Failed to load registry/all.json:', error)
+    }
+
+    // Fallback: return an error
+    const errorResponse: RegistryErrorResponse = {
+      error: 'all.json not found.',
+      suggestions: 'Please rebuild the registry assets.',
+    }
+    return errorResponse
+  }
+
+  // Handle "registry.json" - return the registry index
+  if (parsedComponent === 'registry') {
+    try {
+      const index = await storage.getItem('registry.json') as Registry | null
       if (index) {
         return index
       }
     }
     catch (error) {
-      console.error('Failed to load registry/index.json:', error)
+      console.error('Failed to load registry/registry.json:', error)
     }
 
     // Fallback: return a basic registry structure
