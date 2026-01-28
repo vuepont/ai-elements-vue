@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue'
-import { Shimmer } from '@repo/elements/shimmer'
 import { cn } from '@repo/shadcn-vue/lib/utils'
+import { Shimmer } from '../shimmer'
 import { useTerminalContext } from './context'
 
 interface Props extends /* @vue-ignore */ HTMLAttributes {

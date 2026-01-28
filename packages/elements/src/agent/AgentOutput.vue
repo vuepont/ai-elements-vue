@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue'
-import { CodeBlock } from '@repo/elements/code-block'
 import { cn } from '@repo/shadcn-vue/lib/utils'
+import { CodeBlock } from '../code-block'
 
 const props = defineProps<{
   schema: string
