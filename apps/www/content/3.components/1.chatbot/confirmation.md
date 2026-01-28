@@ -32,8 +32,8 @@ Copy and paste the following code in the same folder.
 :::code-group
 ```vue [Confirmation.vue] height=500 collapse
 <script setup lang="ts">
+import type { ToolUIPart } from 'ai'
 import type { HTMLAttributes } from 'vue'
-import type { ExtendedToolState } from '../types'
 import type { ToolUIPartApproval } from './context'
 import { Alert } from '@repo/shadcn-vue/components/ui/alert'
 import { cn } from '@repo/shadcn-vue/lib/utils'
@@ -42,7 +42,7 @@ import { ConfirmationKey } from './context'
 
 const props = defineProps<{
   approval?: ToolUIPartApproval
-  state: ExtendedToolState
+  state: ToolUIPart['state']
   class?: HTMLAttributes['class']
 }>()
 
@@ -179,8 +179,8 @@ import { Button } from '@repo/shadcn-vue/components/ui/button'
 ```
 
 ```ts [context.ts] height=500 collapse
+import type { ToolUIPart } from 'ai'
 import type { InjectionKey, Ref } from 'vue'
-import type { ExtendedToolState } from '../types'
 import { inject } from 'vue'
 
 export type ToolUIPartApproval
@@ -198,7 +198,7 @@ export type ToolUIPartApproval
 
 export interface ConfirmationContextValue {
   approval: Ref<ToolUIPartApproval>
-  state: Ref<ExtendedToolState>
+  state: Ref<ToolUIPart['state']>
 }
 
 export const ConfirmationKey: InjectionKey<ConfirmationContextValue>
