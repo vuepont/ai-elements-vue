@@ -14,7 +14,8 @@
     "nanoid": "^5.1.6",
     "shiki": "catalog:",
     "vue": "catalog:",
-    "vue-sonner": "catalog:"
+    "vue-sonner": "catalog:",
+    "zod": "catalog:"
   },
   "devDependencies": {
     "typescript": "catalog:"

@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { Tool } from 'ai'
 import type { HTMLAttributes } from 'vue'
-import { CodeBlock } from '@repo/elements/code-block'
 import {
   AccordionContent,
   AccordionItem,
@@ -9,6 +8,7 @@ import {
 } from '@repo/shadcn-vue/components/ui/accordion'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 import { computed } from 'vue'
+import { CodeBlock } from '../code-block'
 
 type AgentToolProps = InstanceType<typeof AccordionItem>['$props']
 

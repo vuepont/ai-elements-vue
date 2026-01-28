@@ -1,7 +1,7 @@
 import type { Dirent } from 'node:fs'
 import type { Registry, RegistryItem } from 'shadcn-vue/schema'
 import { promises as fs } from 'node:fs'
-import { basename, join, relative } from 'node:path'
+import { basename, dirname, join, relative } from 'node:path'
 import { parse as parseSFC } from '@vue/compiler-sfc'
 import { registryItemSchema } from 'shadcn-vue/schema'
 import { Project } from 'ts-morph'
@@ -103,43 +103,58 @@ function extractRegistrySlug(modulePath: string, basePath: string): string {
   return rest[0] || ''
 }
 
+// Registry base URL
+const REGISTRY_BASE_URL = 'https://registry.ai-elements-vue.com'
+
 function analyzeDependencies(
   imports: string[],
   allowedDeps: Set<string>,
   allowedDevDeps: Set<string>,
+  options?: { filePath: string, currentGroup: string },
 ): DependencyAnalysisResult {
   const dependencies = new Set<string>()
   const devDependencies = new Set<string>()
   const registryDependencies = new Set<string>()
+  const basePath = 'components/ai-elements/'
 
   for (const mod of imports) {
-    // Ignore relative imports
     if (mod.startsWith('./')) {
       continue
     }
 
-    // Handle regular dependencies
+    if (mod.startsWith('../') && options) {
+      const currentDir = dirname(options.filePath)
+      const resolved = join(currentDir, mod).split('\\').join('/')
+      if (resolved.startsWith(basePath)) {
+        const targetGroup = resolved.slice(basePath.length).split('/').filter(Boolean)[0]
+        if (targetGroup && targetGroup !== options.currentGroup) {
+          registryDependencies.add(`${REGISTRY_BASE_URL}/${targetGroup}.json`)
+        }
+      }
+      continue
+    }
+
     if (allowedDeps.has(mod)) {
       dependencies.add(mod)
     }
 
-    // Handle dev dependencies
     if (allowedDevDeps.has(mod)) {
       devDependencies.add(mod)
     }
 
-    // Handle shadcn-vue components
     if (mod.startsWith('@/components/ui/')) {
       const slug = extractRegistrySlug(mod, '@/components/ui/')
       if (slug)
         registryDependencies.add(slug)
     }
 
-    // Handle AI elements components
     if (mod.startsWith('@/components/ai-elements/')) {
       const slug = extractRegistrySlug(mod, '@/components/ai-elements/')
-      if (slug)
-        registryDependencies.add(slug)
+      if (slug) {
+        if (options && slug === options.currentGroup)
+          continue
+        registryDependencies.add(`${REGISTRY_BASE_URL}/${slug}.json`)
+      }
     }
   }
 
@@ -300,9 +315,10 @@ export async function generateRegistryAssets(ctx: { rootDir: string }) {
 
       if (code) {
         const imports = parseImportsFromCode(code)
-        const analysis = analyzeDependencies(imports, allowedDeps, allowedDevDeps)
-
-        // Merge results
+        const analysis = analyzeDependencies(imports, allowedDeps, allowedDevDeps, {
+          filePath: f.path,
+          currentGroup: group,
+        })
         analysis.dependencies.forEach(dep => groupDeps.add(dep))
         analysis.devDependencies.forEach(dep => groupDevDeps.add(dep))
         analysis.registryDependencies.forEach(dep => groupRegistryDeps.add(dep))
