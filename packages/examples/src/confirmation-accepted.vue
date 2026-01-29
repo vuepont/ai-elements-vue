@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { ExtendedToolState } from '@repo/elements/tool'
+import type { ToolUIPart } from 'ai'
 import {
   Confirmation,
   ConfirmationAccepted,
@@ -16,7 +16,7 @@ const approval = {
   approved: true,
 }
 
-const state: ExtendedToolState = 'approval-responded'
+const state: ToolUIPart['state'] = 'approval-responded'
 </script>
 
 <template>
