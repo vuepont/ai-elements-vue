@@ -3,6 +3,9 @@
 const { spawnSync } = require('node:child_process')
 const process = require('node:process')
 
+const ELEMENTS_REGISTRY_URL
+  = process.env.ELEMENTS_REGISTRY_URL ?? 'https://registry.ai-elements-vue.com'
+
 // Function to detect the command used to invoke this script
 function getCommandPrefix() {
   // Check for common package manager environment variables
@@ -39,7 +42,7 @@ const targetUrls = components
   .map(component =>
     new URL(
       `${component}.json`,
-      'https://registry.ai-elements-vue.com/',
+      ELEMENTS_REGISTRY_URL,
     ).toString(),
   )
   .join(' ')
