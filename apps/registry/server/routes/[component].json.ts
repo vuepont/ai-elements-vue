@@ -117,7 +117,7 @@ export default eventHandler(async (event) => {
   console.error(`Component "${parsedComponent}" not found in registry`)
   const errorResponse: RegistryErrorResponse = {
     error: `Component "${parsedComponent}" not found.`,
-    suggestions: 'Available endpoints: /registry.json, /all.json, or individual component names',
+    suggestions: 'Available endpoints: /all.json, or individual component names (e.g. /message.json)',
   }
   return errorResponse
 })

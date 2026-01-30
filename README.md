@@ -58,10 +58,13 @@ This command will:
 
 ### Install Specific Components
 
-Install individual components using the `add` command:
+Install individual or multiple components using the `add` command:
 
 ```bash
 npx ai-elements-vue@latest add <component-name>
+
+# Or install multiple at once:
+npx ai-elements-vue@latest add <name1> <name2> ...
 ```
 
 Examples:
@@ -73,8 +76,8 @@ npx ai-elements-vue@latest add message
 # Install the conversation component
 npx ai-elements-vue@latest add conversation
 
-# Install the code-block component
-npx ai-elements-vue@latest add code-block
+# Install multiple components in one command
+npx ai-elements-vue@latest add message conversation
 ```
 
 ### Alternative: Use with shadcn-vue CLI
