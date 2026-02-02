@@ -303,4 +303,5 @@ Default segment appearance:
 - The component uses `flex-wrap` for responsive text flow
 - Segments maintain inline layout with `gap-1` spacing
 - `text-sm` and `leading-relaxed` provide comfortable reading
+- Click events on segments still fire the `@click` handler if provided
 - The `seek` event is emitted when segments are clicked
