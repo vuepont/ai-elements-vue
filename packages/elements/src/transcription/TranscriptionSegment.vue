@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue'
-import type { TranscriptionSegment } from './types'
+import type { TranscriptionSegment } from './context'
 import { cn } from '@repo/shadcn-vue/lib/utils'
-import { computed, inject } from 'vue'
-import { TRANSCRIPTION_CONTEXT_KEY } from './types'
+import { computed } from 'vue'
+import { useTranscriptionContext } from './context'
 
 defineOptions({
   inheritAttrs: false,
@@ -17,28 +17,22 @@ interface Props {
   class?: HTMLAttributes['class']
 }
 
-const context = inject(TRANSCRIPTION_CONTEXT_KEY)
-
-if (!context) {
-  throw new Error(
-    'Transcription components must be used within Transcription',
-  )
-}
+const { currentTime, onSeek } = useTranscriptionContext()
 
 const isActive = computed(() => {
   return (
-    context.currentTime.value >= props.segment.startSecond
-    && context.currentTime.value < props.segment.endSecond
+    currentTime.value >= props.segment.startSecond
+    && currentTime.value < props.segment.endSecond
   )
 })
 
 const isPast = computed(() => {
-  return context.currentTime.value >= props.segment.endSecond
+  return currentTime.value >= props.segment.endSecond
 })
 
 function handleClick() {
-  if (context?.onSeek) {
-    context.onSeek(props.segment.startSecond)
+  if (onSeek) {
+    onSeek(props.segment.startSecond)
   }
 }
 </script>
@@ -51,8 +45,8 @@ function handleClick() {
         isActive && 'text-primary',
         isPast && 'text-muted-foreground',
         !(isActive || isPast) && 'text-muted-foreground/60',
-        context.onSeek && 'cursor-pointer hover:text-foreground',
-        !context.onSeek && 'cursor-default',
+        onSeek && 'cursor-pointer hover:text-foreground',
+        !onSeek && 'cursor-default',
         props.class,
       )
     "

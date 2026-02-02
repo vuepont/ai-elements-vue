@@ -4,7 +4,7 @@ import type { HTMLAttributes } from 'vue'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 import { useVModel } from '@vueuse/core'
 import { provide } from 'vue'
-import { TRANSCRIPTION_CONTEXT_KEY } from './types'
+import { TranscriptionKey } from './context'
 
 defineOptions({
   inheritAttrs: false,
@@ -34,7 +34,7 @@ function handleSeek(time: number) {
   emit('seek', time)
 }
 
-provide(TRANSCRIPTION_CONTEXT_KEY, {
+provide(TranscriptionKey, {
   segments: props.segments,
   currentTime,
   onSeek: handleSeek,
