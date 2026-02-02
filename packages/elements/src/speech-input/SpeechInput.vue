@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import type { ButtonVariants } from '@repo/shadcn-vue/components/ui/button'
 import type { HTMLAttributes } from 'vue'
-import { Loader } from '@repo/elements/loader'
 import { Button } from '@repo/shadcn-vue/components/ui/button'
+import { Spinner } from '@repo/shadcn-vue/components/ui/spinner'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 import { MicIcon, SquareIcon } from 'lucide-vue-next'
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
@@ -23,8 +22,6 @@ type SpeechInputProps = InstanceType<typeof Button>['$props']
 
 interface Props extends /* @vue-ignore */ SpeechInputProps {
   class?: HTMLAttributes['class']
-  variant?: ButtonVariants['variant']
-  size?: ButtonVariants['size']
   /**
    * Callback for when audio is recorded using MediaRecorder fallback.
    * This is called in browsers that don't support the Web Speech API (Firefox, Safari).
@@ -273,7 +270,7 @@ const isDisabled = computed(() => {
 </script>
 
 <template>
-  <div :class="cn('relative inline-flex items-center justify-center', $attrs.class as any)">
+  <div class="relative inline-flex items-center justify-center">
     <!-- Animated pulse rings -->
     <template v-if="isListening">
       <div
@@ -300,7 +297,7 @@ const isDisabled = computed(() => {
       :disabled="isDisabled"
       @click="toggleListening"
     >
-      <Loader v-if="isProcessing" />
+      <Spinner v-if="isProcessing" />
       <SquareIcon v-else-if="isListening" class="size-4" />
       <MicIcon v-else class="size-4" />
     </Button>
