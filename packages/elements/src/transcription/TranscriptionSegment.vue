@@ -5,10 +5,6 @@ import { cn } from '@repo/shadcn-vue/lib/utils'
 import { computed } from 'vue'
 import { useTranscriptionContext } from './context'
 
-defineOptions({
-  inheritAttrs: false,
-})
-
 const props = defineProps<Props>()
 
 interface Props {
@@ -54,7 +50,6 @@ function handleClick() {
     :data-index="index"
     data-slot="transcription-segment"
     type="button"
-    v-bind="$attrs"
     @click="handleClick"
   >
     {{ segment.text }}

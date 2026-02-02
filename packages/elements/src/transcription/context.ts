@@ -7,6 +7,7 @@ export type TranscriptionSegment = NonNullable<TranscriptionResult['segments']>[
 export interface TranscriptionContextValue {
   segments: TranscriptionSegment[]
   currentTime: Ref<number>
+  onTimeUpdate: (time: number) => void
   onSeek?: (time: number) => void
 }
 
