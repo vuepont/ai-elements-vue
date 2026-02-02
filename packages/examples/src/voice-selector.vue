@@ -9,6 +9,7 @@ import {
   VoiceSelectorDescription,
   VoiceSelectorEmpty,
   VoiceSelectorGender,
+  VoiceSelectorGroup,
   VoiceSelectorInput,
   VoiceSelectorItem,
   VoiceSelectorList,
@@ -172,29 +173,31 @@ const selectedVoiceData = computed(() => voices.find(voice => voice.id === selec
         <VoiceSelectorInput placeholder="Search voices..." />
         <VoiceSelectorList>
           <VoiceSelectorEmpty>No voices found.</VoiceSelectorEmpty>
-          <VoiceSelectorItem
-            v-for="voice in voices"
-            :key="voice.id"
-            :value="voice.id"
-            @select="handleSelect(voice.id)"
-          >
-            <VoiceSelectorPreview
-              :loading="loadingVoice === voice.id"
-              :playing="playingVoice === voice.id"
-              @play="handlePreview(voice.id)"
-            />
-            <VoiceSelectorName>{{ voice.name }}</VoiceSelectorName>
-            <VoiceSelectorDescription>
-              {{ voice.description }}
-            </VoiceSelectorDescription>
-            <VoiceSelectorAttributes>
-              <VoiceSelectorAccent :value="voice.accent" />
-              <VoiceSelectorBullet />
-              <VoiceSelectorAge>{{ voice.age }}</VoiceSelectorAge>
-              <VoiceSelectorBullet />
-              <VoiceSelectorGender :value="voice.gender" />
-            </VoiceSelectorAttributes>
-          </VoiceSelectorItem>
+          <VoiceSelectorGroup>
+            <VoiceSelectorItem
+              v-for="voice in voices"
+              :key="voice.id"
+              :value="voice.id"
+              @select="handleSelect(voice.id)"
+            >
+              <VoiceSelectorPreview
+                :loading="loadingVoice === voice.id"
+                :playing="playingVoice === voice.id"
+                @play="handlePreview(voice.id)"
+              />
+              <VoiceSelectorName>{{ voice.name }}</VoiceSelectorName>
+              <VoiceSelectorDescription>
+                {{ voice.description }}
+              </VoiceSelectorDescription>
+              <VoiceSelectorAttributes>
+                <VoiceSelectorAccent :value="voice.accent" />
+                <VoiceSelectorBullet />
+                <VoiceSelectorAge>{{ voice.age }}</VoiceSelectorAge>
+                <VoiceSelectorBullet />
+                <VoiceSelectorGender :value="voice.gender" />
+              </VoiceSelectorAttributes>
+            </VoiceSelectorItem>
+          </VoiceSelectorGroup>
         </VoiceSelectorList>
       </VoiceSelectorContent>
     </VoiceSelector>

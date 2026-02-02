@@ -3,7 +3,7 @@ import type { InjectionKey, Ref } from 'vue'
 export interface VoiceSelectorContextValue {
   value: Ref<string | undefined>
   setValue: (value: string | undefined) => void
-  open: Ref<boolean>
+  open: Ref<boolean | undefined>
   setOpen: (open: boolean) => void
 }
 
