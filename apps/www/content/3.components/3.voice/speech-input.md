@@ -29,8 +29,8 @@ The `SpeechInput` component provides an easy-to-use interface for capturing voic
 
 Copy and paste the following code in the same folder.
 
-::code-group
-```vue [SpeechInput.vue]
+:::code-group
+```vue [SpeechInput.vue] height=500 collapse
 <script setup lang="ts">
 import type { ButtonVariants } from '@repo/shadcn-vue/components/ui/button'
 import type { HTMLAttributes } from 'vue'
@@ -40,78 +40,11 @@ import { cn } from '@repo/shadcn-vue/lib/utils'
 import { MicIcon, SquareIcon } from 'lucide-vue-next'
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 
-interface SpeechRecognition extends EventTarget {
-  continuous: boolean
-  interimResults: boolean
-  lang: string
-  start: () => void
-  stop: () => void
-  onstart: ((this: SpeechRecognition, ev: Event) => void) | null
-  onend: ((this: SpeechRecognition, ev: Event) => void) | null
-  onresult:
-    | ((this: SpeechRecognition, ev: SpeechRecognitionEvent) => void)
-    | null
-  onerror:
-    | ((this: SpeechRecognition, ev: SpeechRecognitionErrorEvent) => void)
-    | null
-}
+defineOptions({
+  inheritAttrs: false,
+})
 
-interface SpeechRecognitionEvent extends Event {
-  results: SpeechRecognitionResultList
-  resultIndex: number
-}
-
-interface SpeechRecognitionResultList {
-  readonly length: number
-  item: (index: number) => SpeechRecognitionResult
-  [index: number]: SpeechRecognitionResult
-}
-
-interface SpeechRecognitionResult {
-  readonly length: number
-  item: (index: number) => SpeechRecognitionAlternative
-  [index: number]: SpeechRecognitionAlternative
-  isFinal: boolean
-}
-
-interface SpeechRecognitionAlternative {
-  transcript: string
-  confidence: number
-}
-
-interface SpeechRecognitionErrorEvent extends Event {
-  error: string
-}
-
-declare global {
-  interface Window {
-    SpeechRecognition: {
-      new (): SpeechRecognition
-    }
-    webkitSpeechRecognition: {
-      new (): SpeechRecognition
-    }
-  }
-}
-
-type SpeechInputMode = 'speech-recognition' | 'media-recorder' | 'none'
-
-export interface SpeechInputProps {
-  class?: HTMLAttributes['class']
-  variant?: ButtonVariants['variant']
-  size?: ButtonVariants['size']
-  onTranscriptionChange?: (text: string) => void
-  /**
-   * Callback for when audio is recorded using MediaRecorder fallback.
-   * This is called in browsers that don't support the Web Speech API (Firefox, Safari).
-   * The callback receives an audio Blob that should be sent to a transcription service.
-   * Return the transcribed text, which will be passed to onTranscriptionChange.
-   */
-  onAudioRecorded?: (audioBlob: Blob) => Promise<string>
-  lang?: string
-}
-
-const props = withDefaults(defineProps<SpeechInputProps>(), {
+const props = withDefaults(defineProps<Props>(), {
   lang: 'en-US',
 })
 
@@ -119,10 +52,74 @@ const emit = defineEmits<{
   (e: 'transcriptionChange', text: string): void
 }>()
 
+type SpeechInputProps = InstanceType<typeof Button>['$props']
+
+interface Props extends /* @vue-ignore */ SpeechInputProps {
+  class?: HTMLAttributes['class']
+  variant?: ButtonVariants['variant']
+  size?: ButtonVariants['size']
+  /**
+   * Callback for when audio is recorded using MediaRecorder fallback.
+   * This is called in browsers that don't support the Web Speech API (Firefox, Safari).
+   * The callback receives an audio Blob that should be sent to a transcription service.
+   * Return the transcribed text, which will be emitted via transcriptionChange.
+   */
+  onAudioRecorded?: (audioBlob: Blob) => Promise<string>
+  lang?: string
+}
+
+interface SpeechRecognitionInstance extends EventTarget {
+  continuous: boolean
+  interimResults: boolean
+  lang: string
+  start: () => void
+  stop: () => void
+  onstart: ((this: SpeechRecognitionInstance, ev: Event) => void) | null
+  onend: ((this: SpeechRecognitionInstance, ev: Event) => void) | null
+  onresult:
+    | ((this: SpeechRecognitionInstance, ev: SpeechRecognitionEventCustom) => void)
+    | null
+  onerror:
+    | ((this: SpeechRecognitionInstance, ev: SpeechRecognitionErrorEventCustom) => void)
+    | null
+}
+
+interface SpeechRecognitionEventCustom extends Event {
+  results: SpeechRecognitionResultListCustom
+  resultIndex: number
+}
+
+interface SpeechRecognitionResultListCustom {
+  readonly length: number
+  item: (index: number) => SpeechRecognitionResultCustom
+  [index: number]: SpeechRecognitionResultCustom
+}
+
+interface SpeechRecognitionResultCustom {
+  readonly length: number
+  item: (index: number) => SpeechRecognitionAlternativeCustom
+  [index: number]: SpeechRecognitionAlternativeCustom
+  isFinal: boolean
+}
+
+interface SpeechRecognitionAlternativeCustom {
+  transcript: string
+  confidence: number
+}
+
+interface SpeechRecognitionErrorEventCustom extends Event {
+  error: string
+}
+
+// Type alias for the SpeechRecognition constructor
+type SpeechRecognitionConstructor = new () => SpeechRecognitionInstance
+
+type SpeechInputMode = 'speech-recognition' | 'media-recorder' | 'none'
+
 const isListening = ref(false)
 const isProcessing = ref(false)
 const mode = ref<SpeechInputMode>('none')
-const recognition = ref<SpeechRecognition | null>(null)
+const recognition = ref<SpeechRecognitionInstance | null>(null)
 
 const mediaRecorderRef = ref<MediaRecorder | null>(null)
 const audioChunksRef = ref<Blob[]>([])
@@ -163,8 +160,8 @@ watch([mode, () => props.lang], ([newMode, newLang], [oldMode, oldLang]) => {
     return
   }
 
-  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
-  const speechRecognition = new SpeechRecognition()
+  const SpeechRecognitionCtor = (window.SpeechRecognition || window.webkitSpeechRecognition) as SpeechRecognitionConstructor
+  const speechRecognition = new SpeechRecognitionCtor()
 
   speechRecognition.continuous = true
   speechRecognition.interimResults = true
@@ -189,7 +186,6 @@ watch([mode, () => props.lang], ([newMode, newLang], [oldMode, oldLang]) => {
     }
 
     if (finalTranscript) {
-      props.onTranscriptionChange?.(finalTranscript)
       emit('transcriptionChange', finalTranscript)
     }
   }
@@ -243,7 +239,6 @@ async function startMediaRecorder() {
         try {
           const transcript = await props.onAudioRecorded!(audioBlob)
           if (transcript) {
-            props.onTranscriptionChange?.(transcript)
             emit('transcriptionChange', transcript)
           }
         }
@@ -310,12 +305,6 @@ const isDisabled = computed(() => {
 })
 </script>
 
-<script lang="ts">
-export default {
-  inheritAttrs: false,
-}
-</script>
-
 <template>
   <div :class="cn('relative inline-flex items-center justify-center', $attrs.class as any)">
     <!-- Animated pulse rings -->
@@ -355,7 +344,7 @@ export default {
 ```ts [index.ts]
 export { default as SpeechInput } from './SpeechInput.vue'
 ```
-::
+:::
 
 ## Features
 
@@ -376,17 +365,25 @@ export { default as SpeechInput } from './SpeechInput.vue'
 
 The component extends the shadcn-vue Button component, so all Button props are available.
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `onTranscriptionChange` | `(text: string) => void` | - | Callback fired when final transcription text is available. |
-| `onAudioRecorded` | `(audioBlob: Blob) => Promise<string>` | - | Callback for MediaRecorder fallback. Required for Firefox/Safari support. |
-| `lang` | `string` | `"en-US"` | Language for speech recognition. |
+:::field-group
+  ::field{name="onAudioRecorded" type="(audioBlob: Blob) => Promise<string>"}
+  Callback for MediaRecorder fallback. Required for Firefox/Safari support. Receives recorded audio blob and should return transcribed text from an external service (e.g., OpenAI Whisper).
+  ::
+  ::field{name="lang" type="string" default='"en-US"'}
+  Language for speech recognition.
+  ::
+  ::field{name="...props" type="ButtonProps"}
+  Any other props are spread to the Button component, including variant, size, disabled, etc.
+  ::
+:::
 
-## Events
+## Emits
 
-| Event | Payload | Description |
-|-------|---------|-------------|
-| `transcriptionChange` | `string` | Fired when final transcription text is available. |
+:::field-group
+  ::field{name="transcriptionChange" type="string"}
+  Fired when final transcription text is available. Only fires for completed phrases, not interim results.
+  ::
+:::
 
 ## Behavior
 
@@ -416,9 +413,47 @@ When the Web Speech API is unavailable, the component falls back to recording au
 2. On stop, creates an audio blob (`audio/webm`)
 3. Calls `onAudioRecorded` with the blob
 4. Waits for transcription result
-5. Passes result to `onTranscriptionChange` and emits `transcriptionChange`
+5. Emits `transcriptionChange` with the result
 
 **Note**: The `onAudioRecorded` prop is required for this mode to work. Without it, the button will be disabled in Firefox/Safari.
+
+### Transcription Processing
+
+The component only emits `transcriptionChange` with **final transcripts**. Interim results (Web Speech API) are ignored to prevent incomplete text from being processed.
+
+### Visual States
+
+- **Default State**: Standard button appearance with microphone icon
+- **Listening State**: Pulsing animation with accent colors to indicate active listening
+- **Processing State**: Loading spinner while waiting for transcription (MediaRecorder mode)
+- **Disabled State**: Button is disabled when no API is available or required props are missing
+
+### Lifecycle
+
+1. **Mount**: Detects available APIs and initializes appropriate mode
+2. **Click**: Toggles between listening/recording and stopped states
+3. **Stop (MediaRecorder)**: Processes audio and waits for transcription
+4. **Unmount**: Stops recognition/recording and releases microphone
+
+## Browser Support
+
+The component provides cross-browser support through a two-tier system:
+
+| Browser | API Used | Requirements |
+|---------|----------|--------------|
+| Chrome | Web Speech API | None |
+| Edge | Web Speech API | None |
+| Firefox | MediaRecorder | `onAudioRecorded` prop |
+| Safari | MediaRecorder | `onAudioRecorded` prop |
+
+For full cross-browser support, provide the `onAudioRecorded` callback that sends audio to a transcription service like OpenAI Whisper, Google Cloud Speech-to-Text, or AssemblyAI.
+
+## Accessibility
+
+- Uses semantic button element via shadcn-vue Button
+- Visual feedback for listening state
+- Keyboard accessible (can be triggered with Space/Enter)
+- Screen reader friendly with proper button semantics
 
 ## Usage with MediaRecorder Fallback
 
@@ -438,7 +473,7 @@ async function handleAudioRecorded(audioBlob: Blob): Promise<string> {
     {
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+        Authorization: `Bearer ${import.meta.env.VITE_OPENAI_API_KEY}`,
       },
       body: formData,
     }
@@ -457,15 +492,25 @@ async function handleAudioRecorded(audioBlob: Blob): Promise<string> {
 </template>
 ```
 
-## Browser Support
+## Notes
 
-The component provides cross-browser support through a two-tier system:
+- Requires a secure context (HTTPS or localhost)
+- Browser may prompt user for microphone permission
+- Only final transcripts trigger the `transcriptionChange` emit
+- Language is configurable via the `lang` prop
+- Continuous recognition continues until button is clicked again
+- Errors are logged to console and automatically stop recognition/recording
+- MediaRecorder fallback requires the `onAudioRecorded` prop to be provided
+- Audio is recorded in `audio/webm` format for the MediaRecorder fallback
 
-| Browser | API Used | Requirements |
-|---------|----------|--------------|
-| Chrome | Web Speech API | None |
-| Edge | Web Speech API | None |
-| Firefox | MediaRecorder | `onAudioRecorded` prop |
-| Safari | MediaRecorder | `onAudioRecorded` prop |
+## TypeScript
 
-For full cross-browser support, provide the `onAudioRecorded` callback that sends audio to a transcription service like OpenAI Whisper, Google Cloud Speech-to-Text, or AssemblyAI.
+The component includes full TypeScript definitions for the Web Speech API:
+
+- `SpeechRecognitionInstance`
+- `SpeechRecognitionEventCustom`
+- `SpeechRecognitionResultCustom`
+- `SpeechRecognitionAlternativeCustom`
+- `SpeechRecognitionErrorEventCustom`
+
+These types are properly declared with custom suffixes to avoid conflicts with built-in DOM types.

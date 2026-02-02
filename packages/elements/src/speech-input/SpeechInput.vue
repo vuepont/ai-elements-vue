@@ -25,12 +25,11 @@ interface Props extends /* @vue-ignore */ SpeechInputProps {
   class?: HTMLAttributes['class']
   variant?: ButtonVariants['variant']
   size?: ButtonVariants['size']
-  onTranscriptionChange?: (text: string) => void
   /**
    * Callback for when audio is recorded using MediaRecorder fallback.
    * This is called in browsers that don't support the Web Speech API (Firefox, Safari).
    * The callback receives an audio Blob that should be sent to a transcription service.
-   * Return the transcribed text, which will be passed to onTranscriptionChange.
+   * Return the transcribed text, which will be emitted via transcriptionChange.
    */
   onAudioRecorded?: (audioBlob: Blob) => Promise<string>
   lang?: string
@@ -154,7 +153,6 @@ watch([mode, () => props.lang], ([newMode, newLang], [oldMode, oldLang]) => {
     }
 
     if (finalTranscript) {
-      props.onTranscriptionChange?.(finalTranscript)
       emit('transcriptionChange', finalTranscript)
     }
   }
@@ -208,7 +206,6 @@ async function startMediaRecorder() {
         try {
           const transcript = await props.onAudioRecorded!(audioBlob)
           if (transcript) {
-            props.onTranscriptionChange?.(transcript)
             emit('transcriptionChange', transcript)
           }
         }
