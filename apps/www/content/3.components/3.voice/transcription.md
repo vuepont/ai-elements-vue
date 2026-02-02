@@ -32,16 +32,12 @@ Copy and paste the following code into your project.
 :::code-group
 ```vue [Transcription.vue] height=500 collapse
 <script setup lang="ts">
-import type { Experimental_TranscriptionResult as TranscriptionResult } from 'ai'
 import type { HTMLAttributes } from 'vue'
+import type { TranscriptionSegment } from './context'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 import { useVModel } from '@vueuse/core'
 import { provide } from 'vue'
-import { TRANSCRIPTION_CONTEXT_KEY } from './types'
-
-defineOptions({
-  inheritAttrs: false,
-})
+import { TranscriptionKey } from './context'
 
 const props = withDefaults(defineProps<Props>(), {
   currentTime: 0,
@@ -52,8 +48,6 @@ const emit = defineEmits<{
   (e: 'seek', time: number): void
 }>()
 
-export type TranscriptionSegment = NonNullable<TranscriptionResult['segments']>[number]
-
 interface Props {
   segments: TranscriptionSegment[]
   currentTime?: number
@@ -62,14 +56,19 @@ interface Props {
 
 const currentTime = useVModel(props, 'currentTime', emit)
 
+function handleTimeUpdate(time: number) {
+  currentTime.value = time
+}
+
 function handleSeek(time: number) {
   currentTime.value = time
   emit('seek', time)
 }
 
-provide(TRANSCRIPTION_CONTEXT_KEY, {
+provide(TranscriptionKey, {
   segments: props.segments,
   currentTime,
+  onTimeUpdate: handleTimeUpdate,
   onSeek: handleSeek,
 })
 </script>
@@ -78,7 +77,6 @@ provide(TRANSCRIPTION_CONTEXT_KEY, {
   <div
     :class="cn('flex flex-wrap gap-1 text-sm leading-relaxed', props.class)"
     data-slot="transcription"
-    v-bind="$attrs"
   >
     <template v-for="(segment, index) in segments" :key="`${segment.startSecond}-${segment.endSecond}`">
       <slot v-if="segment.text.trim()" :segment="segment" :index="index" />
@@ -90,14 +88,10 @@ provide(TRANSCRIPTION_CONTEXT_KEY, {
 ```vue [TranscriptionSegment.vue] height=500 collapse
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue'
-import type { TranscriptionSegment } from './types'
+import type { TranscriptionSegment } from './context'
 import { cn } from '@repo/shadcn-vue/lib/utils'
-import { computed, inject } from 'vue'
-import { TRANSCRIPTION_CONTEXT_KEY } from './types'
-
-defineOptions({
-  inheritAttrs: false,
-})
+import { computed } from 'vue'
+import { useTranscriptionContext } from './context'
 
 const props = defineProps<Props>()
 
@@ -107,28 +101,22 @@ interface Props {
   class?: HTMLAttributes['class']
 }
 
-const context = inject(TRANSCRIPTION_CONTEXT_KEY)
-
-if (!context) {
-  throw new Error(
-    'Transcription components must be used within Transcription',
-  )
-}
+const { currentTime, onSeek } = useTranscriptionContext()
 
 const isActive = computed(() => {
   return (
-    context.currentTime.value >= props.segment.startSecond
-    && context.currentTime.value < props.segment.endSecond
+    currentTime.value >= props.segment.startSecond
+    && currentTime.value < props.segment.endSecond
   )
 })
 
 const isPast = computed(() => {
-  return context.currentTime.value >= props.segment.endSecond
+  return currentTime.value >= props.segment.endSecond
 })
 
 function handleClick() {
-  if (context?.onSeek) {
-    context.onSeek(props.segment.startSecond)
+  if (onSeek) {
+    onSeek(props.segment.startSecond)
   }
 }
 </script>
@@ -141,8 +129,8 @@ function handleClick() {
         isActive && 'text-primary',
         isPast && 'text-muted-foreground',
         !(isActive || isPast) && 'text-muted-foreground/60',
-        context.onSeek && 'cursor-pointer hover:text-foreground',
-        !context.onSeek && 'cursor-default',
+        onSeek && 'cursor-pointer hover:text-foreground',
+        !onSeek && 'cursor-default',
         props.class,
       )
     "
@@ -150,7 +138,6 @@ function handleClick() {
     :data-index="index"
     data-slot="transcription-segment"
     type="button"
-    v-bind="$attrs"
     @click="handleClick"
   >
     {{ segment.text }}
@@ -158,25 +145,35 @@ function handleClick() {
 </template>
 ```
 
-```ts [types.ts]
+```ts [context.ts]
 import type { Experimental_TranscriptionResult as TranscriptionResult } from 'ai'
 import type { InjectionKey, Ref } from 'vue'
+import { inject } from 'vue'
 
 export type TranscriptionSegment = NonNullable<TranscriptionResult['segments']>[number]
 
 export interface TranscriptionContextValue {
   segments: TranscriptionSegment[]
   currentTime: Ref<number>
+  onTimeUpdate: (time: number) => void
   onSeek?: (time: number) => void
 }
 
-export const TRANSCRIPTION_CONTEXT_KEY = Symbol('TRANSCRIPTION_CONTEXT_KEY') as InjectionKey<TranscriptionContextValue>
+export const TranscriptionKey: InjectionKey<TranscriptionContextValue> = Symbol('Transcription')
+
+export function useTranscriptionContext(): TranscriptionContextValue {
+  const context = inject(TranscriptionKey)
+  if (!context) {
+    throw new Error('useTranscriptionContext must be used within Transcription')
+  }
+  return context
+}
 ```
 
 ```ts [index.ts]
+export * from './context'
 export { default as Transcription } from './Transcription.vue'
 export { default as TranscriptionSegment } from './TranscriptionSegment.vue'
-export * from './types'
 ```
 :::
 
