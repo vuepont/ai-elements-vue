@@ -184,6 +184,8 @@ watch([mode, () => props.lang], ([newMode, newLang], [oldMode, oldLang]) => {
 
     if (finalTranscript) {
       emit('transcriptionChange', finalTranscript)
+      // Stop recognition after receiving final transcript to return to default state
+      recognition.value?.stop()
     }
   }
 
