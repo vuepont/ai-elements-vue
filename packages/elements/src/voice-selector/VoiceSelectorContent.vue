@@ -7,7 +7,9 @@ import {
 } from '@repo/shadcn-vue/components/ui/dialog'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 
-interface Props {
+type VoiceSelectorContentProps = InstanceType<typeof DialogContent>['$props']
+
+interface Props extends /* @vue-ignore */ VoiceSelectorContentProps {
   class?: HTMLAttributes['class']
   title?: string
 }
@@ -20,7 +22,6 @@ const props = withDefaults(defineProps<Props>(), {
 <template>
   <DialogContent
     :class="cn('p-0', props.class)"
-    v-bind="$attrs"
   >
     <DialogTitle class="sr-only">
       {{ title }}

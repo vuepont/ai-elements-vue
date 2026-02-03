@@ -2,18 +2,17 @@
 import type { HTMLAttributes } from 'vue'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 
-interface Props {
+interface Props extends /* @vue-ignore */ HTMLAttributes {
   class?: HTMLAttributes['class']
 }
 
-defineProps<Props>()
+const props = defineProps<Props>()
 </script>
 
 <template>
   <span
     aria-hidden="true"
-    :class="cn('select-none text-border', $props.class)"
-    v-bind="$attrs"
+    :class="cn('select-none text-border', props.class)"
   >
     &bull;
   </span>

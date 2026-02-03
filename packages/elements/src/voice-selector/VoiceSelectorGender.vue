@@ -2,7 +2,7 @@
 import type { HTMLAttributes } from 'vue'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 import {
-  CircleIcon,
+  CircleSmallIcon,
   MarsIcon,
   MarsStrokeIcon,
   NonBinaryIcon,
@@ -11,7 +11,7 @@ import {
   VenusIcon,
 } from 'lucide-vue-next'
 
-interface Props {
+interface Props extends /* @vue-ignore */ HTMLAttributes {
   class?: HTMLAttributes['class']
   value?:
     | 'male'
@@ -22,23 +22,21 @@ interface Props {
     | 'intersex'
 }
 
-defineProps<Props>()
+const props = defineProps<Props>()
 </script>
 
 <template>
   <span
-    :class="cn('text-muted-foreground text-xs', $props.class)"
-    v-bind="$attrs"
+    :class="cn('text-muted-foreground text-xs', props.class)"
   >
     <slot>
-      <MarsIcon v-if="value === 'male'" class="size-4" />
-      <VenusIcon v-else-if="value === 'female'" class="size-4" />
-      <TransgenderIcon v-else-if="value === 'transgender'" class="size-4" />
-      <MarsStrokeIcon v-else-if="value === 'androgyne'" class="size-4" />
-      <NonBinaryIcon v-else-if="value === 'non-binary'" class="size-4" />
-      <VenusAndMarsIcon v-else-if="value === 'intersex'" class="size-4" />
-      <!-- Use CircleIcon as a fallback for CircleSmallIcon if it doesn't exist -->
-      <CircleIcon v-else class="size-1" fill="currentColor" />
+      <MarsIcon v-if="props.value === 'male'" class="size-4" />
+      <VenusIcon v-else-if="props.value === 'female'" class="size-4" />
+      <TransgenderIcon v-else-if="props.value === 'transgender'" class="size-4" />
+      <MarsStrokeIcon v-else-if="props.value === 'androgyne'" class="size-4" />
+      <NonBinaryIcon v-else-if="props.value === 'non-binary'" class="size-4" />
+      <VenusAndMarsIcon v-else-if="props.value === 'intersex'" class="size-4" />
+      <CircleSmallIcon v-else class="size-1" fill="currentColor" />
     </slot>
   </span>
 </template>

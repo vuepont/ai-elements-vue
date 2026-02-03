@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import { DialogTrigger } from '@repo/shadcn-vue/components/ui/dialog'
 
-interface Props {
-  asChild?: boolean
-}
+type VoiceSelectorTriggerProps = InstanceType<typeof DialogTrigger>['$props']
+
+interface Props extends /* @vue-ignore */ VoiceSelectorTriggerProps {}
 
 defineProps<Props>()
 </script>
 
 <template>
-  <DialogTrigger :as-child="asChild">
+  <DialogTrigger>
     <slot />
   </DialogTrigger>
 </template>

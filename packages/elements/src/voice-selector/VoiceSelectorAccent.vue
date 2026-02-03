@@ -3,9 +3,42 @@ import type { HTMLAttributes } from 'vue'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 import { computed } from 'vue'
 
-interface Props {
+type Accent
+  = | 'american'
+    | 'british'
+    | 'australian'
+    | 'canadian'
+    | 'irish'
+    | 'scottish'
+    | 'indian'
+    | 'south-african'
+    | 'new-zealand'
+    | 'spanish'
+    | 'french'
+    | 'german'
+    | 'italian'
+    | 'portuguese'
+    | 'brazilian'
+    | 'mexican'
+    | 'argentinian'
+    | 'japanese'
+    | 'chinese'
+    | 'korean'
+    | 'russian'
+    | 'arabic'
+    | 'dutch'
+    | 'swedish'
+    | 'norwegian'
+    | 'danish'
+    | 'finnish'
+    | 'polish'
+    | 'turkish'
+    | 'greek'
+    | (string & {})
+
+interface Props extends /* @vue-ignore */ HTMLAttributes {
   class?: HTMLAttributes['class']
-  value?: string
+  value?: Accent
 }
 
 const props = defineProps<Props>()
@@ -81,7 +114,6 @@ const emoji = computed(() => {
 <template>
   <span
     :class="cn('text-muted-foreground text-xs', props.class)"
-    v-bind="$attrs"
   >
     <slot>
       {{ emoji }}

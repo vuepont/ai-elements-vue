@@ -2,34 +2,22 @@
 import type { HTMLAttributes } from 'vue'
 import { CommandItem } from '@repo/shadcn-vue/components/ui/command'
 import { cn } from '@repo/shadcn-vue/lib/utils'
-import { inject } from 'vue'
-import { VOICE_SELECTOR_CONTEXT_KEY } from './types'
 
-interface Props {
+type VoiceSelectorItemProps = InstanceType<typeof CommandItem>['$props']
+
+interface Props extends /* @vue-ignore */ VoiceSelectorItemProps {
   class?: HTMLAttributes['class']
-  value: string
 }
 
 const props = defineProps<Props>()
 
-const emit = defineEmits<{
-  (e: 'select', value: string): void
-}>()
-
-const context = inject(VOICE_SELECTOR_CONTEXT_KEY)
-
-function handleSelect() {
-  context?.setValue(props.value)
-  emit('select', props.value)
-}
+const { class: _, ...rest } = props
 </script>
 
 <template>
   <CommandItem
     :class="cn('px-4 py-2', props.class)"
-    :value="value"
-    v-bind="$attrs"
-    @select="handleSelect"
+    v-bind="rest"
   >
     <slot />
   </CommandItem>

@@ -1,18 +1,15 @@
 <script setup lang="ts">
 import { CommandGroup } from '@repo/shadcn-vue/components/ui/command'
 
-interface Props {
-  heading?: string
-}
+type VoiceSelectorGroupProps = InstanceType<typeof CommandGroup>['$props']
+
+interface Props extends /* @vue-ignore */ VoiceSelectorGroupProps {}
 
 defineProps<Props>()
 </script>
 
 <template>
-  <CommandGroup
-    :heading="heading"
-    v-bind="$attrs"
-  >
+  <CommandGroup>
     <slot />
   </CommandGroup>
 </template>

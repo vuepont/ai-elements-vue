@@ -1,7 +1,7 @@
 ---
 title: Voice Selector
 description: A composable dialog component for selecting AI voices with metadata display and search functionality.
-icon: lucide:user-round
+icon: lucide:file-volume
 ---
 
 The `VoiceSelector` component provides a flexible and composable interface for selecting AI voices. Built on shadcn-vue's Dialog and Command components, it features a searchable voice list with support for metadata display (gender, accent, age), grouping, and customizable layouts. The component includes a context provider for accessing voice selection state from any nested component.
@@ -797,21 +797,3 @@ const { value, setValue, open, setOpen } = useVoiceSelector()
   Function to control the dialog open state.
   ::
 :::
-
-## Behavior
-
-### Scoped Slots Pattern
-
-The component uses scoped slots and provide/inject pattern to share state between components while maintaining a clean, declarative template.
-
-### Segment Highlighting
-
-Voices are automatically styled based on their selection state. Interactive items provide visual feedback on hover and focus.
-
-### Click-to-Seek
-
-When a voice is selected, the `valueChange` event is emitted and the dialog automatically closes if handled by the user.
-
-## Browser Support
-
-The component uses standard web APIs and is supported by all modern browsers.

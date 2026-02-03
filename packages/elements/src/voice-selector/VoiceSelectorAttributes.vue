@@ -2,17 +2,16 @@
 import type { HTMLAttributes } from 'vue'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 
-interface Props {
+interface Props extends /* @vue-ignore */ HTMLAttributes {
   class?: HTMLAttributes['class']
 }
 
-defineProps<Props>()
+const props = defineProps<Props>()
 </script>
 
 <template>
   <div
-    :class="cn('flex items-center text-xs', $props.class)"
-    v-bind="$attrs"
+    :class="cn('flex items-center text-xs', props.class)"
   >
     <slot />
   </div>

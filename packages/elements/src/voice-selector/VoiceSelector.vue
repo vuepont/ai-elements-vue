@@ -4,18 +4,18 @@ import { useVModel } from '@vueuse/core'
 import { provide } from 'vue'
 import { VOICE_SELECTOR_CONTEXT_KEY } from './types'
 
-interface Props {
+type VoiceSelectorProps = InstanceType<typeof Dialog>['$props']
+
+interface Props extends /* @vue-ignore */ VoiceSelectorProps {
   value?: string
   defaultValue?: string
   open?: boolean
   defaultOpen?: boolean
-  modal?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
   open: undefined,
   defaultOpen: false,
-  modal: true,
 })
 
 const emit = defineEmits<{
@@ -56,7 +56,6 @@ provide(VOICE_SELECTOR_CONTEXT_KEY, {
 <template>
   <Dialog
     :open="open"
-    :modal="modal"
     @update:open="setOpen"
   >
     <slot />

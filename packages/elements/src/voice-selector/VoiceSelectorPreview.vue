@@ -31,7 +31,6 @@ function handleClick(event: MouseEvent) {
     size="icon-sm"
     type="button"
     variant="outline"
-    v-bind="$attrs"
     @click="handleClick"
   >
     <Spinner v-if="loading" class="size-3" />
