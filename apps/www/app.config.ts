@@ -44,7 +44,7 @@ export default defineAppConfig({
         title: 'Credits',
         links: [{
           title: 'AI Elements',
-          to: 'https://ai-sdk.dev/elements/overview',
+          to: 'https://elements.ai-sdk.dev',
           description: 'AI Elements is a component library and custom registry built on top of shadcn/ui to help you build AI-native applications faster',
           target: '_blank',
         }, {

@@ -1,5 +1,6 @@
 export * from './agent'
 export * from './artifact'
+export * from './attachments'
 export * from './chain-of-thought'
 export * from './checkpoint'
 export * from './code-block'

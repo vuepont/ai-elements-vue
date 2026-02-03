@@ -1,5 +1,8 @@
 export { default as Agent } from './agent.vue'
 export { default as Artifact } from './artifact.vue'
+export { default as AttachmentsInline } from './attachments-inline.vue'
+export { default as AttachmentsList } from './attachments-list.vue'
+export { default as Attachments } from './attachments.vue'
 export { default as ChainOfThought } from './chain-of-thought.vue'
 export { default as Chatbot } from './chatbot.vue'
 export { default as Checkpoint } from './checkpoint.vue'
