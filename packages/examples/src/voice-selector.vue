@@ -24,8 +24,8 @@ interface Voice {
   id: string
   name: string
   description: string
-  gender: 'male' | 'female' | 'transgender' | 'androgyne' | 'non-binary' | 'intersex'
-  accent: string
+  gender: InstanceType<typeof VoiceSelectorGender>['value']
+  accent: InstanceType<typeof VoiceSelectorAccent>['value']
   age: string
   previewUrl: string
 }
@@ -156,19 +156,18 @@ const selectedVoiceData = computed(() => voices.find(voice => voice.id === selec
         <Button class="w-full max-w-xs" variant="outline">
           <template v-if="selectedVoiceData">
             <VoiceSelectorName>{{ selectedVoiceData.name }}</VoiceSelectorName>
-            <VoiceSelectorAttributes>
-              <VoiceSelectorAccent :value="selectedVoiceData.accent" />
-              <VoiceSelectorBullet />
-              <VoiceSelectorAge>{{ selectedVoiceData.age }}</VoiceSelectorAge>
-              <VoiceSelectorBullet />
-              <VoiceSelectorGender :value="selectedVoiceData.gender" />
-            </VoiceSelectorAttributes>
+            <VoiceSelectorAccent :value="selectedVoiceData.accent" />
+            <VoiceSelectorBullet />
+            <VoiceSelectorAge>{{ selectedVoiceData.age }}</VoiceSelectorAge>
+            <VoiceSelectorBullet />
+            <VoiceSelectorGender :value="selectedVoiceData.gender" />
           </template>
           <span v-else class="flex-1 text-left text-sm">
             Select a voice...
           </span>
         </Button>
       </VoiceSelectorTrigger>
+
       <VoiceSelectorContent class="max-w-md">
         <VoiceSelectorInput placeholder="Search voices..." />
         <VoiceSelectorList>

@@ -263,7 +263,7 @@ const { class: _, ...rest } = props
 
 <template>
   <CommandItem
-    :class="cn('px-4 py-2', props.class)"
+    :class="cn('hover:bg-accent hover:text-accent-foreground px-4 py-2', props.class)"
     v-bind="rest"
   >
     <slot />
