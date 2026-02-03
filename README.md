@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="./media/cover.png" >
+  <img src="./apps/www/public/cover.png" >
 </div>
 
 <br />

@@ -48,6 +48,13 @@ export default defineNuxtConfig({
     ],
   },
 
+  ogImage: {
+    fonts: [
+      'Geist:400',
+      'Geist:700',
+    ],
+  },
+
   build: {
     transpile: ['@repo/examples'],
   },
