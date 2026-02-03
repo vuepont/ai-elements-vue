@@ -1,5 +1,4 @@
-export * from './types'
-export { useVoiceSelector } from './useVoiceSelector'
+export * from './context'
 export { default as VoiceSelector } from './VoiceSelector.vue'
 export { default as VoiceSelectorAccent } from './VoiceSelectorAccent.vue'
 export { default as VoiceSelectorAge } from './VoiceSelectorAge.vue'
@@ -17,6 +16,5 @@ export { default as VoiceSelectorList } from './VoiceSelectorList.vue'
 export { default as VoiceSelectorName } from './VoiceSelectorName.vue'
 export { default as VoiceSelectorPreview } from './VoiceSelectorPreview.vue'
 export { default as VoiceSelectorSeparator } from './VoiceSelectorSeparator.vue'
-
 export { default as VoiceSelectorShortcut } from './VoiceSelectorShortcut.vue'
 export { default as VoiceSelectorTrigger } from './VoiceSelectorTrigger.vue'

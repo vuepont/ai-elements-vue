@@ -35,7 +35,7 @@ Copy and paste the following code into your project.
 import { Dialog } from '@repo/shadcn-vue/components/ui/dialog'
 import { useVModel } from '@vueuse/core'
 import { provide } from 'vue'
-import { VOICE_SELECTOR_CONTEXT_KEY } from './types'
+import { VoiceSelectorKey } from './context'
 
 interface Props {
   value?: string
@@ -78,7 +78,7 @@ function setOpen(newOpen: boolean) {
   emit('openChange', newOpen)
 }
 
-provide(VOICE_SELECTOR_CONTEXT_KEY, {
+provide(VoiceSelectorKey, {
   value,
   setValue,
   open,
@@ -235,8 +235,7 @@ defineProps<Props>()
 import type { HTMLAttributes } from 'vue'
 import { CommandItem } from '@repo/shadcn-vue/components/ui/command'
 import { cn } from '@repo/shadcn-vue/lib/utils'
-import { inject } from 'vue'
-import { VOICE_SELECTOR_CONTEXT_KEY } from './types'
+import { useVoiceSelectorContext } from './context'
 
 interface Props {
   class?: HTMLAttributes['class']
@@ -249,10 +248,10 @@ const emit = defineEmits<{
   (e: 'select', value: string): void
 }>()
 
-const context = inject(VOICE_SELECTOR_CONTEXT_KEY)
+const context = useVoiceSelectorContext('VoiceSelectorItem')
 
 function handleSelect() {
-  context?.setValue(props.value)
+  context.setValue(props.value)
   emit('select', props.value)
 }
 </script>
@@ -587,37 +586,32 @@ function handleClick(event: MouseEvent) {
 </template>
 ```
 
-```ts [types.ts]
+```ts [context.ts]
 import type { InjectionKey, Ref } from 'vue'
+import { inject } from 'vue'
 
 export interface VoiceSelectorContextValue {
   value: Ref<string | undefined>
   setValue: (value: string | undefined) => void
-  open: Ref<boolean>
+  open: Ref<boolean | undefined>
   setOpen: (open: boolean) => void
 }
 
-export const VOICE_SELECTOR_CONTEXT_KEY = Symbol('VOICE_SELECTOR_CONTEXT_KEY') as InjectionKey<VoiceSelectorContextValue>
-```
+export const VoiceSelectorKey: InjectionKey<VoiceSelectorContextValue> = Symbol('VoiceSelector')
 
-```ts [useVoiceSelector.ts]
-import { inject } from 'vue'
-import { VOICE_SELECTOR_CONTEXT_KEY } from './types'
+export function useVoiceSelectorContext(componentName: string): VoiceSelectorContextValue {
+  const context = inject(VoiceSelectorKey)
 
-export function useVoiceSelector() {
-  const context = inject(VOICE_SELECTOR_CONTEXT_KEY)
   if (!context) {
-    throw new Error(
-      'VoiceSelector components must be used within VoiceSelector',
-    )
+    throw new Error(`${componentName} must be used within VoiceSelector`)
   }
+
   return context
 }
 ```
 
 ```ts [index.ts]
-export * from './types'
-export { useVoiceSelector } from './useVoiceSelector'
+export * from './context'
 export { default as VoiceSelector } from './VoiceSelector.vue'
 export { default as VoiceSelectorAccent } from './VoiceSelectorAccent.vue'
 export { default as VoiceSelectorAge } from './VoiceSelectorAge.vue'
@@ -635,7 +629,6 @@ export { default as VoiceSelectorList } from './VoiceSelectorList.vue'
 export { default as VoiceSelectorName } from './VoiceSelectorName.vue'
 export { default as VoiceSelectorPreview } from './VoiceSelectorPreview.vue'
 export { default as VoiceSelectorSeparator } from './VoiceSelectorSeparator.vue'
-
 export { default as VoiceSelectorShortcut } from './VoiceSelectorShortcut.vue'
 export { default as VoiceSelectorTrigger } from './VoiceSelectorTrigger.vue'
 ```
@@ -762,13 +755,13 @@ A button that allows users to preview/play a voice sample.
 
 ### `useVoiceSelector()`
 
-A custom hook for accessing the voice selector context.
+A custom composable for accessing the voice selector context. This composable allows you to access and control the voice selection state from any component nested within VoiceSelector.
 
 ```vue
 <script setup lang="ts">
 import { useVoiceSelector } from '@repo/elements/voice-selector'
 
-const { value, setValue, open, setOpen } = useVoiceSelector()
+const { value, setValue, open, setOpen } = useVoiceSelectorContext('MyComponent')
 </script>
 
 <template>

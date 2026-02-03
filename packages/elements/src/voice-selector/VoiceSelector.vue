@@ -2,7 +2,7 @@
 import { Dialog } from '@repo/shadcn-vue/components/ui/dialog'
 import { useVModel } from '@vueuse/core'
 import { provide } from 'vue'
-import { VOICE_SELECTOR_CONTEXT_KEY } from './types'
+import { VoiceSelectorKey } from './context'
 
 type VoiceSelectorProps = InstanceType<typeof Dialog>['$props']
 
@@ -45,7 +45,7 @@ function setOpen(newOpen: boolean) {
   emit('openChange', newOpen)
 }
 
-provide(VOICE_SELECTOR_CONTEXT_KEY, {
+provide(VoiceSelectorKey, {
   value,
   setValue,
   open,
