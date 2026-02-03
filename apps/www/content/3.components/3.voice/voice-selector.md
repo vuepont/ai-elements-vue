@@ -706,22 +706,8 @@ Root Dialog component that provides context for all child components. Manages bo
   ::field{name="defaultOpen" type="boolean" default="false"}
   The default open state (uncontrolled).
   ::
-:::
-
-#### Events
-
-:::field-group
-  ::field{name="@update:value" type="(value: string | undefined) => void"}
-  Emitted when the selected voice changes (for v-model).
-  ::
-  ::field{name="@valueChange" type="(value: string | undefined) => void"}
-  Callback emitted when the selected voice changes.
-  ::
-  ::field{name="@update:open" type="(open: boolean) => void"}
-  Emitted when the open state changes (for v-model).
-  ::
-  ::field{name="@openChange" type="(open: boolean) => void"}
-  Callback emitted when the open state changes.
+  ::field{name="...props" type="DialogProps"}
+  Any other props are spread to the Dialog component.
   ::
 :::
 
@@ -732,6 +718,9 @@ Button or element that opens the voice selector dialog.
 :::field-group
   ::field{name="asChild" type="boolean" default="false"}
   Change the default rendered element for the one passed as a child, merging their props and behavior.
+  ::
+  ::field{name="...props" type="DialogTriggerProps"}
+  Any other props are spread to the DialogTrigger component.
   ::
 :::
 
@@ -746,11 +735,20 @@ Container for the Command component and voice list, rendered inside the dialog.
   ::field{name="class" type="string"}
   Additional CSS classes to apply to the dialog content.
   ::
+  ::field{name="...props" type="DialogContentProps"}
+  Any other props are spread to the DialogContent component.
+  ::
 :::
 
 ### `<VoiceSelectorDialog />`
 
 Alternative dialog implementation using CommandDialog for a full-screen command palette style.
+
+:::field-group
+  ::field{name="...props" type="CommandDialogProps"}
+  Any other props are spread to the CommandDialog component.
+  ::
+:::
 
 ### `<VoiceSelectorInput />`
 
@@ -763,15 +761,30 @@ Search input for filtering voices.
   ::field{name="class" type="string"}
   Additional CSS classes to apply.
   ::
+  ::field{name="...props" type="CommandInputProps"}
+  Any other props are spread to the CommandInput component.
+  ::
 :::
 
 ### `<VoiceSelectorList />`
 
 Scrollable container for voice items and groups.
 
+:::field-group
+  ::field{name="...props" type="CommandListProps"}
+  Any other props are spread to the CommandList component.
+  ::
+:::
+
 ### `<VoiceSelectorEmpty />`
 
 Message shown when no voices match the search query.
+
+:::field-group
+  ::field{name="...props" type="CommandEmptyProps"}
+  Any other props are spread to the CommandEmpty component.
+  ::
+:::
 
 ### `<VoiceSelectorGroup />`
 
@@ -780,6 +793,9 @@ Groups related voices together with an optional heading.
 :::field-group
   ::field{name="heading" type="string"}
   The heading text for the group.
+  ::
+  ::field{name="...props" type="CommandGroupProps"}
+  Any other props are spread to the CommandGroup component.
   ::
 :::
 
@@ -794,19 +810,30 @@ Selectable item representing a voice.
   ::field{name="class" type="string"}
   Additional CSS classes to apply.
   ::
-:::
-
-#### Events
-
-:::field-group
-  ::field{name="@select" type="(value: string) => void"}
-  Emitted when the voice is selected.
+  ::field{name="...props" type="CommandItemProps"}
+  Any other props are spread to the CommandItem component.
   ::
 :::
 
 ### `<VoiceSelectorSeparator />`
 
 Visual separator between voice groups.
+
+:::field-group
+  ::field{name="...props" type="CommandSeparatorProps"}
+  Any other props are spread to the CommandSeparator component.
+  ::
+:::
+
+### `<VoiceSelectorShortcut />`
+
+Displays keyboard shortcuts for voice items.
+
+:::field-group
+  ::field{name="...props" type="CommandShortcutProps"}
+  Any other props are spread to the CommandShortcut component.
+  ::
+:::
 
 ### `<VoiceSelectorName />`
 
@@ -884,10 +911,6 @@ Displays a bullet separator (•) between voice attributes. Hidden from screen r
   ::
 :::
 
-### `<VoiceSelectorShortcut />`
-
-Displays keyboard shortcuts for voice items.
-
 ### `<VoiceSelectorPreview />`
 
 A button that allows users to preview/play a voice sample before selecting it. Shows play, pause, or loading icons based on state.
@@ -904,10 +927,37 @@ A button that allows users to preview/play a voice sample before selecting it. S
   ::
 :::
 
-#### Events
+## Emits
+
+### `<VoiceSelector />`
 
 :::field-group
-  ::field{name="@play" type="() => void"}
+  ::field{name="update:value" type="string | undefined"}
+  Emitted when the selected voice changes (for v-model).
+  ::
+  ::field{name="valueChange" type="string | undefined"}
+  Callback emitted when the selected voice changes.
+  ::
+  ::field{name="update:open" type="boolean"}
+  Emitted when the open state changes (for v-model).
+  ::
+  ::field{name="openChange" type="boolean"}
+  Callback emitted when the open state changes.
+  ::
+:::
+
+### `<VoiceSelectorItem />`
+
+:::field-group
+  ::field{name="select" type="string"}
+  Emitted when the voice is selected with the voice value.
+  ::
+:::
+
+### `<VoiceSelectorPreview />`
+
+:::field-group
+  ::field{name="play" type="void"}
   Emitted when the preview button is clicked.
   ::
 :::
