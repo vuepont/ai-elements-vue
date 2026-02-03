@@ -10,7 +10,7 @@ export interface VoiceSelectorContextValue {
 
 export const VoiceSelectorKey: InjectionKey<VoiceSelectorContextValue> = Symbol('VoiceSelector')
 
-export function useVoiceSelectorContext(componentName: string): VoiceSelectorContextValue {
+export function useVoiceSelector(componentName: string): VoiceSelectorContextValue {
   const context = inject(VoiceSelectorKey)
 
   if (!context) {

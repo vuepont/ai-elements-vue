@@ -9,7 +9,7 @@ The `VoiceSelector` component provides a flexible and composable interface for s
 :::ComponentLoader{label="Preview" componentName="VoiceSelector"}
 :::
 
-## Installation
+## Install using CLI
 
 ::tabs{variant="card"}
   ::div{label="AI Elements Vue"}
@@ -25,7 +25,7 @@ The `VoiceSelector` component provides a flexible and composable interface for s
   ::
 ::
 
-## Manual Installation
+## Install Manually
 
 Copy and paste the following code into your project.
 
@@ -37,18 +37,18 @@ import { useVModel } from '@vueuse/core'
 import { provide } from 'vue'
 import { VoiceSelectorKey } from './context'
 
-interface Props {
+type VoiceSelectorProps = InstanceType<typeof Dialog>['$props']
+
+interface Props extends /* @vue-ignore */ VoiceSelectorProps {
   value?: string
   defaultValue?: string
   open?: boolean
   defaultOpen?: boolean
-  modal?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
   open: undefined,
   defaultOpen: false,
-  modal: true,
 })
 
 const emit = defineEmits<{
@@ -89,7 +89,6 @@ provide(VoiceSelectorKey, {
 <template>
   <Dialog
     :open="open"
-    :modal="modal"
     @update:open="setOpen"
   >
     <slot />
@@ -101,15 +100,15 @@ provide(VoiceSelectorKey, {
 <script setup lang="ts">
 import { DialogTrigger } from '@repo/shadcn-vue/components/ui/dialog'
 
-interface Props {
-  asChild?: boolean
-}
+type VoiceSelectorTriggerProps = InstanceType<typeof DialogTrigger>['$props']
+
+interface Props extends /* @vue-ignore */ VoiceSelectorTriggerProps {}
 
 defineProps<Props>()
 </script>
 
 <template>
-  <DialogTrigger :as-child="asChild">
+  <DialogTrigger>
     <slot />
   </DialogTrigger>
 </template>
@@ -125,7 +124,9 @@ import {
 } from '@repo/shadcn-vue/components/ui/dialog'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 
-interface Props {
+type VoiceSelectorContentProps = InstanceType<typeof DialogContent>['$props']
+
+interface Props extends /* @vue-ignore */ VoiceSelectorContentProps {
   class?: HTMLAttributes['class']
   title?: string
 }
@@ -138,7 +139,6 @@ const props = withDefaults(defineProps<Props>(), {
 <template>
   <DialogContent
     :class="cn('p-0', props.class)"
-    v-bind="$attrs"
   >
     <DialogTitle class="sr-only">
       {{ title }}
@@ -153,10 +153,16 @@ const props = withDefaults(defineProps<Props>(), {
 ```vue [VoiceSelectorDialog.vue] height=500 collapse
 <script setup lang="ts">
 import { CommandDialog } from '@repo/shadcn-vue/components/ui/command'
+
+type VoiceSelectorDialogProps = InstanceType<typeof CommandDialog>['$props']
+
+interface Props extends /* @vue-ignore */ VoiceSelectorDialogProps {}
+
+defineProps<Props>()
 </script>
 
 <template>
-  <CommandDialog v-bind="$attrs">
+  <CommandDialog>
     <slot />
   </CommandDialog>
 </template>
@@ -168,9 +174,10 @@ import type { HTMLAttributes } from 'vue'
 import { CommandInput } from '@repo/shadcn-vue/components/ui/command'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 
-interface Props {
+type VoiceSelectorInputProps = InstanceType<typeof CommandInput>['$props']
+
+interface Props extends /* @vue-ignore */ VoiceSelectorInputProps {
   class?: HTMLAttributes['class']
-  placeholder?: string
 }
 
 const props = defineProps<Props>()
@@ -179,8 +186,6 @@ const props = defineProps<Props>()
 <template>
   <CommandInput
     :class="cn('h-auto py-3.5', props.class)"
-    :placeholder="placeholder"
-    v-bind="$attrs"
   />
 </template>
 ```
@@ -188,10 +193,16 @@ const props = defineProps<Props>()
 ```vue [VoiceSelectorList.vue] height=500 collapse
 <script setup lang="ts">
 import { CommandList } from '@repo/shadcn-vue/components/ui/command'
+
+type VoiceSelectorListProps = InstanceType<typeof CommandList>['$props']
+
+interface Props extends /* @vue-ignore */ VoiceSelectorListProps {}
+
+defineProps<Props>()
 </script>
 
 <template>
-  <CommandList v-bind="$attrs">
+  <CommandList>
     <slot />
   </CommandList>
 </template>
@@ -200,10 +211,16 @@ import { CommandList } from '@repo/shadcn-vue/components/ui/command'
 ```vue [VoiceSelectorEmpty.vue] height=500 collapse
 <script setup lang="ts">
 import { CommandEmpty } from '@repo/shadcn-vue/components/ui/command'
+
+type VoiceSelectorEmptyProps = InstanceType<typeof CommandEmpty>['$props']
+
+interface Props extends /* @vue-ignore */ VoiceSelectorEmptyProps {}
+
+defineProps<Props>()
 </script>
 
 <template>
-  <CommandEmpty v-bind="$attrs">
+  <CommandEmpty>
     <slot />
   </CommandEmpty>
 </template>
@@ -213,18 +230,15 @@ import { CommandEmpty } from '@repo/shadcn-vue/components/ui/command'
 <script setup lang="ts">
 import { CommandGroup } from '@repo/shadcn-vue/components/ui/command'
 
-interface Props {
-  heading?: string
-}
+type VoiceSelectorGroupProps = InstanceType<typeof CommandGroup>['$props']
+
+interface Props extends /* @vue-ignore */ VoiceSelectorGroupProps {}
 
 defineProps<Props>()
 </script>
 
 <template>
-  <CommandGroup
-    :heading="heading"
-    v-bind="$attrs"
-  >
+  <CommandGroup>
     <slot />
   </CommandGroup>
 </template>
@@ -235,33 +249,22 @@ defineProps<Props>()
 import type { HTMLAttributes } from 'vue'
 import { CommandItem } from '@repo/shadcn-vue/components/ui/command'
 import { cn } from '@repo/shadcn-vue/lib/utils'
-import { useVoiceSelectorContext } from './context'
 
-interface Props {
+type VoiceSelectorItemProps = InstanceType<typeof CommandItem>['$props']
+
+interface Props extends /* @vue-ignore */ VoiceSelectorItemProps {
   class?: HTMLAttributes['class']
-  value: string
 }
 
 const props = defineProps<Props>()
 
-const emit = defineEmits<{
-  (e: 'select', value: string): void
-}>()
-
-const context = useVoiceSelectorContext('VoiceSelectorItem')
-
-function handleSelect() {
-  context.setValue(props.value)
-  emit('select', props.value)
-}
+const { class: _, ...rest } = props
 </script>
 
 <template>
   <CommandItem
     :class="cn('px-4 py-2', props.class)"
-    :value="value"
-    v-bind="$attrs"
-    @select="handleSelect"
+    v-bind="rest"
   >
     <slot />
   </CommandItem>
@@ -271,10 +274,16 @@ function handleSelect() {
 ```vue [VoiceSelectorShortcut.vue] height=500 collapse
 <script setup lang="ts">
 import { CommandShortcut } from '@repo/shadcn-vue/components/ui/command'
+
+type VoiceSelectorShortcutProps = InstanceType<typeof CommandShortcut>['$props']
+
+interface Props extends /* @vue-ignore */ VoiceSelectorShortcutProps {}
+
+defineProps<Props>()
 </script>
 
 <template>
-  <CommandShortcut v-bind="$attrs">
+  <CommandShortcut>
     <slot />
   </CommandShortcut>
 </template>
@@ -283,10 +292,16 @@ import { CommandShortcut } from '@repo/shadcn-vue/components/ui/command'
 ```vue [VoiceSelectorSeparator.vue] height=500 collapse
 <script setup lang="ts">
 import { CommandSeparator } from '@repo/shadcn-vue/components/ui/command'
+
+type VoiceSelectorSeparatorProps = InstanceType<typeof CommandSeparator>['$props']
+
+interface Props extends /* @vue-ignore */ VoiceSelectorSeparatorProps {}
+
+defineProps<Props>()
 </script>
 
 <template>
-  <CommandSeparator v-bind="$attrs">
+  <CommandSeparator>
     <slot />
   </CommandSeparator>
 </template>
@@ -297,7 +312,7 @@ import { CommandSeparator } from '@repo/shadcn-vue/components/ui/command'
 import type { HTMLAttributes } from 'vue'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 import {
-  CircleIcon,
+  CircleSmallIcon,
   MarsIcon,
   MarsStrokeIcon,
   NonBinaryIcon,
@@ -306,7 +321,7 @@ import {
   VenusIcon,
 } from 'lucide-vue-next'
 
-interface Props {
+interface Props extends /* @vue-ignore */ HTMLAttributes {
   class?: HTMLAttributes['class']
   value?:
     | 'male'
@@ -317,22 +332,21 @@ interface Props {
     | 'intersex'
 }
 
-defineProps<Props>()
+const props = defineProps<Props>()
 </script>
 
 <template>
   <span
-    :class="cn('text-muted-foreground text-xs', $props.class)"
-    v-bind="$attrs"
+    :class="cn('text-muted-foreground text-xs', props.class)"
   >
     <slot>
-      <MarsIcon v-if="value === 'male'" class="size-4" />
-      <VenusIcon v-else-if="value === 'female'" class="size-4" />
-      <TransgenderIcon v-else-if="value === 'transgender'" class="size-4" />
-      <MarsStrokeIcon v-else-if="value === 'androgyne'" class="size-4" />
-      <NonBinaryIcon v-else-if="value === 'non-binary'" class="size-4" />
-      <VenusAndMarsIcon v-else-if="value === 'intersex'" class="size-4" />
-      <CircleIcon v-else class="size-1" fill="currentColor" />
+      <MarsIcon v-if="props.value === 'male'" class="size-4" />
+      <VenusIcon v-else-if="props.value === 'female'" class="size-4" />
+      <TransgenderIcon v-else-if="props.value === 'transgender'" class="size-4" />
+      <MarsStrokeIcon v-else-if="props.value === 'androgyne'" class="size-4" />
+      <NonBinaryIcon v-else-if="props.value === 'non-binary'" class="size-4" />
+      <VenusAndMarsIcon v-else-if="props.value === 'intersex'" class="size-4" />
+      <CircleSmallIcon v-else class="size-1" fill="currentColor" />
     </slot>
   </span>
 </template>
@@ -344,9 +358,42 @@ import type { HTMLAttributes } from 'vue'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 import { computed } from 'vue'
 
-interface Props {
+type Accent
+  = | 'american'
+    | 'british'
+    | 'australian'
+    | 'canadian'
+    | 'irish'
+    | 'scottish'
+    | 'indian'
+    | 'south-african'
+    | 'new-zealand'
+    | 'spanish'
+    | 'french'
+    | 'german'
+    | 'italian'
+    | 'portuguese'
+    | 'brazilian'
+    | 'mexican'
+    | 'argentinian'
+    | 'japanese'
+    | 'chinese'
+    | 'korean'
+    | 'russian'
+    | 'arabic'
+    | 'dutch'
+    | 'swedish'
+    | 'norwegian'
+    | 'danish'
+    | 'finnish'
+    | 'polish'
+    | 'turkish'
+    | 'greek'
+    | (string & {})
+
+interface Props extends /* @vue-ignore */ HTMLAttributes {
   class?: HTMLAttributes['class']
-  value?: string
+  value?: Accent
 }
 
 const props = defineProps<Props>()
@@ -422,7 +469,6 @@ const emoji = computed(() => {
 <template>
   <span
     :class="cn('text-muted-foreground text-xs', props.class)"
-    v-bind="$attrs"
   >
     <slot>
       {{ emoji }}
@@ -436,17 +482,16 @@ const emoji = computed(() => {
 import type { HTMLAttributes } from 'vue'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 
-interface Props {
+interface Props extends /* @vue-ignore */ HTMLAttributes {
   class?: HTMLAttributes['class']
 }
 
-defineProps<Props>()
+const props = defineProps<Props>()
 </script>
 
 <template>
   <span
-    :class="cn('text-muted-foreground text-xs tabular-nums', $props.class)"
-    v-bind="$attrs"
+    :class="cn('text-muted-foreground text-xs tabular-nums', props.class)"
   >
     <slot />
   </span>
@@ -458,17 +503,16 @@ defineProps<Props>()
 import type { HTMLAttributes } from 'vue'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 
-interface Props {
+interface Props extends /* @vue-ignore */ HTMLAttributes {
   class?: HTMLAttributes['class']
 }
 
-defineProps<Props>()
+const props = defineProps<Props>()
 </script>
 
 <template>
   <span
-    :class="cn('flex-1 truncate text-left font-medium', $props.class)"
-    v-bind="$attrs"
+    :class="cn('flex-1 truncate text-left font-medium', props.class)"
   >
     <slot />
   </span>
@@ -480,17 +524,16 @@ defineProps<Props>()
 import type { HTMLAttributes } from 'vue'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 
-interface Props {
+interface Props extends /* @vue-ignore */ HTMLAttributes {
   class?: HTMLAttributes['class']
 }
 
-defineProps<Props>()
+const props = defineProps<Props>()
 </script>
 
 <template>
   <span
-    :class="cn('text-muted-foreground text-xs', $props.class)"
-    v-bind="$attrs"
+    :class="cn('text-muted-foreground text-xs', props.class)"
   >
     <slot />
   </span>
@@ -502,17 +545,16 @@ defineProps<Props>()
 import type { HTMLAttributes } from 'vue'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 
-interface Props {
+interface Props extends /* @vue-ignore */ HTMLAttributes {
   class?: HTMLAttributes['class']
 }
 
-defineProps<Props>()
+const props = defineProps<Props>()
 </script>
 
 <template>
   <div
-    :class="cn('flex items-center text-xs', $props.class)"
-    v-bind="$attrs"
+    :class="cn('flex items-center text-xs', props.class)"
   >
     <slot />
   </div>
@@ -524,18 +566,17 @@ defineProps<Props>()
 import type { HTMLAttributes } from 'vue'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 
-interface Props {
+interface Props extends /* @vue-ignore */ HTMLAttributes {
   class?: HTMLAttributes['class']
 }
 
-defineProps<Props>()
+const props = defineProps<Props>()
 </script>
 
 <template>
   <span
     aria-hidden="true"
-    :class="cn('select-none text-border', $props.class)"
-    v-bind="$attrs"
+    :class="cn('select-none text-border', props.class)"
   >
     &bull;
   </span>
@@ -576,7 +617,6 @@ function handleClick(event: MouseEvent) {
     size="icon-sm"
     type="button"
     variant="outline"
-    v-bind="$attrs"
     @click="handleClick"
   >
     <Spinner v-if="loading" class="size-3" />
@@ -599,7 +639,7 @@ export interface VoiceSelectorContextValue {
 
 export const VoiceSelectorKey: InjectionKey<VoiceSelectorContextValue> = Symbol('VoiceSelector')
 
-export function useVoiceSelectorContext(componentName: string): VoiceSelectorContextValue {
+export function useVoiceSelector(componentName: string): VoiceSelectorContextValue {
   const context = inject(VoiceSelectorKey)
 
   if (!context) {
@@ -660,11 +700,28 @@ Root Dialog component that provides context for all child components. Manages bo
   ::field{name="defaultValue" type="string"}
   The default selected voice ID (uncontrolled).
   ::
-  ::field{name="v-model:open" type="boolean" default="false"}
-  The open state of the dialog.
+  ::field{name="v-model:open" type="boolean"}
+  The open state of the dialog (controlled).
   ::
-  ::field{name="modal" type="boolean" default="true"}
-  Whether the dialog is modal.
+  ::field{name="defaultOpen" type="boolean" default="false"}
+  The default open state (uncontrolled).
+  ::
+:::
+
+#### Events
+
+:::field-group
+  ::field{name="@update:value" type="(value: string | undefined) => void"}
+  Emitted when the selected voice changes (for v-model).
+  ::
+  ::field{name="@valueChange" type="(value: string | undefined) => void"}
+  Callback emitted when the selected voice changes.
+  ::
+  ::field{name="@update:open" type="(open: boolean) => void"}
+  Emitted when the open state changes (for v-model).
+  ::
+  ::field{name="@openChange" type="(open: boolean) => void"}
+  Callback emitted when the open state changes.
   ::
 :::
 
@@ -674,7 +731,7 @@ Button or element that opens the voice selector dialog.
 
 :::field-group
   ::field{name="asChild" type="boolean" default="false"}
-  Change the default rendered element for the one passed as a child.
+  Change the default rendered element for the one passed as a child, merging their props and behavior.
   ::
 :::
 
@@ -684,9 +741,16 @@ Container for the Command component and voice list, rendered inside the dialog.
 
 :::field-group
   ::field{name="title" type="string" default='"Voice Selector"'}
-  The title for screen readers.
+  The title for screen readers. Hidden visually but accessible to assistive technologies.
+  ::
+  ::field{name="class" type="string"}
+  Additional CSS classes to apply to the dialog content.
   ::
 :::
+
+### `<VoiceSelectorDialog />`
+
+Alternative dialog implementation using CommandDialog for a full-screen command palette style.
 
 ### `<VoiceSelectorInput />`
 
@@ -696,7 +760,18 @@ Search input for filtering voices.
   ::field{name="placeholder" type="string"}
   Placeholder text for the search input.
   ::
+  ::field{name="class" type="string"}
+  Additional CSS classes to apply.
+  ::
 :::
+
+### `<VoiceSelectorList />`
+
+Scrollable container for voice items and groups.
+
+### `<VoiceSelectorEmpty />`
+
+Message shown when no voices match the search query.
 
 ### `<VoiceSelectorGroup />`
 
@@ -716,38 +791,124 @@ Selectable item representing a voice.
   ::field{name="value" type="string" required}
   The unique identifier for this voice. Used for search filtering.
   ::
+  ::field{name="class" type="string"}
+  Additional CSS classes to apply.
+  ::
+:::
+
+#### Events
+
+:::field-group
+  ::field{name="@select" type="(value: string) => void"}
+  Emitted when the voice is selected.
+  ::
+:::
+
+### `<VoiceSelectorSeparator />`
+
+Visual separator between voice groups.
+
+### `<VoiceSelectorName />`
+
+Displays the voice name with proper styling.
+
+:::field-group
+  ::field{name="class" type="string"}
+  Additional CSS classes to apply.
+  ::
 :::
 
 ### `<VoiceSelectorGender />`
 
-Displays the voice gender metadata with icons from Lucide.
+Displays the voice gender metadata with icons from Lucide. Supports multiple gender identities with corresponding icons.
 
 :::field-group
   ::field{name="value" type='"male" | "female" | "transgender" | "androgyne" | "non-binary" | "intersex"'}
-  The gender value that determines which icon to display.
+  The gender value that determines which icon to display. Supported values: "male" (Mars), "female" (Venus), "transgender", "androgyne", "non-binary", "intersex". Defaults to a small circle if no value matches.
+  ::
+  ::field{name="class" type="string"}
+  Additional CSS classes to apply.
   ::
 :::
 
 ### `<VoiceSelectorAccent />`
 
-Displays the voice accent metadata with emoji flags.
+Displays the voice accent metadata with emoji flags representing different countries/regions.
 
 :::field-group
   ::field{name="value" type="string"}
-  The accent value that determines which flag emoji to display.
+  The accent value that determines which flag emoji to display. Supports 27 different accents including: "american" 🇺🇸, "british" 🇬🇧, "australian" 🇦🇺, "canadian" 🇨🇦, "irish" 🇮🇪, "scottish" 🏴󠁧󠁢󠁳󠁣󠁴󠁿, "indian" 🇮🇳, "south-african" 🇿🇦, "new-zealand" 🇳🇿, "spanish" 🇪🇸, "french" 🇫🇷, "german" 🇩🇪, "italian" 🇮🇹, "portuguese" 🇵🇹, "brazilian" 🇧🇷, "mexican" 🇲🇽, "argentinian" 🇦🇷, "japanese" 🇯🇵, "chinese" 🇨🇳, "korean" 🇰🇷, "russian" 🇷🇺, "arabic" 🇸🇦, "dutch" 🇳🇱, "swedish" 🇸🇪, "norwegian" 🇳🇴, "danish" 🇩🇰, "finnish" 🇫🇮, "polish" 🇵🇱, "turkish" 🇹🇷, "greek" 🇬🇷. Also accepts any custom string value.
+  ::
+  ::field{name="class" type="string"}
+  Additional CSS classes to apply.
   ::
 :::
 
+### `<VoiceSelectorAge />`
+
+Displays the voice age metadata with muted styling and tabular numbers for consistent alignment.
+
+:::field-group
+  ::field{name="class" type="string"}
+  Additional CSS classes to apply.
+  ::
+:::
+
+### `<VoiceSelectorDescription />`
+
+Displays a description for the voice with muted styling.
+
+:::field-group
+  ::field{name="class" type="string"}
+  Additional CSS classes to apply.
+  ::
+:::
+
+### `<VoiceSelectorAttributes />`
+
+Container for grouping voice attributes (gender, accent, age) together. Use with `VoiceSelectorBullet` for separation.
+
+:::field-group
+  ::field{name="class" type="string"}
+  Additional CSS classes to apply.
+  ::
+:::
+
+### `<VoiceSelectorBullet />`
+
+Displays a bullet separator (•) between voice attributes. Hidden from screen readers via `aria-hidden`.
+
+:::field-group
+  ::field{name="class" type="string"}
+  Additional CSS classes to apply.
+  ::
+:::
+
+### `<VoiceSelectorShortcut />`
+
+Displays keyboard shortcuts for voice items.
+
 ### `<VoiceSelectorPreview />`
 
-A button that allows users to preview/play a voice sample.
+A button that allows users to preview/play a voice sample before selecting it. Shows play, pause, or loading icons based on state.
 
 :::field-group
   ::field{name="playing" type="boolean"}
-  Whether the voice is currently playing.
+  Whether the voice is currently playing. Shows pause icon when true.
   ::
   ::field{name="loading" type="boolean"}
-  Whether the voice preview is loading.
+  Whether the voice preview is loading. Shows loading spinner and disables the button.
+  ::
+  ::field{name="class" type="string"}
+  Additional CSS classes to apply.
+  ::
+:::
+
+#### Events
+
+:::field-group
+  ::field{name="@play" type="() => void"}
+  Emitted when the preview button is clicked.
   ::
 :::
 
@@ -761,7 +922,7 @@ A custom composable for accessing the voice selector context. This composable al
 <script setup lang="ts">
 import { useVoiceSelector } from '@repo/elements/voice-selector'
 
-const { value, setValue, open, setOpen } = useVoiceSelectorContext('MyComponent')
+const { value, setValue, open, setOpen } = useVoiceSelector('MyComponent')
 </script>
 
 <template>
@@ -783,7 +944,7 @@ const { value, setValue, open, setOpen } = useVoiceSelectorContext('MyComponent'
   ::field{name="setValue" type="(value: string | undefined) => void"}
   Function to update the selected voice ID.
   ::
-  ::field{name="open" type="Ref<boolean>"}
+  ::field{name="open" type="Ref<boolean | undefined>"}
   Whether the dialog is currently open.
   ::
   ::field{name="setOpen" type="(open: boolean) => void"}
