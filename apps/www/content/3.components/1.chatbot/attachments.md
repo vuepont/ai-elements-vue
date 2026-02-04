@@ -4,7 +4,7 @@ description: A flexible, composable attachment component for displaying files, i
 icon: lucide:paperclip
 ---
 
-The `Attachments` component suite provides a unified way to display file attachments and source documents with multiple layout variants.
+The `Attachment` component provides a unified way to display file attachments and source documents with multiple layout variants.
 
 :::ComponentLoader{label="Preview" componentName="Attachments"}
 :::
@@ -628,7 +628,7 @@ Individual attachment item wrapper.
   The attachment data (FileUIPart or SourceDocumentUIPart with id).
   ::
   ::field{name="@remove" type="event: void"}
-  Emitted when the attachment's remove button is clicked.
+  Callback fired when the remove button is clicked.
   ::
   ::field{name="...props" type="HTMLAttributes"}
   Spread to the underlying div element.
