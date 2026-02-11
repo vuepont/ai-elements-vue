@@ -32,8 +32,6 @@ import {
   PromptInputActionMenu,
   PromptInputActionMenuContent,
   PromptInputActionMenuTrigger,
-  PromptInputAttachment,
-  PromptInputAttachments,
   PromptInputBody,
   PromptInputButton,
   PromptInputFooter,
@@ -48,6 +46,7 @@ import { Suggestion, Suggestions } from '@repo/elements/suggestion'
 import { CheckIcon, GlobeIcon, MicIcon } from 'lucide-vue-next'
 import { nanoid } from 'nanoid'
 import { computed, ref } from 'vue'
+import PromptInputAttachmentsDisplay from './prompt-input-attachments-display.vue'
 
 interface MessageVersion {
   id: string
@@ -538,11 +537,7 @@ function toggleWebSearch() {
           @submit="handleSubmit"
         >
           <PromptInputHeader>
-            <PromptInputAttachments>
-              <template #default="{ file }">
-                <PromptInputAttachment :file="file" />
-              </template>
-            </PromptInputAttachments>
+            <PromptInputAttachmentsDisplay />
           </PromptInputHeader>
 
           <PromptInputBody>
