@@ -1,11 +1,16 @@
 <!-- eslint-disable no-console -->
 <script setup lang="ts">
+import type { AttachmentData } from '@repo/elements/attachments'
+import {
+  Attachment,
+  AttachmentPreview,
+  AttachmentRemove,
+  Attachments,
+} from '@repo/elements/attachments'
 import {
   Message,
   MessageAction,
   MessageActions,
-  MessageAttachment,
-  MessageAttachments,
   MessageBranch,
   MessageBranchContent,
   MessageBranchNext,
@@ -25,13 +30,6 @@ import {
 import { nanoid } from 'nanoid'
 import { ref } from 'vue'
 
-interface Attachment {
-  type: 'file'
-  url: string
-  mediaType?: string
-  filename?: string
-}
-
 interface Version {
   id: string
   content: string
@@ -42,33 +40,24 @@ interface MessageType {
   from: 'user' | 'assistant'
   versions?: Version[]
   content?: string
-  attachments?: Attachment[]
+  attachments?: AttachmentData[]
 }
 
-const messages: {
-  key: string
-  from: 'user' | 'assistant'
-  versions?: { id: string, content: string }[]
-  content?: string
-  attachments?: {
-    type: 'file'
-    url: string
-    mediaType?: string
-    filename?: string
-  }[]
-}[] = [
+const messages: MessageType[] = [
   {
     key: nanoid(),
     from: 'user',
     content: 'How do Vue composition APIs work and when should I use them?',
     attachments: [
       {
+        id: nanoid(),
         type: 'file',
         url: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=400&fit=crop',
         mediaType: 'image/jpeg',
         filename: 'palace-of-fine-arts.jpg',
       },
       {
+        id: nanoid(),
         type: 'file',
         url: '',
         mediaType: 'application/pdf',
@@ -303,16 +292,20 @@ function handleBranchChange(index: number) {
 
       <!-- Single version without branch selector -->
       <div v-else>
-        <MessageAttachments
+        <Attachments
           v-if="message.attachments && message.attachments.length > 0"
           class="mb-2"
+          variant="grid"
         >
-          <MessageAttachment
+          <Attachment
             v-for="attachment in message.attachments"
-            :key="attachment.url"
-            :data="{ ...attachment, mediaType: attachment.mediaType ?? 'application/octet-stream' }"
-          />
-        </MessageAttachments>
+            :key="attachment.id"
+            :data="attachment"
+          >
+            <AttachmentPreview />
+            <AttachmentRemove />
+          </Attachment>
+        </Attachments>
 
         <MessageContent>
           <MessageResponse v-if="message.from === 'assistant'" :content="message.content" />
