@@ -1,8 +1,6 @@
 export { default as Message } from './Message.vue'
 export { default as MessageAction } from './MessageAction.vue'
 export { default as MessageActions } from './MessageActions.vue'
-export { default as MessageAttachment } from './MessageAttachment.vue'
-export { default as MessageAttachments } from './MessageAttachments.vue'
 export { default as MessageAvatar } from './MessageAvatar.vue'
 export { default as MessageBranch } from './MessageBranch.vue'
 export { default as MessageBranchContent } from './MessageBranchContent.vue'
