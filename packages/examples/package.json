@@ -1,6 +1,6 @@
 {
   "name": "@repo/examples",
-  "version": "1.2.2",
+  "version": "1.3.0",
   "private": true,
   "description": "Examples for the repo.",
   "exports": {
