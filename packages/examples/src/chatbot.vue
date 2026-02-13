@@ -36,6 +36,7 @@ import {
   PromptInputButton,
   PromptInputFooter,
   PromptInputHeader,
+  PromptInputSpeechButton,
   PromptInputSubmit,
   PromptInputTextarea,
   PromptInputTools,
@@ -43,7 +44,7 @@ import {
 import { Reasoning, ReasoningContent, ReasoningTrigger } from '@repo/elements/reasoning'
 import { Source, Sources, SourcesContent, SourcesTrigger } from '@repo/elements/sources'
 import { Suggestion, Suggestions } from '@repo/elements/suggestion'
-import { CheckIcon, GlobeIcon, MicIcon } from 'lucide-vue-next'
+import { CheckIcon, GlobeIcon } from 'lucide-vue-next'
 import { nanoid } from 'nanoid'
 import { computed, ref } from 'vue'
 import PromptInputAttachmentsDisplay from './prompt-input-attachments-display.vue'
@@ -346,7 +347,6 @@ const mockResponses = [
 const modelId = ref<string>(models[0].id)
 const modelSelectorOpen = ref(false)
 const useWebSearch = ref(false)
-const useMicrophone = ref(false)
 const status = ref<ChatStatus>('ready')
 const messages = ref<MessageType[]>(cloneMessages(initialMessages))
 
@@ -449,10 +449,6 @@ function handleModelSelect(id: string) {
   modelSelectorOpen.value = false
 }
 
-function toggleMicrophone() {
-  useMicrophone.value = !useMicrophone.value
-}
-
 function toggleWebSearch() {
   useWebSearch.value = !useWebSearch.value
 }
@@ -553,13 +549,7 @@ function toggleWebSearch() {
                 </PromptInputActionMenuContent>
               </PromptInputActionMenu>
 
-              <PromptInputButton
-                :variant="useMicrophone ? 'default' : 'ghost'"
-                @click="toggleMicrophone"
-              >
-                <MicIcon :size="16" />
-                <span class="sr-only">Microphone</span>
-              </PromptInputButton>
+              <PromptInputSpeechButton />
 
               <PromptInputButton
                 :variant="useWebSearch ? 'default' : 'ghost'"
