@@ -3,6 +3,7 @@ export default defineAppConfig({
     site: {
       name: 'AI Elements Vue',
       description: 'AI Elements Vue is a component library built on top of shadcn-vue to help you build AI-native applications faster.',
+      ogImage: '/cover.png',
     },
     theme: {
       customizable: true,
