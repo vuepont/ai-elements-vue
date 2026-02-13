@@ -407,128 +407,6 @@ const props = defineProps<{ class?: HTMLAttributes['class'] }>()
 </template>
 ```
 
-```vue [PromptInputAttachments.vue]
-<script setup lang="ts">
-import type { HTMLAttributes } from 'vue'
-import { cn } from '@repo/shadcn-vue/lib/utils'
-import { usePromptInput } from './context'
-
-const props = defineProps<{
-  class?: HTMLAttributes['class']
-}>()
-
-const { files } = usePromptInput()
-</script>
-
-<template>
-  <div
-    v-if="files.length > 0"
-    :class="cn('flex flex-wrap items-center gap-2 p-3 w-full', props.class)"
-  >
-    <template v-for="file in files" :key="file.id">
-      <slot :file="file" />
-    </template>
-  </div>
-</template>
-```
-
-```vue [PromptInputAttachment.vue] height=500 collapse
-<script setup lang="ts">
-import type { HTMLAttributes } from 'vue'
-import type { AttachmentFile } from './types'
-import { Button } from '@repo/shadcn-vue/components/ui/button'
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from '@repo/shadcn-vue/components/ui/hover-card'
-import { cn } from '@repo/shadcn-vue/lib/utils'
-import { PaperclipIcon, XIcon } from 'lucide-vue-next'
-import { computed } from 'vue'
-import { usePromptInput } from './context'
-
-const props = defineProps<{
-  file: AttachmentFile
-  class?: HTMLAttributes['class']
-}>()
-
-const { removeFile } = usePromptInput()
-
-const filename = computed(() => props.file.filename || '')
-const isImage = computed(() =>
-  props.file.mediaType?.startsWith('image/') && props.file.url,
-)
-const label = computed(() => filename.value || (isImage.value ? 'Image' : 'Attachment'))
-
-function handleRemove(e: Event) {
-  e.stopPropagation()
-  removeFile(props.file.id)
-}
-</script>
-
-<template>
-  <HoverCard :open-delay="0" :close-delay="0">
-    <HoverCardTrigger as-child>
-      <div
-        :class="cn(
-          'group relative flex h-8 cursor-pointer select-none items-center gap-1.5 rounded-md border border-border px-1.5 font-medium text-sm transition-all hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50',
-          props.class,
-        )"
-      >
-        <div class="relative size-5 shrink-0">
-          <div class="absolute inset-0 flex size-5 items-center justify-center overflow-hidden rounded bg-background transition-opacity group-hover:opacity-0">
-            <img
-              v-if="isImage"
-              :src="file.url"
-              :alt="label"
-              class="size-5 object-cover"
-            >
-            <div v-else class="flex size-5 items-center justify-center text-muted-foreground">
-              <PaperclipIcon class="size-3" />
-            </div>
-          </div>
-
-          <Button
-            type="button"
-            variant="ghost"
-            size="icon"
-            class="absolute inset-0 size-5 cursor-pointer rounded p-0 opacity-0 transition-opacity group-hover:pointer-events-auto group-hover:opacity-100 [&>svg]:size-2.5"
-            @click="handleRemove"
-          >
-            <XIcon />
-            <span class="sr-only">Remove</span>
-          </Button>
-        </div>
-
-        <span class="flex-1 truncate max-w-[150px]">{{ label }}</span>
-      </div>
-    </HoverCardTrigger>
-
-    <HoverCardContent class="w-auto p-2" align="start">
-      <div class="w-auto space-y-3">
-        <div v-if="isImage" class="flex max-h-96 w-96 items-center justify-center overflow-hidden rounded-md border">
-          <img
-            :src="file.url"
-            :alt="label"
-            class="max-h-full max-w-full object-contain"
-          >
-        </div>
-        <div class="flex items-center gap-2.5">
-          <div class="min-w-0 flex-1 space-y-1 px-0.5">
-            <h4 class="truncate font-semibold text-sm leading-none">
-              {{ label }}
-            </h4>
-            <p v-if="file.mediaType" class="truncate font-mono text-muted-foreground text-xs">
-              {{ file.mediaType }}
-            </p>
-          </div>
-        </div>
-      </div>
-    </HoverCardContent>
-  </HoverCard>
-</template>
-```
-
 ```vue [PromptInputHeader.vue]
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue'
@@ -1489,8 +1367,6 @@ export { default as PromptInputActionMenu } from './PromptInputActionMenu.vue'
 export { default as PromptInputActionMenuContent } from './PromptInputActionMenuContent.vue'
 export { default as PromptInputActionMenuItem } from './PromptInputActionMenuItem.vue'
 export { default as PromptInputActionMenuTrigger } from './PromptInputActionMenuTrigger.vue'
-export { default as PromptInputAttachment } from './PromptInputAttachment.vue'
-export { default as PromptInputAttachments } from './PromptInputAttachments.vue'
 export { default as PromptInputBody } from './PromptInputBody.vue'
 export { default as PromptInputButton } from './PromptInputButton.vue'
 export { default as PromptInputCommand } from './PromptInputCommand.vue'
@@ -1548,8 +1424,6 @@ import {
   PromptInputActionMenu,
   PromptInputActionMenuContent,
   PromptInputActionMenuTrigger,
-  PromptInputAttachment,
-  PromptInputAttachments,
   PromptInputBody,
   PromptInputButton,
   PromptInputFooter,
@@ -1564,6 +1438,8 @@ import {
   PromptInputTextarea,
   PromptInputTools
 } from '@/components/ai-elements/prompt-input'
+
+import PromptInputAttachmentsDisplay from '@/components/prompt-input-attachments-display.vue'
 
 const models = [
   { id: 'gpt-4o', name: 'GPT-4o' },
@@ -1631,11 +1507,7 @@ function handleSubmit(message: PromptInputMessage) {
         @submit="handleSubmit"
       >
         <PromptInputHeader>
-          <PromptInputAttachments>
-            <template #default="{ attachment }">
-              <PromptInputAttachment :data="attachment" />
-            </template>
-          </PromptInputAttachments>
+          <PromptInputAttachmentsDisplay />
         </PromptInputHeader>
 
         <PromptInputBody>
@@ -1692,6 +1564,37 @@ function handleSubmit(message: PromptInputMessage) {
       </PromptInput>
     </div>
   </div>
+</template>
+```
+
+```vue [components/prompt-input-attachments-display.vue]
+<script setup lang="ts">
+import {
+  Attachment,
+  AttachmentPreview,
+  AttachmentRemove,
+  Attachments,
+} from '@/components/ai-elements/attachments'
+import { usePromptInput } from '@/components/ai-elements/prompt-input'
+
+const { files, removeFile } = usePromptInput()
+</script>
+
+<template>
+  <Attachments
+    v-if="files.length > 0"
+    variant="inline"
+  >
+    <Attachment
+      v-for="attachment in files"
+      :key="attachment.id"
+      :data="attachment"
+      @remove="removeFile(attachment.id)"
+    >
+      <AttachmentPreview />
+      <AttachmentRemove />
+    </Attachment>
+  </Attachments>
 </template>
 ```
 
@@ -1838,24 +1741,9 @@ export default defineEventHandler(async (event) => {
   ::
 :::
 
-### `<PromptInputAttachments />`
+### Attachments
 
-:::field-group
-  ::field{name="...props" type="HTMLAttributes"}
-  Any other props are spread to the underlying attachments container.
-  ::
-:::
-
-### `<PromptInputAttachment />`
-
-:::field-group
-  ::field{name="file" type="AttachmentFile"}
-  The attachment data to display.
-  ::
-  ::field{name="...props" type="HTMLAttributes"}
-  Any other props are spread to the underlying attachment div.
-  ::
-:::
+Attachment components have been moved to a separate module. See the [Attachments](/components/chatbot/attachments) component documentation for details on `<Attachments />`, `<Attachment />`, `<AttachmentPreview />`, `<AttachmentInfo />`, and `<AttachmentRemove />`.
 
 ### `<PromptInputHeader />`
 

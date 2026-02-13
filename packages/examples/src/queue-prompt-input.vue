@@ -20,13 +20,10 @@ import {
   PromptInputActionMenu,
   PromptInputActionMenuContent,
   PromptInputActionMenuTrigger,
-  PromptInputAttachment,
-  PromptInputAttachments,
   PromptInputBody,
   PromptInputButton,
   PromptInputFooter,
   PromptInputHeader,
-  PromptInputSpeechButton,
   PromptInputSubmit,
   PromptInputTextarea,
   PromptInputTools,
@@ -44,6 +41,7 @@ import {
 } from '@repo/elements/queue'
 import { CheckIcon, GlobeIcon, Trash2Icon } from 'lucide-vue-next'
 import { computed, onBeforeUnmount, ref } from 'vue'
+import PromptInputAttachmentsDisplay from './prompt-input-attachments-display.vue'
 
 export interface QueueMessagePart {
   type: string
@@ -226,11 +224,7 @@ onBeforeUnmount(() => {
       @submit="handleSubmit"
     >
       <PromptInputHeader>
-        <PromptInputAttachments>
-          <template #default="{ file }">
-            <PromptInputAttachment :file="file" />
-          </template>
-        </PromptInputAttachments>
+        <PromptInputAttachmentsDisplay />
       </PromptInputHeader>
 
       <PromptInputBody>
@@ -245,8 +239,6 @@ onBeforeUnmount(() => {
               <PromptInputActionAddAttachments />
             </PromptInputActionMenuContent>
           </PromptInputActionMenu>
-
-          <PromptInputSpeechButton />
 
           <PromptInputButton>
             <GlobeIcon :size="16" />

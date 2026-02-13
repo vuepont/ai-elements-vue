@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { PromptInputMessage } from '@repo/elements/prompt-input/'
+import type { PromptInputMessage } from '@repo/elements/prompt-input'
 import {
   ModelSelector,
   ModelSelectorContent,
@@ -19,13 +19,10 @@ import {
   PromptInputActionMenu,
   PromptInputActionMenuContent,
   PromptInputActionMenuTrigger,
-  PromptInputAttachment,
-  PromptInputAttachments,
   PromptInputBody,
   PromptInputButton,
   PromptInputFooter,
   PromptInputProvider,
-  PromptInputSpeechButton,
   PromptInputSubmit,
   PromptInputTextarea,
   PromptInputTools,
@@ -34,7 +31,7 @@ import {
 import { CheckIcon, GlobeIcon } from 'lucide-vue-next'
 import { computed, ref } from 'vue'
 
-import HeaderControls from './prompt-input-header-controls.vue'
+import PromptInputAttachmentsDisplay from './prompt-input-attachments-display.vue'
 
 const SUBMITTING_TIMEOUT = 200
 const STREAMING_TIMEOUT = 2000
@@ -113,11 +110,7 @@ function handleSubmit(message: PromptInputMessage) {
         multiple
         global-drop class="w-full"
       >
-        <PromptInputAttachments>
-          <template #default="{ file }">
-            <PromptInputAttachment :file="file" />
-          </template>
-        </PromptInputAttachments>
+        <PromptInputAttachmentsDisplay />
 
         <PromptInputBody>
           <PromptInputTextarea />
@@ -131,8 +124,6 @@ function handleSubmit(message: PromptInputMessage) {
                 <PromptInputActionAddAttachments />
               </PromptInputActionMenuContent>
             </PromptInputActionMenu>
-
-            <PromptInputSpeechButton />
 
             <PromptInputButton>
               <GlobeIcon :size="16" />
@@ -194,8 +185,6 @@ function handleSubmit(message: PromptInputMessage) {
           <PromptInputSubmit :status="status" />
         </PromptInputFooter>
       </PromptInput>
-
-      <HeaderControls />
     </PromptInputProvider>
   </div>
 </template>

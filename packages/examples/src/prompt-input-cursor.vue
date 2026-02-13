@@ -15,8 +15,6 @@ import {
 } from '@repo/elements/model-selector'
 import {
   PromptInput,
-  PromptInputAttachment,
-  PromptInputAttachments,
   PromptInputBody,
   PromptInputButton,
   PromptInputCommand,
@@ -50,6 +48,7 @@ import {
   RulerIcon,
 } from 'lucide-vue-next'
 import { computed, ref } from 'vue'
+import PromptInputAttachmentsDisplay from './prompt-input-attachments-display.vue'
 
 const models = [
   {
@@ -126,7 +125,6 @@ const sampleTabs = {
 const model = ref<string>(models[0].id)
 const modelSelectorOpen = ref(false)
 const status = ref<'submitted' | 'streaming' | 'ready' | 'error'>('ready')
-const textareaRef = ref<HTMLTextAreaElement | null>(null)
 
 const selectedModelData = computed(() => models.find(m => m.id === model.value))
 
@@ -163,7 +161,7 @@ function handleSubmit(message: PromptInputMessage) {
           <PromptInputHoverCard>
             <PromptInputHoverCardTrigger>
               <PromptInputButton
-                class="!h-8"
+                class="h-8!"
                 size="icon-sm"
                 variant="outline"
               >
@@ -301,17 +299,10 @@ function handleSubmit(message: PromptInputMessage) {
               </div>
             </PromptInputHoverCardContent>
           </PromptInputHoverCard>
-          <PromptInputAttachments>
-            <template #default="{ file }">
-              <PromptInputAttachment :file="file" />
-            </template>
-          </PromptInputAttachments>
+          <PromptInputAttachmentsDisplay />
         </PromptInputHeader>
         <PromptInputBody>
-          <PromptInputTextarea
-            ref="textareaRef"
-            placeholder="Plan, search, build anything"
-          />
+          <PromptInputTextarea placeholder="Plan, search, build anything" />
         </PromptInputBody>
         <PromptInputFooter>
           <PromptInputTools>
@@ -379,7 +370,7 @@ function handleSubmit(message: PromptInputMessage) {
               />
             </Button>
             <PromptInputSubmit
-              class="!h-8"
+              class="h-8!"
               :status="status"
             />
           </div>
