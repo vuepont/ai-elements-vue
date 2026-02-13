@@ -380,7 +380,7 @@ The component extends the shadcn-vue Button component, so all Button props are a
 
 :::field-group
   ::field{name="transcriptionChange" type="string"}
-  Fired when final transcription text is available. Only fires for completed phrases, not interim results.
+  Callback fired when final transcription text is available. Only fires for completed phrases, not interim results.
   ::
 :::
 
