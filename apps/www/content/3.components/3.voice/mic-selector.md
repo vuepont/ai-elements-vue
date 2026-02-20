@@ -34,9 +34,9 @@ Copy and paste the following code into your project.
 <script setup lang="ts">
 import { Popover } from '@repo/shadcn-vue/components/ui/popover'
 import { useVModel } from '@vueuse/core'
-import { provide, ref, watch } from 'vue'
+import { computed, provide, ref, watch } from 'vue'
 import { MicSelectorKey } from './context'
-import { useAudioDevices } from './use-audio-devices'
+import { useAudioDevices } from './useAudioDevices'
 
 type PopoverProps = InstanceType<typeof Popover>['$props']
 
@@ -67,6 +67,11 @@ const value = useVModel(props, 'value', emit, {
 const open = useVModel(props, 'open', emit, {
   defaultValue: props.defaultOpen,
   passive: (props.open === undefined) as any,
+})
+
+const forwardedProps = computed(() => {
+  const { value, defaultValue, open, defaultOpen, ...rest } = props
+  return rest
 })
 
 const width = ref(200)
@@ -106,8 +111,8 @@ provide(MicSelectorKey, {
 
 <template>
   <Popover
+    v-bind="forwardedProps"
     :open="open"
-    v-bind="props"
     @update:open="setOpen"
   >
     <slot />
@@ -121,7 +126,7 @@ import { Button } from '@repo/shadcn-vue/components/ui/button'
 import { PopoverTrigger } from '@repo/shadcn-vue/components/ui/popover'
 import { useResizeObserver } from '@vueuse/core'
 import { ChevronsUpDownIcon } from 'lucide-vue-next'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { useMicSelector } from './context'
 
 type ButtonProps = InstanceType<typeof Button>['$props']
@@ -129,6 +134,11 @@ type ButtonProps = InstanceType<typeof Button>['$props']
 interface Props extends /* @vue-ignore */ ButtonProps {}
 
 const props = defineProps<Props>()
+
+const forwardedProps = computed(() => {
+  const { variant, ref: _ref, ...rest } = props
+  return rest
+})
 
 const { setWidth } = useMicSelector('MicSelectorTrigger')
 const triggerRef = ref<InstanceType<typeof Button> | null>(null)
@@ -147,7 +157,7 @@ useResizeObserver(triggerRef, (entries) => {
     <Button
       ref="triggerRef"
       variant="outline"
-      v-bind="props"
+      v-bind="forwardedProps"
     >
       <slot />
       <ChevronsUpDownIcon
@@ -161,6 +171,7 @@ useResizeObserver(triggerRef, (entries) => {
 
 ```vue [MicSelectorContent.vue] height=500 collapse
 <script setup lang="ts">
+import type { AcceptableValue } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
 import { Command } from '@repo/shadcn-vue/components/ui/command'
 import { PopoverContent } from '@repo/shadcn-vue/components/ui/popover'
@@ -179,7 +190,7 @@ const props = defineProps<Props>()
 
 const { width, value, setValue } = useMicSelector('MicSelectorContent')
 
-function handleValueChange(newValue: string | string[]) {
+function handleValueChange(newValue: AcceptableValue) {
   if (typeof newValue === 'string') {
     setValue(newValue)
   }
@@ -224,7 +235,7 @@ const props = defineProps<Props>()
 
 ```vue [MicSelectorList.vue] height=500 collapse
 <script setup lang="ts">
-import { CommandList } from '@repo/shadcn-vue/components/ui/command'
+import { CommandGroup, CommandList } from '@repo/shadcn-vue/components/ui/command'
 import { useMicSelector } from './context'
 
 type CommandListProps = InstanceType<typeof CommandList>['$props']
@@ -238,7 +249,9 @@ const { devices } = useMicSelector('MicSelectorList')
 
 <template>
   <CommandList v-bind="props">
-    <slot :devices="devices" />
+    <CommandGroup v-if="devices.length > 0">
+      <slot :devices="devices" />
+    </CommandGroup>
   </CommandList>
 </template>
 ```
@@ -264,27 +277,35 @@ const props = defineProps<Props>()
 ```vue [MicSelectorItem.vue] height=500 collapse
 <script setup lang="ts">
 import { CommandItem } from '@repo/shadcn-vue/components/ui/command'
+import { computed } from 'vue'
 import { useMicSelector } from './context'
 
 type CommandItemProps = InstanceType<typeof CommandItem>['$props']
 
-interface Props extends /* @vue-ignore */ CommandItemProps {}
+interface Props extends /* @vue-ignore */ CommandItemProps {
+  value: string
+}
 
 const props = defineProps<Props>()
+
+const forwardedProps = computed(() => {
+  const { value, ...rest } = props
+  return rest
+})
 
 const { setValue, setOpen } = useMicSelector('MicSelectorItem')
 
 function handleSelect() {
-  if (props.value) {
-    setValue(props.value)
-    setOpen(false)
-  }
+  setValue(props.value)
+  setOpen(false)
 }
 </script>
 
 <template>
   <CommandItem
-    v-bind="props"
+    class="hover:bg-accent hover:text-accent-foreground"
+    v-bind="forwardedProps"
+    :value="props.value"
     @select="handleSelect"
   >
     <slot />
@@ -298,14 +319,14 @@ import type { HTMLAttributes } from 'vue'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 import { computed } from 'vue'
 
-const props = defineProps<Props>()
-
-const deviceIdRegex = /\(([\da-f]{4}:[\da-f]{4})\)$/i
-
-interface Props {
+interface Props extends /* @vue-ignore */ HTMLAttributes {
   device: MediaDeviceInfo
   class?: HTMLAttributes['class']
 }
+
+const props = defineProps<Props>()
+
+const deviceIdRegex = /\([\da-f]{4}:[\da-f]{4}\)$/i
 
 const parsedLabel = computed(() => {
   const matches = props.device.label.match(deviceIdRegex)
@@ -336,7 +357,7 @@ import { computed } from 'vue'
 import { useMicSelector } from './context'
 import MicSelectorLabel from './MicSelectorLabel.vue'
 
-interface Props {
+interface Props extends /* @vue-ignore */ HTMLAttributes {
   class?: HTMLAttributes['class']
 }
 
@@ -391,7 +412,7 @@ export function useMicSelector(componentName: string): MicSelectorContextValue {
 }
 ```
 
-```ts [use-audio-devices.ts]
+```ts [useAudioDevices.ts]
 import { onMounted, onUnmounted, ref } from 'vue'
 
 export function useAudioDevices() {
@@ -407,7 +428,7 @@ export function useAudioDevices() {
 
       const deviceList = await navigator.mediaDevices.enumerateDevices()
       const audioInputs = deviceList.filter(
-        device => device.kind === 'audioinput'
+        device => device.kind === 'audioinput' && device.deviceId !== '' && device.label !== '',
       )
 
       devices.value = audioInputs
@@ -443,7 +464,7 @@ export function useAudioDevices() {
 
       const deviceList = await navigator.mediaDevices.enumerateDevices()
       const audioInputs = deviceList.filter(
-        device => device.kind === 'audioinput'
+        device => device.kind === 'audioinput' && device.deviceId !== '' && device.label !== '',
       )
 
       devices.value = audioInputs
@@ -478,7 +499,7 @@ export function useAudioDevices() {
   onUnmounted(() => {
     navigator.mediaDevices.removeEventListener(
       'devicechange',
-      handleDeviceChange
+      handleDeviceChange,
     )
   })
 
@@ -503,7 +524,7 @@ export { default as MicSelectorLabel } from './MicSelectorLabel.vue'
 export { default as MicSelectorList } from './MicSelectorList.vue'
 export { default as MicSelectorTrigger } from './MicSelectorTrigger.vue'
 export { default as MicSelectorValue } from './MicSelectorValue.vue'
-export * from './use-audio-devices'
+export * from './useAudioDevices'
 ```
 :::
 
