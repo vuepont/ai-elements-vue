@@ -3,14 +3,14 @@ import type { HTMLAttributes } from 'vue'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 import { computed } from 'vue'
 
-const props = defineProps<Props>()
-
-const deviceIdRegex = /\(([\da-f]{4}:[\da-f]{4})\)$/i
-
-interface Props {
+interface Props extends /* @vue-ignore */ HTMLAttributes {
   device: MediaDeviceInfo
   class?: HTMLAttributes['class']
 }
+
+const props = defineProps<Props>()
+
+const deviceIdRegex = /\(([\da-f]{4}:[\da-f]{4})\)$/i
 
 const parsedLabel = computed(() => {
   const matches = props.device.label.match(deviceIdRegex)

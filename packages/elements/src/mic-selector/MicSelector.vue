@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { Popover } from '@repo/shadcn-vue/components/ui/popover'
 import { useVModel } from '@vueuse/core'
-import { provide, ref, watch } from 'vue'
+import { computed, provide, ref, watch } from 'vue'
 import { MicSelectorKey } from './context'
-import { useAudioDevices } from './use-audio-devices'
+import { useAudioDevices } from './useAudioDevices'
 
 type PopoverProps = InstanceType<typeof Popover>['$props']
 
@@ -34,6 +34,11 @@ const value = useVModel(props, 'value', emit, {
 const open = useVModel(props, 'open', emit, {
   defaultValue: props.defaultOpen,
   passive: (props.open === undefined) as any,
+})
+
+const forwardedProps = computed(() => {
+  const { value, defaultValue, open, defaultOpen, ...rest } = props
+  return rest
 })
 
 const width = ref(200)
@@ -73,8 +78,8 @@ provide(MicSelectorKey, {
 
 <template>
   <Popover
+    v-bind="forwardedProps"
     :open="open"
-    v-bind="props"
     @update:open="setOpen"
   >
     <slot />

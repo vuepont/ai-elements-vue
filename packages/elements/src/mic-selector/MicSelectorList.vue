@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { CommandList } from '@repo/shadcn-vue/components/ui/command'
+import { CommandGroup, CommandList } from '@repo/shadcn-vue/components/ui/command'
 import { useMicSelector } from './context'
 
 type CommandListProps = InstanceType<typeof CommandList>['$props']
@@ -13,6 +13,8 @@ const { devices } = useMicSelector('MicSelectorList')
 
 <template>
   <CommandList v-bind="props">
-    <slot :devices="devices" />
+    <CommandGroup>
+      <slot :devices="devices" />
+    </CommandGroup>
   </CommandList>
 </template>

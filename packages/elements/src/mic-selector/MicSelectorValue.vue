@@ -5,7 +5,7 @@ import { computed } from 'vue'
 import { useMicSelector } from './context'
 import MicSelectorLabel from './MicSelectorLabel.vue'
 
-interface Props {
+interface Props extends /* @vue-ignore */ HTMLAttributes {
   class?: HTMLAttributes['class']
 }
 

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { AcceptableValue } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
 import { Command } from '@repo/shadcn-vue/components/ui/command'
 import { PopoverContent } from '@repo/shadcn-vue/components/ui/popover'
@@ -17,7 +18,7 @@ const props = defineProps<Props>()
 
 const { width, value, setValue } = useMicSelector('MicSelectorContent')
 
-function handleValueChange(newValue: string | string[]) {
+function handleValueChange(newValue: AcceptableValue) {
   if (typeof newValue === 'string') {
     setValue(newValue)
   }
