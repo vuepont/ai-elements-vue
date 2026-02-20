@@ -26,6 +26,7 @@ function handleSelect() {
 
 <template>
   <CommandItem
+    class="hover:bg-accent hover:text-accent-foreground"
     v-bind="forwardedProps"
     :value="props.value"
     @select="handleSelect"

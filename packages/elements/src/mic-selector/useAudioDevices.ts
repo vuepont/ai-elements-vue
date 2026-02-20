@@ -13,7 +13,7 @@ export function useAudioDevices() {
 
       const deviceList = await navigator.mediaDevices.enumerateDevices()
       const audioInputs = deviceList.filter(
-        device => device.kind === 'audioinput',
+        device => device.kind === 'audioinput' && device.deviceId !== '' && device.label !== '',
       )
 
       devices.value = audioInputs
@@ -49,7 +49,7 @@ export function useAudioDevices() {
 
       const deviceList = await navigator.mediaDevices.enumerateDevices()
       const audioInputs = deviceList.filter(
-        device => device.kind === 'audioinput',
+        device => device.kind === 'audioinput' && device.deviceId !== '' && device.label !== '',
       )
 
       devices.value = audioInputs

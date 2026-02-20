@@ -13,6 +13,7 @@ const { devices } = useMicSelector('MicSelectorList')
 
 <template>
   <CommandList v-bind="props">
+    <!-- v-if="devices.length > 0" -->
     <CommandGroup>
       <slot :devices="devices" />
     </CommandGroup>

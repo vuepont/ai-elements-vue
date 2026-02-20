@@ -7,7 +7,7 @@ settings:
 catalogs:
   default:
     '@vueuse/core':
-      specifier: ^14.1.0
+      specifier: 14.1.0
       version: 14.1.0
     ai:
       specifier: ^6.0.49
@@ -16,7 +16,7 @@ catalogs:
       specifier: ^0.555.0
       version: 0.555.0
     reka-ui:
-      specifier: ^2.8.0
+      specifier: 2.8.0
       version: 2.8.0
     shiki:
       specifier: ^3.20.0
