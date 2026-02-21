@@ -19,6 +19,7 @@
     "ai": "catalog:",
     "ansi-to-vue3": "^0.1.2",
     "lucide-vue-next": "catalog:",
+    "media-chrome": "catalog:",
     "motion-v": "^1.7.4",
     "shiki": "catalog:",
     "tokenlens": "^1.3.1",
