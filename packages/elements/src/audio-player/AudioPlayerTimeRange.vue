@@ -1,9 +1,10 @@
 <script setup lang="ts">
+import type { MediaTimeRange } from 'media-chrome'
 import type { HTMLAttributes } from 'vue'
 import { ButtonGroupText } from '@repo/shadcn-vue/components/ui/button-group'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 
-interface Props {
+interface Props extends /* @vue-ignore */ MediaTimeRange {
   class?: HTMLAttributes['class']
 }
 

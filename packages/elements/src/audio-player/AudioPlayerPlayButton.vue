@@ -1,9 +1,10 @@
 <script setup lang="ts">
+import type { MediaPlayButton } from 'media-chrome'
 import type { HTMLAttributes } from 'vue'
 import { Button } from '@repo/shadcn-vue/components/ui/button'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 
-interface Props {
+interface Props extends /* @vue-ignore */ MediaPlayButton {
   class?: HTMLAttributes['class']
 }
 

@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import type { MediaControlBar } from 'media-chrome'
 import { ButtonGroup } from '@repo/shadcn-vue/components/ui/button-group'
 
-interface Props {
+interface Props extends /* @vue-ignore */ MediaControlBar {
   // Add any media-chrome control bar props if needed
 }
 

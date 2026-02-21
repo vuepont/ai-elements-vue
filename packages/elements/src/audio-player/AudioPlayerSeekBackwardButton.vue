@@ -1,9 +1,8 @@
 <script setup lang="ts">
+import type { MediaSeekBackwardButton } from 'media-chrome'
 import { Button } from '@repo/shadcn-vue/components/ui/button'
 
-interface Props {
-  seekOffset?: number
-}
+interface Props extends /* @vue-ignore */ MediaSeekBackwardButton {}
 
 const props = withDefaults(defineProps<Props>(), {
   seekOffset: 10,
