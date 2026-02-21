@@ -3,7 +3,7 @@ import type { Experimental_SpeechResult as SpeechResult } from 'ai'
 import type { AudioHTMLAttributes } from 'vue'
 import { computed } from 'vue'
 
-interface Props extends /* @vue-ignore */ AudioHTMLAttributes {
+type Props = /* @vue-ignore */ AudioHTMLAttributes & {
   src?: string
   data?: SpeechResult['audio']
 }

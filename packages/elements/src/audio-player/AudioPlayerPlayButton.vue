@@ -4,7 +4,7 @@ import type { HTMLAttributes } from 'vue'
 import { Button } from '@repo/shadcn-vue/components/ui/button'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 
-interface Props extends /* @vue-ignore */ MediaPlayButton {
+type Props = /* @vue-ignore */ Partial<MediaPlayButton> & {
   class?: HTMLAttributes['class']
 }
 

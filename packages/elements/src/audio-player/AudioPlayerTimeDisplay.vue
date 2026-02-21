@@ -4,7 +4,7 @@ import type { HTMLAttributes } from 'vue'
 import { ButtonGroupText } from '@repo/shadcn-vue/components/ui/button-group'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 
-interface Props extends /* @vue-ignore */ MediaTimeDisplay {
+type Props = /* @vue-ignore */ Partial<MediaTimeDisplay> & {
   class?: HTMLAttributes['class']
 }
 
@@ -16,7 +16,7 @@ const props = defineProps<Props>()
     as-child
     class="bg-transparent"
   >
-    <MediaTimeDisplay
+    <media-time-display
       :class="cn('tabular-nums', props.class)"
       data-slot="audio-player-time-display"
     />

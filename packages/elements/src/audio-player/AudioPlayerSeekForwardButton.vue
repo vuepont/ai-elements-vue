@@ -2,7 +2,9 @@
 import type { MediaSeekForwardButton } from 'media-chrome'
 import { Button } from '@repo/shadcn-vue/components/ui/button'
 
-interface Props extends /* @vue-ignore */ MediaSeekForwardButton {}
+type Props = /* @vue-ignore */ Partial<Omit<MediaSeekForwardButton, 'seekOffset'>> & {
+  seekOffset?: number
+}
 
 const props = withDefaults(defineProps<Props>(), {
   seekOffset: 10,
@@ -17,7 +19,7 @@ const props = withDefaults(defineProps<Props>(), {
   >
     <media-seek-forward-button
       data-slot="audio-player-seek-forward-button"
-      :seek-offset="props.seekOffset"
+      :seekoffset="props.seekOffset"
     />
   </Button>
 </template>

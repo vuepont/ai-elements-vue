@@ -4,7 +4,7 @@ import type { HTMLAttributes } from 'vue'
 import { ButtonGroupText } from '@repo/shadcn-vue/components/ui/button-group'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 
-interface Props extends /* @vue-ignore */ MediaVolumeRange {
+type Props = /* @vue-ignore */ Partial<MediaVolumeRange> & {
   class?: HTMLAttributes['class']
 }
 

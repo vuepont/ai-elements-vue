@@ -2,7 +2,9 @@
 import type { MediaSeekBackwardButton } from 'media-chrome'
 import { Button } from '@repo/shadcn-vue/components/ui/button'
 
-interface Props extends /* @vue-ignore */ MediaSeekBackwardButton {}
+type Props = /* @vue-ignore */ Partial<Omit<MediaSeekBackwardButton, 'seekOffset'>> & {
+  seekOffset?: number
+}
 
 const props = withDefaults(defineProps<Props>(), {
   seekOffset: 10,
@@ -17,7 +19,7 @@ const props = withDefaults(defineProps<Props>(), {
   >
     <media-seek-backward-button
       data-slot="audio-player-seek-backward-button"
-      :seek-offset="props.seekOffset"
+      :seekoffset="props.seekOffset"
     />
   </Button>
 </template>

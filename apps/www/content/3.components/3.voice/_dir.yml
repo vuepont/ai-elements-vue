@@ -1,3 +1,3 @@
 title: Voice
 icon: lucide:mic-vocal
-navigation.redirect: /components/voice/speech-input
+navigation.redirect: /components/voice/audio-player
