@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { EventCallback } from '@rive-app/webgl2'
 import { cn } from '@repo/shadcn-vue/lib/utils'
-import { EventType, Rive } from '@rive-app/webgl2'
+import { Rive } from '@rive-app/webgl2'
 import { useColorMode, useResizeObserver } from '@vueuse/core'
 import { computed, onBeforeUnmount, onMounted, ref, shallowRef, watch } from 'vue'
 
@@ -14,7 +14,7 @@ export type PersonaState
 
 export interface PersonaProps {
   state?: PersonaState
-  className?: string
+  class?: string
   variant?: keyof typeof sources
 }
 
@@ -33,9 +33,6 @@ const props = withDefaults(defineProps<PersonaProps>(), {
 })
 
 const emits = defineEmits<PersonaEmits>()
-
-// The state machine name is always 'default' for Elements AI visuals
-const stateMachine = 'default'
 
 const sources = {
   command: {
@@ -100,11 +97,17 @@ onMounted(() => {
     canvas: canvasRef.value!,
     src: source.value.source,
     autoplay: true,
-    stateMachines: stateMachine,
     onLoad: () => {
       emits('load')
+
+      if (riveInstance.value && riveInstance.value.stateMachineNames.length > 0) {
+        riveInstance.value.play(riveInstance.value.stateMachineNames[0])
+      }
+
       // Set initial color if needed
       updateColor()
+      updateState() // Initialize state
+      emits('ready')
     },
     onLoadError: (err) => {
       emits('loadError', err)
@@ -113,7 +116,6 @@ onMounted(() => {
       const data = event.data as string | string[]
       if (typeof data === 'string' || Array.isArray(data)) {
         if (data.includes('idle') || data.includes('State')) {
-          // Not a direct 1:1 with generic event in webgl2 vs react hook,
           // passing what's available or we can just emit native player events.
         }
       }
@@ -121,11 +123,6 @@ onMounted(() => {
     onPlay: event => emits('play', event),
     onPause: event => emits('pause', event),
     onStop: event => emits('stop', event),
-  })
-
-  riveInstance.value.on(EventType.Load, () => {
-    emits('ready')
-    updateState() // Initialize state
   })
 })
 
@@ -144,10 +141,11 @@ watch(
 )
 
 function updateState() {
-  if (!riveInstance.value || !source.value.hasModel)
+  if (!riveInstance.value || !riveInstance.value.stateMachineNames.length)
     return
 
-  const stateMachineInputs = riveInstance.value.stateMachineInputs(stateMachine)
+  const smName = riveInstance.value.stateMachineNames[0]
+  const stateMachineInputs = riveInstance.value.stateMachineInputs(smName)
   if (!stateMachineInputs)
     return
 
@@ -212,26 +210,27 @@ watch(() => props.variant, async () => {
     canvas: canvasRef.value!,
     src: source.value.source,
     autoplay: true,
-    stateMachines: stateMachine,
     onLoad: () => {
       emits('load')
+
+      if (riveInstance.value && riveInstance.value.stateMachineNames.length > 0) {
+        riveInstance.value.play(riveInstance.value.stateMachineNames[0])
+      }
+
       updateColor()
+      updateState()
+      emits('ready')
     },
     onLoadError: err => emits('loadError', err),
     onPlay: event => emits('play', event),
     onPause: event => emits('pause', event),
     onStop: event => emits('stop', event),
   })
-
-  riveInstance.value.on(EventType.Load, () => {
-    emits('ready')
-    updateState()
-  })
 })
 </script>
 
 <template>
-  <div :class="cn('size-16 shrink-0', props.className)">
+  <div :class="cn('size-16 shrink-0', props.class)">
     <canvas ref="canvasRef" style="width: 100%; height: 100%;" />
   </div>
 </template>
