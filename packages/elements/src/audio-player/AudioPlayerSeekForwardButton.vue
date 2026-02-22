@@ -2,12 +2,12 @@
 import type { MediaSeekForwardButton } from 'media-chrome'
 import { Button } from '@repo/shadcn-vue/components/ui/button'
 
-type Props = /* @vue-ignore */ Partial<Omit<MediaSeekForwardButton, 'seekOffset'>> & {
+interface Props extends /* @vue-ignore */ Partial<MediaSeekForwardButton> {
   seekOffset?: number
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  seekOffset: 10,
+  seekOffset: 20,
 })
 </script>
 

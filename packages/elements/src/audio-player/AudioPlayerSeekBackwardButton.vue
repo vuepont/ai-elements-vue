@@ -2,7 +2,7 @@
 import type { MediaSeekBackwardButton } from 'media-chrome'
 import { Button } from '@repo/shadcn-vue/components/ui/button'
 
-type Props = /* @vue-ignore */ Partial<Omit<MediaSeekBackwardButton, 'seekOffset'>> & {
+interface Props extends /* @vue-ignore */ Partial<MediaSeekBackwardButton> {
   seekOffset?: number
 }
 
