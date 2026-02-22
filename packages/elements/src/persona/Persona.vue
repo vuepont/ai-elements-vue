@@ -2,8 +2,61 @@
 import type { EventCallback } from '@rive-app/webgl2'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 import { Rive } from '@rive-app/webgl2'
-import { useColorMode, useResizeObserver } from '@vueuse/core'
+import { useResizeObserver } from '@vueuse/core'
 import { computed, onBeforeUnmount, onMounted, ref, shallowRef, watch } from 'vue'
+
+const props = withDefaults(defineProps<PersonaProps>(), {
+  state: 'idle',
+  variant: 'obsidian',
+})
+
+const emits = defineEmits<PersonaEmits>()
+
+function getCurrentTheme(): 'light' | 'dark' {
+  if (typeof window !== 'undefined') {
+    if (document.documentElement.classList.contains('dark')) {
+      return 'dark'
+    }
+    if (window.matchMedia?.('(prefers-color-scheme: dark)').matches) {
+      return 'dark'
+    }
+  }
+  return 'light'
+}
+
+function useTheme() {
+  const theme = ref<'light' | 'dark'>(getCurrentTheme())
+
+  onMounted(() => {
+    const observer = new MutationObserver(() => {
+      theme.value = getCurrentTheme()
+    })
+
+    observer.observe(document.documentElement, {
+      attributeFilter: ['class'],
+      attributes: true,
+    })
+
+    let mql: MediaQueryList | null = null
+    const handleMediaChange = () => {
+      theme.value = getCurrentTheme()
+    }
+
+    if (window.matchMedia) {
+      mql = window.matchMedia('(prefers-color-scheme: dark)')
+      mql.addEventListener('change', handleMediaChange)
+    }
+
+    onBeforeUnmount(() => {
+      observer.disconnect()
+      if (mql) {
+        mql.removeEventListener('change', handleMediaChange)
+      }
+    })
+  })
+
+  return theme
+}
 
 export type PersonaState
   = | 'idle'
@@ -26,13 +79,6 @@ export interface PersonaEmits {
   (e: 'play', event: Parameters<EventCallback>[0]): void
   (e: 'stop', event: Parameters<EventCallback>[0]): void
 }
-
-const props = withDefaults(defineProps<PersonaProps>(), {
-  state: 'idle',
-  variant: 'obsidian',
-})
-
-const emits = defineEmits<PersonaEmits>()
 
 const sources = {
   command: {
@@ -77,7 +123,7 @@ const canvasRef = ref<HTMLCanvasElement | null>(null)
 const riveInstance = shallowRef<Rive | null>(null)
 
 const source = computed(() => sources[props.variant])
-const colorMode = useColorMode()
+const theme = useTheme()
 
 useResizeObserver(canvasRef, () => {
   if (riveInstance.value) {
@@ -166,7 +212,7 @@ function updateState() {
 
 // Update color when theme changes
 watch(
-  () => colorMode.value,
+  () => theme.value,
   () => {
     updateColor()
   },
@@ -181,7 +227,7 @@ function updateColor() {
   if (viewModel) {
     const colorObj = viewModel.color('color')
     if (colorObj) {
-      const isDark = colorMode.value === 'dark'
+      const isDark = theme.value === 'dark'
       const [r, g, b] = isDark ? [255, 255, 255] : [0, 0, 0]
       colorObj.rgb(r, g, b)
       colorObj.internalHandleCallback?.(() => { }) // Manually trigger if required, though rgb() often flushes

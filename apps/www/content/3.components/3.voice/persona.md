@@ -1,6 +1,7 @@
 ---
 title: Persona
 description: An animated AI visual component powered by Rive that responds to different states like listening, thinking, and speaking.
+icon: lucide:brain-cog
 ---
 
 The `Persona` component displays an animated AI visual that responds to different conversational states. Built with Rive WebGL2, it provides smooth, high-performance animations for various AI interaction states including idle, listening, thinking, speaking, and asleep. The component supports multiple visual variants to match different design aesthetics.
@@ -78,33 +79,34 @@ The Persona component comes with 6 distinct visual variants, each with its own u
 The root component that renders the animated AI visual.
 
 :::field-group
-::field{name="state" type="\"idle\" | \"listening\" | \"thinking\" | \"speaking\" | \"asleep\"" default="\"idle\""}
-The current state of the AI persona. Controls which animation is displayed.
-::
-::field{name="variant" type="\"obsidian\" | \"mana\" | \"opal\" | \"halo\" | \"glint\" | \"command\"" default="\"obsidian\""}
-The visual style variant to display.
-::
-::field{name="class" type="HTMLAttributes['class']" optional}
-Additional CSS classes to apply to the component.
-::
-::field{name="onLoad" type="RiveParameters['onLoad']" optional}
-Callback fired when the Rive file starts loading.
-::
-::field{name="onLoadError" type="RiveParameters['onLoadError']" optional}
-Callback fired if the Rive file fails to load.
-::
-::field{name="onReady" type="() => void" optional}
-Callback fired when the Rive animation is ready to play.
-::
-::field{name="onPause" type="RiveParameters['onPause']" optional}
-Callback fired when the animation is paused.
-::
-::field{name="onPlay" type="RiveParameters['onPlay']" optional}
-Callback fired when the animation starts playing.
-::
-::field{name="onStop" type="RiveParameters['onStop']" optional}
+  ::field{name="state" type="\"idle\" | \"listening\" | \"thinking\" | \"speaking\" | \"asleep\"" default="\"idle\""}
+    The current state of the AI persona. Controls which animation is displayed.
+  ::
+
+  ::field{name="variant" type="\"obsidian\" | \"mana\" | \"opal\" | \"halo\" | \"glint\" | \"command\"" default="\"obsidian\""}
+    The visual style variant to display.
+  ::
+  ::field{name="class" type="HTMLAttributes['class']" optional}
+    Additional CSS classes to apply to the component.
+  ::
+  ::field{name="onLoad" type="RiveParameters['onLoad']" optional}
+    Callback fired when the Rive file starts loading.
+  ::
+  ::field{name="onLoadError" type="RiveParameters['onLoadError']" optional}
+    Callback fired if the Rive file fails to load.
+  ::
+  ::field{name="onReady" type="() => void" optional}
+    Callback fired when the Rive animation is ready to play.
+  ::
+  ::field{name="onPause" type="RiveParameters['onPause']" optional}
+    Callback fired when the animation is paused.
+  ::
+  ::field{name="onPlay" type="RiveParameters['onPlay']" optional}
+    Callback fired when the animation starts playing.
+  ::
+  ::field{name="onStop" type="RiveParameters['onStop']" optional}
 Callback fired when the animation is stopped.
-::
+  ::
 :::
 
 ## States
