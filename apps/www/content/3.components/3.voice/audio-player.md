@@ -90,21 +90,21 @@ const props = defineProps<Props>()
         '--media-button-icon-height': '1rem',
         '--media-button-icon-width': '1rem',
         '--media-control-background': 'transparent',
-        '--media-control-hover-background': 'var(--color-accent)',
+        '--media-control-hover-background': 'hsl(var(--accent))',
         '--media-control-padding': '0',
         '--media-font': 'var(--font-sans)',
         '--media-font-size': '10px',
         '--media-icon-color': 'currentColor',
-        '--media-preview-time-background': 'var(--color-background)',
+        '--media-preview-time-background': 'hsl(var(--background))',
         '--media-preview-time-border-radius': 'var(--radius-md)',
         '--media-preview-time-text-shadow': 'none',
-        '--media-primary-color': 'var(--color-primary)',
-        '--media-range-bar-color': 'var(--color-primary)',
-        '--media-range-track-background': 'var(--color-secondary)',
-        '--media-secondary-color': 'var(--color-secondary)',
-        '--media-text-color': 'var(--color-foreground)',
+        '--media-primary-color': 'hsl(var(--primary))',
+        '--media-range-bar-color': 'hsl(var(--primary))',
+        '--media-range-track-background': 'hsl(var(--secondary))',
+        '--media-secondary-color': 'hsl(var(--secondary))',
+        '--media-text-color': 'hsl(var(--foreground))',
         '--media-tooltip-arrow-display': 'none',
-        '--media-tooltip-background': 'var(--color-background)',
+        '--media-tooltip-background': 'hsl(var(--background))',
         '--media-tooltip-border-radius': 'var(--radius-md)',
       },
       props.style,
@@ -150,9 +150,12 @@ const audioSrc = computed(() => {
 
 ```vue [AudioPlayerControlBar.vue] height=500 collapse
 <script setup lang="ts">
+import type { MediaControlBar } from 'media-chrome'
 import { ButtonGroup } from '@repo/shadcn-vue/components/ui/button-group'
 
-interface Props {}
+interface Props extends /* @vue-ignore */ Partial<MediaControlBar> {
+  // Add any media-chrome control bar props if needed
+}
 
 defineProps<Props>()
 </script>
@@ -168,11 +171,12 @@ defineProps<Props>()
 
 ```vue [AudioPlayerPlayButton.vue] height=500 collapse
 <script setup lang="ts">
+import type { MediaPlayButton } from 'media-chrome'
 import type { HTMLAttributes } from 'vue'
 import { Button } from '@repo/shadcn-vue/components/ui/button'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 
-interface Props {
+interface Props extends /* @vue-ignore */ Partial<MediaPlayButton> {
   class?: HTMLAttributes['class']
 }
 
@@ -251,11 +255,12 @@ const props = withDefaults(defineProps<Props>(), {
 
 ```vue [AudioPlayerTimeDisplay.vue] height=500 collapse
 <script setup lang="ts">
+import type { MediaTimeDisplay } from 'media-chrome'
 import type { HTMLAttributes } from 'vue'
 import { ButtonGroupText } from '@repo/shadcn-vue/components/ui/button-group'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 
-interface Props {
+interface Props extends /* @vue-ignore */ Partial<MediaTimeDisplay> {
   class?: HTMLAttributes['class']
 }
 
@@ -277,11 +282,12 @@ const props = defineProps<Props>()
 
 ```vue [AudioPlayerTimeRange.vue] height=500 collapse
 <script setup lang="ts">
+import type { MediaTimeRange } from 'media-chrome'
 import type { HTMLAttributes } from 'vue'
 import { ButtonGroupText } from '@repo/shadcn-vue/components/ui/button-group'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 
-interface Props {
+interface Props extends /* @vue-ignore */ Partial<MediaTimeRange> {
   class?: HTMLAttributes['class']
 }
 
@@ -303,11 +309,12 @@ const props = defineProps<Props>()
 
 ```vue [AudioPlayerDurationDisplay.vue] height=500 collapse
 <script setup lang="ts">
+import type { MediaDurationDisplay } from 'media-chrome'
 import type { HTMLAttributes } from 'vue'
 import { ButtonGroupText } from '@repo/shadcn-vue/components/ui/button-group'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 
-interface Props {
+interface Props extends /* @vue-ignore */ Partial<MediaDurationDisplay> {
   class?: HTMLAttributes['class']
 }
 
@@ -329,11 +336,12 @@ const props = defineProps<Props>()
 
 ```vue [AudioPlayerMuteButton.vue] height=500 collapse
 <script setup lang="ts">
+import type { MediaMuteButton } from 'media-chrome'
 import type { HTMLAttributes } from 'vue'
 import { ButtonGroupText } from '@repo/shadcn-vue/components/ui/button-group'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 
-interface Props {
+interface Props extends /* @vue-ignore */ Partial<MediaMuteButton> {
   class?: HTMLAttributes['class']
 }
 
@@ -355,11 +363,12 @@ const props = defineProps<Props>()
 
 ```vue [AudioPlayerVolumeRange.vue] height=500 collapse
 <script setup lang="ts">
+import type { MediaVolumeRange } from 'media-chrome'
 import type { HTMLAttributes } from 'vue'
 import { ButtonGroupText } from '@repo/shadcn-vue/components/ui/button-group'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 
-interface Props {
+interface Props extends /* @vue-ignore */ Partial<MediaVolumeRange> {
   class?: HTMLAttributes['class']
 }
 
@@ -426,7 +435,7 @@ The `AudioPlayer` component can be used to play remote audio files.
 
 ### `<AudioPlayer />`
 
-Root MediaController component.
+Root MediaController component. Accepts all MediaController props except `audio` (which is set to `true` by default).
 
 :::field-group
   ::field{name="class" type="HTMLAttributes['class']"}
@@ -434,9 +443,6 @@ Root MediaController component.
   ::
   ::field{name="style" type="HTMLAttributes['style']"}
   Custom CSS properties to override media-chrome theming variables.
-  ::
-  ::field{name="...props" type="MediaControllerProps"}
-  Any other props are spread to the media-controller element.
   ::
 :::
 
@@ -461,7 +467,7 @@ The audio element that contains the media source. Accepts either a remote URL or
 Container for control buttons, wraps children in a ButtonGroup.
 
 :::field-group
-  ::field{name="...props" type="MediaControlBarProps"}
+  ::field{name="...props" type="Partial<MediaControlBar>"}
   Any other props are spread to the media-control-bar element.
   ::
 :::
@@ -471,8 +477,11 @@ Container for control buttons, wraps children in a ButtonGroup.
 Play/pause button wrapped in a shadcn-vue Button component.
 
 :::field-group
-  ::field{name="class" type="string"}
+  ::field{name="class" type="HTMLAttributes['class']"}
   Additional CSS classes to apply.
+  ::
+  ::field{name="...props" type="Partial<MediaPlayButton>"}
+  Any other props are spread to the MediaPlayButton component.
   ::
 :::
 
@@ -484,6 +493,9 @@ Seek backward button wrapped in a shadcn-vue Button component.
   ::field{name="seekOffset" type="number" default="10"}
   The number of seconds to seek backward.
   ::
+  ::field{name="...props" type="Partial<MediaSeekBackwardButton>"}
+  Any other props are spread to the MediaSeekBackwardButton component.
+  ::
 :::
 
 ### `<AudioPlayerSeekForwardButton />`
@@ -494,54 +506,72 @@ Seek forward button wrapped in a shadcn-vue Button component.
   ::field{name="seekOffset" type="number" default="20"}
   The number of seconds to seek forward.
   ::
+  ::field{name="...props" type="Partial<MediaSeekForwardButton>"}
+  Any other props are spread to the MediaSeekForwardButton component.
+  ::
 :::
 
 ### `<AudioPlayerTimeDisplay />`
 
 Displays the current playback time, wrapped in ButtonGroupText.
 
+:::field-group
+  ::field{name="class" type="HTMLAttributes['class']"}
+  Additional CSS classes to apply.
+  ::
+  ::field{name="...props" type="Partial<MediaTimeDisplay>"}
+  Any other props are spread to the MediaTimeDisplay component.
+  ::
+:::
+
 ### `<AudioPlayerTimeRange />`
 
 Seek slider for controlling playback position, wrapped in ButtonGroupText.
+
+:::field-group
+  ::field{name="class" type="HTMLAttributes['class']"}
+  Additional CSS classes to apply.
+  ::
+  ::field{name="...props" type="Partial<MediaTimeRange>"}
+  Any other props are spread to the MediaTimeRange component.
+  ::
+:::
 
 ### `<AudioPlayerDurationDisplay />`
 
 Displays the total duration of the audio, wrapped in ButtonGroupText.
 
+:::field-group
+  ::field{name="class" type="HTMLAttributes['class']"}
+  Additional CSS classes to apply.
+  ::
+  ::field{name="...props" type="Partial<MediaDurationDisplay>"}
+  Any other props are spread to the MediaDurationDisplay component.
+  ::
+:::
+
 ### `<AudioPlayerMuteButton />`
 
 Mute/unmute button, wrapped in ButtonGroupText.
+
+:::field-group
+  ::field{name="class" type="HTMLAttributes['class']"}
+  Additional CSS classes to apply.
+  ::
+  ::field{name="...props" type="Partial<MediaMuteButton>"}
+  Any other props are spread to the MediaMuteButton component.
+  ::
+:::
 
 ### `<AudioPlayerVolumeRange />`
 
 Volume slider control, wrapped in ButtonGroupText.
 
-## Behavior
-
-### Custom Theming
-
-The component uses CSS custom properties for theming. You can override these by passing a `style` prop to the `<AudioPlayer />` component:
-
-```vue
-<AudioPlayer :style="{ '--media-primary-color': 'red' }">
-  ...
-</AudioPlayer>
-```
-
-### Composable Controls
-
-The components are designed to be used together within the `AudioPlayer` context. You can reorder or omit any control component to fit your needs.
-
-## Accessibility
-
-- Built on accessible media-chrome components
-- Supports keyboard navigation
-- Proper ARIA roles and labels for all controls
-- Screen reader friendly time and volume displays
-
-## Notes
-
-- Requires `media-chrome` package to be installed
-- Audio playback requires a user interaction in most browsers (autoplay is often blocked)
-- For base64 audio, ensure the correct `mediaType` is provided in the data object
-- Component uses VueUse's `useResizeObserver` internally for some layouts
+:::field-group
+  ::field{name="class" type="HTMLAttributes['class']"}
+  Additional CSS classes to apply.
+  ::
+  ::field{name="...props" type="Partial<MediaVolumeRange>"}
+  Any other props are spread to the MediaVolumeRange component.
+  ::
+:::
