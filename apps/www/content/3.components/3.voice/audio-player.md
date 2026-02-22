@@ -195,9 +195,10 @@ const props = defineProps<Props>()
 
 ```vue [AudioPlayerSeekBackwardButton.vue] height=500 collapse
 <script setup lang="ts">
+import type { MediaSeekBackwardButton } from 'media-chrome'
 import { Button } from '@repo/shadcn-vue/components/ui/button'
 
-interface Props {
+interface Props extends /* @vue-ignore */ Partial<MediaSeekBackwardButton> {
   seekOffset?: number
 }
 
@@ -214,7 +215,7 @@ const props = withDefaults(defineProps<Props>(), {
   >
     <media-seek-backward-button
       data-slot="audio-player-seek-backward-button"
-      :seek-offset="props.seekOffset"
+      :seekoffset="props.seekOffset"
     />
   </Button>
 </template>
@@ -222,14 +223,15 @@ const props = withDefaults(defineProps<Props>(), {
 
 ```vue [AudioPlayerSeekForwardButton.vue] height=500 collapse
 <script setup lang="ts">
+import type { MediaSeekForwardButton } from 'media-chrome'
 import { Button } from '@repo/shadcn-vue/components/ui/button'
 
-interface Props {
+interface Props extends /* @vue-ignore */ Partial<MediaSeekForwardButton> {
   seekOffset?: number
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  seekOffset: 10,
+  seekOffset: 20,
 })
 </script>
 
@@ -241,7 +243,7 @@ const props = withDefaults(defineProps<Props>(), {
   >
     <media-seek-forward-button
       data-slot="audio-player-seek-forward-button"
-      :seek-offset="props.seekOffset"
+      :seekoffset="props.seekOffset"
     />
   </Button>
 </template>
@@ -489,7 +491,7 @@ Seek backward button wrapped in a shadcn-vue Button component.
 Seek forward button wrapped in a shadcn-vue Button component.
 
 :::field-group
-  ::field{name="seekOffset" type="number" default="10"}
+  ::field{name="seekOffset" type="number" default="20"}
   The number of seconds to seek forward.
   ::
 :::
