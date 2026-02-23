@@ -398,11 +398,11 @@ The Persona component comes with 6 distinct visual variants, each with its own u
 The root component that renders the animated AI visual.
 
 :::field-group
-::field{name="state" type="\"idle\" | \"listening\" | \"thinking\" | \"speaking\" | \"asleep\"" default="\"idle\""}
+::field{name="state" type="'idle' | 'listening' | 'thinking' | 'speaking' | 'asleep'" default="idle"}
 The current state of the AI persona. Controls which animation is displayed.
 ::
 
-::field{name="variant" type="\"obsidian\" | \"mana\" | \"opal\" | \"halo\" | \"glint\" | \"command\"" default="\"obsidian\""}
+::field{name="variant" type="'obsidian' | 'mana' | 'opal' | 'halo' | 'glint' | 'command'" default="obsidian"}
 The visual style variant to display.
 ::
 ::field{name="class" type="HTMLAttributes['class']" optional}
