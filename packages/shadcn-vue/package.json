@@ -1,6 +1,6 @@
 {
   "name": "@repo/shadcn-vue",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "private": true,
   "dependencies": {
     "@tailwindcss/vite": "^4.1.17",
