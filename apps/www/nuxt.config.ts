@@ -3,6 +3,12 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   extends: ['shadcn-docs-nuxt'],
 
+  vue: {
+    compilerOptions: {
+      isCustomElement: tag => tag.startsWith('media-'),
+    },
+  },
+
   plugins: ['~/plugins/ai-elements'],
 
   experimental: {
