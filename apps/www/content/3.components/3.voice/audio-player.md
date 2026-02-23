@@ -9,7 +9,7 @@ The `AudioPlayer` component provides a flexible and customizable audio playback 
 :::ComponentLoader{label="Preview" componentName="AudioPlayer"}
 :::
 
-## Installation
+## Install using CLI
 
 ::tabs{variant="card"}
   ::div{label="AI Elements Vue"}
@@ -25,43 +25,7 @@ The `AudioPlayer` component provides a flexible and customizable audio playback 
   ::
 ::
 
-## Configuration
-
-Since this component uses Web Components (via `media-chrome`), you must configure your Vue compiler to recognize `media-` tags to avoid "Failed to resolve component" warnings.
-
-::tabs{variant="card"}
-  ::div{label="Nuxt"}
-  ```ts [nuxt.config.ts]
-  export default defineNuxtConfig({
-    vue: {
-      compilerOptions: {
-        isCustomElement: tag => tag.startsWith('media-'),
-      },
-    },
-  })
-  ```
-  ::
-  ::div{label="Vite / Vue"}
-  ```ts [vite.config.ts]
-  import vue from '@vitejs/plugin-vue'
-  import { defineConfig } from 'vite'
-
-  export default defineConfig({
-    plugins: [
-      vue({
-        template: {
-          compilerOptions: {
-            isCustomElement: tag => tag.startsWith('media-'),
-          },
-        },
-      }),
-    ],
-  })
-  ```
-  ::
-::
-
-## Manual Installation
+## Install Manually
 
 Copy and paste the following code into your project.
 
@@ -402,6 +366,42 @@ export { default as AudioPlayerTimeRange } from './AudioPlayerTimeRange.vue'
 export { default as AudioPlayerVolumeRange } from './AudioPlayerVolumeRange.vue'
 ```
 :::
+
+## Configuration
+
+Since this component uses Web Components (via `media-chrome`), you must configure your Vue compiler to recognize `media-` tags to avoid "Failed to resolve component" warnings.
+
+::tabs{variant="card"}
+  ::div{label="Nuxt"}
+  ```ts [nuxt.config.ts]
+  export default defineNuxtConfig({
+    vue: {
+      compilerOptions: {
+        isCustomElement: tag => tag.startsWith('media-'),
+      },
+    },
+  })
+  ```
+  ::
+  ::div{label="Vite / Vue"}
+  ```ts [vite.config.ts]
+  import vue from '@vitejs/plugin-vue'
+  import { defineConfig } from 'vite'
+
+  export default defineConfig({
+    plugins: [
+      vue({
+        template: {
+          compilerOptions: {
+            isCustomElement: tag => tag.startsWith('media-'),
+          },
+        },
+      }),
+    ],
+  })
+  ```
+  ::
+::
 
 ## Features
 

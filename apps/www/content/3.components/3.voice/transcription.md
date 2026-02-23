@@ -9,7 +9,7 @@ The `Transcription` component provides a flexible scoped slots interface for dis
 :::ComponentLoader{label="Preview" componentName="Transcription"}
 :::
 
-## Installation
+## Install using CLI
 
 ::tabs{variant="card"}
   ::div{label="AI Elements Vue"}
@@ -25,7 +25,7 @@ The `Transcription` component provides a flexible scoped slots interface for dis
   ::
 ::
 
-## Manual Installation
+## Install Manually
 
 Copy and paste the following code into your project.
 
