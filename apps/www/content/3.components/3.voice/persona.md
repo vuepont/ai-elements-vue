@@ -408,23 +408,30 @@ The visual style variant to display.
 ::field{name="class" type="HTMLAttributes['class']" optional}
 Additional CSS classes to apply to the component.
 ::
-::field{name="onLoad" type="RiveParameters['onLoad']" optional}
-Callback fired when the Rive file starts loading.
+:::
+
+## Emits
+
+### `<Persona />`
+
+:::field-group
+::field{name="load" type="void"}
+Fired when the Rive file starts loading.
 ::
-::field{name="onLoadError" type="RiveParameters['onLoadError']" optional}
-Callback fired if the Rive file fails to load.
+::field{name="loadError" type="error: any"}
+Fired if the Rive file fails to load.
 ::
-::field{name="onReady" type="() => void" optional}
-Callback fired when the Rive animation is ready to play.
+::field{name="ready" type="void"}
+Fired when the Rive animation is ready to play.
 ::
-::field{name="onPause" type="RiveParameters['onPause']" optional}
-Callback fired when the animation is paused.
+::field{name="pause" type="event: RiveEvent"}
+Fired when the animation is paused.
 ::
-::field{name="onPlay" type="RiveParameters['onPlay']" optional}
-Callback fired when the animation starts playing.
+::field{name="play" type="event: RiveEvent"}
+Fired when the animation starts playing.
 ::
-::field{name="onStop" type="RiveParameters['onStop']" optional}
-Callback fired when the animation is stopped.
+::field{name="stop" type="event: RiveEvent"}
+Fired when the animation is stopped.
 ::
 :::
 
