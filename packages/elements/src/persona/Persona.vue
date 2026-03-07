@@ -191,6 +191,8 @@ function updateState() {
     return
 
   const smName = riveInstance.value.stateMachineNames[0]
+  if (!smName)
+    return
   const stateMachineInputs = riveInstance.value.stateMachineInputs(smName)
   if (!stateMachineInputs)
     return
