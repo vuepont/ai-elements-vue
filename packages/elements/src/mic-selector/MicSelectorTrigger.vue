@@ -22,6 +22,8 @@ const triggerRef = ref<InstanceType<typeof Button> | null>(null)
 
 useResizeObserver(triggerRef, (entries) => {
   const entry = entries[0]
+  if (!entry)
+    return
   const newWidth = (entry.target as HTMLElement).offsetWidth
   if (newWidth) {
     setWidth(newWidth)
