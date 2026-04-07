@@ -148,6 +148,16 @@ If you'd like to contribute to AI Elements Vue, please follow these steps:
 3. Make your changes to the components in `packages/elements`.
 4. Open a PR to the `main` branch.
 
+## Sponsors
+
+AI Elements Vue is an open-source project supported by our sponsors. If you'd like to support its development, please consider [becoming a sponsor](https://opencollective.com/vuepont).
+
+<p>
+  <a href="https://immitranslate.com/" target="_blank" rel="noopener noreferrer">
+    <img src="https://ai-elements-vue.com/sponsors/immitranslate.svg" alt="ImmiTranslate" width="180" />
+  </a>
+</p>
+
 ## Acknowledgments
 
 This project draws inspiration from several excellent projects:

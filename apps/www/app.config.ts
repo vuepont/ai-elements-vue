@@ -130,5 +130,18 @@ export default defineAppConfig({
       enable: true,
       inAside: false,
     },
+    sponsors: {
+      title: 'Sponsors',
+      items: [{
+        name: 'ImmiTranslate',
+        href: 'https://immitranslate.com/',
+        logo: '/sponsors/immitranslate.svg',
+        alt: 'ImmiTranslate',
+      }],
+      cta: {
+        name: 'Become a Sponsor',
+        href: 'https://opencollective.com/vuepont',
+      },
+    },
   },
 })

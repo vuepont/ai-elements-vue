@@ -58,3 +58,6 @@ AI Elements Vue is a component library built on top of shadcn-vue to help you bu
   TypeScript provides type safety and developer experience for our AI Elements library, ensuring reliable APIs and better IntelliSense support.
   ::
 ::
+
+:::SponsorsSection
+:::
