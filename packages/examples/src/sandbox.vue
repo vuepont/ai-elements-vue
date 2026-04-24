@@ -48,6 +48,8 @@ if __name__ == "__main__":
 const outputs: Record<ToolUIPart['state'], string | undefined> = {
   'input-streaming': undefined,
   'input-available': undefined,
+  'approval-requested': undefined,
+  'approval-responded': undefined,
   'output-available': `Found 15 prime numbers up to 50:
 [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47]`,
   'output-error': `TypeError: Cannot read properties of undefined (reading 'map')
@@ -56,6 +58,7 @@ const outputs: Record<ToolUIPart['state'], string | undefined> = {
     at onClick (/src/components/Button.tsx:18:5)
     at HTMLButtonElement.dispatch (node_modules/react-dom/cjs/react-dom.development.js:3456:9)
     at node_modules/react-dom/cjs/react-dom.development.js:4245:12`,
+  'output-denied': undefined,
 }
 
 const states: ToolUIPart['state'][] = [
