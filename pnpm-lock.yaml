@@ -13,8 +13,8 @@ catalogs:
       specifier: ^14.1.0
       version: 14.1.0
     ai:
-      specifier: ^6.0.49
-      version: 6.0.50
+      specifier: ^6.0.168
+      version: 6.0.168
     lucide-vue-next:
       specifier: ^0.555.0
       version: 0.555.0
@@ -44,8 +44,8 @@ catalogs:
       version: 4.1.13
 
 overrides:
-  semver: 7.7.3
   oxc-parser: 0.102.0
+  semver: 7.7.3
 
 importers:
 
@@ -180,7 +180,7 @@ importers:
         version: 14.1.0(vue@3.5.25(typescript@5.9.3))
       ai:
         specifier: 'catalog:'
-        version: 6.0.50(zod@4.1.13)
+        version: 6.0.168(zod@4.1.13)
       ansi-to-vue3:
         specifier: ^0.1.2
         version: 0.1.2(vue@3.5.25(typescript@5.9.3))
@@ -250,7 +250,7 @@ importers:
         version: 1.48.0(vue@3.5.25(typescript@5.9.3))
       ai:
         specifier: 'catalog:'
-        version: 6.0.50(zod@4.1.13)
+        version: 6.0.168(zod@4.1.13)
       lucide-vue-next:
         specifier: 'catalog:'
         version: 0.555.0(vue@3.5.25(typescript@5.9.3))
@@ -343,20 +343,20 @@ importers:
 
 packages:
 
-  '@ai-sdk/gateway@3.0.23':
-    resolution: {integrity: sha512-hievGeM4cXkKvEbaHvlfVDubyp+XiTZmd0f2uvzBEMKfA98lDw0Fg/RKvNwQE6DQjRADkvVJNhSaHmlZRZeh3g==}
+  '@ai-sdk/gateway@3.0.104':
+    resolution: {integrity: sha512-ZKX5n74io8VIRlhIMSLWVlvT3sXC8Z7cZ9GHuWBWZDVi96+62AIsWuLGvMfcBA1STYuSoDrp6rIziZmvrTq0TA==}
     engines: {node: '>=18'}
     peerDependencies:
       zod: ^3.25.76 || ^4.1.8
 
-  '@ai-sdk/provider-utils@4.0.9':
-    resolution: {integrity: sha512-bB4r6nfhBOpmoS9mePxjRoCy+LnzP3AfhyMGCkGL4Mn9clVNlqEeKj26zEKEtB6yoSVcT1IQ0Zh9fytwMCDnow==}
+  '@ai-sdk/provider-utils@4.0.23':
+    resolution: {integrity: sha512-z8GlDaCmRSDlqkMF2f4/RFgWxdarvIbyuk+m6WXT1LYgsnGiXRJGTD2Z1+SDl3LqtFuRtGX1aghYvQLoHL/9pg==}
     engines: {node: '>=18'}
     peerDependencies:
       zod: ^3.25.76 || ^4.1.8
 
-  '@ai-sdk/provider@3.0.5':
-    resolution: {integrity: sha512-2Xmoq6DBJqmSl80U6V9z5jJSJP7ehaJJQMy2iFUqTay06wdCqTnPVBBQbtEL8RCChenL+q5DC5H5WzU3vV3v8w==}
+  '@ai-sdk/provider@3.0.8':
+    resolution: {integrity: sha512-oGMAgGoQdBXbZqNG0Ze56CHjDZ1IDYOwGYxYjO5KLSlz5HiNQ9udIXsPZ61VWaHGZ5XW/jyjmr6t2xz2jGVwbQ==}
     engines: {node: '>=18'}
 
   '@antfu/eslint-config@6.4.2':
@@ -2885,9 +2885,6 @@ packages:
   '@speed-highlight/core@1.2.12':
     resolution: {integrity: sha512-uilwrK0Ygyri5dToHYdZSjcvpS2ZwX0w5aSt3GCEN9hrjxWCoeV4Z2DTXuxjwbntaLQIEEAlCeNQss5SoHvAEA==}
 
-  '@standard-schema/spec@1.0.0':
-    resolution: {integrity: sha512-m2bOd0f2RT9k8QJx1JN85cZYyH1RqFBdlwtkSlf4tBDYLCiiZnv1fIIwacK6cqwXavOydf0NPToMQgpKq+dVlA==}
-
   '@standard-schema/spec@1.1.0':
     resolution: {integrity: sha512-l2aFy5jALhniG5HgqrD6jXLi/rUWrKvqN/qJx6yoJsgKhblVd+iqqU4RCXavm/jPityDo5TCvKMnpjKnOriy0w==}
 
@@ -3366,8 +3363,8 @@ packages:
     engines: {node: '>=18'}
     hasBin: true
 
-  '@vercel/oidc@3.1.0':
-    resolution: {integrity: sha512-Fw28YZpRnA3cAHHDlkt7xQHiJ0fcL+NRcIqsocZQUSmbzeIKRpwttJjik5ZGanXP+vlA4SbTg+AbA3bP363l+w==}
+  '@vercel/oidc@3.2.0':
+    resolution: {integrity: sha512-UycprH3T6n3jH0k44NHMa7pnFHGu/N05MjojYr+Mc6I7obkoLIJujSWwin1pCvdy/eOxrI/l3uDLQsmcrOb4ug==}
     engines: {node: '>= 20'}
 
   '@vitejs/plugin-vue-jsx@5.1.2':
@@ -3702,8 +3699,8 @@ packages:
     resolution: {integrity: sha512-MnA+YT8fwfJPgBx3m60MNqakm30XOkyIoH1y6huTQvC0PwZG7ki8NacLBcrPbNoo8vEZy7Jpuk7+jMO+CUovTQ==}
     engines: {node: '>= 14'}
 
-  ai@6.0.50:
-    resolution: {integrity: sha512-JlwqjkRTa6GR2CF+JksCuh1+jeZATJvvja53cj880bJsEgkMpS+rqjwr1E397WeRjkmoicbGGD8QxIDaFbsWHg==}
+  ai@6.0.168:
+    resolution: {integrity: sha512-2HqCJuO+1V2aV7vfYs5LFEUfxbkGX+5oa54q/gCCTL7KLTdbxcCu5D7TdLA5kwsrs3Szgjah9q6D9tpjHM3hUQ==}
     engines: {node: '>=18'}
     peerDependencies:
       zod: ^3.25.76 || ^4.1.8
@@ -8186,6 +8183,7 @@ packages:
 
   unplugin-vue-router@0.15.0:
     resolution: {integrity: sha512-PyGehCjd9Ny9h+Uer4McbBjjib3lHihcyUEILa7pHKl6+rh8N7sFyw4ZkV+N30Oq2zmIUG7iKs3qpL0r+gXAaQ==}
+    deprecated: 'Merged into vuejs/router. Migrate: https://router.vuejs.org/guide/migration/v4-to-v5.html'
     peerDependencies:
       '@vue/compiler-sfc': ^3.5.17
       vue-router: ^4.5.1
@@ -8893,21 +8891,21 @@ packages:
 
 snapshots:
 
-  '@ai-sdk/gateway@3.0.23(zod@4.1.13)':
+  '@ai-sdk/gateway@3.0.104(zod@4.1.13)':
     dependencies:
-      '@ai-sdk/provider': 3.0.5
-      '@ai-sdk/provider-utils': 4.0.9(zod@4.1.13)
-      '@vercel/oidc': 3.1.0
+      '@ai-sdk/provider': 3.0.8
+      '@ai-sdk/provider-utils': 4.0.23(zod@4.1.13)
+      '@vercel/oidc': 3.2.0
       zod: 4.1.13
 
-  '@ai-sdk/provider-utils@4.0.9(zod@4.1.13)':
+  '@ai-sdk/provider-utils@4.0.23(zod@4.1.13)':
     dependencies:
-      '@ai-sdk/provider': 3.0.5
+      '@ai-sdk/provider': 3.0.8
       '@standard-schema/spec': 1.1.0
       eventsource-parser: 3.0.6
       zod: 4.1.13
 
-  '@ai-sdk/provider@3.0.5':
+  '@ai-sdk/provider@3.0.8':
     dependencies:
       json-schema: 0.4.0
 
@@ -11674,8 +11672,6 @@ snapshots:
 
   '@speed-highlight/core@1.2.12': {}
 
-  '@standard-schema/spec@1.0.0': {}
-
   '@standard-schema/spec@1.1.0': {}
 
   '@stylistic/eslint-plugin@5.6.1(eslint@9.39.1(jiti@2.6.1))':
@@ -12279,7 +12275,7 @@ snapshots:
       - rollup
       - supports-color
 
-  '@vercel/oidc@3.1.0': {}
+  '@vercel/oidc@3.2.0': {}
 
   '@vitejs/plugin-vue-jsx@5.1.2(vite@7.3.0(@types/node@24.10.1)(jiti@2.6.1)(lightningcss@1.30.2)(stylus@0.57.0)(terser@5.44.1)(yaml@2.8.2))(vue@3.5.25(typescript@5.9.3))':
     dependencies:
@@ -12342,7 +12338,7 @@ snapshots:
 
   '@vitest/expect@4.0.15':
     dependencies:
-      '@standard-schema/spec': 1.0.0
+      '@standard-schema/spec': 1.1.0
       '@types/chai': 5.2.3
       '@vitest/spy': 4.0.15
       '@vitest/utils': 4.0.15
@@ -12822,11 +12818,11 @@ snapshots:
 
   agent-base@7.1.4: {}
 
-  ai@6.0.50(zod@4.1.13):
+  ai@6.0.168(zod@4.1.13):
     dependencies:
-      '@ai-sdk/gateway': 3.0.23(zod@4.1.13)
-      '@ai-sdk/provider': 3.0.5
-      '@ai-sdk/provider-utils': 4.0.9(zod@4.1.13)
+      '@ai-sdk/gateway': 3.0.104(zod@4.1.13)
+      '@ai-sdk/provider': 3.0.8
+      '@ai-sdk/provider-utils': 4.0.23(zod@4.1.13)
       '@opentelemetry/api': 1.9.0
       zod: 4.1.13
 
