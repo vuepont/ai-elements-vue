@@ -13,19 +13,29 @@ interface Props extends /* @vue-ignore */ PromptInputTextareaProps {
 
 const props = defineProps<Props>()
 
-const { textInput, setTextInput, submitForm, addFiles, files, removeFile } = usePromptInput()
+const { textInput, setTextInput, addFiles, files, removeFile } = usePromptInput()
 const isComposing = ref(false)
 
 function handleKeyDown(e: KeyboardEvent) {
   if (e.key === 'Enter') {
-    if (isComposing.value || e.shiftKey)
+    if (isComposing.value || e.isComposing || e.shiftKey)
       return
+
     e.preventDefault()
-    submitForm()
+
+    const textarea = e.currentTarget as HTMLTextAreaElement | null
+    const submitButton = textarea?.form?.querySelector('button[type="submit"]') as HTMLButtonElement | null
+
+    if (submitButton?.disabled)
+      return
+
+    textarea?.form?.requestSubmit()
   }
 
   // Remove last attachment on backspace if input is empty
   if (e.key === 'Backspace' && textInput.value === '' && files.value.length > 0) {
+    e.preventDefault()
+
     const lastFile = files.value[files.value.length - 1]
     if (lastFile) {
       removeFile(lastFile.id)

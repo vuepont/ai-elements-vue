@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { PromptInputMessage } from './types'
+import { getCurrentInstance } from 'vue'
 import { usePromptInputProvider } from './context'
 
 const props = defineProps<{
@@ -14,13 +15,43 @@ const emit = defineEmits<{
   (e: 'error', payload: { code: string, message: string }): void
 }>()
 
+const instance = getCurrentInstance()
+
+function getListener(name: 'onSubmit' | 'onError') {
+  return instance?.vnode.props?.[name]
+}
+
+function callListener<T>(listener: unknown, payload: T) {
+  if (Array.isArray(listener)) {
+    return Promise.all(listener.map(fn => typeof fn === 'function' ? fn(payload) : undefined))
+  }
+
+  if (typeof listener === 'function') {
+    return listener(payload)
+  }
+}
+
 usePromptInputProvider({
   initialInput: props.initialInput,
   maxFiles: props.maxFiles,
   maxFileSize: props.maxFileSize,
   accept: props.accept,
-  onSubmit: msg => emit('submit', msg),
-  onError: err => emit('error', err),
+  onSubmit: (msg) => {
+    const listener = getListener('onSubmit')
+    if (listener)
+      return callListener(listener, msg)
+
+    emit('submit', msg)
+  },
+  onError: (err) => {
+    const listener = getListener('onError')
+    if (listener) {
+      callListener(listener, err)
+      return
+    }
+
+    emit('error', err)
+  },
 })
 </script>
 
