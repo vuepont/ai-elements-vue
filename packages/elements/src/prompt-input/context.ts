@@ -1,4 +1,4 @@
-import type { AttachmentFile, PromptInputContext } from './types'
+import type { AttachmentFile, PromptInputContext, PromptInputMessage } from './types'
 import { nanoid } from 'nanoid'
 import { inject, onBeforeUnmount, provide, ref } from 'vue'
 import { PROMPT_INPUT_KEY } from './types'
@@ -8,7 +8,7 @@ export function usePromptInputProvider(props: {
   maxFiles?: number
   maxFileSize?: number
   accept?: string
-  onSubmit?: (message: { text: string, files: any[] }) => void | Promise<void>
+  onSubmit?: (message: PromptInputMessage) => void | Promise<void>
   onError?: (err: { code: string, message: string }) => void
 }) {
   const textInput = ref(props.initialInput || '')
@@ -16,13 +16,19 @@ export function usePromptInputProvider(props: {
   const fileInputRef = ref<HTMLInputElement | null>(null)
   const isLoading = ref(false)
 
+  const revokeObjectUrl = (file: AttachmentFile) => {
+    if (file.url && file.url.startsWith('blob:')) {
+      URL.revokeObjectURL(file.url)
+    }
+  }
+
+  const revokeObjectUrls = (items: AttachmentFile[]) => {
+    items.forEach(revokeObjectUrl)
+  }
+
   // Cleanup object URLs to avoid memory leaks
   onBeforeUnmount(() => {
-    files.value.forEach((f) => {
-      if (f.url && f.url.startsWith('blob:')) {
-        URL.revokeObjectURL(f.url)
-      }
-    })
+    revokeObjectUrls(files.value)
   })
 
   const setTextInput = (val: string) => {
@@ -32,10 +38,28 @@ export function usePromptInputProvider(props: {
   const matchesAccept = (file: File) => {
     if (!props.accept || props.accept.trim() === '')
       return true
-    if (props.accept.includes('image/*'))
-      return file.type.startsWith('image/')
-    // Add more mime-type checks here if necessary
-    return true
+
+    const patterns = props.accept
+      .split(',')
+      .map(pattern => pattern.trim())
+      .filter(Boolean)
+
+    const fileName = file.name.toLowerCase()
+    const fileType = file.type.toLowerCase()
+
+    return patterns.some((pattern) => {
+      const normalizedPattern = pattern.toLowerCase()
+
+      if (normalizedPattern.startsWith('.')) {
+        return fileName.endsWith(normalizedPattern)
+      }
+
+      if (normalizedPattern.endsWith('/*')) {
+        return fileType.startsWith(normalizedPattern.slice(0, -1))
+      }
+
+      return fileType === normalizedPattern
+    })
   }
 
   const addFiles = (incoming: File[] | FileList) => {
@@ -79,19 +103,32 @@ export function usePromptInputProvider(props: {
 
   const removeFile = (id: string) => {
     const file = files.value.find(f => f.id === id)
-    if (file?.url && file.url.startsWith('blob:')) {
-      URL.revokeObjectURL(file.url)
-    }
+    if (file)
+      revokeObjectUrl(file)
     files.value = files.value.filter(f => f.id !== id)
   }
 
   const clearFiles = () => {
-    files.value.forEach((f) => {
-      if (f.url && f.url.startsWith('blob:')) {
-        URL.revokeObjectURL(f.url)
+    revokeObjectUrls(files.value)
+    files.value = []
+  }
+
+  const clearSubmittedFiles = (submittedIds: Set<string>) => {
+    if (submittedIds.size === 0)
+      return
+
+    const remainingFiles: AttachmentFile[] = []
+
+    files.value.forEach((file) => {
+      if (submittedIds.has(file.id)) {
+        revokeObjectUrl(file)
+      }
+      else {
+        remainingFiles.push(file)
       }
     })
-    files.value = []
+
+    files.value = remainingFiles
   }
 
   const clearInput = () => {
@@ -122,32 +159,38 @@ export function usePromptInputProvider(props: {
     if (!props.onSubmit)
       return
 
-    // Process files (convert blobs to base64 if needed for AI SDK)
-    const processedFiles = await Promise.all(
-      files.value.map(async (item) => {
-        if (item.url && item.url.startsWith('blob:')) {
-          const dataUrl = await convertBlobUrlToDataUrl(item.url)
-          return { ...item, url: dataUrl ?? item.url }
-        }
-        return item
-      }),
-    )
-
-    const message = {
-      text: textInput.value,
-      files: processedFiles,
-    }
+    const submittedText = textInput.value
+    const submittedFiles = [...files.value]
+    const submittedIds = new Set(submittedFiles.map(file => file.id))
+    clearInput()
 
     try {
       isLoading.value = true
-      const result = props.onSubmit(message)
-      if (result instanceof Promise) {
-        await result
+      // Process files (convert blobs to base64 if needed for AI SDK)
+      const processedFiles = await Promise.all(
+        submittedFiles.map(async (item) => {
+          if (item.url && item.url.startsWith('blob:')) {
+            const dataUrl = await convertBlobUrlToDataUrl(item.url)
+            return { ...item, url: dataUrl ?? item.url }
+          }
+          return item
+        }),
+      )
+
+      const message = {
+        text: submittedText,
+        files: processedFiles,
       }
-      clearInput()
-      clearFiles()
+
+      await props.onSubmit(message)
+
+      clearSubmittedFiles(submittedIds)
     }
     catch (e) {
+      if (textInput.value === '') {
+        setTextInput(submittedText)
+      }
+
       if (props.onError) {
         const errorMessage = e instanceof Error
           ? e.message

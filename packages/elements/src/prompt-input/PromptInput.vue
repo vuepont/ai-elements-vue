@@ -3,7 +3,7 @@ import type { HTMLAttributes } from 'vue'
 import type { PromptInputMessage } from './types'
 import { InputGroup } from '@repo/shadcn-vue/components/ui/input-group'
 import { cn } from '@repo/shadcn-vue/lib/utils'
-import { inject, onMounted, onUnmounted, ref } from 'vue'
+import { getCurrentInstance, inject, onMounted, onUnmounted, ref } from 'vue'
 import { usePromptInputProvider } from './context'
 import { PROMPT_INPUT_KEY } from './types'
 
@@ -22,7 +22,22 @@ const emit = defineEmits<{
   (e: 'error', payload: { code: string, message: string }): void
 }>()
 
+const instance = getCurrentInstance()
 const formRef = ref<HTMLFormElement | null>(null)
+
+function getListener(name: 'onSubmit' | 'onError') {
+  return instance?.vnode.props?.[name]
+}
+
+function callListener<T>(listener: unknown, payload: T) {
+  if (Array.isArray(listener)) {
+    return Promise.all(listener.map(fn => typeof fn === 'function' ? fn(payload) : undefined))
+  }
+
+  if (typeof listener === 'function') {
+    return listener(payload)
+  }
+}
 
 // --- Dual-mode context handling ---
 const inheritedContext = inject(PROMPT_INPUT_KEY, null)
@@ -33,8 +48,24 @@ const localContext = inheritedContext
       maxFiles: props.maxFiles,
       maxFileSize: props.maxFileSize,
       accept: props.accept,
-      onSubmit: msg => emit('submit', msg as any),
-      onError: err => emit('error', err),
+      onSubmit: (msg) => {
+        const listener = getListener('onSubmit')
+        if (listener)
+          return callListener(listener, msg)
+
+        emit('submit', msg)
+      },
+      onError: (err) => {
+        const listener = getListener('onError')
+        if (listener) {
+          void Promise.resolve(callListener(listener, err)).catch((error) => {
+            console.error('PromptInput onError listener failed:', error)
+          })
+          return
+        }
+
+        emit('error', err)
+      },
     })
 
 const context = inheritedContext || localContext
