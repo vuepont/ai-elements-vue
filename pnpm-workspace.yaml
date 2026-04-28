@@ -13,6 +13,7 @@ packages:
   - packages/*
 
 overrides:
+  '@vue-flow/core>@vueuse/core': ^14.1.0
   oxc-parser: 0.102.0
   semver: 7.7.3
 
@@ -26,6 +27,7 @@ catalog:
   shiki: ^3.20.0
   tailwindcss: ^4.1.17
   typescript: ^5.9.3
+  vite: ^7.3.0
   vue: ^3.5.25
   vue-sonner: ^2.0.9
   zod: ^4.1.13

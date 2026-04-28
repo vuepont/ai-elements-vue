@@ -37,6 +37,7 @@
     "@vue/test-utils": "^2.4.6",
     "playwright": "^1.57.0",
     "typescript": "catalog:",
+    "vite": "catalog:",
     "vitest": "^4.0.15",
     "vitest-browser-vue": "^2.0.1"
   }
