@@ -1,4 +1,4 @@
-import type { AttachmentFile, PromptInputContext } from './types'
+import type { AttachmentFile, PromptInputContext, PromptInputMessage } from './types'
 import { nanoid } from 'nanoid'
 import { inject, onBeforeUnmount, provide, ref } from 'vue'
 import { PROMPT_INPUT_KEY } from './types'
@@ -8,7 +8,7 @@ export function usePromptInputProvider(props: {
   maxFiles?: number
   maxFileSize?: number
   accept?: string
-  onSubmit?: (message: { text: string, files: any[] }) => void | Promise<void>
+  onSubmit?: (message: PromptInputMessage) => void | Promise<void>
   onError?: (err: { code: string, message: string }) => void
 }) {
   const textInput = ref(props.initialInput || '')
@@ -44,12 +44,21 @@ export function usePromptInputProvider(props: {
       .map(pattern => pattern.trim())
       .filter(Boolean)
 
+    const fileName = file.name.toLowerCase()
+    const fileType = file.type.toLowerCase()
+
     return patterns.some((pattern) => {
-      if (pattern.endsWith('/*')) {
-        return file.type.startsWith(pattern.slice(0, -1))
+      const normalizedPattern = pattern.toLowerCase()
+
+      if (normalizedPattern.startsWith('.')) {
+        return fileName.endsWith(normalizedPattern)
       }
 
-      return file.type === pattern
+      if (normalizedPattern.endsWith('/*')) {
+        return fileType.startsWith(normalizedPattern.slice(0, -1))
+      }
+
+      return fileType === normalizedPattern
     })
   }
 

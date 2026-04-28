@@ -51,14 +51,16 @@ const localContext = inheritedContext
       onSubmit: (msg) => {
         const listener = getListener('onSubmit')
         if (listener)
-          return callListener(listener, msg as PromptInputMessage)
+          return callListener(listener, msg)
 
-        emit('submit', msg as PromptInputMessage)
+        emit('submit', msg)
       },
       onError: (err) => {
         const listener = getListener('onError')
         if (listener) {
-          callListener(listener, err)
+          void Promise.resolve(callListener(listener, err)).catch((error) => {
+            console.error('PromptInput onError listener failed:', error)
+          })
           return
         }
 

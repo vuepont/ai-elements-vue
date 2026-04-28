@@ -204,4 +204,35 @@ describe('promptInput', () => {
     await user.click(view.getByTestId('add-pdf'))
     expect(view.getByTestId('file-count')).toHaveTextContent('2')
   })
+
+  it('accepts extension-based accept patterns', async () => {
+    const user = userEvent.setup()
+    const onSubmit = vi.fn()
+    const pdfFile = new File(['pdf'], 'test.PDF', { type: 'application/pdf' })
+
+    const AttachmentConsumer = () => {
+      const { addFiles, files } = usePromptInput()
+
+      return (
+        <>
+          <button data-testid="add-pdf" type="button" onClick={() => addFiles([pdfFile])}>
+            Add PDF
+          </button>
+          <div data-testid="file-count">{files.value.length}</div>
+        </>
+      )
+    }
+
+    const view = render(
+      <PromptInput accept=".pdf" onSubmit={onSubmit}>
+        <PromptInputBody>
+          <AttachmentConsumer />
+          <PromptInputTextarea />
+        </PromptInputBody>
+      </PromptInput>,
+    )
+
+    await user.click(view.getByTestId('add-pdf'))
+    expect(view.getByTestId('file-count')).toHaveTextContent('1')
+  })
 })

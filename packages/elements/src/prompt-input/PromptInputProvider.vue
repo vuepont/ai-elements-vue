@@ -46,7 +46,9 @@ usePromptInputProvider({
   onError: (err) => {
     const listener = getListener('onError')
     if (listener) {
-      callListener(listener, err)
+      void Promise.resolve(callListener(listener, err)).catch((error) => {
+        console.error('PromptInputProvider onError listener failed:', error)
+      })
       return
     }
 
