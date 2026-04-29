@@ -13,7 +13,6 @@ packages:
   - packages/*
 
 overrides:
-  '@vue-flow/core>@vueuse/core': ^14.1.0
   oxc-parser: 0.102.0
   semver: 7.7.3
 

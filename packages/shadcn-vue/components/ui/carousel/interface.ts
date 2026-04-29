@@ -1,16 +1,15 @@
-import type {
-  EmblaCarouselType,
-  EmblaOptionsType,
-  EmblaPluginType,
-} from 'embla-carousel'
 import type useEmblaCarousel from 'embla-carousel-vue'
-import type { HTMLAttributes } from 'vue'
+import type {
+  EmblaCarouselVueType,
+} from 'embla-carousel-vue'
+import type { HTMLAttributes, UnwrapRef } from 'vue'
 
+type CarouselApi = EmblaCarouselVueType[1]
 type UseCarouselParameters = Parameters<typeof useEmblaCarousel>
-type CarouselOptions = UseCarouselParameters[0] | EmblaOptionsType
-type CarouselPlugin = UseCarouselParameters[1] | EmblaPluginType[]
+type CarouselOptions = UseCarouselParameters[0]
+type CarouselPlugin = UseCarouselParameters[1]
 
-export type UnwrapRefCarouselApi = EmblaCarouselType | undefined
+export type UnwrapRefCarouselApi = UnwrapRef<CarouselApi>
 
 export interface CarouselProps {
   opts?: CarouselOptions

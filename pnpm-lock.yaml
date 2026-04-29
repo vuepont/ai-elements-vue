@@ -47,7 +47,6 @@ catalogs:
       version: 4.1.13
 
 overrides:
-  '@vue-flow/core>@vueuse/core': ^14.1.0
   oxc-parser: 0.102.0
   semver: 7.7.3
 
@@ -307,9 +306,6 @@ importers:
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
-      embla-carousel:
-        specifier: ^8.6.0
-        version: 8.6.0
       embla-carousel-vue:
         specifier: ^8.6.0
         version: 8.6.0(vue@3.5.25(typescript@5.9.3))
@@ -12387,12 +12383,14 @@ snapshots:
 
   '@vue-flow/core@1.48.0(vue@3.5.25(typescript@5.9.3))':
     dependencies:
-      '@vueuse/core': 14.1.0(vue@3.5.25(typescript@5.9.3))
+      '@vueuse/core': 10.11.1(vue@3.5.25(typescript@5.9.3))
       d3-drag: 3.0.0
       d3-interpolate: 3.0.1
       d3-selection: 3.0.0
       d3-zoom: 3.0.0
       vue: 3.5.25(typescript@5.9.3)
+    transitivePeerDependencies:
+      - '@vue/composition-api'
 
   '@vue-flow/node-toolbar@1.1.1(@vue-flow/core@1.48.0(vue@3.5.25(typescript@5.9.3)))(vue@3.5.25(typescript@5.9.3))':
     dependencies:
