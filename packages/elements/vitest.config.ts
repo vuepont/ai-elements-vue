@@ -24,6 +24,8 @@ export default defineConfig({
         '**/*.config.{ts,js,mts}',
       ],
     },
+    globals: true,
+    include: ['__tests__/**/*.test.{ts,tsx}'],
   },
   resolve: {
     alias: {
