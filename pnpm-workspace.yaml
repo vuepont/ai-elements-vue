@@ -1,6 +1,9 @@
 catalogMode: prefer
 cleanupUnusedCatalogs: true
 
+shamefullyHoist: true
+strictPeerDependencies: false
+
 shellEmulator: true
 trustPolicy: no-downgrade
 
@@ -38,16 +41,15 @@ allowedDeprecatedVersions:
   node-domexception: 1.0.0
   source-map-resolve: 0.6.0
 
-onlyBuiltDependencies:
-  - '@parcel/watcher'
-  - '@tailwindcss/oxide'
-  - esbuild
-  - maplibre-gl
-  - sharp
-  - simple-git-hooks
-  - vue-demi
-  - workerd
-
 peerDependencyRules:
   allowedVersions:
     zod: '4'
+
+allowBuilds:
+  '@parcel/watcher': true
+  esbuild: true
+  maplibre-gl: true
+  sharp: true
+  simple-git-hooks: true
+  vue-demi: true
+  workerd: true
