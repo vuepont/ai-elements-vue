@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { AcceptableValue } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
 import { Command } from '@repo/shadcn-vue/components/ui/command'
 import { DialogContent, DialogTitle } from '@repo/shadcn-vue/components/ui/dialog'
@@ -12,6 +13,7 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {
   title: 'Model Selector',
 })
+const value = defineModel<AcceptableValue | AcceptableValue[]>()
 </script>
 
 <template>
@@ -22,7 +24,7 @@ const props = withDefaults(defineProps<Props>(), {
     <DialogTitle class="sr-only">
       {{ props.title }}
     </DialogTitle>
-    <Command class="**:data-[slot=command-input-wrapper]:h-auto">
+    <Command v-model="value" class="**:data-[slot=command-input-wrapper]:h-auto">
       <slot />
     </Command>
   </DialogContent>
