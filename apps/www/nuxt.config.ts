@@ -5,7 +5,7 @@ export default defineNuxtConfig({
 
   vue: {
     compilerOptions: {
-      isCustomElement: tag => tag.startsWith('media-'),
+      isCustomElement: (tag: string) => tag.startsWith('media-'),
     },
   },
 
@@ -51,13 +51,6 @@ export default defineNuxtConfig({
         prefix: 'custom-icon',
         dir: './assets/icons',
       },
-    ],
-  },
-
-  ogImage: {
-    fonts: [
-      'Geist:400',
-      'Geist:700',
     ],
   },
 

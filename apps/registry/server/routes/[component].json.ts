@@ -24,7 +24,7 @@ function transformRegistryDependencies(item: RegistryItem, registryUrl: string):
           // Already formatted JSON dependency
           return dep.startsWith('http') ? dep : new URL(`/${dep}`, registryUrl).toString()
         }
-        if (dep.match(/^[a-z-]+$/)) {
+        if (/^[a-z-]+$/.test(dep)) {
           // Simple component name (shadcn-vue style)
           return dep
         }

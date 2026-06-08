@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="./apps/www/public/cover.png" >
+  <img src="./apps/www/public/cover.png" alt="AI Elements Vue" >
 </div>
 
 <br />

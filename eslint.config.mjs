@@ -18,4 +18,9 @@ export default antfu({
   rules: {
     'no-console': 'off',
   },
+}, {
+  files: ['apps/www/**/*.md'],
+  rules: {
+    'markdown/no-multiple-h1': 'off',
+  },
 })
