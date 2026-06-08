@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue'
-import { cn } from '@repo/shadcn-vue/lib/utils'
 import {
   CircleSmallIcon,
   MarsIcon,
@@ -9,7 +8,8 @@ import {
   TransgenderIcon,
   VenusAndMarsIcon,
   VenusIcon,
-} from 'lucide-vue-next'
+} from '@lucide/vue'
+import { cn } from '@repo/shadcn-vue/lib/utils'
 
 interface Props extends /* @vue-ignore */ HTMLAttributes {
   class?: HTMLAttributes['class']

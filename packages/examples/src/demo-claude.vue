@@ -2,6 +2,16 @@
 import type { PromptInputMessage } from '@repo/elements/prompt-input'
 import type { ToolUIPart } from 'ai'
 import {
+  ArrowUpIcon,
+  CameraIcon,
+  CheckIcon,
+  FileIcon,
+  ImageIcon,
+  PlusIcon,
+  ScreenShareIcon,
+  Settings2Icon,
+} from '@lucide/vue'
+import {
   Conversation,
   ConversationContent,
   ConversationScrollButton,
@@ -57,16 +67,6 @@ import {
   DropdownMenuTrigger,
 } from '@repo/shadcn-vue/components/ui/dropdown-menu'
 import { cn } from '@repo/shadcn-vue/lib/utils'
-import {
-  ArrowUpIcon,
-  CameraIcon,
-  CheckIcon,
-  FileIcon,
-  ImageIcon,
-  PlusIcon,
-  ScreenShareIcon,
-  Settings2Icon,
-} from 'lucide-vue-next'
 import { nanoid } from 'nanoid'
 import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { toast } from 'vue-sonner'

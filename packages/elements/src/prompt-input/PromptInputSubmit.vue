@@ -2,9 +2,9 @@
 // import type { InputGroupButtonVariants } from '@repo/shadcn-vue/components/ui/input-group'
 import type { ChatStatus } from 'ai'
 import type { HTMLAttributes } from 'vue'
+import { CornerDownLeftIcon, Loader2Icon, SquareIcon, XIcon } from '@lucide/vue'
 import { InputGroupButton } from '@repo/shadcn-vue/components/ui/input-group'
 import { cn } from '@repo/shadcn-vue/lib/utils'
-import { CornerDownLeftIcon, Loader2Icon, SquareIcon, XIcon } from 'lucide-vue-next'
 import { computed } from 'vue'
 
 type InputGroupButtonProps = InstanceType<typeof InputGroupButton>['$props']

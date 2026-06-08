@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 import type { CalendarNextProps } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
+import { ChevronRight } from '@lucide/vue'
 import { buttonVariants } from '@repo/shadcn-vue/components/ui/button'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 import { reactiveOmit } from '@vueuse/core'
-import { ChevronRight } from 'lucide-vue-next'
 import { CalendarNext, useForwardProps } from 'reka-ui'
 
 const props = defineProps<CalendarNextProps & { class?: HTMLAttributes['class'] }>()

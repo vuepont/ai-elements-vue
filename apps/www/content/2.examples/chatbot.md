@@ -194,7 +194,7 @@ Let's walk through how to build a chatbot using AI Elements Vue and AI SDK. Our 
   import type { ChatStatus, SourceUrlUIPart, UIMessage } from 'ai'
   import type { PromptInputMessage } from '@/components/ai-elements/prompt-input'
   import { Chat } from '@ai-sdk/vue'
-  import { CopyIcon, GlobeIcon, RefreshCcwIcon } from 'lucide-vue-next'
+  import { CopyIcon, GlobeIcon, RefreshCcwIcon } from '@lucide/vue'
   import { computed, ref } from 'vue'
   import { Conversation, ConversationContent, ConversationScrollButton } from '@/components/ai-elements/conversation'
   import { Loader } from '@/components/ai-elements/loader'

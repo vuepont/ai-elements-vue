@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue'
+import { CheckCircle2, Circle, XCircle } from '@lucide/vue'
 import { Badge } from '@repo/shadcn-vue/components/ui/badge'
 import { cn } from '@repo/shadcn-vue/lib/utils'
-import { CheckCircle2, Circle, XCircle } from 'lucide-vue-next'
 import { useTestResultsContext } from './context'
 
 interface Props extends /* @vue-ignore */ HTMLAttributes {

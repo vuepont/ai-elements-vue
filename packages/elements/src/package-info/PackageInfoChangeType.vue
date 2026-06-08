@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import type { Component, HTMLAttributes } from 'vue'
 import type { ChangeType } from './context'
+import { ArrowRightIcon, MinusIcon, PlusIcon } from '@lucide/vue'
 import { Badge } from '@repo/shadcn-vue/components/ui/badge'
 import { cn } from '@repo/shadcn-vue/lib/utils'
-import { ArrowRightIcon, MinusIcon, PlusIcon } from 'lucide-vue-next'
 import { usePackageInfoContext } from './context'
 
 type BadgeProps = InstanceType<typeof Badge>['$props']

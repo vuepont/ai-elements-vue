@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { PromptInputMessage } from '@repo/elements/prompt-input'
 import type { ChatStatus, ToolUIPart } from 'ai'
+import { CheckIcon, GlobeIcon } from '@lucide/vue'
 import { Conversation, ConversationContent, ConversationScrollButton } from '@repo/elements/conversation'
 import {
   Message,
@@ -44,7 +45,6 @@ import {
 import { Reasoning, ReasoningContent, ReasoningTrigger } from '@repo/elements/reasoning'
 import { Source, Sources, SourcesContent, SourcesTrigger } from '@repo/elements/sources'
 import { Suggestion, Suggestions } from '@repo/elements/suggestion'
-import { CheckIcon, GlobeIcon } from 'lucide-vue-next'
 import { nanoid } from 'nanoid'
 import { computed, ref } from 'vue'
 import PromptInputAttachmentsDisplay from './prompt-input-attachments-display.vue'

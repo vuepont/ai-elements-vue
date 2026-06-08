@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { ToolUIPart } from 'ai'
+import { CheckIcon, XIcon } from '@lucide/vue'
 import {
   Confirmation,
   ConfirmationAccepted,
@@ -7,7 +8,6 @@ import {
   ConfirmationRequest,
   ConfirmationTitle,
 } from '@repo/elements/confirmation'
-import { CheckIcon, XIcon } from 'lucide-vue-next'
 import { nanoid } from 'nanoid'
 
 import { ref } from 'vue'

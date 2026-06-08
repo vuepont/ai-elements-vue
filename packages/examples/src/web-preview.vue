@@ -1,5 +1,13 @@
 <script setup lang="ts">
 import {
+  ArrowLeftIcon,
+  ArrowRightIcon,
+  ExternalLinkIcon,
+  Maximize2Icon,
+  MousePointerClickIcon,
+  RefreshCcwIcon,
+} from '@lucide/vue'
+import {
   WebPreview,
   WebPreviewBody,
   WebPreviewConsole,
@@ -7,14 +15,6 @@ import {
   WebPreviewNavigationButton,
   WebPreviewUrl,
 } from '@repo/elements/web-preview'
-import {
-  ArrowLeftIcon,
-  ArrowRightIcon,
-  ExternalLinkIcon,
-  Maximize2Icon,
-  MousePointerClickIcon,
-  RefreshCcwIcon,
-} from 'lucide-vue-next'
 import { ref } from 'vue'
 
 const exampleLogs = [

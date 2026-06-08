@@ -1,6 +1,6 @@
 <script setup lang="ts">
+import { ChevronDownIcon, ExternalLinkIcon } from '@lucide/vue'
 import { Source, Sources, SourcesContent, SourcesTrigger } from '@repo/elements/sources'
-import { ChevronDownIcon, ExternalLinkIcon } from 'lucide-vue-next'
 
 const sources = [
   { href: 'https://stripe.com/docs/api', title: 'Stripe API Documentation' },

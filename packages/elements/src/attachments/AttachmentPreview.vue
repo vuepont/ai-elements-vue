@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { HTMLAttributes, VNode } from 'vue'
 import type { AttachmentMediaCategory } from './types'
-import { cn } from '@repo/shadcn-vue/lib/utils'
 import {
   FileTextIcon,
   GlobeIcon,
@@ -9,7 +8,8 @@ import {
   Music2Icon,
   PaperclipIcon,
   VideoIcon,
-} from 'lucide-vue-next'
+} from '@lucide/vue'
+import { cn } from '@repo/shadcn-vue/lib/utils'
 import { computed } from 'vue'
 import { useAttachmentContext } from './context'
 

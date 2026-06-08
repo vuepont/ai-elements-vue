@@ -1,6 +1,7 @@
 <!-- eslint-disable no-console -->
 <script setup lang="ts">
 import type { PromptInputMessage } from '@repo/elements/prompt-input/'
+import { CheckIcon, GlobeIcon, Trash2Icon } from '@lucide/vue'
 import {
   ModelSelector,
   ModelSelectorContent,
@@ -39,7 +40,6 @@ import {
   QueueSection,
   QueueSectionContent,
 } from '@repo/elements/queue'
-import { CheckIcon, GlobeIcon, Trash2Icon } from 'lucide-vue-next'
 import { computed, onBeforeUnmount, ref } from 'vue'
 import PromptInputAttachmentsDisplay from './prompt-input-attachments-display.vue'
 

@@ -63,11 +63,11 @@ Copy and paste the following files into the same folder.
   <script setup lang="ts">
   import type { ToolUIPart } from 'ai'
   import type { HTMLAttributes } from 'vue'
+  import { ChevronDownIcon, CodeIcon } from '@lucide/vue'
   import {
     CollapsibleTrigger,
   } from '@repo/shadcn-vue/components/ui/collapsible'
   import { cn } from '@repo/shadcn-vue/lib/utils'
-  import { ChevronDownIcon, CodeIcon } from 'lucide-vue-next'
   import { getStatusBadge } from '../tool/utils'
 
   type CollapsibleTriggerProps = InstanceType<typeof CollapsibleTrigger>['$props']

@@ -7,10 +7,10 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
+    "@lucide/vue": "catalog:",
     "@repo/elements": "workspace:*",
     "@vue-flow/core": "^1.48.2",
     "ai": "catalog:",
-    "lucide-vue-next": "catalog:",
     "nanoid": "^5.1.11",
     "shiki": "catalog:",
     "vue": "catalog:",

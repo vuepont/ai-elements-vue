@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue'
+import { AlertTriangleIcon } from '@lucide/vue'
 import { cn } from '@repo/shadcn-vue/lib/utils'
-import { AlertTriangleIcon } from 'lucide-vue-next'
 
 interface Props extends /* @vue-ignore */ HTMLAttributes {
   class?: HTMLAttributes['class']

@@ -139,9 +139,9 @@ Copy and paste the following files into the same folder.
   ```vue [EnvironmentVariablesToggle.vue]
   <script setup lang="ts">
   import type { HTMLAttributes } from 'vue'
+  import { EyeIcon, EyeOffIcon } from '@lucide/vue'
   import { Switch } from '@repo/shadcn-vue/components/ui/switch'
   import { cn } from '@repo/shadcn-vue/lib/utils'
-  import { EyeIcon, EyeOffIcon } from 'lucide-vue-next'
   import { inject } from 'vue'
   import { EnvironmentVariablesKey } from './context'
 
@@ -337,9 +337,9 @@ Copy and paste the following files into the same folder.
   ```vue [EnvironmentVariableCopyButton.vue]
   <script setup lang="ts">
   import type { HTMLAttributes } from 'vue'
+  import { CheckIcon, CopyIcon } from '@lucide/vue'
   import { Button } from '@repo/shadcn-vue/components/ui/button'
   import { cn } from '@repo/shadcn-vue/lib/utils'
-  import { CheckIcon, CopyIcon } from 'lucide-vue-next'
   import { computed, inject, ref } from 'vue'
   import { EnvironmentVariableKey } from './context'
 

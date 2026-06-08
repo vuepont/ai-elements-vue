@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue'
+import { CheckIcon, CopyIcon } from '@lucide/vue'
 import { Button } from '@repo/shadcn-vue/components/ui/button'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 import { reactiveOmit } from '@vueuse/core'
-import { CheckIcon, CopyIcon } from 'lucide-vue-next'
 import { computed, onBeforeUnmount, ref } from 'vue'
 import { useCodeBlockContext } from './context'
 

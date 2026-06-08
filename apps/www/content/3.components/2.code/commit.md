@@ -181,8 +181,8 @@ Copy and paste the following files into the same folder.
   ```vue [CommitHash.vue]
   <script setup lang="ts">
   import type { HTMLAttributes } from 'vue'
+  import { GitCommitIcon } from '@lucide/vue'
   import { cn } from '@repo/shadcn-vue/lib/utils'
-  import { GitCommitIcon } from 'lucide-vue-next'
 
   const props = defineProps<{
     class?: HTMLAttributes['class']
@@ -272,9 +272,9 @@ Copy and paste the following files into the same folder.
   ```vue [CommitCopyButton.vue]
   <script setup lang="ts">
   import type { HTMLAttributes } from 'vue'
+  import { CheckIcon, CopyIcon } from '@lucide/vue'
   import { Button } from '@repo/shadcn-vue/components/ui/button'
   import { cn } from '@repo/shadcn-vue/lib/utils'
-  import { CheckIcon, CopyIcon } from 'lucide-vue-next'
   import { computed, onBeforeUnmount, ref } from 'vue'
 
   const props = withDefaults(
@@ -472,8 +472,8 @@ Copy and paste the following files into the same folder.
   ```vue [CommitFileIcon.vue]
   <script setup lang="ts">
   import type { HTMLAttributes } from 'vue'
+  import { FileIcon } from '@lucide/vue'
   import { cn } from '@repo/shadcn-vue/lib/utils'
-  import { FileIcon } from 'lucide-vue-next'
 
   const props = defineProps<{
     class?: HTMLAttributes['class']
@@ -533,8 +533,8 @@ Copy and paste the following files into the same folder.
   ```vue [CommitFileAdditions.vue]
   <script setup lang="ts">
   import type { HTMLAttributes } from 'vue'
+  import { PlusIcon } from '@lucide/vue'
   import { cn } from '@repo/shadcn-vue/lib/utils'
-  import { PlusIcon } from 'lucide-vue-next'
 
   const props = defineProps<{
     count: number
@@ -559,8 +559,8 @@ Copy and paste the following files into the same folder.
   ```vue [CommitFileDeletions.vue]
   <script setup lang="ts">
   import type { HTMLAttributes } from 'vue'
+  import { MinusIcon } from '@lucide/vue'
   import { cn } from '@repo/shadcn-vue/lib/utils'
-  import { MinusIcon } from 'lucide-vue-next'
 
   const props = defineProps<{
     count: number

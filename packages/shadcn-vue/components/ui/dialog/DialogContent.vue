@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import type { DialogContentEmits, DialogContentProps } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
+import { X } from '@lucide/vue'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 import { reactiveOmit } from '@vueuse/core'
-import { X } from 'lucide-vue-next'
 import {
   DialogClose,
   DialogContent,

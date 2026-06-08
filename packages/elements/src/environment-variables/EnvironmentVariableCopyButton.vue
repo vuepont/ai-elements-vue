@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue'
+import { CheckIcon, CopyIcon } from '@lucide/vue'
 import { Button } from '@repo/shadcn-vue/components/ui/button'
 import { cn } from '@repo/shadcn-vue/lib/utils'
-import { CheckIcon, CopyIcon } from 'lucide-vue-next'
 import { computed, ref } from 'vue'
 import { useEnvironmentVariableContext } from './context'
 

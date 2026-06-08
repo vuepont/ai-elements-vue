@@ -101,8 +101,8 @@ Copy and paste the following files into the same folder.
   ```vue [PackageInfoName.vue] height=500 collapse
   <script setup lang="ts">
   import type { HTMLAttributes } from 'vue'
+  import { PackageIcon } from '@lucide/vue'
   import { cn } from '@repo/shadcn-vue/lib/utils'
-  import { PackageIcon } from 'lucide-vue-next'
   import { usePackageInfoContext } from './context'
 
   interface Props extends /* @vue-ignore */ HTMLAttributes {
@@ -128,9 +128,9 @@ Copy and paste the following files into the same folder.
   <script setup lang="ts">
   import type { Component, HTMLAttributes } from 'vue'
   import type { ChangeType } from './context'
+  import { ArrowRightIcon, MinusIcon, PlusIcon } from '@lucide/vue'
   import { Badge } from '@repo/shadcn-vue/components/ui/badge'
   import { cn } from '@repo/shadcn-vue/lib/utils'
-  import { ArrowRightIcon, MinusIcon, PlusIcon } from 'lucide-vue-next'
   import { usePackageInfoContext } from './context'
 
   type BadgeProps = InstanceType<typeof Badge>['$props']
@@ -181,8 +181,8 @@ Copy and paste the following files into the same folder.
   ```vue [PackageInfoVersion.vue] height=500 collapse
   <script setup lang="ts">
   import type { HTMLAttributes } from 'vue'
+  import { ArrowRightIcon } from '@lucide/vue'
   import { cn } from '@repo/shadcn-vue/lib/utils'
-  import { ArrowRightIcon } from 'lucide-vue-next'
   import { usePackageInfoContext } from './context'
 
   interface Props extends /* @vue-ignore */ HTMLAttributes {

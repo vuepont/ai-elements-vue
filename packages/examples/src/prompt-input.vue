@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { PromptInputMessage } from '@repo/elements/prompt-input'
+import { CheckIcon, GlobeIcon } from '@lucide/vue'
 import {
   ModelSelector,
   ModelSelectorContent,
@@ -13,6 +14,7 @@ import {
   ModelSelectorName,
   ModelSelectorTrigger,
 } from '@repo/elements/model-selector'
+
 import {
   PromptInput,
   PromptInputActionAddAttachments,
@@ -27,8 +29,6 @@ import {
   PromptInputTextarea,
   PromptInputTools,
 } from '@repo/elements/prompt-input'
-
-import { CheckIcon, GlobeIcon } from 'lucide-vue-next'
 import { computed, ref } from 'vue'
 
 import PromptInputAttachmentsDisplay from './prompt-input-attachments-display.vue'

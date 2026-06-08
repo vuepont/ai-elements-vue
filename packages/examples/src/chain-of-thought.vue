@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { DotIcon, ImageIcon, SearchIcon } from '@lucide/vue'
 import {
   ChainOfThought,
   ChainOfThoughtContent,
@@ -9,7 +10,6 @@ import {
   ChainOfThoughtStep,
 } from '@repo/elements/chain-of-thought'
 import { Image } from '@repo/elements/image'
-import { DotIcon, ImageIcon, SearchIcon } from 'lucide-vue-next'
 import { onMounted, onUnmounted, ref } from 'vue'
 
 const visibleSteps = ref(0)

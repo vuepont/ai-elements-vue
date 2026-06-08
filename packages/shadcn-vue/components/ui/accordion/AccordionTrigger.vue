@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import type { AccordionTriggerProps } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
+import { ChevronDown } from '@lucide/vue'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 import { reactiveOmit } from '@vueuse/core'
-import { ChevronDown } from 'lucide-vue-next'
 import {
   AccordionHeader,
   AccordionTrigger,

@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue'
+import { EyeIcon, EyeOffIcon } from '@lucide/vue'
 import { Switch } from '@repo/shadcn-vue/components/ui/switch'
 import { cn } from '@repo/shadcn-vue/lib/utils'
-import { EyeIcon, EyeOffIcon } from 'lucide-vue-next'
 import { useEnvironmentVariablesContext } from './context'
 
 type SwitchProps = InstanceType<typeof Switch>['$props']

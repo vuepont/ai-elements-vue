@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue'
+import { TerminalIcon } from '@lucide/vue'
 import { cn } from '@repo/shadcn-vue/lib/utils'
-import { TerminalIcon } from 'lucide-vue-next'
 
 interface Props extends /* @vue-ignore */ HTMLAttributes {
   class?: HTMLAttributes['class']

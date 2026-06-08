@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import { CheckIcon, CopyIcon } from '@lucide/vue'
 import { Button } from '@repo/shadcn-vue/components/ui/button'
 import { cn } from '@repo/shadcn-vue/lib/utils'
-import { CheckIcon, CopyIcon } from 'lucide-vue-next'
 import { computed, ref } from 'vue'
 import { useTerminalContext } from './context'
 

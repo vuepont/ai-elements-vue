@@ -122,10 +122,10 @@ provide(MicSelectorKey, {
 
 ```vue [MicSelectorTrigger.vue] height=500 collapse
 <script setup lang="ts">
+import { ChevronsUpDownIcon } from '@lucide/vue'
 import { Button } from '@repo/shadcn-vue/components/ui/button'
 import { PopoverTrigger } from '@repo/shadcn-vue/components/ui/popover'
 import { useResizeObserver } from '@vueuse/core'
-import { ChevronsUpDownIcon } from 'lucide-vue-next'
 import { computed, ref } from 'vue'
 import { useMicSelector } from './context'
 

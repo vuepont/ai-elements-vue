@@ -334,9 +334,9 @@ const { size, variant: _, class: __, ...restProps } = props
 // import type { InputGroupButtonVariants } from '@repo/shadcn-vue/components/ui/input-group'
 import type { ChatStatus } from 'ai'
 import type { HTMLAttributes } from 'vue'
+import { CornerDownLeftIcon, Loader2Icon, SquareIcon, XIcon } from '@lucide/vue'
 import { InputGroupButton } from '@repo/shadcn-vue/components/ui/input-group'
 import { cn } from '@repo/shadcn-vue/lib/utils'
-import { CornerDownLeftIcon, Loader2Icon, SquareIcon, XIcon } from 'lucide-vue-next'
 import { computed } from 'vue'
 
 type InputGroupButtonProps = InstanceType<typeof InputGroupButton>['$props']
@@ -480,8 +480,8 @@ const props = defineProps<Props>()
 ```vue [PromptInputActionMenuTrigger.vue]
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue'
+import { PlusIcon } from '@lucide/vue'
 import { DropdownMenuTrigger } from '@repo/shadcn-vue/components/ui/dropdown-menu'
-import { PlusIcon } from 'lucide-vue-next'
 import PromptInputButton from './PromptInputButton.vue'
 
 type DropdownMenuTriggerProps = InstanceType<typeof DropdownMenuTrigger>['$props']
@@ -550,8 +550,8 @@ const props = defineProps<Props>()
 
 ```vue [PromptInputActionAddAttachments.vue]
 <script setup lang="ts">
+import { ImageIcon } from '@lucide/vue'
 import { DropdownMenuItem } from '@repo/shadcn-vue/components/ui/dropdown-menu'
-import { ImageIcon } from 'lucide-vue-next'
 import { usePromptInput } from './context'
 
 type PromptInputActionAddAttachmentsProps = InstanceType<typeof DropdownMenuItem>['$props']
@@ -576,8 +576,8 @@ const { openFileDialog } = usePromptInput()
 ```vue [PromptInputSpeechButton.vue] height=500 collapse
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue'
+import { MicIcon } from '@lucide/vue'
 import { cn } from '@repo/shadcn-vue/lib/utils'
-import { MicIcon } from 'lucide-vue-next'
 import { onMounted, onUnmounted, ref } from 'vue'
 import { usePromptInput } from './context'
 import PromptInputButton from './PromptInputButton.vue'
@@ -1410,7 +1410,7 @@ Add the following component to your frontend:
 <script setup lang="ts">
 import type { PromptInputMessage } from '@/components/ai-elements/prompt-input'
 import { useChat } from '@ai-sdk/vue'
-import { GlobeIcon } from 'lucide-vue-next'
+import { GlobeIcon } from '@lucide/vue'
 import { ref } from 'vue'
 import {
   Conversation,

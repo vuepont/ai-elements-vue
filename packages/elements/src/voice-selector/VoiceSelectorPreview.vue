@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue'
+import { PauseIcon, PlayIcon } from '@lucide/vue'
 import { Button } from '@repo/shadcn-vue/components/ui/button'
 import { Spinner } from '@repo/shadcn-vue/components/ui/spinner'
 import { cn } from '@repo/shadcn-vue/lib/utils'
-import { PauseIcon, PlayIcon } from 'lucide-vue-next'
 
 interface Props {
   class?: HTMLAttributes['class']

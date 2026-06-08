@@ -55,8 +55,8 @@ const props = defineProps<{
 ```vue [CheckpointIcon.vue]
 <script lang="ts" setup>
 import type { HTMLAttributes } from 'vue'
+import { BookmarkIcon } from '@lucide/vue'
 import { cn } from '@repo/shadcn-vue/lib/utils'
-import { BookmarkIcon } from 'lucide-vue-next'
 
 const props = defineProps<{
   class?: HTMLAttributes['class']

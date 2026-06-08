@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { BundledLanguage } from 'shiki'
+import { FileIcon } from '@lucide/vue'
 import {
   CodeBlock,
   CodeBlockActions,
@@ -13,7 +14,6 @@ import {
   CodeBlockLanguageSelectorValue,
   CodeBlockTitle,
 } from '@repo/elements/code-block'
-import { FileIcon } from 'lucide-vue-next'
 import { computed, ref } from 'vue'
 
 const codeExamples = {

@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import type { Component, HTMLAttributes } from 'vue'
 import type { TestStatusType } from './context'
-import { CollapsibleTrigger } from '@repo/shadcn-vue/components/ui/collapsible'
-import { cn } from '@repo/shadcn-vue/lib/utils'
 import {
   CheckCircle2,
   ChevronRight,
   Circle,
   CircleDot,
   XCircle,
-} from 'lucide-vue-next'
+} from '@lucide/vue'
+import { CollapsibleTrigger } from '@repo/shadcn-vue/components/ui/collapsible'
+import { cn } from '@repo/shadcn-vue/lib/utils'
 import { useTestSuiteContext } from './context'
 
 type TestSuiteNameProps = InstanceType<typeof CollapsibleTrigger>['$props']

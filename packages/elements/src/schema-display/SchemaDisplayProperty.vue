@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue'
 import type { SchemaProperty } from './context'
+import { ChevronRightIcon } from '@lucide/vue'
 import { Badge } from '@repo/shadcn-vue/components/ui/badge'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@repo/shadcn-vue/components/ui/collapsible'
 import { cn } from '@repo/shadcn-vue/lib/utils'
-import { ChevronRightIcon } from 'lucide-vue-next'
 import { computed } from 'vue'
 
 interface Props extends /* @vue-ignore */ HTMLAttributes, SchemaProperty {

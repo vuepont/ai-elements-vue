@@ -2,13 +2,13 @@
 <script setup lang="ts">
 import type { DynamicToolUIPart, ToolUIPart } from 'ai'
 import type { Component } from 'vue'
-import { Badge } from '@repo/shadcn-vue/components/ui/badge'
 import {
   CheckCircleIcon,
   CircleIcon,
   ClockIcon,
   XCircleIcon,
-} from 'lucide-vue-next'
+} from '@lucide/vue'
+import { Badge } from '@repo/shadcn-vue/components/ui/badge'
 import { computed } from 'vue'
 
 export type ToolPart = ToolUIPart | DynamicToolUIPart

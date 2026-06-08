@@ -55,8 +55,8 @@ Copy and paste the following code in the same folder.
 
   ```vue [ArtifactAction.vue] height=500 collapse
   <script setup lang="ts">
+  import type { LucideIcon } from '@lucide/vue'
   import type { ButtonVariants } from '@repo/shadcn-vue/components/ui/button'
-  import type { LucideIcon } from 'lucide-vue-next'
   import type { HTMLAttributes } from 'vue'
   import { Button } from '@repo/shadcn-vue/components/ui/button'
   import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@repo/shadcn-vue/components/ui/tooltip'
@@ -154,9 +154,9 @@ Copy and paste the following code in the same folder.
   <script setup lang="ts">
   import type { ButtonVariants } from '@repo/shadcn-vue/components/ui/button'
   import type { HTMLAttributes } from 'vue'
+  import { X } from '@lucide/vue'
   import { Button } from '@repo/shadcn-vue/components/ui/button'
   import { cn } from '@repo/shadcn-vue/lib/utils'
-  import { X } from 'lucide-vue-next'
   import { computed } from 'vue'
 
   interface ArtifactCloseProps {

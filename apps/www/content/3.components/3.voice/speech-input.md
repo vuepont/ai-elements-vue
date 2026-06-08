@@ -33,10 +33,10 @@ Copy and paste the following code in the same folder.
 ```vue [SpeechInput.vue] height=500 collapse
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue'
+import { MicIcon, SquareIcon } from '@lucide/vue'
 import { Button } from '@repo/shadcn-vue/components/ui/button'
 import { Spinner } from '@repo/shadcn-vue/components/ui/spinner'
 import { cn } from '@repo/shadcn-vue/lib/utils'
-import { MicIcon, SquareIcon } from 'lucide-vue-next'
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 
 defineOptions({
