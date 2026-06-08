@@ -8,10 +8,10 @@
   },
   "dependencies": {
     "@repo/elements": "workspace:*",
-    "@vue-flow/core": "^1.48.0",
+    "@vue-flow/core": "^1.48.2",
     "ai": "catalog:",
     "lucide-vue-next": "catalog:",
-    "nanoid": "^5.1.6",
+    "nanoid": "^5.1.11",
     "shiki": "catalog:",
     "vue": "catalog:",
     "vue-sonner": "catalog:",

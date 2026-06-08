@@ -14,20 +14,21 @@
   "dependencies": {
     "@repo/elements": "workspace:*",
     "@repo/examples": "workspace:*",
-    "@vueuse/shared": "^14.1.0",
+    "@takumi-rs/core": "catalog:",
+    "@vueuse/shared": "^14.3.0",
     "highlight.js": "^11.11.1",
-    "nuxt": "^3.20.2",
-    "shadcn-docs-nuxt": "^1.1.7",
+    "nuxt": "4.4.6",
+    "shadcn-docs-nuxt": "^1.2.2",
     "tailwindcss": "catalog:",
     "vue": "catalog:",
-    "vue-router": "^4.6.3"
+    "vue-router": "catalog:"
   },
   "devDependencies": {
-    "@iconify-json/logos": "^1.2.10",
-    "@iconify-json/lucide": "^1.2.78",
-    "@iconify-json/simple-icons": "^1.2.61",
-    "baseline-browser-mapping": "^2.9.2",
+    "@iconify-json/logos": "^1.2.11",
+    "@iconify-json/lucide": "^1.2.111",
+    "@iconify-json/simple-icons": "^1.2.85",
+    "baseline-browser-mapping": "catalog:",
     "tailwindcss-animate": "^1.0.7",
-    "wrangler": "^4.52.1"
+    "wrangler": "catalog:"
   }
 }
