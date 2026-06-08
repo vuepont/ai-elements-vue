@@ -60,13 +60,13 @@ const props = defineProps<Props>()
 <script setup lang="ts">
 import type { DynamicToolUIPart, ToolUIPart } from 'ai'
 import type { Component } from 'vue'
-import { Badge } from '@repo/shadcn-vue/components/ui/badge'
 import {
   CheckCircleIcon,
   CircleIcon,
   ClockIcon,
   XCircleIcon,
-} from 'lucide-vue-next'
+} from '@lucide/vue'
+import { Badge } from '@repo/shadcn-vue/components/ui/badge'
 import { computed } from 'vue'
 
 export type ToolPart = ToolUIPart | DynamicToolUIPart
@@ -127,9 +127,9 @@ const iconClass = computed(() => {
 <script setup lang="ts">
 import type { DynamicToolUIPart, ToolUIPart } from 'ai'
 import type { HTMLAttributes } from 'vue'
+import { ChevronDownIcon, WrenchIcon } from '@lucide/vue'
 import { CollapsibleTrigger } from '@repo/shadcn-vue/components/ui/collapsible'
 import { cn } from '@repo/shadcn-vue/lib/utils'
-import { ChevronDownIcon, WrenchIcon } from 'lucide-vue-next'
 import { computed } from 'vue'
 import StatusBadge from './ToolStatusBadge.vue'
 

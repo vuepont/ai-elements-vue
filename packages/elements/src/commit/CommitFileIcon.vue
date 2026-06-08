@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue'
+import { FileIcon } from '@lucide/vue'
 import { cn } from '@repo/shadcn-vue/lib/utils'
-import { FileIcon } from 'lucide-vue-next'
 
 const props = defineProps<{
   class?: HTMLAttributes['class']

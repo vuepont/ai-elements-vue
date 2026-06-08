@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import { Trash2Icon } from '@lucide/vue'
 import { Button } from '@repo/shadcn-vue/components/ui/button'
 import { cn } from '@repo/shadcn-vue/lib/utils'
-import { Trash2Icon } from 'lucide-vue-next'
 import { useTerminalContext } from './context'
 
 type ButtonProps = InstanceType<typeof Button>['$props']

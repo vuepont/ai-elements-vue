@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ArrowUp, Trash2 } from '@lucide/vue'
 import {
   Queue,
   QueueItem,
@@ -16,7 +17,6 @@ import {
   QueueSectionLabel,
   QueueSectionTrigger,
 } from '@repo/elements/queue'
-import { ArrowUp, Trash2 } from 'lucide-vue-next'
 import { computed, ref } from 'vue'
 
 export interface QueueMessagePart {

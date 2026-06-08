@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { FileText } from '@lucide/vue'
 import {
   Plan,
   PlanAction,
@@ -11,7 +12,6 @@ import {
 } from '@repo/elements/plan'
 import { Button } from '@repo/shadcn-vue/components/ui/button'
 import { Kbd, KbdGroup } from '@repo/shadcn-vue/components/ui/kbd'
-import { FileText } from 'lucide-vue-next'
 </script>
 
 <template>

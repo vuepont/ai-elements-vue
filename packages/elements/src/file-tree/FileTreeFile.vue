@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { HTMLAttributes, VNode } from 'vue'
+import { FileIcon } from '@lucide/vue'
 import { cn } from '@repo/shadcn-vue/lib/utils'
-import { FileIcon } from 'lucide-vue-next'
 import { computed, provide } from 'vue'
 import { FileTreeFileKey, useFileTreeContext } from './context'
 import FileTreeIcon from './FileTreeIcon.vue'

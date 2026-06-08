@@ -2,6 +2,20 @@
 import type { PromptInputMessage } from '@repo/elements/prompt-input'
 import type { ToolUIPart } from 'ai'
 import {
+  AudioWaveformIcon,
+  BarChartIcon,
+  BoxIcon,
+  CameraIcon,
+  CodeSquareIcon,
+  FileIcon,
+  GlobeIcon,
+  GraduationCapIcon,
+  ImageIcon,
+  NotepadTextIcon,
+  PaperclipIcon,
+  ScreenShareIcon,
+} from '@lucide/vue'
+import {
   Conversation,
   ConversationContent,
   ConversationScrollButton,
@@ -44,20 +58,6 @@ import {
   DropdownMenuTrigger,
 } from '@repo/shadcn-vue/components/ui/dropdown-menu'
 import { cn } from '@repo/shadcn-vue/lib/utils'
-import {
-  AudioWaveformIcon,
-  BarChartIcon,
-  BoxIcon,
-  CameraIcon,
-  CodeSquareIcon,
-  FileIcon,
-  GlobeIcon,
-  GraduationCapIcon,
-  ImageIcon,
-  NotepadTextIcon,
-  PaperclipIcon,
-  ScreenShareIcon,
-} from 'lucide-vue-next'
 import { nanoid } from 'nanoid'
 import { onMounted, onUnmounted, ref } from 'vue'
 import { toast } from 'vue-sonner'

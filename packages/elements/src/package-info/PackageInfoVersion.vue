@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue'
+import { ArrowRightIcon } from '@lucide/vue'
 import { cn } from '@repo/shadcn-vue/lib/utils'
-import { ArrowRightIcon } from 'lucide-vue-next'
 import { usePackageInfoContext } from './context'
 
 interface Props extends /* @vue-ignore */ HTMLAttributes {

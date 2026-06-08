@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { FileIcon } from '@lucide/vue'
 import {
   CodeBlock,
   CodeBlockActions,
@@ -7,7 +8,6 @@ import {
   CodeBlockHeader,
   CodeBlockTitle,
 } from '@repo/elements/code-block'
-import { FileIcon } from 'lucide-vue-next'
 
 const code = `<template>
   <div>

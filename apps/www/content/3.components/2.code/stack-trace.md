@@ -136,8 +136,8 @@ Copy and paste the following files into the same folder.
   ```vue [StackTraceError.vue]
   <script setup lang="ts">
   import type { HTMLAttributes } from 'vue'
+  import { AlertTriangleIcon } from '@lucide/vue'
   import { cn } from '@repo/shadcn-vue/lib/utils'
-  import { AlertTriangleIcon } from 'lucide-vue-next'
 
   interface Props extends /* @vue-ignore */ HTMLAttributes {
     class?: HTMLAttributes['class']
@@ -236,9 +236,9 @@ Copy and paste the following files into the same folder.
   ```vue [StackTraceCopyButton.vue]
   <script setup lang="ts">
   import type { HTMLAttributes } from 'vue'
+  import { CheckIcon, CopyIcon } from '@lucide/vue'
   import { Button } from '@repo/shadcn-vue/components/ui/button'
   import { cn } from '@repo/shadcn-vue/lib/utils'
-  import { CheckIcon, CopyIcon } from 'lucide-vue-next'
   import { computed, ref } from 'vue'
   import { useStackTraceContext } from './context'
 
@@ -302,8 +302,8 @@ Copy and paste the following files into the same folder.
   ```vue [StackTraceExpandButton.vue]
   <script setup lang="ts">
   import type { HTMLAttributes } from 'vue'
+  import { ChevronDownIcon } from '@lucide/vue'
   import { cn } from '@repo/shadcn-vue/lib/utils'
-  import { ChevronDownIcon } from 'lucide-vue-next'
   import { useStackTraceContext } from './context'
 
   interface Props extends /* @vue-ignore */ HTMLAttributes {

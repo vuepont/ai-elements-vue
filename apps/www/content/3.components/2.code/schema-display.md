@@ -240,10 +240,10 @@ Copy and paste the following files into the same folder.
   ```vue [SchemaDisplayParameters.vue] height=500 collapse
   <script setup lang="ts">
   import type { HTMLAttributes } from 'vue'
+  import { ChevronRightIcon } from '@lucide/vue'
   import { Badge } from '@repo/shadcn-vue/components/ui/badge'
   import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@repo/shadcn-vue/components/ui/collapsible'
   import { cn } from '@repo/shadcn-vue/lib/utils'
-  import { ChevronRightIcon } from 'lucide-vue-next'
   import { useSchemaDisplayContext } from './context'
   import SchemaDisplayParameter from './SchemaDisplayParameter.vue'
 
@@ -324,9 +324,9 @@ Copy and paste the following files into the same folder.
   ```vue [SchemaDisplayRequest.vue] height=500 collapse
   <script setup lang="ts">
   import type { HTMLAttributes } from 'vue'
+  import { ChevronRightIcon } from '@lucide/vue'
   import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@repo/shadcn-vue/components/ui/collapsible'
   import { cn } from '@repo/shadcn-vue/lib/utils'
-  import { ChevronRightIcon } from 'lucide-vue-next'
   import { useSchemaDisplayContext } from './context'
   import SchemaDisplayProperty from './SchemaDisplayProperty.vue'
 
@@ -366,9 +366,9 @@ Copy and paste the following files into the same folder.
   ```vue [SchemaDisplayResponse.vue] height=500 collapse
   <script setup lang="ts">
   import type { HTMLAttributes } from 'vue'
+  import { ChevronRightIcon } from '@lucide/vue'
   import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@repo/shadcn-vue/components/ui/collapsible'
   import { cn } from '@repo/shadcn-vue/lib/utils'
-  import { ChevronRightIcon } from 'lucide-vue-next'
   import { useSchemaDisplayContext } from './context'
   import SchemaDisplayProperty from './SchemaDisplayProperty.vue'
 
@@ -428,10 +428,10 @@ Copy and paste the following files into the same folder.
   <script setup lang="ts">
   import type { HTMLAttributes } from 'vue'
   import type { SchemaProperty } from './context'
+  import { ChevronRightIcon } from '@lucide/vue'
   import { Badge } from '@repo/shadcn-vue/components/ui/badge'
   import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@repo/shadcn-vue/components/ui/collapsible'
   import { cn } from '@repo/shadcn-vue/lib/utils'
-  import { ChevronRightIcon } from 'lucide-vue-next'
   import { computed } from 'vue'
 
   interface Props extends /* @vue-ignore */ HTMLAttributes, SchemaProperty {

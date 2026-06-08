@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Component } from 'vue'
+import { ExternalLinkIcon } from '@lucide/vue'
 import { DropdownMenuItem } from '@repo/shadcn-vue/components/ui/dropdown-menu'
-import { ExternalLinkIcon } from 'lucide-vue-next'
 
 interface Props {
   href: string

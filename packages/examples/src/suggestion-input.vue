@@ -1,6 +1,7 @@
 <!-- eslint-disable no-console -->
 <script lang="ts" setup>
 import type { PromptInputMessage } from '@repo/elements/prompt-input'
+import { GlobeIcon, MicIcon, PlusIcon, SendIcon } from '@lucide/vue'
 import {
   PromptInput,
   PromptInputButton,
@@ -15,7 +16,6 @@ import {
   PromptInputTools,
 } from '@repo/elements/prompt-input'
 import { Suggestion, Suggestions } from '@repo/elements/suggestion'
-import { GlobeIcon, MicIcon, PlusIcon, SendIcon } from 'lucide-vue-next'
 import { nanoid } from 'nanoid'
 import { ref } from 'vue'
 

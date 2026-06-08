@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue'
+import { ChevronDownIcon } from '@lucide/vue'
 import { cn } from '@repo/shadcn-vue/lib/utils'
-import { ChevronDownIcon } from 'lucide-vue-next'
 import { useStackTraceContext } from './context'
 
 interface Props extends /* @vue-ignore */ HTMLAttributes {

@@ -68,11 +68,11 @@ provide('toggle', toggleOpen)
 ```vue [TaskTrigger.vue] height=500 collapse
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue'
+import { ChevronDown, Search } from '@lucide/vue'
 import {
   CollapsibleTrigger,
 } from '@repo/shadcn-vue/components/ui/collapsible'
 import { cn } from '@repo/shadcn-vue/lib/utils'
-import { ChevronDown, Search } from 'lucide-vue-next'
 
 interface TaskTriggerProps {
   title: string

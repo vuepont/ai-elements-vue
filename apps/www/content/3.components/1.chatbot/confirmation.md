@@ -233,8 +233,8 @@ Add the following component to your frontend:
 <script setup lang="ts">
 import type { ToolUIPart } from 'ai'
 import { useChat } from '@ai-sdk/vue'
+import { CheckIcon, XIcon } from '@lucide/vue'
 import { DefaultChatTransport } from 'ai'
-import { CheckIcon, XIcon } from 'lucide-vue-next'
 import { computed } from 'vue'
 import {
   Confirmation,

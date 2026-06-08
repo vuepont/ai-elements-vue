@@ -115,16 +115,16 @@ Copy and paste the following files into the same folder.
   <script setup lang="ts">
   import type { HTMLAttributes } from 'vue'
   import {
+    ChevronRightIcon,
+    FolderIcon,
+    FolderOpenIcon,
+  } from '@lucide/vue'
+  import {
     Collapsible,
     CollapsibleContent,
     CollapsibleTrigger,
   } from '@repo/shadcn-vue/components/ui/collapsible'
   import { cn } from '@repo/shadcn-vue/lib/utils'
-  import {
-    ChevronRightIcon,
-    FolderIcon,
-    FolderOpenIcon,
-  } from 'lucide-vue-next'
   import { computed, provide } from 'vue'
   import { FileTreeFolderKey, useFileTreeContext } from './context'
   import FileTreeIcon from './FileTreeIcon.vue'
@@ -197,8 +197,8 @@ Copy and paste the following files into the same folder.
   ```vue [FileTreeFile.vue]
   <script setup lang="ts">
   import type { HTMLAttributes, VNode } from 'vue'
+  import { FileIcon } from '@lucide/vue'
   import { cn } from '@repo/shadcn-vue/lib/utils'
-  import { FileIcon } from 'lucide-vue-next'
   import { computed, provide } from 'vue'
   import { FileTreeFileKey, useFileTreeContext } from './context'
   import FileTreeIcon from './FileTreeIcon.vue'

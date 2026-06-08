@@ -3,6 +3,7 @@
   "version": "1.4.0",
   "private": true,
   "dependencies": {
+    "@lucide/vue": "catalog:",
     "@tailwindcss/vite": "^4.3.0",
     "@tanstack/vue-table": "^8.21.3",
     "@unovis/ts": "^1.6.5",
@@ -12,7 +13,6 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "embla-carousel-vue": "^8.6.0",
-    "lucide-vue-next": "catalog:",
     "reka-ui": "catalog:",
     "shadcn-nuxt": "catalog:",
     "tailwind-merge": "^3.6.0",

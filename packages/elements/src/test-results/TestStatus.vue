@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import type { Component, HTMLAttributes } from 'vue'
 import type { TestStatusType } from './context'
-import { cn } from '@repo/shadcn-vue/lib/utils'
 import {
   CheckCircle2,
   Circle,
   CircleDot,
   XCircle,
-} from 'lucide-vue-next'
+} from '@lucide/vue'
+import { cn } from '@repo/shadcn-vue/lib/utils'
 import { useTestContext } from './context'
 
 interface Props extends /* @vue-ignore */ HTMLAttributes {

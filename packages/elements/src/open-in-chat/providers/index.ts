@@ -1,5 +1,5 @@
 import type { Component } from 'vue'
-import { MessageCircleIcon } from 'lucide-vue-next'
+import { MessageCircleIcon } from '@lucide/vue'
 import {
   ChatGPTIcon,
   ClaudeIcon,

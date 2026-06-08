@@ -2,6 +2,12 @@
 <script setup lang="ts">
 import type { AttachmentData } from '@repo/elements/attachments'
 import {
+  CopyIcon,
+  RefreshCcwIcon,
+  ThumbsDownIcon,
+  ThumbsUpIcon,
+} from '@lucide/vue'
+import {
   Attachment,
   AttachmentPreview,
   AttachmentRemove,
@@ -21,12 +27,6 @@ import {
   MessageResponse,
   MessageToolbar,
 } from '@repo/elements/message'
-import {
-  CopyIcon,
-  RefreshCcwIcon,
-  ThumbsDownIcon,
-  ThumbsUpIcon,
-} from 'lucide-vue-next'
 import { nanoid } from 'nanoid'
 import { ref } from 'vue'
 

@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue'
+import { ArrowLeft } from '@lucide/vue'
 import { useCarousel } from '@repo/shadcn-vue/components/ui/carousel'
 import { cn } from '@repo/shadcn-vue/lib/utils'
-import { ArrowLeft } from 'lucide-vue-next'
 
 const props = defineProps<{
   class?: HTMLAttributes['class']

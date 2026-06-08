@@ -1,6 +1,6 @@
 <script setup lang="ts">
+import { ChevronLeftIcon } from '@lucide/vue'
 import { Button } from '@repo/shadcn-vue/components/ui/button'
-import { ChevronLeftIcon } from 'lucide-vue-next'
 import { useMessageBranchContext } from './context'
 
 const { goToPrevious, totalBranches } = useMessageBranchContext()

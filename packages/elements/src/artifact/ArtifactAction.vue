@@ -1,6 +1,6 @@
 <script setup lang="ts">
+import type { LucideIcon } from '@lucide/vue'
 import type { ButtonVariants } from '@repo/shadcn-vue/components/ui/button'
-import type { LucideIcon } from 'lucide-vue-next'
 import type { HTMLAttributes } from 'vue'
 import { Button } from '@repo/shadcn-vue/components/ui/button'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@repo/shadcn-vue/components/ui/tooltip'

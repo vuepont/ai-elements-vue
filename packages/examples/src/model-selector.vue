@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Check } from '@lucide/vue'
 import {
   ModelSelector,
   ModelSelectorContent,
@@ -13,7 +14,6 @@ import {
   ModelSelectorTrigger,
 } from '@repo/elements/model-selector'
 import { Button } from '@repo/shadcn-vue/components/ui/button'
-import { Check } from 'lucide-vue-next'
 import { computed, ref } from 'vue'
 
 interface Model {

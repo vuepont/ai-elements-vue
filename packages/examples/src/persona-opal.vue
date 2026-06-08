@@ -1,5 +1,12 @@
 <script setup lang="ts">
 import type { PersonaState } from '@repo/elements/persona'
+import {
+  BrainIcon,
+  CircleIcon,
+  EyeClosedIcon,
+  MegaphoneIcon,
+  MicIcon,
+} from '@lucide/vue'
 import { Persona } from '@repo/elements/persona'
 import { Button } from '@repo/shadcn-vue/components/ui/button'
 import { ButtonGroup } from '@repo/shadcn-vue/components/ui/button-group'
@@ -9,13 +16,6 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@repo/shadcn-vue/components/ui/tooltip'
-import {
-  BrainIcon,
-  CircleIcon,
-  EyeClosedIcon,
-  MegaphoneIcon,
-  MicIcon,
-} from 'lucide-vue-next'
 import { ref } from 'vue'
 
 const states = [

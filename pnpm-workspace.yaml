@@ -24,6 +24,7 @@ catalog:
   '@antfu/eslint-config': ^9.0.0
   '@commitlint/cli': ^21.0.2
   '@commitlint/config-conventional': ^21.0.2
+  '@lucide/vue': ^1.17.0
   '@rive-app/webgl2': ^2.38.0
   '@takumi-rs/core': ^1.7.0
   '@vitest/ui': 4.1.8
@@ -35,7 +36,6 @@ catalog:
   eslint: ^10.4.1
   h3: ^1.15.11
   lint-staged: ^17.0.7
-  lucide-vue-next: ^0.555.0
   media-chrome: ^4.19.1
   motion-v: ^2.2.1
   reka-ui: ^2.9.9

@@ -130,8 +130,8 @@ Copy and paste the following files into the same folder.
   ```vue [SnippetCopyButton.vue] height=500 collapse
   <script setup lang="ts">
   import type { HTMLAttributes } from 'vue'
+  import { CheckIcon, CopyIcon } from '@lucide/vue'
   import { InputGroupButton } from '@repo/shadcn-vue/components/ui/input-group'
-  import { CheckIcon, CopyIcon } from 'lucide-vue-next'
   import { computed, onBeforeUnmount, ref } from 'vue'
   import { useSnippetContext } from './context'
 

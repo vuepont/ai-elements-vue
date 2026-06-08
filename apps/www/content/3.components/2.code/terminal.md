@@ -131,8 +131,8 @@ Copy and paste the following files into the same folder.
   ```vue [TerminalTitle.vue] height=500 collapse
   <script setup lang="ts">
   import type { HTMLAttributes } from 'vue'
+  import { TerminalIcon } from '@lucide/vue'
   import { cn } from '@repo/shadcn-vue/lib/utils'
-  import { TerminalIcon } from 'lucide-vue-next'
 
   interface Props extends /* @vue-ignore */ HTMLAttributes {
     class?: HTMLAttributes['class']
@@ -259,9 +259,9 @@ Copy and paste the following files into the same folder.
 
   ```vue [TerminalCopyButton.vue] height=500 collapse
   <script setup lang="ts">
+  import { CheckIcon, CopyIcon } from '@lucide/vue'
   import { Button } from '@repo/shadcn-vue/components/ui/button'
   import { cn } from '@repo/shadcn-vue/lib/utils'
-  import { CheckIcon, CopyIcon } from 'lucide-vue-next'
   import { computed, ref } from 'vue'
   import { useTerminalContext } from './context'
 
@@ -325,9 +325,9 @@ Copy and paste the following files into the same folder.
 
   ```vue [TerminalClearButton.vue] height=500 collapse
   <script setup lang="ts">
+  import { Trash2Icon } from '@lucide/vue'
   import { Button } from '@repo/shadcn-vue/components/ui/button'
   import { cn } from '@repo/shadcn-vue/lib/utils'
-  import { Trash2Icon } from 'lucide-vue-next'
   import { useTerminalContext } from './context'
 
   type ButtonProps = InstanceType<typeof Button>['$props']

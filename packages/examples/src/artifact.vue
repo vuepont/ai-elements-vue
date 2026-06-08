@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Copy, Download, Play, RefreshCw, Share } from '@lucide/vue'
 import {
   Artifact,
   ArtifactAction,
@@ -9,7 +10,6 @@ import {
   ArtifactTitle,
 } from '@repo/elements/artifact'
 import { CodeBlock } from '@repo/elements/code-block'
-import { Copy, Download, Play, RefreshCw, Share } from 'lucide-vue-next'
 
 const code = `# Dijkstra's Algorithm implementation
 import heapq

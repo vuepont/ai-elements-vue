@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { ToolUIPart } from 'ai'
+import { CheckIcon, XIcon } from '@lucide/vue'
 import {
   Confirmation,
   ConfirmationAccepted,
@@ -16,7 +17,6 @@ import {
   ToolInput,
   ToolOutput,
 } from '@repo/elements/tool'
-import { CheckIcon, XIcon } from 'lucide-vue-next'
 import { nanoid } from 'nanoid'
 import { ref } from 'vue'
 

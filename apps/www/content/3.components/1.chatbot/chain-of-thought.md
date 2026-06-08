@@ -77,12 +77,12 @@ provide(ChainOfThoughtContextKey, isOpen as Ref<boolean>)
 ```vue [ChainOfThoughtHeader.vue] height=500 collapse
 <script setup lang="ts">
 import type { HtmlHTMLAttributes } from 'vue'
+import { BrainIcon, ChevronDownIcon } from '@lucide/vue'
 import {
   Collapsible,
   CollapsibleTrigger,
 } from '@repo/shadcn-vue/components/ui/collapsible'
 import { cn } from '@repo/shadcn-vue/lib/utils'
-import { BrainIcon, ChevronDownIcon } from 'lucide-vue-next'
 import { useChainOfThought } from './context'
 
 const props = defineProps<{

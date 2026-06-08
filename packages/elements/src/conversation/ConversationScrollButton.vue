@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue'
+import { ArrowDownIcon } from '@lucide/vue'
 import { Button } from '@repo/shadcn-vue/components/ui/button'
 import { cn } from '@repo/shadcn-vue/lib/utils'
-import { ArrowDownIcon } from 'lucide-vue-next'
 import { computed } from 'vue'
 import { useStickToBottomContext } from 'vue-stick-to-bottom'
 

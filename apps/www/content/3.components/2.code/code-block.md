@@ -277,10 +277,10 @@ Copy and paste the following files into the same folder.
   ```vue [CodeBlockCopyButton.vue] height=500 collapse
   <script setup lang="ts">
   import type { HTMLAttributes } from 'vue'
+  import { CheckIcon, CopyIcon } from '@lucide/vue'
   import { Button } from '@repo/shadcn-vue/components/ui/button'
   import { cn } from '@repo/shadcn-vue/lib/utils'
   import { reactiveOmit } from '@vueuse/core'
-  import { CheckIcon, CopyIcon } from 'lucide-vue-next'
   import { computed, inject, onBeforeUnmount, ref } from 'vue'
   import { CodeBlockKey } from './context'
 
@@ -617,7 +617,7 @@ The CodeBlock is fully composable. Here's a basic example:
 
 ```vue
 <script setup lang="ts">
-import { FileIcon } from 'lucide-vue-next'
+import { FileIcon } from '@lucide/vue'
 import {
   CodeBlock,
   CodeBlockActions,

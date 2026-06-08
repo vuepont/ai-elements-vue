@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue'
+import { ChevronRightIcon } from '@lucide/vue'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@repo/shadcn-vue/components/ui/collapsible'
 import { cn } from '@repo/shadcn-vue/lib/utils'
-import { ChevronRightIcon } from 'lucide-vue-next'
 import { useSchemaDisplayContext } from './context'
 import SchemaDisplayProperty from './SchemaDisplayProperty.vue'
 

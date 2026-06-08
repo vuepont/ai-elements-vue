@@ -92,9 +92,9 @@ Copy and paste the following code in the same folder.
   ```vue [TestResultsSummary.vue] height=500 collapse
   <script setup lang="ts">
   import type { HTMLAttributes } from 'vue'
+  import { CheckCircle2, Circle, XCircle } from '@lucide/vue'
   import { Badge } from '@repo/shadcn-vue/components/ui/badge'
   import { cn } from '@repo/shadcn-vue/lib/utils'
-  import { CheckCircle2, Circle, XCircle } from 'lucide-vue-next'
   import { useTestResultsContext } from './context'
 
   interface Props extends /* @vue-ignore */ HTMLAttributes {
@@ -307,15 +307,15 @@ Copy and paste the following code in the same folder.
   <script setup lang="ts">
   import type { Component, HTMLAttributes } from 'vue'
   import type { TestStatusType } from './context'
-  import { CollapsibleTrigger } from '@repo/shadcn-vue/components/ui/collapsible'
-  import { cn } from '@repo/shadcn-vue/lib/utils'
   import {
     CheckCircle2,
     ChevronRight,
     Circle,
     CircleDot,
     XCircle,
-  } from 'lucide-vue-next'
+  } from '@lucide/vue'
+  import { CollapsibleTrigger } from '@repo/shadcn-vue/components/ui/collapsible'
+  import { cn } from '@repo/shadcn-vue/lib/utils'
   import { useTestSuiteContext } from './context'
 
   type TestSuiteNameProps = InstanceType<typeof CollapsibleTrigger>['$props']
@@ -490,13 +490,13 @@ Copy and paste the following code in the same folder.
   <script setup lang="ts">
   import type { Component, HTMLAttributes } from 'vue'
   import type { TestStatusType } from './context'
-  import { cn } from '@repo/shadcn-vue/lib/utils'
   import {
     CheckCircle2,
     Circle,
     CircleDot,
     XCircle,
-  } from 'lucide-vue-next'
+  } from '@lucide/vue'
+  import { cn } from '@repo/shadcn-vue/lib/utils'
   import { useTestContext } from './context'
 
   interface Props extends /* @vue-ignore */ HTMLAttributes {

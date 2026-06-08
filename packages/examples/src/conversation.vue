@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import { MessageSquareIcon } from '@lucide/vue'
 import { Conversation, ConversationContent, ConversationEmptyState, ConversationScrollButton } from '@repo/elements/conversation'
 import { Message, MessageContent } from '@repo/elements/message'
-import { MessageSquareIcon } from 'lucide-vue-next'
 import { nanoid } from 'nanoid'
 import { onMounted, onUnmounted, ref } from 'vue'
 

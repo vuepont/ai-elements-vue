@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import type { ContextMenuSubTriggerProps } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
+import { ChevronRight } from '@lucide/vue'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 import { reactiveOmit } from '@vueuse/core'
-import { ChevronRight } from 'lucide-vue-next'
 import {
   ContextMenuSubTrigger,
 

@@ -114,8 +114,8 @@ const props = defineProps<{
 ```vue [QueueSectionLabel.vue]
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue'
+import { ChevronDownIcon } from '@lucide/vue'
 import { cn } from '@repo/shadcn-vue/lib/utils'
-import { ChevronDownIcon } from 'lucide-vue-next'
 
 interface QueueSectionLabelProps {
   count?: number
@@ -396,8 +396,8 @@ const props = defineProps<{
 ```vue [QueueItemFile.vue]
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue'
+import { PaperclipIcon } from '@lucide/vue'
 import { cn } from '@repo/shadcn-vue/lib/utils'
-import { PaperclipIcon } from 'lucide-vue-next'
 
 const props = defineProps<{
   class?: HTMLAttributes['class']

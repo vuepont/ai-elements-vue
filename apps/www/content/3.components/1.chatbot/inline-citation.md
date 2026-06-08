@@ -242,9 +242,9 @@ const props = defineProps<{
 ```vue [InlineCitationCarouselNext.vue]
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue'
+import { ArrowRight } from '@lucide/vue'
 import { useCarousel } from '@repo/shadcn-vue/components/ui/carousel'
 import { cn } from '@repo/shadcn-vue/lib/utils'
-import { ArrowRight } from 'lucide-vue-next'
 
 const props = defineProps<{
   class?: HTMLAttributes['class']
@@ -268,9 +268,9 @@ const { scrollNext } = useCarousel()
 ```vue [InlineCitationCarouselPrev.vue]
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue'
+import { ArrowLeft } from '@lucide/vue'
 import { useCarousel } from '@repo/shadcn-vue/components/ui/carousel'
 import { cn } from '@repo/shadcn-vue/lib/utils'
-import { ArrowLeft } from 'lucide-vue-next'
 
 const props = defineProps<{
   class?: HTMLAttributes['class']

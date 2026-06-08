@@ -310,8 +310,8 @@ const { totalBranches } = useMessageBranchContext()
 
 ```vue [MessageBranchPrevious.vue]
 <script setup lang="ts">
+import { ChevronLeftIcon } from '@lucide/vue'
 import { Button } from '@repo/shadcn-vue/components/ui/button'
-import { ChevronLeftIcon } from 'lucide-vue-next'
 import { useMessageBranchContext } from './context'
 
 const { goToPrevious, totalBranches } = useMessageBranchContext()
@@ -336,8 +336,8 @@ const { goToPrevious, totalBranches } = useMessageBranchContext()
 
 ```vue [MessageBranchNext.vue]
 <script setup lang="ts">
+import { ChevronRightIcon } from '@lucide/vue'
 import { Button } from '@repo/shadcn-vue/components/ui/button'
-import { ChevronRightIcon } from 'lucide-vue-next'
 import { useMessageBranchContext } from './context'
 
 const { goToNext, totalBranches } = useMessageBranchContext()
@@ -515,7 +515,7 @@ Add the following component to your frontend:
 ```vue [pages/index.vue]
 <script setup lang="ts">
 import { useChat } from '@ai-sdk/vue'
-import { CopyIcon, RefreshCcwIcon } from 'lucide-vue-next'
+import { CopyIcon, RefreshCcwIcon } from '@lucide/vue'
 import { ref } from 'vue'
 import {
   Conversation,
@@ -635,7 +635,7 @@ Add the following component to your frontend:
 ```vue [pages/index.vue] height=500 collapse
 <script setup lang="ts">
 import { useChat } from '@ai-sdk/vue'
-import { CopyIcon, RefreshCcwIcon } from 'lucide-vue-next'
+import { CopyIcon, RefreshCcwIcon } from '@lucide/vue'
 import { ref } from 'vue'
 
 import {

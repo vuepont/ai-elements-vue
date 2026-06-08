@@ -1,6 +1,14 @@
 <script setup lang="ts">
 import type { PromptInputMessage } from '@repo/elements/prompt-input'
 import {
+  AtSignIcon,
+  CheckIcon,
+  FilesIcon,
+  GlobeIcon,
+  ImageIcon,
+  RulerIcon,
+} from '@lucide/vue'
+import {
   ModelSelector,
   ModelSelectorContent,
   ModelSelectorEmpty,
@@ -39,14 +47,6 @@ import {
   PromptInputTools,
 } from '@repo/elements/prompt-input'
 import { Button } from '@repo/shadcn-vue/components/ui/button'
-import {
-  AtSignIcon,
-  CheckIcon,
-  FilesIcon,
-  GlobeIcon,
-  ImageIcon,
-  RulerIcon,
-} from 'lucide-vue-next'
 import { computed, ref } from 'vue'
 import PromptInputAttachmentsDisplay from './prompt-input-attachments-display.vue'
 

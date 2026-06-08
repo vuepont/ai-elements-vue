@@ -55,9 +55,9 @@ provideOpenInContext({ query: props.query })
 
 ```vue [OpenInTrigger.vue]
 <script setup lang="ts">
+import { ChevronDownIcon } from '@lucide/vue'
 import { Button } from '@repo/shadcn-vue/components/ui/button'
 import { DropdownMenuTrigger } from '@repo/shadcn-vue/components/ui/dropdown-menu'
-import { ChevronDownIcon } from 'lucide-vue-next'
 </script>
 
 <template>
@@ -103,8 +103,8 @@ const props = defineProps<Props>()
 ```vue [OpenInItemLink.vue]
 <script setup lang="ts">
 import type { Component } from 'vue'
+import { ExternalLinkIcon } from '@lucide/vue'
 import { DropdownMenuItem } from '@repo/shadcn-vue/components/ui/dropdown-menu'
-import { ExternalLinkIcon } from 'lucide-vue-next'
 
 interface Props {
   href: string
@@ -410,7 +410,7 @@ export { default as V0Icon } from './V0.vue'
 
 ```ts [providers/index.ts] height=500 collapse
 import type { Component } from 'vue'
-import { MessageCircleIcon } from 'lucide-vue-next'
+import { MessageCircleIcon } from '@lucide/vue'
 import {
   ChatGPTIcon,
   ClaudeIcon,
