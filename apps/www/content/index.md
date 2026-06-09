@@ -3,6 +3,8 @@ title: Home
 navigation: false
 ---
 
+<!-- eslint-disable markdown/no-missing-atx-heading-space -->
+
 ::hero
 ---
 actions:
@@ -14,10 +16,10 @@ actions:
     leftIcon: 'lucide:github'
 ---
 
-# title
+#title
 AI Elements Vue
 
-# description
+#description
 AI Elements Vue is a component library built on top of shadcn-vue to help you build AI-native applications faster.
 ::
 

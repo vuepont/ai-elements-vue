@@ -4,9 +4,9 @@
   "version": "1.4.0",
   "private": true,
   "scripts": {
-    "build": "nuxt generate",
+    "build": "pnpm generate",
     "dev": "nuxt dev --port 3002",
-    "generate": "nuxt generate",
+    "generate": "NODE_OPTIONS=--max-old-space-size=8192 nuxt generate",
     "preview": "wrangler pages dev",
     "deploy": "wrangler pages deploy --project-name ai-elements-vue",
     "postinstall": "nuxt prepare"
@@ -14,9 +14,12 @@
   "dependencies": {
     "@repo/elements": "workspace:*",
     "@repo/examples": "workspace:*",
+    "@repo/shadcn-vue": "workspace:*",
     "@takumi-rs/core": "catalog:",
     "@vueuse/shared": "^14.3.0",
+    "dayjs": "^1.11.21",
     "highlight.js": "^11.11.1",
+    "mermaid": "^11.15.0",
     "nuxt": "4.4.6",
     "shadcn-docs-nuxt": "^1.2.2",
     "tailwindcss": "catalog:",
@@ -27,6 +30,7 @@
     "@iconify-json/logos": "^1.2.11",
     "@iconify-json/lucide": "^1.2.111",
     "@iconify-json/simple-icons": "^1.2.85",
+    "@iconify-json/vscode-icons": "catalog:",
     "baseline-browser-mapping": "catalog:",
     "tailwindcss-animate": "^1.0.7",
     "wrangler": "catalog:"

@@ -1,7 +1,11 @@
 catalogMode: prefer
 cleanupUnusedCatalogs: true
 
-shamefullyHoist: true
+hoistPattern:
+  - '*'
+  - '!h3'
+
+shamefullyHoist: false
 strictPeerDependencies: false
 
 shellEmulator: true
@@ -16,6 +20,8 @@ packages:
   - packages/*
 
 overrides:
+  h3: 1.15.11
+  nitro@3.0.260603-beta>h3: 2.0.1-rc.22
   nuxt: 4.4.6
   oxc-parser: 0.102.0
   semver: 7.7.3
@@ -24,6 +30,7 @@ catalog:
   '@antfu/eslint-config': ^9.0.0
   '@commitlint/cli': ^21.0.2
   '@commitlint/config-conventional': ^21.0.2
+  '@iconify-json/vscode-icons': ^1.2.55
   '@lucide/vue': ^1.17.0
   '@rive-app/webgl2': ^2.38.0
   '@takumi-rs/core': ^1.7.0
@@ -37,7 +44,7 @@ catalog:
   lint-staged: ^17.0.7
   media-chrome: ^4.19.1
   motion-v: ^2.2.1
-  nitro: ^3.0.260603-beta
+  nanoid: ^5.1.11
   reka-ui: ^2.9.9
   shadcn-nuxt: 2.7.4
   shadcn-vue: ^2.7.4
@@ -56,6 +63,7 @@ catalog:
 allowedDeprecatedVersions:
   '@oxc-parser/wasm': 0.60.0
   '@types/parse-path': 7.1.0
+  deep-diff: 1.0.2
   glob: 7.2.3
   inflight: 1.0.6
   node-domexception: 1.0.0
@@ -63,6 +71,8 @@ allowedDeprecatedVersions:
 
 peerDependencyRules:
   allowedVersions:
+    tailwindcss: '4'
+    unstorage: 2.0.0-alpha.7
     zod: '4'
 
 allowBuilds:
