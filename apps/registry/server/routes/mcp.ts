@@ -1,9 +1,8 @@
-import type { H3Event } from 'h3'
 import type { Registry, RegistryItem } from 'shadcn-vue/schema'
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js'
-import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js'
-import { defineEventHandler, getHeader, readBody, sendRedirect } from 'h3'
-import { useStorage } from 'nitropack/runtime'
+import { WebStandardStreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/webStandardStreamableHttp.js'
+import { defineHandler } from 'nitro'
+import { useStorage } from 'nitro/storage'
 import { z } from 'zod'
 
 const REGISTRY_STORAGE_BASE = 'assets:registry'
@@ -124,42 +123,71 @@ function createMcpServer() {
   return server
 }
 
-async function readOptionalBody(event: H3Event) {
-  const method = event.node.req.method
-  if (!method || method === 'GET' || method === 'HEAD') {
-    return undefined
-  }
-
-  try {
-    return await readBody(event)
-  }
-  catch (error) {
-    console.warn('Failed to parse MCP request body, falling back to undefined', error)
-    return undefined
-  }
+function closeMcpServer(server: McpServer, transport: WebStandardStreamableHTTPServerTransport) {
+  server.close().catch(error => console.error('Failed to close MCP server', error))
+  transport.close().catch(error => console.error('Failed to close MCP transport', error))
 }
 
-export default defineEventHandler(async (event) => {
-  if (event.node.req.method === 'GET') {
-    const accept = getHeader(event, 'accept') ?? ''
-    if (accept.includes('text/html')) {
-      return sendRedirect(event, DOCS_REDIRECT)
+function withCleanup(response: Response, cleanup: () => void) {
+  if (!response.body) {
+    cleanup()
+    return response
+  }
+
+  const reader = response.body.getReader()
+  const body = new ReadableStream({
+    async pull(controller) {
+      const { done, value } = await reader.read()
+      if (done) {
+        cleanup()
+        controller.close()
+        return
+      }
+
+      controller.enqueue(value)
+    },
+    async cancel(reason) {
+      cleanup()
+      await reader.cancel(reason)
+    },
+  })
+
+  return new Response(body, response)
+}
+
+export default defineHandler(async (event) => {
+  if (event.req.method === 'GET' || event.req.method === 'HEAD') {
+    const accept = event.req.headers.get('accept') ?? ''
+    if (accept.includes('text/event-stream')) {
+      return new Response(null, { status: 204 })
     }
+
+    return Response.redirect(DOCS_REDIRECT, 302)
   }
 
   const server = createMcpServer()
-  const transport = new StreamableHTTPServerTransport({
+  const transport = new WebStandardStreamableHTTPServerTransport({
     sessionIdGenerator: undefined,
   })
 
-  event.node.res.once('close', () => {
-    server.close().catch(error => console.error('Failed to close MCP server', error))
-    if (typeof transport.close === 'function') {
-      transport.close().catch(error => console.error('Failed to close MCP transport', error))
+  let closed = false
+  const cleanup = () => {
+    if (closed) {
+      return
     }
-  })
+    closed = true
+    closeMcpServer(server, transport)
+  }
 
-  const body = await readOptionalBody(event)
-  await server.connect(transport)
-  await transport.handleRequest(event.node.req, event.node.res, body)
+  event.req.signal.addEventListener('abort', cleanup, { once: true })
+
+  try {
+    await server.connect(transport)
+    const response = await transport.handleRequest(event.req)
+    return withCleanup(response, cleanup)
+  }
+  catch (error) {
+    cleanup()
+    throw error
+  }
 })

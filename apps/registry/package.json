@@ -1,5 +1,6 @@
 {
   "name": "registry",
+  "type": "module",
   "version": "1.4.0",
   "private": true,
   "scripts": {
@@ -13,8 +14,7 @@
   },
   "devDependencies": {
     "@vue/compiler-sfc": "^3.5.35",
-    "h3": "catalog:",
-    "nitropack": "^2.13.4",
+    "nitro": "catalog:",
     "ts-morph": "catalog:"
   }
 }

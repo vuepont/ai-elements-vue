@@ -1,16 +1,23 @@
-import { defineNitroConfig } from 'nitropack/config'
+import { defineConfig } from 'nitro'
 import { buildHooks } from './server/hooks'
 
 // https://nitro.build/config
-export default defineNitroConfig({
+export default defineConfig({
   compatibilityDate: 'latest',
-  srcDir: 'server',
-  preset: 'cloudflare',
+  serverDir: 'server',
+  preset: 'cloudflare_module',
+  builder: 'rolldown',
+  rolldownConfig: {
+    external: ['cloudflare:workers'],
+    resolve: {
+      mainFields: ['module', 'main'],
+    },
+  },
   hooks: buildHooks,
   serverAssets: [
     {
       baseName: 'registry',
-      dir: './assets/registry',
+      dir: './server/assets/registry',
     },
   ],
   cloudflare: {
