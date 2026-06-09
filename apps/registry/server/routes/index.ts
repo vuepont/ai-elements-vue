@@ -1,7 +1,7 @@
-import { eventHandler } from 'h3'
+import { defineHandler } from 'nitro'
 
 // Learn more: https://nitro.build/guide/routing
-export default eventHandler((_event) => {
+export default defineHandler((_event) => {
   return `
       <meta charset="utf-8">
       <h1>This is your brand new Nitro project 🚀 </h1>
