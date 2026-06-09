@@ -9,9 +9,10 @@
   "dependencies": {
     "@lucide/vue": "catalog:",
     "@repo/elements": "workspace:*",
+    "@repo/shadcn-vue": "workspace:*",
     "@vue-flow/core": "^1.48.2",
     "ai": "catalog:",
-    "nanoid": "^5.1.11",
+    "nanoid": "catalog:",
     "shiki": "catalog:",
     "vue": "catalog:",
     "vue-sonner": "catalog:",

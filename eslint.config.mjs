@@ -6,6 +6,8 @@ export default antfu({
   pnpm: true,
   ignores: [
     '**/.nitro/**',
+    '**/.wrangler/**',
+    '**/.output/**',
     'apps/registry/server/assets/**',
   ],
 }, {

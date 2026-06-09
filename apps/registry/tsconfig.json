@@ -4,9 +4,6 @@
   "compilerOptions": {
     // Module resolution
     "target": "ESNext",
-    "jsx": "preserve",
-    "jsxFactory": "h",
-    "jsxFragmentFactory": "Fragment",
 
     // "noUnusedParameters": true,
 

@@ -14,7 +14,8 @@
   },
   "devDependencies": {
     "@vue/compiler-sfc": "^3.5.35",
-    "nitro": "catalog:",
-    "ts-morph": "catalog:"
+    "nitro": "^3.0.260603-beta",
+    "ts-morph": "catalog:",
+    "wrangler": "catalog:"
   }
 }
