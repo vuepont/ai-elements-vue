@@ -10,7 +10,7 @@
     "@lucide/vue": "catalog:",
     "@repo/elements": "workspace:*",
     "@repo/shadcn-vue": "workspace:*",
-    "@vue-flow/core": "^1.48.2",
+    "@vue-flow/core": "catalog:",
     "ai": "catalog:",
     "nanoid": "catalog:",
     "shiki": "catalog:",

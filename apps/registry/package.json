@@ -8,13 +8,13 @@
     "dev": "nitro dev --port 3001"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.29.0",
+    "@modelcontextprotocol/sdk": "catalog:",
     "shadcn-vue": "catalog:",
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@vue/compiler-sfc": "^3.5.35",
-    "nitro": "^3.0.260603-beta",
+    "@vue/compiler-sfc": "catalog:",
+    "nitro": "catalog:",
     "ts-morph": "catalog:",
     "wrangler": "catalog:"
   }
