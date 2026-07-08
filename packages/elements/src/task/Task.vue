@@ -28,5 +28,5 @@ provide('toggle', toggleOpen)
 <template>
   <Collapsible :default-open="isOpen" :class="cn(props.class)" as-child v-bind="$attrs">
     <slot :is-open="isOpen" :toggle="toggleOpen" />
-  </collapsible>
+  </Collapsible>
 </template>
