@@ -2,10 +2,10 @@
   "name": "ai-elements-vue",
   "version": "1.5.0",
   "private": true,
-  "packageManager": "pnpm@11.8.0",
+  "packageManager": "pnpm@11.12.0",
   "engines": {
     "node": ">=22.22.0",
-    "pnpm": ">=11.8.0"
+    "pnpm": ">=11.12.0"
   },
   "scripts": {
     "build": "turbo run build",

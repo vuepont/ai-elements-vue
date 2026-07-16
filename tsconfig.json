@@ -4,7 +4,7 @@
   "compilerOptions": {
     "composite": false,
     "module": "ESNext",
-    "moduleResolution": "node",
+    "moduleResolution": "Bundler",
     "strict": true,
     "noUnusedLocals": false,
     "noUnusedParameters": false,

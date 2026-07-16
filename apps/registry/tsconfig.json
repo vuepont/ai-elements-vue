@@ -9,7 +9,6 @@
 
     // Libs & paths
     "lib": ["ESNext", "DOM"],
-    "baseUrl": ".",
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "resolveJsonModule": true,

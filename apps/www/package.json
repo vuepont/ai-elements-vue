@@ -15,7 +15,6 @@
     "@repo/elements": "workspace:*",
     "@repo/examples": "workspace:*",
     "@repo/shadcn-vue": "workspace:*",
-    "@takumi-rs/core": "catalog:",
     "@vueuse/shared": "catalog:",
     "dayjs": "catalog:",
     "highlight.js": "catalog:",
