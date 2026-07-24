@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { MessageSquareIcon } from '@lucide/vue'
+import { MessageSquare } from '@lucide/vue'
 import { Conversation, ConversationContent, ConversationEmptyState, ConversationScrollButton } from '@repo/elements/conversation'
 import { Message, MessageContent } from '@repo/elements/message'
 import { nanoid } from 'nanoid'
@@ -152,7 +152,9 @@ onUnmounted(() => {
           title="Start a conversation"
           description="Messages will appear here as the conversation progresses."
         >
-          <MessageSquareIcon class="size-6" />
+          <template #icon>
+            <MessageSquare class="size-6" />
+          </template>
         </ConversationEmptyState>
 
         <template v-else>
