@@ -16,6 +16,22 @@
   </a>
 </div>
 
+## Sponsors
+
+AI Elements Vue is an open-source project supported by our sponsors. If you'd like to support its development, please consider [becoming a sponsor](https://opencollective.com/vuepont).
+
+<table>
+  <tr>
+    <td width="180"><a href="https://immitranslate.com/" target="_blank" rel="noopener noreferrer"><img src="./apps/www/public/sponsors/immitranslate.svg" alt="ImmiTranslate" width="150"></a></td>
+    <td>Thanks to ImmiTranslate for sponsoring this project! ImmiTranslate provides on-demand certified translation services powered by professional human translators and supported by AI. It translates documents in 70+ languages for immigration and legal, academic, financial, and medical use, with notarization and physical delivery options available. <a href="https://immitranslate.com/">Visit ImmiTranslate</a> to learn more.</td>
+  </tr>
+
+  <tr>
+    <td width="180"><a href="https://go.apimart.ai/gh-ai-elements-vue" target="_blank" rel="noopener noreferrer"><img src="./apps/www/public/sponsors/apimart.svg" alt="APIMart" width="150"></a></td>
+    <td>Thanks to APIMart for sponsoring this project! APIMart is a low-cost API platform for AI image & video generation — GPT-Image-2 from $0.006/image, 160+ images per dollar. One async API covers both image and video: submit a task, get an ID, fetch results via polling or callback. Batch tens of thousands of images without timeouts, switch models without changing code. Pay-as-you-go with no monthly fee — <a href="https://go.apimart.ai/gh-ai-elements-vue">sign up here</a> to get started.</td>
+  </tr>
+</table>
+
 ## Overview
 
 [AI Elements Vue](https://ai-elements-vue.com) provides pre-built, customizable Vue components specifically designed for AI applications, including conversations, messages, code blocks, reasoning displays, and more. The CLI makes it easy to add these components to your Vue.js and Nuxt.js project.
@@ -165,16 +181,6 @@ If you'd like to contribute to AI Elements Vue, please follow these steps:
 2. Create a new branch
 3. Make your changes to the components in `packages/elements`.
 4. Open a PR to the `main` branch.
-
-## Sponsors
-
-AI Elements Vue is an open-source project supported by our sponsors. If you'd like to support its development, please consider [becoming a sponsor](https://opencollective.com/vuepont).
-
-<p>
-  <a href="https://immitranslate.com/" target="_blank" rel="noopener noreferrer">
-    <img src="./apps/www/public/sponsors/immitranslate.svg" alt="ImmiTranslate" width="180" />
-  </a>
-</p>
 
 ## Acknowledgments
 

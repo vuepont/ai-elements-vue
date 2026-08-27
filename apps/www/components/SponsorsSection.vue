@@ -25,6 +25,7 @@ const sponsors = computed(() => appConfig.shadcnDocs.sponsors)
         :name="item.name"
       />
       <SponsorTile
+        class="md:col-span-2"
         :href="sponsors.cta.href"
         :name="sponsors.cta.name"
       />
