@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { CSSProperties, HTMLAttributes } from 'vue'
+import type { Component, CSSProperties, HTMLAttributes } from 'vue'
 import { cn } from '@repo/shadcn-vue/lib/utils'
 import { motion } from 'motion-v'
 import { computed, useSlots } from 'vue'
@@ -47,7 +47,7 @@ const componentStyle = computed((): CSSProperties => ({
 }))
 
 const MotionComponent = computed(() => {
-  return motion[props.as as keyof typeof motion] || motion.p
+  return (motion[props.as as keyof typeof motion] || motion.p) as Component
 })
 </script>
 
