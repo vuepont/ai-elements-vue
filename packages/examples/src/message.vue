@@ -234,9 +234,6 @@ function handleBranchChange(index: number) {
           >
             <MessageResponse
               :content="version.content"
-              :shiki-options="{
-                langs: ['vue'],
-              }"
             />
           </MessageContent>
         </MessageBranchContent>

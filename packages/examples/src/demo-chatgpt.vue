@@ -515,8 +515,8 @@ onUnmounted(() => {
 
 <template>
   <div class="relative flex size-full flex-col divide-y overflow-hidden">
-    <div class="h-[498px] overflow-y-scroll">
-      <Conversation>
+    <div class="h-[498px]">
+      <Conversation class="h-full">
         <ConversationContent>
           <template v-for="message in messages" :key="message.key">
             <MessageBranch :default-branch="0">
@@ -554,9 +554,6 @@ onUnmounted(() => {
                       >
                         <MessageResponse
                           :content="version.content"
-                          :shiki-options="{
-                            langs: ['vue', 'ts'],
-                          }"
                         />
                       </MessageContent>
                     </div>
