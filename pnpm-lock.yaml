@@ -37,14 +37,14 @@ catalogs:
       specifier: ^2.38.5
       version: 2.38.5
     '@stream-markdown/code':
-      specifier: ^2.0.0
-      version: 2.0.0
+      specifier: ^2.1.0
+      version: 2.1.0
     '@stream-markdown/math':
-      specifier: ^2.0.0
-      version: 2.0.0
+      specifier: ^2.1.0
+      version: 2.1.0
     '@stream-markdown/mermaid':
-      specifier: ^2.0.0
-      version: 2.0.0
+      specifier: ^2.1.0
+      version: 2.1.0
     '@tailwindcss/vite':
       specifier: ^4.3.2
       version: 4.3.2
@@ -223,8 +223,8 @@ catalogs:
       specifier: ^1.0.0
       version: 1.0.0
     vue-stream-markdown:
-      specifier: ^2.0.0
-      version: 2.0.0
+      specifier: ^2.1.0
+      version: 2.1.0
     wrangler:
       specifier: ^4.110.0
       version: 4.110.0
@@ -371,13 +371,13 @@ importers:
         version: 2.38.5
       '@stream-markdown/code':
         specifier: 'catalog:'
-        version: 2.0.0
+        version: 2.1.0(react@19.2.7)(vue@3.5.39(typescript@6.0.3))
       '@stream-markdown/math':
         specifier: 'catalog:'
-        version: 2.0.0(beautiful-mermaid@1.1.3)(shiki@4.3.1)
+        version: 2.1.0(beautiful-mermaid@1.1.3)(shiki@4.3.1)
       '@stream-markdown/mermaid':
         specifier: 'catalog:'
-        version: 2.0.0
+        version: 2.1.0
       '@vue-flow/background':
         specifier: 'catalog:'
         version: 1.3.2(@vue-flow/core@1.48.2(vue@3.5.39(typescript@6.0.3)))(vue@3.5.39(typescript@6.0.3))
@@ -425,7 +425,7 @@ importers:
         version: 1.0.0(vue@3.5.39(typescript@6.0.3))
       vue-stream-markdown:
         specifier: 'catalog:'
-        version: 2.0.0(beautiful-mermaid@1.1.3)(katex@0.16.47)(markdown-it@15.0.2)(shiki@4.3.1)(vue@3.5.39(typescript@6.0.3))
+        version: 2.1.0(beautiful-mermaid@1.1.3)(katex@0.16.47)(markdown-it@15.0.2)(shiki@4.3.1)(vue@3.5.39(typescript@6.0.3))
     devDependencies:
       '@types/hast':
         specifier: 'catalog:'
@@ -1974,11 +1974,11 @@ packages:
     resolution: {integrity: sha512-Es6WcD0nO5l+2BOQS4uLfNPYQaNDfbot3X1XUoloz+x0mPDS3eeORZJl06HXjwBG1fOGwCRnzK88LMdxKRrd6Q==}
     engines: {node: '>=6.0.0'}
 
-  '@markmend/core@2.0.0':
-    resolution: {integrity: sha512-k6gWRQZnw55DRNTHF22DKNBBSxNmDkCO1dLn+CIkZnB/bxDN27ttm9p8TyzIsIvTq3odJmv4A86yDepsIY0MEQ==}
+  '@markmend/core@2.1.0':
+    resolution: {integrity: sha512-QlseHkATq2EcxbE7GSyjFz1r+7Pm8CFnFTUdiA32NwBuurzQ5CZB1Vr1n84nQO6ktGMX8MEVIL8/szLeangdsQ==}
 
-  '@markmend/parser@2.0.0':
-    resolution: {integrity: sha512-qaZowdgc9IjQVDX6V4z3+Zi2BF9+Pl1SO7rCnHJlSCXH1elbDALaQ+aKDIkjHF11QDR3qJ/dQdnlkykgmE6xug==}
+  '@markmend/parser@2.1.0':
+    resolution: {integrity: sha512-MUCObPgy/Mi7QwdpXEvllO7oEQIfWGGXoJ0oRywGIG4HPLDqFRSyuMfdtosXrAQ7b0zVC4GkKnAkW64OyvqXrg==}
 
   '@mermaid-js/parser@1.2.0':
     resolution: {integrity: sha512-oYPyv8A4As1yH5Bx+04iQEQxXuIQDe0GKCNSRgao6z8AM9jixXIfP0vsppRLvGf+nKIOb9/LdpWA4YuJiVvESA==}
@@ -3098,6 +3098,10 @@ packages:
     resolution: {integrity: sha512-ANMDxuaPsNMdDC1m4vfvhlDmJweMwkE5XitTwrq2rWHx5jM+dlm4MmHt2PP6t0uejfR77SuhrhJ0zEijIF/uhA==}
     engines: {node: '>=20'}
 
+  '@shikijs/core@4.5.0':
+    resolution: {integrity: sha512-6CIgwq+bt2JZ3OSjb/nBkkwEf/CfpHcbam+Mg5Pllco7HAGRQ2/EFhZrrJtbyNTgKwknfVS+llsXGygiDGwJWw==}
+    engines: {node: '>=20'}
+
   '@shikijs/engine-javascript@4.3.1':
     resolution: {integrity: sha512-JBItcnPuYq7jVJdZo/vMj94r+szT7XEjHFX+mvFDGSEIbVAXAGyHAHzhbWzpGOwYidCZrErJLLgn2PVeiokHnQ==}
     engines: {node: '>=20'}
@@ -3114,6 +3118,28 @@ packages:
     resolution: {integrity: sha512-CXQRQOYy1leqQ8ceTeJdmXv/bsUY++6QyLpXJ94LZAAYj5X2SKRdc5ipguv4NPyGVKItB2PPwUpRNe0Sjh5S1A==}
     engines: {node: '>=20'}
 
+  '@shikijs/primitive@4.5.0':
+    resolution: {integrity: sha512-UM7ShlA8oz0OWxLLO8BmO9Ip6fVqdkt8yF0EH7nOCqHfrx1eEAzF0ZUVK7L+I8NEgeu1PEWSRlxaiPPeCb4iDg==}
+    engines: {node: '>=20'}
+
+  '@shikijs/stream@4.5.0':
+    resolution: {integrity: sha512-t9WVf2cUQ9WLE/Zv6eRYXfY/Til+zMY7WAsAvhnq0CA5YfdrUxqwv0ZVleLK1gl17v6u+cn7ZMDk1mg0FwHThQ==}
+    engines: {node: '>=20'}
+    peerDependencies:
+      react: ^19.0.0
+      solid-js: ^1.9.0
+      svelte: ^5.0.0-0
+      vue: ^3.2.0
+    peerDependenciesMeta:
+      react:
+        optional: true
+      solid-js:
+        optional: true
+      svelte:
+        optional: true
+      vue:
+        optional: true
+
   '@shikijs/themes@4.3.1':
     resolution: {integrity: sha512-dgpoJ4WqNi2yTmizQHBJ5zcX6j2lE6icN/0yt4l1kkf16jrY/pwPLoTb1ETsWMz0OBLf9ZNvwmxft+cH+N9qSA==}
     engines: {node: '>=20'}
@@ -3124,6 +3150,10 @@ packages:
 
   '@shikijs/types@4.3.1':
     resolution: {integrity: sha512-CHFxE0jztBIZRHH6gxXE7DXUCFXjReEGxZ/j0rfSLGKZuwp2xBYycEP14875DSa9KLL/6700oxIq6oO6ef9K2g==}
+    engines: {node: '>=20'}
+
+  '@shikijs/types@4.5.0':
+    resolution: {integrity: sha512-drtPrtD8N0DENyD2cyt6Ajy+IWsiCLgMxODwLTpvH1UsN6a9jf90tNTPjqwHvA+0Lzu9e0txk8DjfqH1p9UJRw==}
     engines: {node: '>=20'}
 
   '@shikijs/vscode-textmate@10.0.2':
@@ -3168,17 +3198,17 @@ packages:
   '@standard-schema/spec@1.1.0':
     resolution: {integrity: sha512-l2aFy5jALhniG5HgqrD6jXLi/rUWrKvqN/qJx6yoJsgKhblVd+iqqU4RCXavm/jPityDo5TCvKMnpjKnOriy0w==}
 
-  '@stream-markdown/code@2.0.0':
-    resolution: {integrity: sha512-s/7QBOAJW3PgJlrKxamjImNW489/mRaFzCbw7iX/fMhUkItbh2B5cApyXBh8zgPXlI7XaQWqIWYvi61WxCyCYg==}
+  '@stream-markdown/code@2.1.0':
+    resolution: {integrity: sha512-yH8n++uYRJ+IZxIKnuaq1uj90sYrIojbVvgvQgG08VBCKyUB/7QUKEiCebc8lC7IU9ZYN7b2QurQp1zSMHQG1g==}
 
-  '@stream-markdown/core@2.0.0':
-    resolution: {integrity: sha512-vEki/IztpaKEAtJCMYYW6itYLAaML6rd0npk6K3rfpAe3eYhuN7UmD9rrruwtZPEAQxI6D2wkPAF5vyGwYAFtQ==}
+  '@stream-markdown/core@2.1.0':
+    resolution: {integrity: sha512-1m644X3uWxQQLIWj6Hx4VY9kUOVXIc23q9vB5WFk6tlFTU1lvCIGSuOWxyqdBTJRaq3lRYCSZlUDV6W0L5XHjA==}
 
-  '@stream-markdown/math@2.0.0':
-    resolution: {integrity: sha512-r6iQvLL3nmv8CAOHbe++ovRDERiAnR0ohtHxnE+g2V5er8A0SGigFJi8AbzJ7lpuxtyjU/RW99eivUQSLgS2Jw==}
+  '@stream-markdown/math@2.1.0':
+    resolution: {integrity: sha512-hn+P0RfhW4l3VdJ67LhmVOSgBXxSlpu/xLLK0sCuQAGpOwfyk3SYSXneZBjQlLlzO9IWR6IKGsWATSH6rVeVtw==}
 
-  '@stream-markdown/mermaid@2.0.0':
-    resolution: {integrity: sha512-wfewn3CExuqcaFFbRKTwyQk7KoVh4AKgArNIpJCm1R1A07gm+O+aD1BITXb8FmRoOORM+/m5f41SLx/5YN4igA==}
+  '@stream-markdown/mermaid@2.1.0':
+    resolution: {integrity: sha512-29D6e4R/5GAFGs9LQS93qMDOJk6Vxty+ZgMsOR2N57+0T0wwZwNowprB66yrCDvKUT9NPFWBy4IdzGycFea5Gw==}
 
   '@stylistic/eslint-plugin@5.10.0':
     resolution: {integrity: sha512-nPK52ZHvot8Ju/0A4ucSX1dcPV2/1clx0kLcH5wDmrE4naKso7TUC/voUyU1O9OTKTrR6MYip6LP0ogEMQ9jPQ==}
@@ -8849,8 +8879,8 @@ packages:
     peerDependencies:
       vue: '>=3.3.0'
 
-  vue-stream-markdown@2.0.0:
-    resolution: {integrity: sha512-zTc8H+rtxHWrcw6LA72KxTKdIw1c1kt2xKNxwEk07B55BZM1YntNOYPJwm7LRU+gkZmcBFXZE0GquNyRlqWaQg==}
+  vue-stream-markdown@2.1.0:
+    resolution: {integrity: sha512-US5am3IuIZrifwisSOhIODY6iSfJe9Q5LcmRHN1MwIXWv5DE7DRuifTiFiIqVpTqn0AyNr3zwU/3RbCuRLkn9A==}
     peerDependencies:
       vue: '>=3.0.0'
 
@@ -10305,11 +10335,11 @@ snapshots:
 
   '@mapbox/whoots-js@3.1.0': {}
 
-  '@markmend/core@2.0.0': {}
+  '@markmend/core@2.1.0': {}
 
-  '@markmend/parser@2.0.0(beautiful-mermaid@1.1.3)(katex@0.16.47)(markdown-it@15.0.2)(shiki@4.3.1)':
+  '@markmend/parser@2.1.0(beautiful-mermaid@1.1.3)(katex@0.16.47)(markdown-it@15.0.2)(shiki@4.3.1)':
     dependencies:
-      '@markmend/core': 2.0.0
+      '@markmend/core': 2.1.0
       comark: 0.7.0(beautiful-mermaid@1.1.3)(katex@0.16.47)(shiki@4.3.1)
       markdown-it-cjk-friendly: 3.0.0(markdown-it@15.0.2)
     transitivePeerDependencies:
@@ -11706,6 +11736,14 @@ snapshots:
       '@types/hast': 3.0.5
       hast-util-to-html: 9.0.5
 
+  '@shikijs/core@4.5.0':
+    dependencies:
+      '@shikijs/primitive': 4.5.0
+      '@shikijs/types': 4.5.0
+      '@shikijs/vscode-textmate': 10.0.2
+      '@types/hast': 3.0.5
+      hast-util-to-html: 9.0.5
+
   '@shikijs/engine-javascript@4.3.1':
     dependencies:
       '@shikijs/types': 4.3.1
@@ -11727,6 +11765,19 @@ snapshots:
       '@shikijs/vscode-textmate': 10.0.2
       '@types/hast': 3.0.5
 
+  '@shikijs/primitive@4.5.0':
+    dependencies:
+      '@shikijs/types': 4.5.0
+      '@shikijs/vscode-textmate': 10.0.2
+      '@types/hast': 3.0.5
+
+  '@shikijs/stream@4.5.0(react@19.2.7)(vue@3.5.39(typescript@6.0.3))':
+    dependencies:
+      '@shikijs/core': 4.5.0
+    optionalDependencies:
+      react: 19.2.7
+      vue: 3.5.39(typescript@6.0.3)
+
   '@shikijs/themes@4.3.1':
     dependencies:
       '@shikijs/types': 4.3.1
@@ -11737,6 +11788,11 @@ snapshots:
       '@shikijs/types': 4.3.1
 
   '@shikijs/types@4.3.1':
+    dependencies:
+      '@shikijs/vscode-textmate': 10.0.2
+      '@types/hast': 3.0.5
+
+  '@shikijs/types@4.5.0':
     dependencies:
       '@shikijs/vscode-textmate': 10.0.2
       '@types/hast': 3.0.5
@@ -11769,16 +11825,22 @@ snapshots:
 
   '@standard-schema/spec@1.1.0': {}
 
-  '@stream-markdown/code@2.0.0':
+  '@stream-markdown/code@2.1.0(react@19.2.7)(vue@3.5.39(typescript@6.0.3))':
     dependencies:
-      '@stream-markdown/core': 2.0.0
+      '@shikijs/stream': 4.5.0(react@19.2.7)(vue@3.5.39(typescript@6.0.3))
+      '@stream-markdown/core': 2.1.0
       shiki: 4.3.1
+    transitivePeerDependencies:
+      - react
+      - solid-js
+      - svelte
+      - vue
 
-  '@stream-markdown/core@2.0.0': {}
+  '@stream-markdown/core@2.1.0': {}
 
-  '@stream-markdown/math@2.0.0(beautiful-mermaid@1.1.3)(shiki@4.3.1)':
+  '@stream-markdown/math@2.1.0(beautiful-mermaid@1.1.3)(shiki@4.3.1)':
     dependencies:
-      '@stream-markdown/core': 2.0.0
+      '@stream-markdown/core': 2.1.0
       comark: 0.7.0(beautiful-mermaid@1.1.3)(katex@0.16.47)(shiki@4.3.1)
       katex: 0.16.47
     transitivePeerDependencies:
@@ -11786,9 +11848,9 @@ snapshots:
       - rangi
       - shiki
 
-  '@stream-markdown/mermaid@2.0.0':
+  '@stream-markdown/mermaid@2.1.0':
     dependencies:
-      '@stream-markdown/core': 2.0.0
+      '@stream-markdown/core': 2.1.0
       mermaid: 11.16.0
 
   '@stylistic/eslint-plugin@5.10.0(eslint@10.7.0(jiti@2.7.0)(supports-color@10.2.2))':
@@ -18862,11 +18924,11 @@ snapshots:
     dependencies:
       vue: 3.5.39(typescript@6.0.3)
 
-  vue-stream-markdown@2.0.0(beautiful-mermaid@1.1.3)(katex@0.16.47)(markdown-it@15.0.2)(shiki@4.3.1)(vue@3.5.39(typescript@6.0.3)):
+  vue-stream-markdown@2.1.0(beautiful-mermaid@1.1.3)(katex@0.16.47)(markdown-it@15.0.2)(shiki@4.3.1)(vue@3.5.39(typescript@6.0.3)):
     dependencies:
       '@floating-ui/dom': 1.8.0
-      '@markmend/parser': 2.0.0(beautiful-mermaid@1.1.3)(katex@0.16.47)(markdown-it@15.0.2)(shiki@4.3.1)
-      '@stream-markdown/core': 2.0.0
+      '@markmend/parser': 2.1.0(beautiful-mermaid@1.1.3)(katex@0.16.47)(markdown-it@15.0.2)(shiki@4.3.1)
+      '@stream-markdown/core': 2.1.0
       '@vueuse/core': 15.0.0(vue@3.5.39(typescript@6.0.3))
       vue: 3.5.39(typescript@6.0.3)
     transitivePeerDependencies:

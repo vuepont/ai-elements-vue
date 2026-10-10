@@ -6,13 +6,13 @@ hoistPattern:
   - '!h3'
 
 minimumReleaseAgeExclude:
-  - '@markmend/core@2.0.0'
-  - '@markmend/parser@2.0.0'
-  - '@stream-markdown/code@2.0.0'
-  - '@stream-markdown/core@2.0.0'
-  - '@stream-markdown/math@2.0.0'
-  - '@stream-markdown/mermaid@2.0.0'
-  - vue-stream-markdown@2.0.0
+  - '@markmend/core@2.1.0'
+  - '@markmend/parser@2.1.0'
+  - '@stream-markdown/code@2.1.0'
+  - '@stream-markdown/core@2.1.0'
+  - '@stream-markdown/math@2.1.0'
+  - '@stream-markdown/mermaid@2.1.0'
+  - vue-stream-markdown@2.1.0
 shamefullyHoist: false
 strictPeerDependencies: false
 
@@ -48,9 +48,9 @@ catalog:
   '@lucide/vue': ^1.24.0
   '@modelcontextprotocol/sdk': ^1.29.0
   '@rive-app/webgl2': ^2.38.5
-  '@stream-markdown/code': ^2.0.0
-  '@stream-markdown/math': ^2.0.0
-  '@stream-markdown/mermaid': ^2.0.0
+  '@stream-markdown/code': ^2.1.0
+  '@stream-markdown/math': ^2.1.0
+  '@stream-markdown/mermaid': ^2.1.0
   '@tailwindcss/vite': ^4.3.2
   '@tanstack/vue-table': ^8.21.3
   '@types/hast': ^3.0.5
@@ -110,7 +110,7 @@ catalog:
   vue-router: ^5.1.0
   vue-sonner: ^2.0.9
   vue-stick-to-bottom: ^1.0.0
-  vue-stream-markdown: ^2.0.0
+  vue-stream-markdown: ^2.1.0
   wrangler: ^4.110.0
   zod: ^4.4.3
 

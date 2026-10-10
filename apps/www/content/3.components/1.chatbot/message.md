@@ -30,7 +30,7 @@ The `Message` component suite provides a complete set of tools for building chat
 Install the Markdown dependencies:
 
 ```sh
-pnpm add vue-stream-markdown@2.0.0 @stream-markdown/code@2.0.0 @stream-markdown/math@2.0.0 @stream-markdown/mermaid@2.0.0 katex
+pnpm add vue-stream-markdown @stream-markdown/code @stream-markdown/math @stream-markdown/mermaid katex
 ```
 
 Copy [useMarkdownExtensions.ts](https://github.com/vuepont/ai-elements-vue/blob/main/packages/elements/src/message/useMarkdownExtensions.ts) into the `message` folder, then copy the components below.
